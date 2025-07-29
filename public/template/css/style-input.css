@@ -1,0 +1,37 @@
+.head-judul {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+label:not(.notbold) {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+}
+
+label:has(+ input[required])::after {
+    content: " *";
+    color: red;
+}
+
+label:has(+ select[required])::after {
+    content: " *";
+    color: red;
+}
+
+.req::after {
+    content: " *";
+    color: red;
+}
+
+label:has(+ textarea[required])::after {
+    content: " *";
+    color: red;
+}
+
+/* label::after {
+    content: "  (opsional)";
+    color: rgb(134, 134, 134);
+    font-style: italic;
+} */

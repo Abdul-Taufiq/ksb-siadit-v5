@@ -1,0 +1,20 @@
+.newicon {
+    margin-left: 5px;
+    margin-right: 12px;
+}
+
+.btn-aksi {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+}
+
+.rotate-y {
+    animation: rotateY 0.5s linear;
+}
+
+@keyframes rotateY {
+    to {
+        transform: rotateY(180deg);
+    }
+}

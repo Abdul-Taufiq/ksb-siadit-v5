@@ -1,0 +1,86 @@
+.icon {
+    display: inline-block;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-position: center center;
+}
+.arrow-down,
+.document,
+.folder {
+    background-image: url(../img/svg/Bulk/Document-white.svg);
+    width: 24px;
+    height: 24px;
+}
+.arrow-down {
+    background-image: url(../img/svg/Bulk/Arrow-DownCircle.svg);
+}
+.arrows-up-down {
+    background-image: url(../img/svg/Bulk/Arrows-up-down.svg);
+    width: 10px;
+    height: 17px;
+    margin-left: 10px;
+}
+
+/* sidebar */
+.menu-toggle {
+    background-image: url(../img/svg/Bulk/Menu-toggle-white.svg);
+    width: 24px;
+    height: 24px;
+}
+.menu-toggle--gray {
+    background-image: url(../img/svg/Bulk/Menu-toggle-gray.svg);
+    width: 24px;
+    height: 24px;
+}
+.home {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke; /* Warna ikon */
+    -webkit-mask-image: url(../font-awesome/svgs/solid/house.svg);
+    mask-image: url(../font-awesome/svgs/solid/house.svg);
+}
+.master-spk {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    -webkit-mask-image: url(../font-awesome/svgs/solid/award.svg);
+    mask-image: url(../font-awesome/svgs/solid/award.svg);
+}
+.master-pk {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    -webkit-mask-image: url(../font-awesome/svgs/solid/book-bookmark.svg);
+    mask-image: url(../font-awesome/svgs/solid/book-bookmark.svg);
+}
+.master-rekap {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    -webkit-mask-image: url(../font-awesome/svgs/solid/boxes-packing.svg);
+    mask-image: url(../font-awesome/svgs/solid/boxes-packing.svg);
+}
+.tracking-apht {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    -webkit-mask-image: url(../font-awesome/svgs/solid/file-signature.svg);
+    mask-image: url(../font-awesome/svgs/solid/file-signature.svg);
+}
+
+.log-activity {
+    width: 20px;
+    height: 20px;
+    background-image: url(../font-awesome/svgs/solid/clock.svg);
+    filter: invert(100%); /* Mengubah warna ikon menjadi putih */
+}
+.sub-icon {
+    width: 10px;
+    height: 10px;
+    background-image: url(../font-awesome/svgs/solid/diamond.svg);
+    filter: invert(100%); /* Mengubah warna ikon menjadi putih */
+}
