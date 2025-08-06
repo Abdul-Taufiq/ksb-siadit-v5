@@ -16,7 +16,7 @@
         }
 
         .container {
-            font-size: 10pt;
+            font-size: 9pt;
             line-height: 1.2;
             letter-spacing: 0.6px;
             word-spacing: 1px;
@@ -24,14 +24,14 @@
         }
 
         h3 {
-            font-size: 12pt;
+            font-size: 10pt;
             line-height: 0px;
             margin-bottom: 0px;
         }
 
         .headlist {
-            font-size: 11pt;
-            line-height: 1.2;
+            font-size: 10pt;
+            line-height: 0.25rem;
             letter-spacing: 0.6px;
             word-spacing: 1px;
             margin-left: -1px;
@@ -98,7 +98,8 @@
         }
 
         table {
-            line-height: 14px;
+            line-height: 10px;
+            padding-bottom: 5px !important;
         }
 
         .auto {
@@ -169,8 +170,8 @@
             <table style="width: 100%;">
                 <tr>
                     <td
-                        style="text-align: left; background-color: #9b9ea3; height: 15px; vertical-align: center; font-weight: bold; font-size: 10pt">
-                        &nbsp;DATA PEMOHON
+                        style="text-align: left; background-color: #9b9ea3; height: 15px; vertical-align: middle; font-weight: bold; font-size: 10pt">
+                        &nbsp; DATA PEMOHON
                     </td>
                 </tr>
             </table>
@@ -291,19 +292,19 @@
                         </td>
                         <td style="width: 2px; vertical-align: top">:</td>
                         <td colspan="2">
-                            <div class="headlist">
+                            <div class="headlist" style="margin-top: 7px;">
                                 <div class="list_2">
                                     1.
                                 </div>
-                                <div class="desk_2">
+                                <div class="desk_2" style="margin-top: -10px;">
                                     <p class="auto"> &nbsp; </p> {{-- outline --}}
                                 </div>
                             </div>
                             <div class="headlist_2">
-                                <div class="list_2">
+                                <div class="list_2" style="margin-top: -10px;">
                                     2.
                                 </div>
-                                <div class="desk_2">
+                                <div class="desk_2" style="margin-top: -10px;">
                                     <p class="auto"> &nbsp; </p> {{-- outline --}}
                                 </div>
                             </div>
@@ -343,12 +344,11 @@
                     {{ ucfirst($alamat) }},
                     {{ Carbon\Carbon::parse($kredit->tgl_pengajuan)->translatedFormat('d F Y') }}
                 </div>
-                <br><br><br><br><br><br><br>
+                <br><br><br><br><br>
                 <div style="text-align: center;">
                     <b>( {{ $kredit->petugas_penerima }} )</b>
                 </div>
             </div>
-            <br>
             <br>
         </div>
         {{-- end data debitur --}}
@@ -370,7 +370,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: center">(Permohonan dari Intern PT. BPR Kusuma Sumbing)</td>
+                        <td style="text-align: center">(Permohonan dari Intern PT BPR Kusuma Sumbing)</td>
                     </tr>
                 </table>
 
@@ -534,19 +534,19 @@
                                 Ditempati</td>
                             <td style="width: 2px; vertical-align: top">:</td>
                             <td colspan="2">
-                                <div class="headlist">
+                                <div class="headlist" style="margin-top: 7px;">
                                     <div class="list_2">
                                         1.
                                     </div>
-                                    <div class="desk_2">
+                                    <div class="desk_2" style="margin-top: -10px;">
                                         <p class="auto"> &nbsp; </p> {{-- outline --}}
                                     </div>
                                 </div>
                                 <div class="headlist_2">
-                                    <div class="list_2">
+                                    <div class="list_2" style="margin-top: -10px;">
                                         2.
                                     </div>
-                                    <div class="desk_2">
+                                    <div class="desk_2" style="margin-top: -10px;">
                                         <p class="auto"> &nbsp; </p> {{-- outline --}}
                                     </div>
                                 </div>
@@ -578,18 +578,16 @@
                 </p>
 
                 {{-- TTD --}}
-                <br>
                 <div style="page-break-inside: avoid; width: 40%">
                     <div style="text-align: center;">
                         {{ ucfirst($alamat) }},
                         {{ Carbon\Carbon::parse($kredit->tgl_pengajuan)->translatedFormat('d F Y') }}
                     </div>
-                    <br><br><br><br><br><br><br>
+                    <br><br><br><br><br>
                     <div style="text-align: center;">
                         <b>( {{ $kredit->petugas_penerima }} )</b>
                     </div>
                 </div>
-                <br>
                 <br>
             </div>
         @endif
@@ -614,7 +612,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center">(Permohonan dari Intern PT. BPR Kusuma Sumbing)</td>
+                            <td style="text-align: center">(Permohonan dari Intern PT BPR Kusuma Sumbing)</td>
                         </tr>
                     </table>
 
@@ -774,19 +772,19 @@
                                     Ditempati</td>
                                 <td style="width: 2px; vertical-align: top">:</td>
                                 <td colspan="2">
-                                    <div class="headlist">
+                                    <div class="headlist" style="margin-top: 7px;">
                                         <div class="list_2">
                                             1.
                                         </div>
-                                        <div class="desk_2">
+                                        <div class="desk_2" style="margin-top: -10px;">
                                             <p class="auto"> &nbsp; </p> {{-- outline --}}
                                         </div>
                                     </div>
                                     <div class="headlist_2">
-                                        <div class="list_2">
+                                        <div class="list_2" style="margin-top: -10px;">
                                             2.
                                         </div>
-                                        <div class="desk_2">
+                                        <div class="desk_2" style="margin-top: -10px;">
                                             <p class="auto"> &nbsp; </p> {{-- outline --}}
                                         </div>
                                     </div>
@@ -824,12 +822,11 @@
                             {{ ucfirst($alamat) }},
                             {{ Carbon\Carbon::parse($kredit->tgl_pengajuan)->translatedFormat('d F Y') }}
                         </div>
-                        <br><br><br><br><br><br><br>
+                        <br><br><br><br><br>
                         <div style="text-align: center;">
                             <b>( {{ $kredit->petugas_penerima }} )</b>
                         </div>
                     </div>
-                    <br>
                     <br>
                 </div>
 
@@ -849,7 +846,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: center">(Permohonan dari Intern PT. BPR Kusuma Sumbing)</td>
+                                <td style="text-align: center">(Permohonan dari Intern PT BPR Kusuma Sumbing)</td>
                             </tr>
                         </table>
 
@@ -1064,12 +1061,11 @@
                                 {{ ucfirst($alamat) }},
                                 {{ Carbon\Carbon::parse($kredit->tgl_pengajuan)->translatedFormat('d F Y') }}
                             </div>
-                            <br><br><br><br><br><br><br>
+                            <br><br><br><br><br>
                             <div style="text-align: center;">
                                 <b>( {{ $kredit->petugas_penerima }} )</b>
                             </div>
                         </div>
-                        <br>
                         <br>
                     </div>
                 @endif

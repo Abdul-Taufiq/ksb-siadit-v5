@@ -16,7 +16,7 @@
     {{-- Analis --}}
     @case('Analis Cabang')
         @if ($kredit->status_ao != null && $kredit->status_analis == null)
-            @if ($kredit->status_ao != 'Reject')
+            @if ($kredit->status_ao != 'Reject' && $kredit->status_ao != 'Cencel')
                 <a href="{{ route('debitur.edit', ['id' => encrypt($kredit->debitur->id_debitur), 'metode' => 'edit']) }}"
                     class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
                     <i class="fa fa-edit"></i>
@@ -35,7 +35,7 @@
 
     {{-- legal --}}
     @case('Legal')
-        @if ($kredit->status_akhir == 'DISETUJUI' && $kredit->status_legal != 'Printed')
+        @if ($kredit->status_legal == null && $kredit->status_akhir == 'DISETUJUI')
             <a href="{{ route('debitur.edit', ['id' => encrypt($kredit->debitur->id_debitur), 'metode' => 'edit']) }}"
                 class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
                 <i class="fa fa-edit"></i>

@@ -100,12 +100,18 @@ class DebiturTable extends Component
         if ($status == 'Approve') {
             $this->modal_title = 'Approve Data - ' . $spk;
             $this->status = 'Approve';
+            $this->rekomendasi = 'Rekomendasi';
         } elseif ($status == 'Tidak Diambil') {
             $this->modal_title = 'Tidak Diambil Nasabah - ' . $spk;
             $this->status = 'Tidak Diambil';
+        } elseif ($status == 'Cencel') {
+            $this->modal_title = 'Cencel Data - ' . $spk;
+            $this->status = 'Cencel';
+            $this->rekomendasi = 'Debitur Cencel';
         } else {
             $this->modal_title = 'Reject Data - ' . $spk;
             $this->status = 'Reject';
+            $this->rekomendasi = 'Tidak Rekomendasi';
         }
 
         $this->analis_area = User::where('jabatan', 'Analis Area')

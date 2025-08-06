@@ -199,16 +199,16 @@ function NilaiPasarAgunan(i) {
 
                 // kesimpulan nilai pasar
                 let total_kes_pasar =
-                    (toNumber(inpAgunan.value) * parseFloat(SMargin.value)) /
-                    100;
+                    toNumber(inpAgunan.value) *
+                    (parseFloat(SMargin.value) / 100);
                 kes_pasar.value = setFormatRupiah(total_kes_pasar);
                 kes_pasar.classList.remove("is-invalid");
                 kes_pasar.classList.add("is-valid");
 
                 // kesimpulan taksasi
                 let total_kes_taksasi =
-                    (total_kes_pasar * parseFloat(kes_taksasi_persen.value)) /
-                    100;
+                    total_kes_pasar *
+                    (parseFloat(kes_taksasi_persen.value) / 100);
 
                 kes_taksasi.value = setFormatRupiah(total_kes_taksasi);
                 kes_taksasi.classList.remove("is-invalid");
@@ -292,17 +292,16 @@ function NilaiPasarAgunan(i) {
 
                 // kesimpulan nilai pasar
                 let total_kes_pasar =
-                    (toNumber(agunanBangunan.value) *
-                        parseFloat(MBangunan.value)) /
-                    100;
+                    toNumber(agunanBangunan.value) *
+                    (parseFloat(MBangunan.value) / 100);
                 kes_pasar.value = setFormatRupiah(total_kes_pasar);
                 kes_pasar.classList.remove("is-invalid");
                 kes_pasar.classList.add("is-valid");
 
                 // kesimpulan taksasi
                 let total_kes_taksasi =
-                    (total_kes_pasar * parseFloat(kes_taksasi_persen.value)) /
-                    100;
+                    total_kes_pasar *
+                    (parseFloat(kes_taksasi_persen.value) / 100);
 
                 kes_taksasi.value = setFormatRupiah(total_kes_taksasi);
                 kes_taksasi.classList.remove("is-invalid");
@@ -352,9 +351,8 @@ function setHargaDiterima(i) {
     if (hPasarKeseluruhan) {
         hPasarKeseluruhan.addEventListener("keyup", function () {
             hPasarDiterima.value = setFormatRupiah(
-                (toNumber(hPasarKeseluruhan.value) *
-                    parseFloat(kendaSF.value)) /
-                    100
+                toNumber(hPasarKeseluruhan.value) *
+                    (parseFloat(kendaSF.value) / 100)
             );
 
             hPasarDiterima.classList.remove("is-invalid");
@@ -376,7 +374,7 @@ function setNilaiSM(i) {
         pasarSM.addEventListener("keyup", function () {
             setPasarSM.value = setFormatRupiah(
                 toNumber(pasarSM.value) -
-                    (toNumber(pasarSM.value) * parseFloat(pasarSF.value)) / 100
+                    toNumber(pasarSM.value) * (parseFloat(pasarSF.value) / 100)
             );
 
             setPasarSM.classList.remove("is-invalid");

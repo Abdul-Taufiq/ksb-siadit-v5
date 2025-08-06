@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckMaintenanceMode;
 use App\Http\Middleware\CheckPermission;
+use App\Http\Middleware\SendEmailKreditLengkap;
 use App\Http\Middleware\SendEmailTAPHT;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -24,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             CheckMaintenanceMode::class,
             CheckPermission::class,
             SendEmailTAPHT::class,
+            SendEmailKreditLengkap::class,
         ]);
     })
 

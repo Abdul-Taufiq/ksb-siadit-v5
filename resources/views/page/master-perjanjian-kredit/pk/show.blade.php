@@ -269,6 +269,13 @@
                         <iframe src="{{ url('/pkpmk/show/detail/' . encrypt($pkpmk->id_pkpmk)) }}#toolbar=1"
                             frameborder="1" width="100%" style="border: 2px solid black; height: 750px;">
                         </iframe>
+
+                        <br>
+                        <br>
+                        @if ($pkpmk->tgl_print_sppk === null)
+                            <a href="{{ route('debitur.sos.edit.pas', base64_encode($pkpmk->kredit->id_kredit)) }}"
+                                class="btn btn-outline-warning">S.O.S (for update PAS)</a>
+                        @endif
                     </div>
                 </div>
             </div>

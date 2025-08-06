@@ -28,10 +28,11 @@ class Kredit extends Model
         'updated_at' => 'datetime',
         'tgl_pengajuan' => 'datetime',
         'tgl_print_spk' => 'datetime',
+        'tgl_print_idi' => 'datetime',
         'tgl_awal' => 'datetime',
         'tgl_akhir' => 'datetime'
     ];
-    protected $dates = ['created_at', 'updated_at', 'tgl_pengajuan', 'tgl_print_spk', 'tgl_awal', 'tgl_akhir'];
+    protected $dates = ['created_at', 'updated_at', 'tgl_pengajuan', 'tgl_print_spk', 'tgl_print_idi', 'tgl_awal', 'tgl_akhir'];
 
     protected $with = [
         'debitur',

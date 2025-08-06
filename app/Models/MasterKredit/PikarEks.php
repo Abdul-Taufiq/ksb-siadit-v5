@@ -14,6 +14,9 @@ class PikarEks extends Model
     protected $dates = ['created_at', 'updated_at', 'tgl_perjanjian'];
     protected $primaryKey = 'id_pikar_eks';
     protected $guarded = ['id_pikar_eks'];
+    protected $casts = [
+        'tgl_perjanjian' => 'datetime',
+    ];
 
     public function kredit(): BelongsTo
     {

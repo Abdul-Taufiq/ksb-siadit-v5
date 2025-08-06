@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cabang;
 use App\Models\Output\TApht;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SendEmailTAPHT
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         // Hitung tanggal 10 hari dari sekarang
@@ -34,16 +30,9 @@ class SendEmailTAPHT
 
         foreach ($data as $item) {
             // Kirim email kepada user
-            $user = User::where('id_cabang', $item->id_cabang)
-                ->where('jabatan', 'Kasi Operasional')
-                ->where('sub_jabatan', 'Kasi Operasional')
-                ->where('status', 'Aktif')
-                // ->where('email', 'like', '%dummy%')
-                ->whereNot('email', 'like', '%dummy%')
-                // ->whereNot('nama', 'like', '%ALT%')
-                ->first();
+            $user = Cabang::where('id_cabang', $item->id_cabang)->first();
 
-            if ($user) {
+            if ($user && $user->email_kaops) {
                 # code...
                 Mail::send('email.notif-exp-apht', [
                     'kc' => $item->cabang->cabang,
@@ -55,13 +44,13 @@ class SendEmailTAPHT
                     'keterangan' => $item->keterangan,
                 ], function ($message) use ($user) {
                     $message->from('tsiksb@bprkusumasumbing.com', 'KSB | Si-ADIT');
-                    $message->to($user->send_mail);
+                    $message->to($user->email_kaops);
                     $message->subject('Reminder Covernote');
                 });
 
                 $item->mail_notif = 'Terkirim';
                 $item->save();
-                Log::info('Email sent to: ' . $user->send_mail);
+                Log::info('Email sent to: ' . $user->email_kaops);
             } else {
                 Log::warning('Tidak ada User yg ditemukan :D ');
             }

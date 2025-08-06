@@ -25,6 +25,10 @@ class PrintSPKController extends Controller
         $kredit = Kredit::find($ids);
         $alamat = Str::lower($kredit->cabang->alamat);
 
+        $kredit->update([
+            'tgl_print_idi' => now()
+        ]);
+
         $pdf = Pdf::loadView(
             'page.master-kredit.print.print-idi',
             compact('kredit', 'alamat')

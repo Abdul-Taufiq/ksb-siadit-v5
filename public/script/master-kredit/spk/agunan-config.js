@@ -172,6 +172,13 @@ function setSerfit(counter) {
         const tglser = document.getElementById(`tgl_serti_${counter}`);
         const tglsur = document.getElementById(`tgl_suruk_${counter}`);
         const nosur = document.getElementById(`no_suruk_${counter}`);
+        let alih_media = document.getElementById(`alih_media_${counter}`);
+
+        if (select == "Sertifikat-El") {
+            alih_media.value = "Tidak";
+            alih_media.classList.add("is-valid");
+            alih_media.classList.remove("is-invalid");
+        }
 
         if (!select) {
             console.warn(
@@ -188,6 +195,8 @@ function setSerfit(counter) {
         }
 
         if (select == "Sertifikat-Analog") {
+            alih_media.value = "Tidak";
+
             tglser.classList.remove("d-none");
             $(tglser).find(".form-control").prop("required", true);
             tglsur.classList.remove("d-none");
@@ -195,6 +204,8 @@ function setSerfit(counter) {
             nosur.classList.remove("d-none");
             $(nosur).find(".form-control").prop("required", true);
         } else {
+            alih_media.value = "Tidak";
+
             tglser.classList.add("d-none");
             $(tglser).find(".form-control").prop("required", false);
             tglsur.classList.add("d-none");
@@ -216,9 +227,11 @@ function setRupiahNominal(counter) {
 // set nilai taksasi dan pasar
 function setRupiahTaksasiPasar(counter) {
     var harga_pembelian = document.getElementById(`harga_pembelian_${counter}`);
-    harga_pembelian.addEventListener("input", function (e) {
-        this.value = formatRupiah(this.value, "Rp. ");
-    });
+    if (harga_pembelian) {
+        harga_pembelian.addEventListener("input", function (e) {
+            this.value = formatRupiah(this.value, "Rp. ");
+        });
+    }
 }
 
 /* Fungsi formatRupiah */

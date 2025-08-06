@@ -5,6 +5,22 @@ let idfield = $("#id_field").val();
 //     console.log(idfield);
 // });
 
+// bentuk usaha
+$(`#bentuk_usaha${idfield}`).on("change", function () {
+    var select = $(this).val();
+    var kepemilikan = document.getElementById(`persen_kepemilikan${idfield}`);
+    var jabatan = document.getElementById(`jabatan${idfield}`);
+
+    if (select == "Perorangan") {
+        kepemilikan.value = "100%";
+        jabatan.value = "Pemilik Usaha";
+        kepemilikan.classList.remove("is-invalid");
+        kepemilikan.classList.add("is-valid");
+        jabatan.classList.remove("is-invalid");
+        jabatan.classList.add("is-valid");
+    }
+});
+
 // status debitur
 $(`#status_pernikahan${idfield}`).on("change", function () {
     var selectopt = $(this).val();

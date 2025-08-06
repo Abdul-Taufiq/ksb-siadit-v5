@@ -52,6 +52,7 @@ function tambahSlik() {
                             <option value="Modal Kerja">Modal Kerja</option>
                             <option value="Investasi">Investasi</option>
                             <option value="Konsumsi">Konsumsi</option>
+                            <option value="Kartu Kredit">Kartu Kredit</option>
                         </select>
                     </div>
                 </div>

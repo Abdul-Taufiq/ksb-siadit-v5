@@ -1,9 +1,28 @@
 @switch(Auth::user()->jabatan)
     @case('Legal')
         @if ($pkpmk->kredit->status_kaops == 'Approve' && $pkpmk->kredit->status_legal != 'Printed')
-            <span class="badge text-bg-info" style="font-size: 11px;" title="Kaops Approve">
-                <i class="fa-solid fa-check"></i> Oke!
-            </span>
+            @if ($pkpmk->kredit->keterangan_kaops == 'Tidak Lengkap')
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-warning dropdown-toggle"
+                        style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        Oke!
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
+                                wire:click='ShowModal("Approve", "{{ $type == 'pkpmk' ? base64_encode($pkpmk->id_pkpmk) : base64_encode($pkpmk->id_addendum) }}")'>Lengkapi
+                                Dokumen
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                <span class="badge text-bg-info" style="font-size: 11px;" title="Kaops Approve">
+                    <i class="fa-solid fa-check"></i> Oke!
+                </span>
+            @endif
         @elseif ($pkpmk->kredit->status_legal == 'Terkirim')
             <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
                 <i class="fa-solid fa-check"></i> Sended
@@ -95,15 +114,18 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group mb-2">
-                        <label for="keterangan_kaops">Kelengkapan?</label>
-                        <select id="keterangan_kaops" class="form-select form-select-sm"
-                            wire:model.live='keterangan_kaops'>
-                            <option value="0" selected disabled>-Pilih-</option>
-                            <option value="Lengkap">Lengkap</option>
-                            <option value="Tidak Lengkap">Tidak Lengkap</option>
-                        </select>
-                    </div>
+                    @if (Auth::user()->jabatan == 'Kasi Operasional')
+                        <div class="form-group mb-2">
+                            <label for="keterangan_kaops">Kelengkapan?</label>
+                            <select id="keterangan_kaops" class="form-select form-select-sm"
+                                wire:model.live='keterangan_kaops'>
+                                <option value="0" selected disabled>-Pilih-</option>
+                                <option value="Lengkap">Lengkap</option>
+                                <option value="Tidak Lengkap">Tidak Lengkap</option>
+                            </select>
+                        </div>
+                    @endif
+
                     <div class="form-group">
                         <label for="catatan">Catatan : </label>
                         <div wire:ignore>
@@ -118,9 +140,9 @@
                                 required>
                             <label class="custom-control-label" for="exampleCheck2">Saya setuju dengan
                                 <a style="color: blue" href="#">ketentuan yang berlaku</a>.</label>
-                            <label class="text-danger" for="exampleCheck2"><i>Coution: </i> Pastikan bahwa Anda telah
+                            {{-- <label class="text-danger" for="exampleCheck2"><i>Coution: </i> Pastikan bahwa Anda telah
                                 yakin untuk melakukan aksi ini! & Pastikan mengisinya dengan seksama karena akan
-                                ditampilkan kedalam MUK -> PUTUSAN</label>
+                                ditampilkan kedalam MUK -> PUTUSAN</label> --}}
                         </div>
                     </div>
                 </div>

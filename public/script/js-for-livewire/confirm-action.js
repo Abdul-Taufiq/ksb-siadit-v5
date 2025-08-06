@@ -46,6 +46,8 @@ $(document).ready(function () {
                     Livewire.dispatch("StoreData"); // 🔥 Emit langsung ke Livewire
                 } else if (metode == "Edit") {
                     Livewire.dispatch("UpdateData"); // 🔥 Emit langsung ke Livewire
+                } else {
+                    Livewire.dispatch("ChangeStatus"); // 🔥 Emit langsung ke Livewire
                 }
             }
         });
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $("#loading-screen").fadeOut(); // ✅ Hilangkan loading jika sukses
         // tutup modal
-        $("#modal")
+        $("#modalID")
             .modal("hide")
             .on("hidden.bs.modal", function () {
                 $(".modal-backdrop").remove();
@@ -82,7 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
             Livewire.dispatch("refreshTable");
             // Scroll to the newly added data
             setTimeout(() => {
-                const escapedKey = CSS.escape(userId);
+                // const escapedKey = CSS.escape(userId); //escape css
+                const escapedKey = userId;
                 const newRow = document.querySelector(
                     `[wire\\:key='${escapedKey}']`
                 );

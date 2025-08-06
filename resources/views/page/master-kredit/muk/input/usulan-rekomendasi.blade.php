@@ -1,5 +1,6 @@
 <div class="row" style="margin-left: 5px;">
-    <div class="col-md-12 mb-4">
+    <div
+        class="col-md-12 mb-4 {{ Auth::user()->jabatan == 'Legal' || Auth::user()->jabatan == 'Kasi Operasional' ? 'd-none' : '' }}">
         <div class="form-group">
             <label for="pertimbangan" class="notbold">Dari hasil analisa yang telah dilakukan, maka dapat diusulkan bahwa
                 pengajuan kredit diatas dapat disetujui dengan pertimbangan sebagai berikut :</label>

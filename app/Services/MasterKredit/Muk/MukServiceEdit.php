@@ -80,6 +80,7 @@ class MukServiceEdit
             $angsuran = MukKeuangan::where('id_muk', $id_muk)->first()->update([
                 'id_muk' => $id_muk,
                 'omset_usaha' => $this->normalizeNumber($data['omset_usaha']),
+                'persen_gpm' => $this->normalizeNumber($data['persen_gpm']),
                 'omset_harga_pokok' => $this->normalizeNumber($data['omset_harga_pokok']),
                 'omset_sewa' => $this->normalizeNumber($data['omset_sewa']),
                 'omset_gaji_pegawai' => $this->normalizeNumber($data['omset_gaji_pegawai']),
@@ -298,7 +299,8 @@ class MukServiceEdit
                     $pen->hak_kepemilikan = $data['hak_kepemilikan_' . $i];
                     $pen->nomor = $data['nomor_' . $i];
                     $pen->atas_nama = $data['atas_nama_' . $i];
-                    $pen->tgl_berakhir_sertif = $data['tgl_berakhir_sertif_' . $i];
+                    $pen->tgl_berakhir_sertif = $data['hak_kepemilikan_' . $i] != 'SHM' ? $data['tgl_berakhir_sertif_' . $i] : null;
+                    $pen->edisi = $data['edisi_' . $i];
                     $pen->no_gs = $data['no_gs_' . $i];
 
                     // untuk Ruko dan Bangunan

@@ -3,7 +3,7 @@
 </div>
 
 <div class="row" id="head_perhitungan_1">
-    @if (!empty($tanah->sc_tanah_perhitungan))
+    @if ($tanah->sc_tanah_perhitungan->count() > 0)
         @foreach ($tanah->sc_tanah_perhitungan as $item)
             <input type="hidden" name="id_sc_perhitungan_{{ $loop->iteration }}"
                 value="{{ base64_encode($item->id_sc_perhitungan) }}">

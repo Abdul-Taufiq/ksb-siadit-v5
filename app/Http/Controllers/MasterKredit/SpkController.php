@@ -27,10 +27,12 @@ class SpkController extends Controller
         // dd($idDeb);
         $id_debitur = base64_decode($idDeb);
         $debitur = Debitur::where('id_debitur', $id_debitur)->first();
+        $penjamin = Penjamin::where('id_debitur', $id_debitur)->get();
         return view('page.master-kredit.spk.spk-create', [
             'title' => 'Tambah SPK',
             'idDeb' => $idDeb,
             'debitur' => $debitur,
+            'penjamin' => $penjamin,
             'id_field' => null,
             'kredit' => null
         ]);

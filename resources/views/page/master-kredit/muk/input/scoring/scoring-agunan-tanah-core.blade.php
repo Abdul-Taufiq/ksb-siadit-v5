@@ -1,3 +1,6 @@
+<input type="hidden" name="type_sertifikat_{{ $loop->iteration }}" id="type_sertifikat_{{ $loop->iteration }}"
+    value="{{ $tanah->type_sertifikat }}">
+
 <div class="col-md-8 mb-4">
     <div class="form-group">
         <label for="nama_deb_{{ $loop->iteration }}">Nama Debitur</label>
@@ -23,7 +26,8 @@
     <div class="form-group">
         <label for="penilai_{{ $loop->iteration }}">Penilai</label>
         <input type="text" class="form-control form-control-sm" name="penilai_{{ $loop->iteration }}"
-            id="penilai_{{ $loop->iteration }}" required value="{{ auth()->user()->nama }}">
+            id="penilai_{{ $loop->iteration }}" required
+            value="{{ $tanah->sc_tanah_agunan?->penilai ?? auth()->user()->nama }}">
     </div>
     <div class="form-group mt-2">
         <label for="luas_tanah_{{ $loop->iteration }}">Luas Tanah</label>
@@ -67,7 +71,8 @@
     <div class="form-group">
         <label for="hak_kepemilikan_{{ $loop->iteration }}">Hak Kepemilikan</label>
         <input type="text" class="form-control form-control-sm" name="hak_kepemilikan_{{ $loop->iteration }}"
-            id="hak_kepemilikan_{{ $loop->iteration }}" required value="{{ $tanah->jns_jaminan }}" maxlength="20"
+            id="hak_kepemilikan_{{ $loop->iteration }}" required
+            value="{{ $tanah->sc_tanah_agunan?->hak_kepemilikan ?? $tanah->jns_jaminan }}" maxlength="20"
             value="{{ $tanah->sc_tanah_agunan?->hak_kepemilikan }}">
     </div>
 </div>
@@ -75,18 +80,19 @@
     <div class="form-group">
         <label for="nomor_{{ $loop->iteration }}">Nomor</label>
         <input type="text" class="form-control form-control-sm" name="nomor_{{ $loop->iteration }}"
-            id="nomor_{{ $loop->iteration }}" required value="{{ $tanah->no_shm_shgb }}"
-            value="{{ $tanah->sc_tanah_agunan?->nomor }}">
+            id="nomor_{{ $loop->iteration }}" required
+            value="{{ $tanah->sc_tanah_agunan?->nomor ?? $tanah->no_shm_shgb }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
     <div class="form-group">
         <label for="atas_nama_{{ $loop->iteration }}">Atas Nama</label>
         <input type="text" class="form-control form-control-sm" name="atas_nama_{{ $loop->iteration }}"
-            id="atas_nama_{{ $loop->iteration }}" required value="{{ $tanah->atas_nama }}">
+            id="atas_nama_{{ $loop->iteration }}" required
+            value="{{ $tanah->sc_tanah_agunan?->atas_nama ?? $tanah->atas_nama }}">
     </div>
 </div>
-<div class="col-md-6 mb-4">
+<div class="col-md-4 mb-4">
     <div class="form-group">
         <div class="d-flex justify-content-between">
             <label for="tgl_berakhir_sertif_{{ $loop->iteration }}">Tgl Berakhir Sertifikat</label>
@@ -96,11 +102,29 @@
             </label>
         </div>
         <input type="date" name="tgl_berakhir_sertif_{{ $loop->iteration }}"
-            id="tgl_berakhir_sertif_{{ $loop->iteration }}" class="form-control form-control-sm" required
+            id="tgl_berakhir_sertif_{{ $loop->iteration }}" class="form-control form-control-sm"
+            {{ $tanah->sc_tanah_agunan?->hak_kepemilikan !== 'SHM' ? 'required' : null }}
             value="{{ $tanah->sc_tanah_agunan?->tgl_berakhir_sertif?->format('Y-m-d') }}">
+        <i id="tgl_sertif_danger_{{ $loop->iteration }}" class="text-danger d-none" style="font-weight: bold">Tidak
+            Perlu Jika Hak Kepemilikan SHM,
+            silahkan ubah dulu!</i>
     </div>
 </div>
-<div class="col-md-6 mb-4">
+<div class="col-md-4 mb-4">
+    <div class="form-group">
+        <div class="d-flex justify-content-between">
+            <label class="req" for="edisi_{{ $loop->iteration }}">Edisi</label>
+            <label for="edisi_{{ $loop->iteration }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Untuk Sertifikat Elektronik jika selain itu isi (-)">
+                <i class="fa-solid fa-circle-question"></i>
+            </label>
+        </div>
+        <input type="text" class="form-control form-control-sm" name="edisi_{{ $loop->iteration }}"
+            id="edisi_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->edisi }}">
+    </div>
+</div>
+<div class="col-md-4 mb-4">
     <div class="form-group">
         <label for="no_gs_{{ $loop->iteration }}">No. GS</label>
         <input type="text" class="form-control form-control-sm" name="no_gs_{{ $loop->iteration }}"
@@ -112,7 +136,7 @@
 @if ($tanah->detail_kategori_jaminan != 'Tanah')
     <div class="col-md-4 mb-4">
         <div class="form-group">
-            <label for="luas_bangunan_{{ $loop->iteration }}">Luas Bangunan (IMB/PBB)</label>
+            <label class="req" for="luas_bangunan_{{ $loop->iteration }}">Luas Bangunan (IMB/PBB)</label>
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="luas_bangunan_{{ $loop->iteration }}" id="luas_bangunan_{{ $loop->iteration }}" required
@@ -123,7 +147,7 @@
     </div>
     <div class="col-md-4 mb-4">
         <div class="form-group">
-            <label for="luas_bangunan_fisik_{{ $loop->iteration }}">Luas Bangunan Fisik</label>
+            <label class="req" for="luas_bangunan_fisik_{{ $loop->iteration }}">Luas Bangunan Fisik</label>
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="luas_bangunan_fisik_{{ $loop->iteration }}"
@@ -135,7 +159,7 @@
     </div>
     <div class="col-md-4 mb-4">
         <div class="form-group">
-            <label for="beda_luas_bangunan_{{ $loop->iteration }}">Beda Luas Bangunan</label>
+            <label class="req" for="beda_luas_bangunan_{{ $loop->iteration }}">Beda Luas Bangunan</label>
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="beda_luas_bangunan_{{ $loop->iteration }}" id="beda_luas_bangunan_{{ $loop->iteration }}"
@@ -162,7 +186,7 @@
     </div>
     <div class="col-md-4 mb-4">
         <div class="form-group">
-            <label for="umur_efektif_{{ $loop->iteration }}">Umur Efektif</label>
+            <label class="req" for="umur_efektif_{{ $loop->iteration }}">Umur Efektif</label>
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="umur_efektif_{{ $loop->iteration }}" id="umur_efektif_{{ $loop->iteration }}" required
@@ -251,6 +275,9 @@
                     450VA</option>
                 <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '900VA' ? 'selected' : '' }} value="900VA">
                     900VA</option>
+                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '1300VA' ? 'selected' : '' }}
+                    value="1300VA">
+                    1300VA</option>
                 <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '2200VA' ? 'selected' : '' }}
                     value="2200VA">2200VA</option>
                 <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == 'Lainnya' ? 'selected' : '' }}

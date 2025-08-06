@@ -59,6 +59,9 @@ function updateUsulanAngsuran() {
     updateRekomendasiAsrBJK();
     updateKewajibanAkhirBjk();
     updateIDIRBjk();
+
+    // trigger simpan data wi
+    updateKmk();
 }
 
 // Pasang event listener ke input yang memicu perubahan jumlah angsuran

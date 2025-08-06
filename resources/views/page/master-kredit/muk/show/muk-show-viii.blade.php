@@ -84,6 +84,37 @@
             </td>
             <td>&nbsp;</td>
         </tr>
+
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td style="font-weight: bold">Total Nilai Agunan</td>
+            <td>
+                {{ 'Rp' .
+                    number_format(
+                        $jamTanah->sum('nilai_taksasi') + $jamKenda->sum('nilai_taksasi') + $jamDepo->sum('nilai_taksasi'),
+                        0,
+                        ',',
+                        '.',
+                    ) }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td style="font-weight: bold">LTV</td>
+            <td>
+                @php
+                    $totalNilaiAgunan =
+                        $jamTanah->sum('nilai_taksasi') +
+                        $jamKenda->sum('nilai_taksasi') +
+                        $jamDepo->sum('nilai_taksasi');
+                    $totalLtv =
+                        $totalNilaiAgunan != 0
+                            ? ($muk->kredit->jumlah_disetujui / $totalNilaiAgunan) * (100 / 100)
+                            : '0';
+                @endphp
+                {{ number_format($totalLtv, 0, ',', '.') . '%' }}
+            </td>
+        </tr>
     </tbody>
 
 </table>

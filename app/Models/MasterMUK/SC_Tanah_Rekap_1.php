@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\MasterMuk;
+namespace App\Models\MasterMUK;
 
 use App\Models\MasterAgunan\JamTanah;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

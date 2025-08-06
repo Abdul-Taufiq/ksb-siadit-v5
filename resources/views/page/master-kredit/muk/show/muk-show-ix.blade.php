@@ -148,59 +148,55 @@
     </table>
 
     {{-- area --}}
-    @if ($muk->kredit->persetujuan->putusan == 'Area' || $muk->kredit->persetujuan->putusan == 'Pusat')
-        <table class="table table-bordered table-sm w-100">
-            <tr>
-                <th colspan="2" class="table-active">Kantor Area</th>
-            </tr>
-            <tr>
-                <td><br><br><br><br></td>
-                <td><br><br><br><br></td>
-            </tr>
-            <tr>
-                <td style="text-align: center; width: 50%">
-                    <strong>
-                        Manager Area
-                    </strong>
-                </td>
-                <td style="text-align: center; width: 50%">
-                    <strong>Analis Kredit Area</strong>
-                </td>
-            </tr>
-        </table>
-    @endif
+    <table class="table table-bordered table-sm w-100">
+        <tr>
+            <th colspan="2" class="table-active">Area</th>
+        </tr>
+        <tr>
+            <td><br><br><br><br></td>
+            <td><br><br><br><br></td>
+        </tr>
+        <tr>
+            <td style="text-align: center; width: 50%">
+                <strong>
+                    Manager Area
+                </strong>
+            </td>
+            <td style="text-align: center; width: 50%">
+                <strong>Analis Kredit Area</strong>
+            </td>
+        </tr>
+    </table>
 
     {{-- Pusat --}}
-    @if ($muk->kredit->persetujuan->putusan == 'Pusat')
-        <table class="table table-bordered table-sm w-100">
-            <tr>
-                <th colspan="4" class="table-active">Komite Kredit Kantor Pusat</th>
-            </tr>
-            <tr>
-                <td><br><br><br><br></td>
-                <td><br><br><br><br></td>
-                <td><br><br><br><br></td>
-                <td><br><br><br><br></td>
-            </tr>
-            <tr>
-                <td style="text-align: center; width: 25%">
-                    <strong>
-                        Direktur Utama
-                    </strong>
-                </td>
-                <td style="text-align: center; width: 25%">
-                    <strong>Direktur Komersial</strong>
-                </td>
-                <td style="text-align: center; width: 25%">
-                    <strong>
-                        Kabid Komersial
-                    </strong>
-                </td>
-                <td style="text-align: center; width: 25%">
-                    <strong>Analis Kredit Pusat</strong>
-                </td>
-            </tr>
-        </table>
-    @endif
+    <table class="table table-bordered table-sm w-100">
+        <tr>
+            <th colspan="4" class="table-active">Komite Kredit Kantor Pusat</th>
+        </tr>
+        <tr>
+            <td><br><br><br><br></td>
+            <td><br><br><br><br></td>
+            <td><br><br><br><br></td>
+            <td><br><br><br><br></td>
+        </tr>
+        <tr>
+            <td style="text-align: center; width: 25%">
+                <strong>
+                    Direktur Utama
+                </strong>
+            </td>
+            <td style="text-align: center; width: 25%">
+                <strong>Direktur Komersial</strong>
+            </td>
+            <td style="text-align: center; width: 25%">
+                <strong>
+                    {{-- Kabid Komersial --}}
+                </strong>
+            </td>
+            <td style="text-align: center; width: 25%">
+                <strong>Analis Kredit Pusat</strong>
+            </td>
+        </tr>
+    </table>
 
 </div>

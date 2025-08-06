@@ -4,9 +4,11 @@ namespace App\Livewire\MasterKredit\Muk;
 
 use App\Models\MasterKredit\Kredit;
 use App\Models\MasterMUK\Muk;
+use App\Models\Output\TrackingSPK;
 use App\Services\MasterKredit\Muk\MukService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithoutUrlPagination;
@@ -19,7 +21,7 @@ class IndexMukLivewire extends Component
     public $sortBy = 'created_at', $sortDir = 'desc', $search = '', $perPage = 10;
     public $kc = false, $id_cabang, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
-    public $modal_title, $spk = [];
+    public $modal_title, $spk = [], $id_kredit, $file_putusan, $metode;
     // load services
     protected MukService $mukservice;
     public function boot(MukService $muk_service)
@@ -35,7 +37,7 @@ class IndexMukLivewire extends Component
 
 
     // listener
-    protected $listeners = ['refreshTable' => '$refresh', 'updateSummernote', 'StoreData', 'UpdateData'];
+    protected $listeners = ['refreshTable' => '$refresh', 'updateSummernote', 'StoreData', 'UpdateData', 'ChangeStatus'];
 
     public function mount()
     {
@@ -96,28 +98,86 @@ class IndexMukLivewire extends Component
 
 
     // modal
-    public function showModal($metode, $id)
+    public function ShowModal($status, $no_spk, $id)
     {
         $this->reset('spk'); // Reset untuk mencegah cache data lama
 
-        if ($metode == 'Add') {
-            $this->modal_title = 'Add Data MUK';
-        } else if ($metode == 'Show') {
-            $this->modal_title = 'Show Data MUK';
+        if ($status == 'Approve') {
+            $this->modal_title = 'Approve Data MUK - ' . $no_spk;
+            $this->id_kredit = $id;
+        } else if ($status == 'Reject') {
+            $this->modal_title = 'Reject Data MUK - ' . $no_spk;
+            $this->id_kredit = $id;
         }
         $this->dispatch('inisialSelect2');
+
+        $this->metode = $status;
     }
 
     // hide modal
     public function HideModal()
     {
-        $this->reset(['modal_title']);
+        $this->reset(['modal_title', 'id_kredit', 'file_putusan']);
         $this->js("window.dispatchEvent(new Event('resetSelect2'))");
     }
 
     public function addData()
     {
         return view('livewire.master-kredit.muk.add-muk');
+    }
+
+
+    // status MUK selain cabang
+    public function ChangeStatus()
+    {
+        $file = $this->file_putusan;
+        $fileName = 'putusan_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('file_upload/putusan', $fileName, 'public'); // lebih aman dan Livewire-friendly
+
+        $id_kre = base64_decode($this->id_kredit);
+        $muk = Muk::where('id_kredit', $id_kre)->first();
+        $muk->file_putusan = $fileName;
+        $muk->status_analis_cabang = $this->metode;
+        $muk->save();
+
+        // update kredit
+        $kredit = Kredit::find($id_kre);
+        $kredit->status_akhir = $this->metode == 'Approve' ? 'DISETUJUI' : 'DITOLAK';
+        $kredit->status_kredit = $this->metode == 'Approve' ? 'DISETUJUI Oleh ' . $kredit->persetujuan->putusan : 'DITOLAK Oleh ' . $kredit->persetujuan->putusan;
+        $kredit->save();
+
+        // tracking lama
+        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+            ->where('jabatan', 'Analis Cabang')
+            ->orderByDesc('id_tracking')
+            ->first();
+        // update trackingnya
+        $tracking->update([
+            'nama' => Auth::user()->nama,
+            'status' => $this->metode == 'Approve' ? 'Approve' : ($this->metode == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+            'tgl_status' => now(),
+            'status_spk' =>  $this->metode == 'Approve' ? 'DISETUJUI Oleh ' . $kredit->persetujuan->putusan : 'DITOLAK Oleh ' . $kredit->persetujuan->putusan,
+        ]);
+
+        if ($this->metode == 'Approve') {
+            TrackingSPK::AddTrackingSPK($kredit, [
+                'id_cabang' => $kredit->id_cabang,
+                'id_kredit' => $kredit->id_kredit,
+                'petugas_penerima' => $kredit->petugas_penerima,
+                'nama' => null,
+                'jabatan' => 'Legal',
+                'status' => null,
+                'tgl_masuk' => now(),
+                'status_spk' => 'Proses',
+            ]);
+        }
+
+        $this->reset('file_putusan');
+        // 🔥 Kirim event ke Livewire atau JavaScript
+        $this->dispatch('AlertSuccess', [
+            'message' => 'Data berhasil diubah!',
+            'userId' => sha1($muk->id_muk)
+        ]);
     }
 
 

@@ -69,7 +69,7 @@
             <label for="tgl_perjanjian">Tanggal Perjanjian</label>
             <input type="date" name="tgl_perjanjian" id="tgl_perjanjian" class="form-control is-invalid"
                 {{ $pikar ? 'required' : '' }} placeholder="Tanggal Perjanjian"
-                value="{{ $pikar ? $pikar->tgl_perjanjian?->format('Y-m-d') : null }}">
+                value="{{ $pikar?->tgl_perjanjian?->format('Y-m-d') ?? null }}">
         </div>
     </div>
     <div class="col-md-6 mb-4">
@@ -197,7 +197,7 @@
         </div>
 
         {{-- for Analis --}}
-        @if (Auth::user()->jabatan == 'Analis Cabang')
+        @if (Auth::user()->jabatan == 'Analis Cabang' || Auth::user()->jabatan == 'Legal')
             <div class="col-md-6 mb-4  {{ $tanah->type_sertifikat == 'Sertifikat-El' ? 'd-none' : '' }}"
                 id="tgl_serti_{{ $counter }}">
                 <div class="form-group">
@@ -380,7 +380,7 @@
                 <label for="tgl_bpkb_{{ $counter }}">Tanggal BPKB</label>
                 <input type="date" name="tgl_bpkb_{{ $counter }}" id="tgl_bpkb_{{ $counter }}"
                     class="form-control is-invalid" required placeholder="Tanggal BPKB"
-                    value="{{ $kenda->tgl_bpkb?->format('Y-m-d') }}">
+                    value="{{ $kenda->tgl_bpkb?->format('Y-m-d') ?? null }}">
             </div>
         </div>
         <div class="col-md-6 mb-4">
@@ -399,7 +399,7 @@
         </div>
 
         {{-- for Analis --}}
-        @if (Auth::user()->jabatan == 'Analis Cabang')
+        @if (Auth::user()->jabatan == 'Analis Cabang' || Auth::user()->jabatan == 'Legal')
             <div class="col-md-6 mb-4">
                 <div class="form-group">
                     <label for="type_{{ $counter }}">Type</label>
@@ -579,7 +579,8 @@
 {{-- tambahan --}}
 <div id="tambahan_jaminan"></div>
 <div class="text-center">
-    <button class="btn btn-outline-primary w-100" id="tambah_penjamin" type="button" onclick="tambahJaminan()">
+    <button class="btn btn-outline-primary w-100 {{ Auth::user()->jabatan == 'Legal' ? 'd-none' : '' }}"
+        id="tambah_penjamin" type="button" onclick="tambahJaminan()">
         <i class="fa-solid fa-circle-plus"></i> Tambah Data Jaminan <i class="fa-solid fa-circle-plus"></i>
     </button>
 </div>

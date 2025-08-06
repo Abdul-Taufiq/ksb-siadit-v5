@@ -104,8 +104,9 @@ trait DebiturTraits
             'catatan_field' => 'catatan_ao',
             'label_approve' => 'Data Dikirim Ke Analis Cabang',
             'label_reject' => 'AO Reject',
+            'label_cencel' => 'AO Cenceled',
             'next_jabatan' => 'Analis Cabang',
-            'putusan' => ['field_nama' => 'nama_ao', 'field_rekom' => 'rekom_ao'],
+            'putusan' => ['field_nama' => 'nama_ao', 'field_rekom' => 'rekom_ao', 'catatan' => 'catatan_ao'],
             'pemutus_kredit' => 'Ya',
             'status_akhir_app' => 'PROSES',
             'status_akhir_rej' => 'DITOLAK',
@@ -115,8 +116,9 @@ trait DebiturTraits
             'catatan_field' => 'catatan_analis',
             'label_approve' => 'Analis Cabang Approve',
             'label_reject' => 'Analis Cabang Reject',
+            'label_cencel' => 'Analis Cabang Cenceled',
             'next_jabatan' => 'Kasi Komersial',
-            'putusan' => ['field_nama' => 'nama_analis_cabang', 'field_rekom' => 'rekom_analis_cabang'],
+            'putusan' => ['field_nama' => 'nama_analis_cabang', 'field_rekom' => 'rekom_analis_cabang', 'catatan' => 'catatan_analis_cabang'],
             'pemutus_kredit' => 'Tidak',
             'status_akhir_app' => 'PROSES',
             'status_akhir_rej' => 'PROSES',
@@ -126,8 +128,9 @@ trait DebiturTraits
             'catatan_field' => 'catatan_kakom',
             'label_approve' => 'Kasi Komersial Approve',
             'label_reject' => 'Kasi Komersial Reject',
+            'label_cencel' => 'Kasi Komersial Cenceled',
             'next_jabatan' => 'Pimpinan Cabang',
-            'putusan' => ['field_nama' => 'nama_kakom', 'field_rekom' => 'rekom_kakom'],
+            'putusan' => ['field_nama' => 'nama_kakom', 'field_rekom' => 'rekom_kakom', 'catatan' => 'catatan_kakom'],
             'pemutus_kredit' => 'Tidak',
             'status_akhir_app' => 'PROSES',
             'status_akhir_rej' => 'PROSES',
@@ -137,8 +140,9 @@ trait DebiturTraits
             'catatan_field' => 'catatan_pincab',
             'label_approve' => 'Pimpinan Cabang Approve',
             'label_reject' => 'Pimpinan Cabang Reject',
+            'label_cencel' => 'Pimpinan Cabang Cenceled',
             'next_jabatan' => 'Legal',
-            'putusan' => ['field_nama' => 'nama_pincab', 'field_rekom' => 'rekom_pincab'],
+            'putusan' => ['field_nama' => 'nama_pincab', 'field_rekom' => 'rekom_pincab', 'catatan' => 'catatan_pincab'],
             'pemutus_kredit' => 'Ya',
             'status_akhir_app' => 'DISETUJUI',
             'status_akhir_rej' => 'DITOLAK',
@@ -161,9 +165,50 @@ trait DebiturTraits
         // update kredit
         $kredit->{$setting['status_field']} = $this->status;
         $kredit->{$setting['catatan_field']} = $this->catatan . '<br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
-        $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : $setting['label_reject'];
-        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : $setting['status_akhir_rej'];
+        // untuk khusus pincab
+        if ($jabatan == 'Pimpinan Cabang') {
+            if ($this->putusan != 'Cabang') {
+                // jika putusan bukan cabang
+                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+            } else {
+                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+            }
+        } else {
+            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+        }
+
+        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
         $kredit->save();
+
+        // jika status kakom kosong maka save ini
+        if ($jabatan == 'Pimpinan Cabang') {
+            $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                ->where('jabatan', 'Kasi Komersial')
+                ->whereNull('nama')
+                ->whereNull('status')
+                ->orderByDesc('id_tracking')
+                ->first();
+            if ($Tkakom !== null) {
+                $Tkakom->update([
+                    'nama' => '-',
+                    'status' => 'Ditarik Pincab',
+                    'tgl_status' => now(),
+                    'status_spk' => 'Proses',
+                ]);
+
+                // tracking selanjutnya
+                TrackingSPK::AddTrackingSPK($kredit, [
+                    'id_cabang' => $kredit->id_cabang,
+                    'id_kredit' => $kredit->id_kredit,
+                    'petugas_penerima' => $kredit->petugas_penerima,
+                    'nama' => null,
+                    'jabatan' => 'Pimpinan Cabang',
+                    'status' => null,
+                    'tgl_masuk' => now(),
+                    'status_spk' => 'Proses',
+                ]);
+            }
+        }
 
         // tracking lama
         $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
@@ -178,9 +223,9 @@ trait DebiturTraits
             if ($jabatan == 'AO') {
                 $tracking->update([
                     'nama' => $user->nama,
-                    'status' => $this->status == 'Approve' ? 'Created & Sended' : 'Reject',
+                    'status' => $this->status == 'Approve' ? 'Created & Sent' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cancel'),
                     'tgl_status' => now(),
-                    'status_spk' => $this->status == 'Approve' ? 'Proses' : 'Ditolak',
+                    'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cancel'),
                 ]);
 
                 // tracking selanjutnya
@@ -199,55 +244,53 @@ trait DebiturTraits
             }
             // pincab
             elseif ($jabatan == 'Pimpinan Cabang') {
-                // jika status kakom kosong maka save ini
-                $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-                    ->where('jabatan', 'Kasi Komersial')
-                    ->whereNull('nama')
-                    ->whereNull('status')
-                    ->orderByDesc('id_tracking')
-                    ->first();
-                if ($Tkakom !== null) {
-                    $Tkakom->update([
-                        'nama' => '-',
-                        'status' => 'Ditarik Pincab',
-                        'tgl_status' => now(),
-                        'status_spk' => 'Proses',
-                    ]);
-                }
-
-                // jika putusan cabang maka jalankan ini
+                // jika putusan bukan cabang maka jalankan ini
                 if ($this->putusan != 'Cabang') {
                     $tracking->update([
                         'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve' : 'Reject',
+                        'status' => $this->status == 'Approve' ? 'Approve - Menunngu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Proses' : 'Proses',
+                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
                     ]);
 
-                    // update kredit
-                    $kredit->status_akhir = $this->status == 'Approve' ? 'PROSES' : 'PROSES';
-                    $kredit->save();
+                    // if approve
+                    if ($this->status == 'Approve') {
+                        // update kredit
+                        $kredit->status_akhir = $this->status == 'Approve' ? 'PROSES' : 'DITOLAK';
+                        $kredit->save();
 
-                    // tracking selanjutnya
-                    TrackingSPK::AddTrackingSPK($kredit, [
-                        'id_cabang' => $kredit->id_cabang,
-                        'id_kredit' => $kredit->id_kredit,
-                        'petugas_penerima' => $kredit->petugas_penerima,
-                        'nama' => null,
-                        'jabatan' => 'Analis Area',
-                        'status' => null,
-                        'tgl_masuk' => now(),
-                        'status_spk' => 'Proses',
-                    ]);
+                        // update muk
+                        $muk->update([
+                            'status_pincab' => 'Approve'
+                        ]);
+
+                        // tracking selanjutnya
+                        if ($this->status == 'Approve') {
+                            TrackingSPK::AddTrackingSPK($kredit, [
+                                'id_cabang' => $kredit->id_cabang,
+                                'id_kredit' => $kredit->id_kredit,
+                                'petugas_penerima' => $kredit->petugas_penerima,
+                                'nama' => null,
+                                'jabatan' => 'Analis Cabang',
+                                'status' => null,
+                                'tgl_masuk' => now(),
+                                'status_spk' => 'Proses',
+                            ]);
+                        }
+                    }
                 }
-                // jika selain putusan cabang jalankan ini
+                // jika putusan cabang jalankan ini
                 else {
                     $tracking->update([
                         'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve' : 'Reject',
+                        'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Disetujui' : 'Ditolak',
+                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
                     ]);
+
+                    // update kredit
+                    $kredit->status_akhir = $this->status == 'Approve' ? 'DISETUJUI' : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
+                    $kredit->save();
 
                     // tracking selanjutnya
                     if ($this->status == 'Approve') {
@@ -264,7 +307,7 @@ trait DebiturTraits
                     }
                 }
             }
-            // pemutus kredit selain ao dan pincab
+            // pemutus kredit selain ao dan pincab BELOM DIBUTUHIN
             else {
                 $tracking->update([
                     'nama' => $user->nama,
@@ -278,22 +321,24 @@ trait DebiturTraits
         else {
             $tracking->update([
                 'nama' => $user->nama,
-                'status' => $this->status == 'Approve' ? 'Approve' : 'Reject',
+                'status' => $this->status == 'Approve' ? 'Created & Sended' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cencel'),
                 'tgl_status' => now(),
-                'status_spk' => $this->status == 'Approve' ? 'Proses' : 'Proses',
+                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cencel'),
             ]);
 
             // tracking selanjutnya
-            TrackingSPK::AddTrackingSPK($kredit, [
-                'id_cabang' => $kredit->id_cabang,
-                'id_kredit' => $kredit->id_kredit,
-                'petugas_penerima' => $kredit->petugas_penerima,
-                'nama' => null,
-                'jabatan' => $setting['next_jabatan'],
-                'status' => null,
-                'tgl_masuk' => now(),
-                'status_spk' => 'Proses',
-            ]);
+            if ($this->status != 'Cencel') {
+                TrackingSPK::AddTrackingSPK($kredit, [
+                    'id_cabang' => $kredit->id_cabang,
+                    'id_kredit' => $kredit->id_kredit,
+                    'petugas_penerima' => $kredit->petugas_penerima,
+                    'nama' => null,
+                    'jabatan' => $setting['next_jabatan'],
+                    'status' => null,
+                    'tgl_masuk' => now(),
+                    'status_spk' => 'Proses',
+                ]);
+            }
         }
 
         // update putusan untuk MUK
@@ -303,6 +348,7 @@ trait DebiturTraits
                     'id_kredit' => $kredit->id_kredit,
                     $setting['putusan']['field_nama'] => $user->nama,
                     $setting['putusan']['field_rekom'] => $this->rekomendasi,
+                    $setting['putusan']['catatan'] => $this->catatan,
                 ]);
             }
         } else {
@@ -311,6 +357,7 @@ trait DebiturTraits
                 'id_muk' => $muk->id_muk,
                 $setting['putusan']['field_nama'] => $user->nama,
                 $setting['putusan']['field_rekom'] => $this->rekomendasi,
+                $setting['putusan']['catatan'] => $this->catatan,
             ]);
         }
 

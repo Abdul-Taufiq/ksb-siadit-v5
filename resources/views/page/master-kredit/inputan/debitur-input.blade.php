@@ -36,8 +36,7 @@
         <div class="form-group">
             <label for="tgl_lahir{{ $id_field }}">Tanggal Lahir :</label>
             <input type="date" name="tgl_lahir{{ $id_field }}" id="tgl_lahir{{ $id_field }}" required
-                class="form-control is-invalid"
-                value="{{ $debitur != null ? $debitur->tgl_lahir->format('Y-m-d') : null }}">
+                class="form-control is-invalid" value="{{ $debitur?->tgl_lahir?->format('Y-m-d') ?? null }}">
         </div>
     </div>
     <div class="col-md-6 mb-4">
@@ -340,10 +339,10 @@
     </div>
     <div class="col-md-6 mb-4">
         <div class="form-group">
-            <label for="mulai_usaha{{ $id_field }}">Mulai Usaha: </label>
+            <label for="mulai_usaha{{ $id_field }}">Pengalaman Usaha: </label>
             <input name="mulai_usaha{{ $id_field }}" id="mulai_usaha{{ $id_field }}"
-                class="form-control is-invalid" placeholder="isikan Tanggal bulan tahun/ bulan dan tahun" required
-                value="{{ $debitur != null ? $debitur->mulai_usaha : null }}">
+                class="form-control is-invalid" placeholder="isikan Tanggal bulan tahun/ bulan dan tahun/tahun"
+                required value="{{ $debitur != null ? $debitur->mulai_usaha : null }}">
         </div>
     </div>
     <div class="col-md-6 mb-4">
@@ -430,7 +429,7 @@
                 <input type="date" name="tgl_pernikahan{{ $id_field }}"
                     id="tgl_pernikahan{{ $id_field }}" class="form-control is-invalid"
                     placeholder="Tanggal Pernikahan"
-                    value="{{ $debitur != null ? $debitur->tgl_pernikahan->format('Y-m-d') : null }}">
+                    value="{{ $debitur?->tgl_pernikahan?->format('Y-m-d') ?? null }}">
             </div>
         </div>
         <div class="col-md-6 mb-4">
@@ -464,7 +463,7 @@
                 <input type="date" name="tgl_lahir_pasangan{{ $id_field }}"
                     id="tgl_lahir_pasangan{{ $id_field }}" class="form-control is-invalid"
                     placeholder="Tanggal Lahir Pasangan"
-                    value="{{ $debitur != null ? $debitur->tgl_lahir_pasangan->format('Y-m-d') : null }}">
+                    value="{{ $debitur?->tgl_lahir_pasangan?->format('Y-m-d') ?? null }}">
             </div>
         </div>
         <div class="col-md-6 mb-4">

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\MasterKredit;
 use App\Http\Controllers\Controller;
 use App\Models\MasterKredit\Debitur;
 use App\Models\MasterKredit\Kredit;
+use App\Models\MasterKredit\Persetujuan;
 use App\Models\Output\LogActivity;
 use App\Services\MasterKredit\Debitur\DebiturService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Services\MasterKredit\Debitur\LiveSearchService;
+use Illuminate\Support\Facades\Auth;
 
 class DebiturController extends Controller
 {
@@ -174,5 +176,73 @@ class DebiturController extends Controller
         $this->debiturService->SwitchDeb($ids);
 
         return redirect('debitur/edit/' . $id . '/edit')->with('AlertSuccess', 'Data Debitur Berhasil Di Switch!');
+    }
+
+
+
+    // sos
+    public function sosEditPas($id)
+    {
+        $ids = base64_decode($id);
+        $kredit = Kredit::find($ids);
+        $debitur = Debitur::find($kredit->id_debitur);
+
+        if (!$kredit || !$debitur) {
+            return redirect()->back()->with('error', 'Data SPK atau Debitur tidak ditemukan.');
+        }
+
+        return view('page.master-kredit.debitur.sos-update-pas', [
+            'title' => 'S.O.S Update PAS',
+            'kredit' => $kredit,
+            'debitur' => $debitur,
+        ]);
+    }
+
+
+    public function sosUpdatePas(Request $request)
+    {
+        $ids = base64_decode($request->id_kredit);
+        $kredit = Kredit::find($ids);
+        $kredit->update([
+            'jumlah_disetujui' => $this->normalizeNumber($request->jumlah_disetujui),
+            'jkw' => $request->jkw,
+            'catatan_tambahan' => $request->catatan_sos . '<br><b> » Edited by ' . Auth::user()->nama . ' Jabatan: ' . Auth::user()->jabatan . ' at ' . now()->format('d-m-Y, H:i') . '</b>',
+        ]);
+
+        // update Persetujuan
+        $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first()->update([
+            'putusan' => $request->putusan,
+            'jns_bunga' => $request->jns_bunga,
+            'besar_bunga' =>  $this->normalizeNumber($request->besar_bunga),
+            'jumlah_angsuran' => $this->normalizeNumber($request->jumlah_angsuran),
+            'provisi' =>  $this->normalizeNumber($request->provisi),
+            'jumlah_provisi' => $this->normalizeNumber($request->jumlah_provisi),
+            'besar_adm' =>  $this->normalizeNumber($request->besar_adm),
+            'biaya_adm' => $this->normalizeNumber($request->biaya_adm),
+            'besar_survey' =>  $this->normalizeNumber($request->besar_survey),
+            'biaya_survey' =>  $this->normalizeNumber($request->biaya_survey),
+            'denda_hari' => $this->normalizeNumber($request->denda_hari),
+        ]);
+
+
+        return redirect()->route('debitur.index')->with([
+            'AlertSuccess' => 'Data SOS berhasil disimpan!'
+        ]);
+    }
+
+    // fungsi normal untuk setting number
+    function normalizeNumber($value)
+    {
+        if ($value === '∞') {
+            return 0;
+        }
+
+        $value = str_replace('.', '', $value); // hapus ribuan
+        $value = str_replace(',', '.', $value); // ubah desimal
+        return floatval($value);
+
+        // normalnya
+        // $nilai = "49.000,89";
+        // $jumlah_pengajuan = str_replace(',', '.', str_replace('.', '', $data['rate_1']));
     }
 }

@@ -14,7 +14,7 @@
     <div class="col-md-6">
         <table class="table table-striped table-sm w-100">
             <tr>
-                <td style="width: 50%;">
+                <td style="width: 40%;">
                     <label for="omset_usaha" class="notbold">Pendapatan Usaha/Omset</label>
                 </td>
                 <td>
@@ -30,11 +30,19 @@
                     <label for="omset_harga_pokok" class="notbold">&nbsp; Harga Pokok Penjualan</label>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text">Rp.</span>
-                        <input type="text" class="form-control is-invalid setRp" id="omset_harga_pokok"
-                            name="omset_harga_pokok"
-                            value="{{ number_format($muk?->keuangan?->omset_harga_pokok, 0, ',', '.') ?? '' }}">
+                    <div class="d-flex">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">Rp.</span>
+                            <input type="text" class="form-control is-invalid setRp" id="omset_harga_pokok"
+                                name="omset_harga_pokok"
+                                value="{{ number_format($muk?->keuangan?->omset_harga_pokok, 0, ',', '.') ?? '' }}">
+                        </div>
+                        <div class="input-group input-group-sm" style="width: 60%">
+                            <input type="text" name="persen_gpm" id="persen_gpm" name="persen_gpm"
+                                class="form-control  setRp"
+                                value="{{ number_format($muk?->keuangan?->persen_gpm ?? 0, 2, ',', '.') }}">
+                            <span class="input-group-text">%</span>
+                        </div>
                     </div>
                 </td>
             </tr>

@@ -17,6 +17,10 @@ class JamKenda extends Model
     protected $dates = ['tgl_akta_fidusia', 'tgl_bpkb'];
     protected $primaryKey = 'id_jaminan_kendaraan';
     protected $guarded = ['id_jaminan_kendaraan'];
+    protected $casts = [
+        'tgl_akta_fidusia' => 'datetime',
+        'tgl_bpkb' => 'datetime',
+    ];
 
 
     public function kredit(): BelongsTo

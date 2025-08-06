@@ -85,7 +85,8 @@ Livewire.on("AlertSuccess", (data) => {
         Livewire.dispatch("refreshTable");
         // Scroll to the newly added data
         setTimeout(() => {
-            const escapedKey = CSS.escape(userId);
+            // const escapedKey = CSS.escape(userId);
+            const escapedKey = userId;
             const newRow = document.querySelector(
                 `[wire\\:key='${escapedKey}']`
             );

@@ -48,9 +48,9 @@ function addJaminanTanah(counter) {
             </div>
             <div class="col-md-6 mb-4">
                 <div class="form-group">
-                    <label for="kabupatan_${counter}">Kabupaten/Kota</label>
-                    <input type="text" name="kabupatan_${counter}"
-                        id="kabupatan_${counter}" class="form-control is-invalid" required
+                    <label for="kabupaten_${counter}">Kabupaten/Kota</label>
+                    <input type="text" name="kabupaten_${counter}"
+                        id="kabupaten_${counter}" class="form-control is-invalid" required
                         placeholder="Kabupaten/Kota">
                 </div>
             </div>

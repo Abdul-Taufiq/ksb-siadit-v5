@@ -65,7 +65,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" name="kes_taksasi_persen_2_{{ $loop->iteration }}"
                         id="kes_taksasi_persen_2_{{ $loop->iteration }}" class="form-control form-control-sm" readonly
-                        value="{{ number_format($tanah->sc_tanah_rekap_2?->kes_taksasi_persen_2, 0, ',', '.') ?? '70' }}">
+                        value="{{ $tanah->sc_tanah_rekap_2 ? number_format($tanah->sc_tanah_rekap_2?->kes_taksasi_persen_2, 0, ',', '.') : '70' }}">
                     <span class="input-group-text">%</span>
                 </div>
             </div>

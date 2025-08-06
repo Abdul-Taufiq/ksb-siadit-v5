@@ -47,7 +47,7 @@
                         <tbody style="vertical-align: middle">
                             @if ($pkpmk->isNotEmpty())
                                 @foreach ($pkpmk as $data => $item)
-                                    <tr wire:key='{{ sha1($item->id) }}'>
+                                    <tr wire:key='{{ sha1($item->id_adddendum) }}'>
                                         <td>{{ $loop->index + $pkpmk->firstItem() }}</td>
                                         <td>{{ $item->kredit->cabang->cabang }}</td>
                                         <td>

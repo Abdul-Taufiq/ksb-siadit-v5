@@ -24,18 +24,28 @@
             <div class="stat-cards-item mb-2">
                 <div class="card-body w-100">
                     <div class="row ">
-                        <div class="col-12 col-md-3 mb-sm-1" style="opacity: 0.2">
-                            {{-- <a href="#" class="btn btn-info text-white btn-sm w-100 w-md-auto" disabled>
-                                <i class="fa-solid fa-download"></i> Print SPK
-                            </a> --}}
+                        <div class="col-12 col-md-3 mb-sm-1" style="font-size: 14px">
+                            <i class="fa-solid fa-circle-exclamation"></i> Data Ini Merupakan Putusan dari
+                            <b>{{ $muk->kredit->persetujuan->putusan }}</b> <br>
+                            @if ($muk->kredit->persetujuan->putusan != 'Cabang')
+                                Silahkan lihat file putusan di bawah ini <br>
+                                @if ($muk->file_putusan)
+                                    <a href="{{ asset('file_upload/putusan/' . $muk->file_putusan) }}" target="_blank"
+                                        style="font-weight: bold; color: darkcyan">
+                                        <i>{{ $muk->file_putusan }}</i>
+                                    </a>
+                                @else
+                                    <i>Belum Ada File</i>
+                                @endif
+                            @endif
                         </div>
-                        <div class="col-12 col-md-3 mb-sm-1 d-flex justify-content-center">
+                        <div class="col-12 col-md-3">
                             <a data-id="{{ encrypt($muk->id_muk) }}"
                                 class="btn btn-primary text-white btn-sm w-100 w-md-auto btnMUK">
                                 <i class="fa-solid fa-download"></i> Print MUK
                             </a>
                         </div>
-                        <div class="col-12 col-md-3 mb-sm-1 d-flex justify-content-center">
+                        <div class="col-12 col-md-3">
                             <a href="{{ route('show.scoring', encrypt($muk->id_muk)) }}"
                                 class="btn btn-primary text-white btn-sm w-100 w-md-auto">
                                 <i class="fa-solid fa-eye"></i> Show Scoring Agunan

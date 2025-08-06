@@ -129,6 +129,10 @@ Route::middleware(['auth'])->group(function () {
         // Debitur Exist
         Route::get('/create-exist/{id}/{metode}', [DebiturController::class, 'edit'])->name('debitur.exist');
         Route::get('/debitur-switch/{id}', [DebiturController::class, 'switch'])->name('debitur.switch');
+
+        // sos update PAS
+        Route::get('/sos-update-pas/{id}', [DebiturController::class, 'sosEditPas'])->name('debitur.sos.edit.pas');
+        Route::post('/sos-update-pas', [DebiturController::class, 'sosUpdatePas'])->name('debitur.sos.update.pas');
     });
 
 

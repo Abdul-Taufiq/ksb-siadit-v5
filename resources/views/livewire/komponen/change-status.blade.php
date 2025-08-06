@@ -1,16 +1,28 @@
-@switch(Auth::user()->jabatan)
+@php
+    $jabatan = Auth::user()->jabatan;
+@endphp
+
+@switch($jabatan)
     {{-- AO --}}
     @case('AO')
-        @if ($kredit->status_ao == null)
+        @if ($kredit->status_ao == null && $kredit->tgl_print_idi != null)
             @include('livewire.komponen.button-modal')
         @else
             @if ($kredit->status_ao == 'Terkirim' || $kredit->status_ao == 'Approve')
                 <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
                     <i class="fa-solid fa-check"></i> Approved
                 </span>
-            @else
+            @elseif ($kredit->status_ao == 'Reject')
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
+                </span>
+            @elseif ($kredit->status_ao == 'Cencel')
+                <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                    <i class="fa-solid fa-xmark"></i> Cencel
+                </span>
+            @else
+                <span class="badge text-bg-warning" style="font-size: 11px;" title="Harus Lakukan Print IDI terlebih dahulu!">
+                    <i class="fa-solid fa-circle-exclamation"></i> NotYet
                 </span>
             @endif
         @endif
@@ -18,7 +30,11 @@
 
     {{-- Analis --}}
     @case('Analis Cabang')
-        @if ($kredit->status_ao != null && $kredit->status_ao != 'Reject' && $kredit->status_analis == null)
+        @if (
+            $kredit->status_ao != null &&
+                $kredit->status_ao != 'Cencel' &&
+                $kredit->status_ao != 'Reject' &&
+                $kredit->status_analis == null)
             @include('livewire.komponen.button-modal')
         @else
             @if ($kredit->status_analis == 'Approve')
@@ -28,6 +44,10 @@
             @elseif ($kredit->status_analis == 'Reject')
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
+                </span>
+            @elseif ($kredit->status_analis == 'Cencel')
+                <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                    <i class="fa-solid fa-xmark"></i> Cencel
                 </span>
             @else
                 @if ($kredit->status_ao == 'Reject')
@@ -45,42 +65,58 @@
 
     {{-- Kasi Komersial --}}
     @case('Kasi Komersial')
-        @if ($kredit->status_analis != null && $kredit->status_kakom == null)
+        @if ($kredit->status_analis != null && $kredit->status_analis != 'Cencel' && $kredit->status_kakom == null)
             @include('livewire.komponen.button-modal')
         @else
-            @if ($kredit->status_analis == 'Approve')
+            @if ($kredit->status_kakom == 'Approve')
                 <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
                     <i class="fa-solid fa-check"></i> Approved
                 </span>
-            @elseif ($kredit->status_analis == 'Reject')
+            @elseif ($kredit->status_kakom == 'Reject')
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
                 </span>
             @else
-                <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
-                    <i class="fa-solid fa-circle-exclamation"></i> NotYet
-                </span>
+                @if ($kredit->status_akhir == 'DEBITUR CENCEL')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                        <i class="fa-solid fa-xmark"></i> DEBITUR CENCEL
+                    </span>
+                @else
+                    <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
+                        <i class="fa-solid fa-circle-exclamation"></i> NotYet
+                    </span>
+                @endif
             @endif
         @endif
     @break
 
     {{-- Pimpinan Cabang --}}
     @case('Pimpinan Cabang')
-        @if ($kredit->status_analis != null && $kredit->status_pincab == null)
+        @if (
+            $kredit->status_analis != null &&
+                $kredit->status_analis != 'Cencel' &&
+                $kredit->status_kakom != 'Cencel' &&
+                $kredit->status_pincab == null)
             @include('livewire.komponen.button-modal')
         @else
-            @if ($kredit->status_analis == 'Approve')
+            @if ($kredit->status_pincab == 'Approve')
                 <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
                     <i class="fa-solid fa-check"></i> Approved
                 </span>
-            @elseif ($kredit->status_analis == 'Reject')
+            @elseif ($kredit->status_pincab == 'Reject')
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
                 </span>
             @else
-                <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
-                    <i class="fa-solid fa-circle-exclamation"></i> NotYet
-                </span>
+                @if ($kredit->status_akhir == 'DEBITUR CENCEL')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                        <i class="fa-solid fa-xmark"></i> DEBITUR CENCEL
+                    </span>
+                @else
+                    <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
+                        <i class="fa-solid fa-circle-exclamation"></i> NotYet
+                    </span>
+                @endif
             @endif
         @endif
     @break
@@ -88,7 +124,9 @@
     {{-- Legal --}}
     @case('Legal')
         @if ($kredit->status_akhir == 'DISETUJUI')
-            @if ($kredit->status_legal == 'Created' || $kredit->status_legal == 'Terkirim')
+            @if (
+                $kredit->status_legal == 'Created' ||
+                    ($kredit->status_legal == 'Terkirim') | ($kredit->status_legal == 'Print SPPK'))
                 <span class="badge text-bg-info" style="font-size: 11px;" title="Created PK/Sended To Kaops">
                     <i class="fa-solid fa-circle-exclamation"></i> onProccess
                 </span>
@@ -144,7 +182,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if ($putusan != 'Cabang' && Auth::user()->jabatan == 'Pimpinan Cabang')
+                    {{-- @if ($putusan != 'Cabang' && Auth::user()->jabatan == 'Pimpinan Cabang')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
@@ -174,9 +212,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
 
-                    @if ($status != 'Tidak Diambil')
+                    @if (!in_array($status, ['Tidak Diambil', 'Cencel']))
                         <div class="form-group mb-2">
                             <label for="rekomendasi">Rekomendasi?</label>
                             <select id="rekomendasi" class="form-select form-select-sm"
@@ -202,7 +240,9 @@
                                 required>
                             <label class="custom-control-label" for="exampleCheck2">Saya setuju dengan
                                 <a style="color: blue" href="#">ketentuan yang berlaku</a>.</label>
-                            <label class="text-danger" for="exampleCheck2"><i>Coution: </i> Pastikan bahwa Anda telah
+                            <label class="text-danger" for="exampleCheck2"
+                                style="font-size: 0.85rem !important"><i>Coution:
+                                </i> Pastikan bahwa Anda telah
                                 yakin untuk melakukan aksi ini! & Pastikan mengisinya dengan seksama karena akan
                                 ditampilkan kedalam MUK -> PUTUSAN</label>
                         </div>

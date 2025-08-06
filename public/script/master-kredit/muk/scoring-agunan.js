@@ -61,6 +61,51 @@ $(document).ready(function () {
             setSummernote(prefix, counter)
         );
     });
+
+    for (let index = 1; index < 200; index++) {
+        const hakKepemilikan = document.getElementById(
+            `hak_kepemilikan_${index}`
+        );
+        const tgl_sertip = document.getElementById(
+            `tgl_berakhir_sertif_${index}`
+        );
+        const tgl_sertip_danger = document.getElementById(
+            `tgl_sertif_danger_${index}`
+        );
+
+        // hak kepemilikan
+        if (hakKepemilikan) {
+            if (hakKepemilikan.value === "SHM") {
+                tgl_sertip_danger.classList.remove("d-none");
+                tgl_sertip.classList.add("d-none");
+            } else {
+                tgl_sertip_danger.classList.add("d-none");
+                tgl_sertip.classList.remove("d-none");
+            }
+
+            hakKepemilikan.addEventListener("keyup", function () {
+                if (hakKepemilikan.value === "SHM") {
+                    tgl_sertip_danger.classList.remove("d-none");
+                    tgl_sertip.classList.add("d-none");
+                    tgl_sertip.removeAttribute("required");
+                } else {
+                    tgl_sertip_danger.classList.add("d-none");
+                    tgl_sertip.classList.remove("d-none");
+                    tgl_sertip.setAttribute("required", true);
+                }
+            });
+        }
+
+        //  edisi
+        const edisi = document.getElementById(`edisi_${index}`);
+        const typeSertif = document.getElementById(`type_sertifikat_${index}`);
+
+        if (typeSertif.value === "Sertifikat-Analog") {
+            edisi.classList.remove("is-invalid");
+            edisi.classList.add("is-valid");
+            edisi.value = "-";
+        }
+    }
 });
 
 function setScoreTanah(element, counter) {

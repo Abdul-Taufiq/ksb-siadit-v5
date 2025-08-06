@@ -14,5 +14,13 @@
             <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
                 wire:click='ShowModal("Reject", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>Reject</button>
         </li>
+
+        {{-- status Cencel --}}
+        @if ($jabatan != 'Legal' || $jabatan != 'Kasi Operasional')
+            <li>
+                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
+                    wire:click='ShowModal("Cencel", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>Cencel</button>
+            </li>
+        @endif
     </ul>
 </div>

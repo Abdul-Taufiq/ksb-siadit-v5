@@ -58,6 +58,13 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>Edisi</td>
+                            <td>:</td>
+                            <td>
+                                {{ $tanah->sc_tanah_agunan->edisi }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td>No.GS</td>
                             <td>:</td>
                             <td>
@@ -548,6 +555,9 @@
             II. PERHITUNGAN NILAI AGUNAN
         </div>
         <div class="card-body">
+            <strong>Checking Agunan</strong>
+            <br>
+
             @foreach ($tanah->sc_tanah_perhitungan as $index => $tanahP)
                 @if ($index % 2 == 0)
                     <div class="row">
@@ -685,7 +695,10 @@
                             </td>
                         </tr>
                     </table>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <strong>Nilai Yang Direkomendasikan</strong>
                     <table class="table table-sm w-100">
                         <tr>
@@ -806,7 +819,10 @@
                             </td>
                         </tr>
                     </table>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <strong>Nilai Yang Direkomendasikan</strong>
                     <table class="table table-sm w-100">
                         <tr>

@@ -8,6 +8,7 @@ use App\Models\MasterAgunan\JamKenda;
 use App\Models\MasterAgunan\JamTanah;
 use App\Models\MasterKredit\Debitur;
 use App\Models\MasterKredit\Kredit;
+use App\Models\MasterKredit\Penjamin;
 use App\Models\MasterKredit\PikarEks;
 use App\Models\MasterMUK\Muk;
 use App\Models\MasterMUK\MukIndustri;
@@ -40,11 +41,13 @@ class MukController extends Controller
         $ids = base64_decode($id);
         $kredit = Kredit::find($ids);
         $debitur = Debitur::find($kredit->id_debitur);
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
         return view('page.master-kredit.muk.muk-create', [
             'title' => 'Add Data MUK',
             'debitur' => $debitur,
             'kredit' => $kredit,
+            'penjamin' => $penjamin,
             'metode' => null,
             'field' => null,
             'muk' => null,
@@ -57,11 +60,13 @@ class MukController extends Controller
         $muk = Muk::find($ids);
         $kredit = Kredit::find($muk->id_kredit);
         $debitur = Debitur::find($kredit->id_debitur);
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
         return view('page.master-kredit.muk.muk-edit', [
             'title' => 'Edit Data MUK',
             'debitur' => $debitur,
             'kredit' => $kredit,
+            'penjamin' => $penjamin,
             'muk' => $muk,
             'metode' => 'edit',
             'field' => null
@@ -90,6 +95,7 @@ class MukController extends Controller
         $muk = Muk::where('id_muk', $ids)->first();
         $kredit = Kredit::find($muk->id_kredit);
         $debitur = Debitur::where('id_debitur', $kredit->id_debitur)->first();
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
         return view('page.master-kredit.muk.muk-create-part-dua', [
             'title' => empty($muk->data) ? 'Add Data MUK' : 'Edit Data MUK',
@@ -98,6 +104,7 @@ class MukController extends Controller
             'ids' => $ids,
             'debitur' => $debitur,
             'kredit' => $kredit,
+            'penjamin' => $penjamin,
             'metode' => null,
             'field' => null
         ]);
@@ -124,6 +131,7 @@ class MukController extends Controller
         $muk = Muk::where('id_muk', $ids)->first();
         $kredit = Kredit::find($muk->id_kredit);
         $debitur = Debitur::where('id_debitur', $kredit->id_debitur)->first();
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
         $jam_tanah = JamTanah::where('id_kredit', $kredit->id_kredit)->get();
         $jam_kenda = JamKenda::where('id_kredit', $kredit->id_kredit)->get();
@@ -142,6 +150,7 @@ class MukController extends Controller
             'id_muk' => $idMuk,
             'debitur' => $debitur,
             'kredit' => $kredit,
+            'penjamin' => $penjamin,
             'id_kredit' => $kredit->id_kredit,
             'jam_tanah' => $jam_tanah,
             'jam_kenda' => $jam_kenda,
@@ -175,6 +184,7 @@ class MukController extends Controller
         $jam_kenda = JamKenda::where('id_kredit', $kredit->id_kredit)->get();
         $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $pikarEks = PikarEks::where('id_kredit', $kredit->id_kredit)->first();
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
         if ($muk->sc_depo->isEmpty() && $muk->sc_kenda->isEmpty() && $muk->sc_tabungan->isEmpty() && $muk->sc_tanah_agunan->isEmpty()) {
             $title = "Add Data MUK";
@@ -194,6 +204,7 @@ class MukController extends Controller
             'jam_tanah' => $jam_tanah,
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,
+            'penjamin' => $penjamin,
             'pikar' => $pikarEks,
             'metode' => $metode,
             'field' => null

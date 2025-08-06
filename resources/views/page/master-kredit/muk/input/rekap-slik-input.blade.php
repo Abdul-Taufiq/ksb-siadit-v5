@@ -41,6 +41,9 @@
                         </option>
                         <option {{ $slik->tujuan_kredit == 'Konsumsi' ? 'selected' : '' }} value="Konsumsi">Konsumsi
                         </option>
+                        <option {{ $slik->tujuan_kredit == 'Kartu Kredit' ? 'selected' : '' }} value="Kartu Kredit">
+                            Kartu Kredit
+                        </option>
                     </select>
                 </div>
             </div>
@@ -172,6 +175,7 @@
                     <option value="Modal Kerja">Modal Kerja</option>
                     <option value="Investasi">Investasi</option>
                     <option value="Konsumsi">Konsumsi</option>
+                    <option value="Kartu Kredit">Kartu Kredit</option>
                 </select>
             </div>
         </div>
