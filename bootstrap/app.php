@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             CheckMaintenanceMode::class,
             CheckPermission::class,
             SendEmailTAPHT::class,
-            SendEmailKreditLengkap::class,
+            // SendEmailKreditLengkap::class,
         ]);
     })
 

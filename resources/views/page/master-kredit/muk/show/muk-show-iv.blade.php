@@ -32,6 +32,7 @@
                         {{ 'Rp' . number_format($muk->keuanganBjk->bjk_pupuk, 0, ',', '.') }}
                     @else
                         {{ 'Rp' . number_format($muk->keuangan->omset_harga_pokok, 0, ',', '.') }}
+                        &nbsp; &nbsp; | &nbsp; &nbsp; {{ number_format($muk->keuangan->persen_gpm, 0, ',', '.') . '%' }}
                     @endif
                 </td>
             </tr>

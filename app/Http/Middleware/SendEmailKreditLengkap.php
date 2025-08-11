@@ -28,7 +28,10 @@ class SendEmailKreditLengkap
                 // Kirim email kepada user
                 $user = Cabang::where('id_cabang', $item->id_cabang)->first();
 
-                if ($user && $user->email_kaops) {
+                // cek user dan apakah sebelumnya email sudah dikirim dengan cara kita lihat updated_at nya != hari ini, jika sama maka tandanya udah dikirim
+                if (
+                    $user && $user->email_kaops && !$item->updated_at->isSameDay(Carbon::today('Asia/Jakarta'))
+                ) {
                     # code...
                     Mail::send('email.notif-berkas-lengkap', [
                         'kc' => $item->cabang->cabang,
@@ -41,6 +44,9 @@ class SendEmailKreditLengkap
                         $message->to($user->email_kaops);
                         $message->subject('Reminder Kelengkapan Berkas Kredit');
                     });
+
+                    // update untuk yang udah dikirim email
+                    $item->update(['updated_at' => Carbon::now('Asia/Jakarta')]);
 
                     Log::info('Email sent to: ' . $user->email_kaops);
                 } else {
