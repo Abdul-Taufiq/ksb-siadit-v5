@@ -285,7 +285,7 @@ trait DebiturTraits
                         'nama' => $user->nama,
                         'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                        'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
                     ]);
 
                     // update kredit

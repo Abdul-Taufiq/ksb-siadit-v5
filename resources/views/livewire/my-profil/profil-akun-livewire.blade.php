@@ -12,7 +12,7 @@
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama" wire:model="nama"
-                                required maxlength="16">
+                                required maxlength="16" readonly>
                             @error('nama')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" wire:model="email"
-                                required>
+                                required readonly>
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

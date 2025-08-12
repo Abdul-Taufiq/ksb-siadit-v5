@@ -97,33 +97,36 @@
                 </li>
 
                 {{-- Rekap --}}
-                <li>
-                    <a class="show-cat-btn {{ request()->is('rekap*') ? 'active' : '' }}" href="##">
-                        <span class="icon master-rekap" aria-hidden="true"></span>Rekap Data
-                        <span class="category__btn transparent-btn {{ request()->is('rekap*') ? 'rotated' : '' }}"
-                            title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="sub-menu {{ request()->is('rekap*') ? '' : 'd-none' }}">
-                        <li>
-                            <a href="{{ route('rekap.spk') }}" class="{{ request()->is('rekap*') ? 'active' : '' }}"
-                                style="{{ request()->is('rekap*') ? 'opacity: 1;' : '' }}">
-                                <span class="icon sub-icon"></span>
-                                SPK
-                            </a>
-                        </li>
-                        {{-- <li>
+                @if (Auth::user()->jabatan != 'AO')
+                    <li>
+                        <a class="show-cat-btn {{ request()->is('rekap*') ? 'active' : '' }}" href="##">
+                            <span class="icon master-rekap" aria-hidden="true"></span>Rekap Data
+                            <span class="category__btn transparent-btn {{ request()->is('rekap*') ? 'rotated' : '' }}"
+                                title="Open list">
+                                <span class="sr-only">Open list</span>
+                                <span class="icon arrow-down" aria-hidden="true"></span>
+                            </span>
+                        </a>
+                        <ul class="sub-menu {{ request()->is('rekap*') ? '' : 'd-none' }}">
+                            <li>
+                                <a href="{{ route('rekap.spk') }}"
+                                    class="{{ request()->is('rekap*') ? 'active' : '' }}"
+                                    style="{{ request()->is('rekap*') ? 'opacity: 1;' : '' }}">
+                                    <span class="icon sub-icon"></span>
+                                    SPK
+                                </a>
+                            </li>
+                            {{-- <li>
                             <a href="{{ route('addendum.index') }}"
-                                class="{{ request()->is('addendum*') ? 'active' : '' }}"
-                                style="{{ request()->is('addendum*') ? 'opacity: 1;' : '' }}">
-                                <span class="icon sub-icon"></span>
-                                Data Addendum
-                            </a>
-                        </li> --}}
-                    </ul>
-                </li>
+                            class="{{ request()->is('addendum*') ? 'active' : '' }}"
+                            style="{{ request()->is('addendum*') ? 'opacity: 1;' : '' }}">
+                            <span class="icon sub-icon"></span>
+                            Data Addendum
+                        </a>
+                    </li> --}}
+                        </ul>
+                    </li>
+                @endif
 
                 {{-- Tracking Apht --}}
                 <li>

@@ -172,7 +172,7 @@ class PerjanjianKredit extends Component
         $kredit = Kredit::find($pkpmk->id_kredit);
 
         // untuk kaops
-        if ($user->jabatan == 'Kasi Opererasional') {
+        if ($user->jabatan == 'Kasi Operasional') {
             $kredit->update([
                 'status_kaops' => 'Approve',
                 'status_kredit' => 'Kasi Operasional Approve',
