@@ -200,7 +200,8 @@ function NilaiPasarAgunan(i) {
                 // kesimpulan nilai pasar
                 let total_kes_pasar =
                     toNumber(inpAgunan.value) *
-                    (parseFloat(SMargin.value) / 100);
+                    ((100 - parseFloat(SMargin.value)) / 100);
+
                 kes_pasar.value = setFormatRupiah(total_kes_pasar);
                 kes_pasar.classList.remove("is-invalid");
                 kes_pasar.classList.add("is-valid");
@@ -293,7 +294,7 @@ function NilaiPasarAgunan(i) {
                 // kesimpulan nilai pasar
                 let total_kes_pasar =
                     toNumber(agunanBangunan.value) *
-                    (parseFloat(MBangunan.value) / 100);
+                    ((100 - parseFloat(MBangunan.value)) / 100);
                 kes_pasar.value = setFormatRupiah(total_kes_pasar);
                 kes_pasar.classList.remove("is-invalid");
                 kes_pasar.classList.add("is-valid");

@@ -7,7 +7,9 @@
     <div class="col-md-6 mb-3">
         <div class="form-group">
             <label class="notbbold" for="kes_nilai_pasar_{{ $loop->iteration }}">Nilai Pasar
-                {{ $tanah->detail_kategori_jaminan == 'Tanah & Bangunan' ? 'Tanah' : 'Agunan' }}</label>
+                {{ $tanah->detail_kategori_jaminan == 'Tanah & Bangunan' ? 'Tanah' : 'Agunan' }}
+                <i style="font-weight: 500">(setelah SM)</i>
+            </label>
             <div class="input-group input-group-sm">
                 <span class="input-group-text">Rp</span>
                 <input type="text" name="kes_nilai_pasar_{{ $loop->iteration }}"
@@ -49,7 +51,7 @@
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label class="notbbold" for="kes_bangunan_nilai_pasar_{{ $loop->iteration }}">Nilai Pasar
-                    Bangunan</label>
+                    Bangunan <i style="font-weight: 500">(setelah SM)</i></label>
                 <div class="input-group input-group-sm">
                     <span class="input-group-text">Rp</span>
                     <input type="text" name="kes_bangunan_nilai_pasar_{{ $loop->iteration }}"

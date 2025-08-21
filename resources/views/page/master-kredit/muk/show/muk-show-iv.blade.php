@@ -5,7 +5,8 @@
                 <tr>
                     <td style="width: 45%">Periode Usaha</td>
                     <td style="width: 2%">:</td>
-                    <td>{{ $muk->keuanganBjk->bjk_periode_usaha }} Bulan</td>
+                    <td>{{ $muk->keuanganBjk->bjk_periode_usaha }} Bulan |
+                        {{ $muk->keuanganBjk->jns_bjk }}</td>
                 </tr>
             @endif
 
@@ -24,15 +25,26 @@
             </tr>
             <tr>
                 <td style="padding-left: 20px;">
-                    {{ $muk->jns_kredit_muk == 'Berjangka' ? 'Pupuk' : 'Harga Pokok Penjualan' }}
+                    @if ($muk->jns_kredit_muk == 'Berjangka')
+                        {{ $muk->keuanganBjk?->jns_bjk == 'Pertanian' ? 'Pupuk' : 'Harga Pokok Penjualan' }}
+                    @else
+                        Harga Pokok Penjualan
+                    @endif
                 </td>
                 <td>:</td>
                 <td>
                     @if ($muk->jns_kredit_muk == 'Berjangka')
-                        {{ 'Rp' . number_format($muk->keuanganBjk->bjk_pupuk, 0, ',', '.') }}
+                        @if ($muk->keuanganBjk?->jns_bjk == 'Pertanian')
+                            {{ 'Rp' . number_format($muk->keuanganBjk->bjk_pupuk, 0, ',', '.') }}
+                        @else
+                            {{ 'Rp' . number_format($muk->keuanganBjk->bjk_harga_pokok, 0, ',', '.') }}
+                            |
+                            {{ number_format($muk->keuanganBjk->bjk_persen_gpm, 0, ',', '.') . '%' }}
+                        @endif
                     @else
                         {{ 'Rp' . number_format($muk->keuangan->omset_harga_pokok, 0, ',', '.') }}
-                        &nbsp; &nbsp; | &nbsp; &nbsp; {{ number_format($muk->keuangan->persen_gpm, 0, ',', '.') . '%' }}
+                        |
+                        {{ number_format($muk->keuangan->persen_gpm, 0, ',', '.') . '%' }}
                     @endif
                 </td>
             </tr>
