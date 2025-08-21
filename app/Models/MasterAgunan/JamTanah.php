@@ -3,7 +3,7 @@
 namespace App\Models\MasterAgunan;
 
 use App\Models\MasterKredit\Kredit;
-use App\Models\MasterMuk\{SC_Tanah_Agunan, SC_Tanah_Perhitungan, SC_Tanah_Rekap_1, SC_Tanah_Rekap_2, SC_Tanah_Scoring};
+use App\Models\MasterMUK\{SC_Tanah_Agunan, SC_Tanah_Perhitungan, SC_Tanah_Rekap_1, SC_Tanah_Rekap_2, SC_Tanah_Scoring};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

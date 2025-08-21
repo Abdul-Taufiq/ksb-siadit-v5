@@ -285,7 +285,13 @@ class MukService
                 'id_muk' => $muk->id_muk,
                 'bjk_periode_usaha' => $this->normalizeNumber($data['bjk_periode_usaha']),
                 'bjk_omset' => $this->normalizeNumber($data['bjk_omset']),
+                'jns_bjk' => $data['jns_bjk'],
+                // for pertanian
                 'bjk_pupuk' => $this->normalizeNumber($data['bjk_pupuk']),
+                // for non pertanian
+                'bjk_harga_pokok' => $this->normalizeNumber($data['bjk_harga_pokok']),
+                'bjk_persen_gpm' => $this->normalizeNumber($data['bjk_persen_gpm']),
+                // umum
                 'bjk_biaya_tenaga_kerja' => $this->normalizeNumber($data['bjk_biaya_tenaga_kerja']),
                 'bjk_biaya_operasional' => $this->normalizeNumber($data['bjk_biaya_operasional']),
                 'bjk_biaya_bahan_baku' => $this->normalizeNumber($data['bjk_biaya_bahan_baku']),

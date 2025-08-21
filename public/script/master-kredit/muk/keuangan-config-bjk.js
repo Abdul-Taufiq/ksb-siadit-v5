@@ -209,4 +209,57 @@ function updateIDIRBjk() {
 }
 // end idir
 
+// kategori usaha
+$("#jns_bjk").on("change", function () {
+    let val = $(this).val();
+    let pertanian = document.getElementById("pertanian");
+    let non_pertanian = document.getElementById("non_pertanian");
+
+    if (val == "Pertanian") {
+        pertanian.classList.remove("d-none");
+        non_pertanian.classList.add("d-none");
+    } else {
+        pertanian.classList.add("d-none");
+        non_pertanian.classList.remove("d-none");
+    }
+});
+
+// set GPM trigger HPP
+function setGPMbyHppBJK() {
+    const bjk_harga_pokok = document.getElementById("bjk_harga_pokok");
+    const bjk_persen_gpm = document.getElementById("bjk_persen_gpm");
+    const bjk_omset = document.getElementById("bjk_omset");
+    const bjk_pupuk = document.getElementById("bjk_pupuk");
+    let hppVal = bjk_harga_pokok.dataset.rawValue || bjk_harga_pokok.value;
+
+    if (bjk_omset.value && hppVal) {
+        let omsetVal = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
+        let total = (hppVal / omsetVal) * 100; // Hitung GPM
+        total = total.toFixed(2).replace(".", ",");
+        bjk_persen_gpm.value = setFormatRupiah(total);
+        bjk_pupuk.value = bjk_harga_pokok.value;
+    }
+}
+setInputs(document.querySelectorAll("#bjk_omset"), setGPMbyHppBJK);
+setInputs(document.querySelectorAll("#bjk_harga_pokok"), setGPMbyHppBJK);
+
+// trigger Persen GPM
+function setPersenGPMBJK() {
+    const bjk_harga_pokok = document.getElementById("bjk_harga_pokok");
+    const bjk_persen_gpm = document.getElementById("bjk_persen_gpm");
+    const bjk_omset = document.getElementById("bjk_omset");
+    const bjk_pupuk = document.getElementById("bjk_pupuk");
+    let gpmVal = bjk_persen_gpm.dataset.rawValue || bjk_persen_gpm.value;
+
+    if (bjk_omset.value && gpmVal) {
+        let omsetVal = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
+        let total = (gpmVal * omsetVal) / 100; // Hitung GPM
+        total = Math.round(total); // Pembulatan
+
+        bjk_harga_pokok.value = setFormatRupiah(total);
+        bjk_pupuk.value = setFormatRupiah(total);
+    }
+}
+setPercent(document.querySelectorAll("#bjk_persen_gpm"), setPersenGPMBJK);
+setInputs(document.querySelectorAll("#bjk_omset"), setPersenGPMBJK);
 // -ENDS KEUANGAN BERJANGKA-

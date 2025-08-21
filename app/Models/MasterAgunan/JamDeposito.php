@@ -3,8 +3,8 @@
 namespace App\Models\MasterAgunan;
 
 use App\Models\MasterKredit\Kredit;
-use App\Models\MasterMuk\SC_Deposito;
-use App\Models\MasterMuk\SC_Tabungan;
+use App\Models\MasterMUK\SC_Deposito;
+use App\Models\MasterMUK\SC_Tabungan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

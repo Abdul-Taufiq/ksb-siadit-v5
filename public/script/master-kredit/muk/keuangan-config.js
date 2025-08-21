@@ -23,7 +23,26 @@ document.querySelectorAll(".setRp").forEach((input) => {
 // +++++++++++++++++++
 // MATEMATIKA KEUANGAN ANGSURAN
 
-// Persen GPM
+// set GPM trigger HPP
+function setGPMbyHpp() {
+    const omset_harga_pokok = document.getElementById("omset_harga_pokok");
+    const persen_gpm = document.getElementById("persen_gpm");
+    const omset_usaha = document.getElementById("omset_usaha");
+    let hppVal = omset_harga_pokok.dataset.rawValue || omset_harga_pokok.value;
+
+    if (omset_usaha.value && hppVal) {
+        let omsetVal = toNumber(
+            omset_usaha.dataset.rawValue || omset_usaha.value
+        );
+        let total = (hppVal / omsetVal) * 100; // Hitung GPM
+        total = total.toFixed(2).replace(".", ",");
+        persen_gpm.value = setFormatRupiah(total);
+    }
+}
+setInputs(document.querySelectorAll("#omset_usaha"), setGPMbyHpp);
+setInputs(document.querySelectorAll("#omset_harga_pokok"), setGPMbyHpp);
+
+// trigger Persen GPM
 function setPersenGPM() {
     const omset_harga_pokok = document.getElementById("omset_harga_pokok");
     const persen_gpm = document.getElementById("persen_gpm");

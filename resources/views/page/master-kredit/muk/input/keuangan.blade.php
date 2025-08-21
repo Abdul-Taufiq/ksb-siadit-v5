@@ -40,7 +40,9 @@
                         <div class="input-group input-group-sm" style="width: 60%">
                             <input type="text" name="persen_gpm" id="persen_gpm" name="persen_gpm"
                                 class="form-control  setRp"
-                                value="{{ number_format($muk?->keuangan?->persen_gpm ?? 0, 2, ',', '.') }}">
+                                value="{{ number_format($muk?->keuangan?->persen_gpm ?? 0, 2, ',', '.') }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="Persentase GPM, Mohon Update Nilai HPP jika anda melakukan input disini!">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
@@ -340,10 +342,25 @@
 {{-- berjangka --}}
 <div class="row {{ $muk?->jns_kredit_muk == 'Berjangka' ? '' : 'd-none' }}" id="keuangan_berjangka"
     style="margin-left: 5px;">
+
+    <div class="col-md-12 mb-4">
+        <div class="form-group mb-2">
+            <label for="jns_bjk">Kategori Usaha</label>
+            <select name="jns_bjk" id="jns_bjk" class="form-select is-invalid" required>
+                <option selected disabled>-Pilih-</option>
+                <option {{ $muk?->keuanganBjk?->jns_bjk == 'Pertanian' ? 'selected' : '' }} value="Pertanian">
+                    Pertanian</option>
+                <option {{ $muk?->keuanganBjk?->jns_bjk == 'Non-Pertanian' ? 'selected' : '' }} value="Non-Pertanian">
+                    Non-Pertanian
+                </option>
+            </select>
+        </div>
+    </div>
+
     <div class="col-md-6">
         <table class="table table-striped table-sm w-100">
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_periode_usaha" class="notbold">Periode Usaha</label>
                 </td>
                 <td>
@@ -356,7 +373,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_omset" class="notbold">Omset 1 Periode Usaha</label>
                 </td>
                 <td>
@@ -367,9 +384,9 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td style="width: 50%">
-                    <label for="bjk_pupuk" class="notbold">Pupuk</label>
+            <tr id="pertanian" class="d-none">
+                <td style="width: 40%">
+                    <label for="bjk_pupuk" class="notbold">&nbsp; Pupuk</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -379,9 +396,32 @@
                     </div>
                 </td>
             </tr>
+            <tr id="non_pertanian" class="d-none">
+                <td>
+                    <label for="bjk_harga_pokok" class="notbold">&nbsp; Harga Pokok Penjualan</label>
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">Rp.</span>
+                            <input type="text" class="form-control is-invalid setRp" id="bjk_harga_pokok"
+                                name="bjk_harga_pokok"
+                                value="{{ number_format($muk?->keuanganBjk?->bjk_harga_pokok, 0, ',', '.') ?? '' }}">
+                        </div>
+                        <div class="input-group input-group-sm" style="width: 60%">
+                            <input type="text" name="bjk_persen_gpm" id="bjk_persen_gpm" name="bjk_persen_gpm"
+                                class="form-control  setRp"
+                                value="{{ number_format($muk?->keuanganBjk?->bjk_persen_gpm ?? 0, 2, ',', '.') }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip" data-bs-title="Persentase GPM">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <tr>
-                <td style="width: 50%">
-                    <label for="bjk_biaya_tenaga_kerja" class="notbold">Biaya Tenaga Kerja</label>
+                <td style="width: 40%">
+                    <label for="bjk_biaya_tenaga_kerja" class="notbold">&nbsp; Biaya Tenaga Kerja</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -393,8 +433,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
-                    <label for="bjk_biaya_operasional" class="notbold">Biaya Operasional</label>
+                <td style="width: 40%">
+                    <label for="bjk_biaya_operasional" class="notbold">&nbsp; Biaya Operasional</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -406,8 +446,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
-                    <label for="bjk_biaya_bahan_baku" class="notbold">Biaya Bahan Baku</label>
+                <td style="width: 40%">
+                    <label for="bjk_biaya_bahan_baku" class="notbold">&nbsp; Biaya Bahan Baku</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -419,8 +459,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
-                    <label for="bjk_biaya_lainnya" class="notbold">Biaya Lainnya</label>
+                <td style="width: 40%">
+                    <label for="bjk_biaya_lainnya" class="notbold">&nbsp; Biaya Lainnya</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -432,7 +472,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_pengeluaran_usaha" class="notbold">Pengeluaran 1 Periode Usaha</label>
                 </td>
                 <td>
@@ -445,7 +485,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_keuntungan_usaha" class="notbold">Keuntungan 1 Periode Usaha</label>
                 </td>
                 <td>
@@ -458,7 +498,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_keuntungan_bulan" class="notbold">Keuntungan per bulan</label>
                 </td>
                 <td>
@@ -471,7 +511,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_penghasilan_lainnya" class="notbold">Penghasilan Lainnya/bulan</label>
                 </td>
                 <td>
@@ -484,7 +524,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%">
+                <td style="width: 40%">
                     <label for="bjk_total_penghasilan" class="notbold">Total Penghasilan per bulan</label>
                 </td>
                 <td>
@@ -501,8 +541,8 @@
     <div class="col-md-6">
         <table class="table table-striped table-sm w-100">
             <tr>
-                <td style="width: 50%">
-                    <label for="bjk_belanja_rumah" class="notbold">Belanja Rumah Tangga</label>
+                <td style="width: 45%">
+                    <label for="bjk_belanja_rumah" class="notbold">&nbsp; Belanja Rumah Tangga</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -515,7 +555,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_sewa_rumah" class="notbold">Sewa/Kontrak Rumah</label>
+                    <label for="bjk_sewa_rumah" class="notbold">&nbsp; Sewa/Kontrak Rumah</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -528,7 +568,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_pendidikan" class="notbold">Pendidikan</label>
+                    <label for="bjk_pendidikan" class="notbold">&nbsp; Pendidikan</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -541,7 +581,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_listrik" class="notbold">Telpon, Listrik & Air</label>
+                    <label for="bjk_listrik" class="notbold">&nbsp; Telpon, Listrik & Air</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -554,7 +594,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_transportasi" class="notbold">Transporatasi</label>
+                    <label for="bjk_transportasi" class="notbold">&nbsp; Transporatasi</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -567,7 +607,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_pengeluaran_lainnya" class="notbold">Pengeluaran Lainnya</label>
+                    <label for="bjk_pengeluaran_lainnya" class="notbold">&nbsp; Pengeluaran Lainnya</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
