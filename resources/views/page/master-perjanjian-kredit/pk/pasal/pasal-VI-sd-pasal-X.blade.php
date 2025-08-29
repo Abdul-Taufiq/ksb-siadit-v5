@@ -126,7 +126,7 @@
         <h3>PEMBATASAN TINDAKAN DEBITUR</h3>
     </div>
 
-    Tanpa persetujuan tertulis dari <b>BANK</b>, selama kredit belum lunas <b>DEBITUR</b> tidak untuk:
+    Tanpa persetujuan tertulis dari <b>BANK</b>, selama kredit belum lunas <b>DEBITUR</b> tidak diperbolehkan untuk:
     <div class="row">
         <div class="col-md-1">a.</div>
         <div class="col-md-11">

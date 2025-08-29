@@ -163,14 +163,14 @@
             <div class="form-group">
                 <label for="nama_bank_1">Nama Bank</label>
                 <input type="text" name="nama_bank_1" id="nama_bank_1" class="form-control is-invalid"
-                    placeholder="Nama Bank" required>
+                    placeholder="Nama Bank">
             </div>
         </div>
 
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label for="tujuan_kredit_1">Tujuan Kredit</label>
-                <select name="tujuan_kredit_1" id="tujuan_kredit_1" class="form-select is-invalid" required>
+                <select name="tujuan_kredit_1" id="tujuan_kredit_1" class="form-select is-invalid">
                     <option disabled selected>- Pilih Tujuan Kredit -</option>
                     <option value="Modal Kerja">Modal Kerja</option>
                     <option value="Investasi">Investasi</option>
@@ -185,7 +185,7 @@
                 <div class="input-group">
                     <span class="input-group-text">Rp.</span>
                     <input type="text" class="form-control is-invalid" placeholder="Plafond" id="plafond_1"
-                        name="plafond_1" required>
+                        name="plafond_1">
                 </div>
             </div>
         </div>
@@ -195,7 +195,7 @@
                 <div class="input-group">
                     <span class="input-group-text">Rp.</span>
                     <input type="text" class="form-control is-invalid" placeholder="Baki Debet" id="baki_debet_1"
-                        name="baki_debet_1" required data-bs-toggle="tooltip" data-bs-placement="top"
+                        name="baki_debet_1" data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-custom-class="custom-tooltip"
                         data-bs-title="Mohon Update Nilai Ini Jika Anda mengubah Tujuan Kredit diatas Agar nilai bisa SINKRON">
                 </div>
@@ -205,7 +205,7 @@
             <div class="form-group">
                 <label for="rate_1">Rate</label>
                 <input type="type" name="rate_1" id="rate_1" class="form-control is-invalid"
-                    placeholder="Rate" required min="0">
+                    placeholder="Rate" min="0">
             </div>
         </div>
         <div class="col-md-6 mb-3">
@@ -214,14 +214,14 @@
                 <div class="input-group">
                     <span class="input-group-text">Rp.</span>
                     <input type="text" class="form-control is-invalid" placeholder="Angsuran" id="angsuran_1"
-                        name="angsuran_1" required>
+                        name="angsuran_1">
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label for="kol_1">Kol</label>
-                <select name="kol_1" id="kol_1" class="form-select is-invalid" required>
+                <select name="kol_1" id="kol_1" class="form-select is-invalid">
                     <option disabled selected>- Pilih Kol -</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -235,27 +235,25 @@
             <div class="form-group">
                 <label for="dpd_1">DPD (Jumlah Hari Tunggakan)</label>
                 <input type="text" name="dpd_1" id="dpd_1" class="form-control is-invalid"
-                    placeholder="DPD" required>
+                    placeholder="DPD">
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label for="tgl_awal_slik_1">Tgl Awal</label>
-                <input type="date" name="tgl_awal_slik_1" id="tgl_awal_slik_1" class="form-control is-invalid"
-                    required>
+                <input type="date" name="tgl_awal_slik_1" id="tgl_awal_slik_1" class="form-control is-invalid">
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label for="tgl_akhir_slik_1">Tgl Akhir</label>
-                <input type="date" name="tgl_akhir_slik_1" id="tgl_akhir_slik_1" class="form-control is-invalid"
-                    required>
+                <input type="date" name="tgl_akhir_slik_1" id="tgl_akhir_slik_1" class="form-control is-invalid">
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label for="pernah_restruck_1">Pernah di Restrcuk</label>
-                <select name="pernah_restruck_1" id="pernah_restruck_1" class="form-select is-invalid" required>
+                <select name="pernah_restruck_1" id="pernah_restruck_1" class="form-select is-invalid">
                     <option disabled selected>- Pilih Kol -</option>
                     <option value="YA">YA</option>
                     <option value="TIDAK">TIDAK</option>
@@ -266,7 +264,7 @@
             <div class="form-group">
                 <label for="alasan_restruck_1">Alasan di Restrcuk</label>
                 <input type="text" name="alasan_restruck_1" id="alasan_restruck_1"
-                    class="form-control is-invalid" placeholder="jika tidak ada isi (-)" required>
+                    class="form-control is-invalid" placeholder="jika tidak ada isi (-)">
             </div>
         </div>
 

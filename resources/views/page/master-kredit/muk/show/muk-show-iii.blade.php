@@ -18,23 +18,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($slik as $item)
+        @if ($slik->isNotEmpty())
+            @foreach ($slik as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->nama_bank }}</td>
+                    <td>{{ $item->plafond == null ? 'Rp0' : 'Rp' . number_format($item->plafond, 0, ',', '.') }}</td>
+                    <td>{{ $item->baki_debet == null ? 'Rp0' : 'Rp' . number_format($item->baki_debet, 0, ',', '.') }}
+                    </td>
+                    <td>{{ $item->rate }}%</td>
+                    <td>{{ $item->angsuran == null ? 'Rp0' : 'Rp' . number_format($item->angsuran, 0, ',', '.') }}</td>
+                    <td>{{ $item->kol }}</td>
+                    <td>{{ $item->dpd }}</td>
+                    <td>{{ $item->tujuan_kredit }}</td>
+                    <td>{{ $item->tgl_awal ? $item->tgl_awal->translatedFormat('d M Y') : '' }}</td>
+                    <td>{{ $item->tgl_akhir ? $item->tgl_akhir->translatedFormat('d M Y') : '' }}</td>
+                    <td>{{ $item->pernah_restruck }}</td>
+                    <td>{{ $item->alasan_restruck }}</td>
+                </tr>
+            @endforeach
+        @else
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->nama_bank }}</td>
-                <td>{{ $item->plafond == null ? 'Rp0' : 'Rp' . number_format($item->plafond, 0, ',', '.') }}</td>
-                <td>{{ $item->baki_debet == null ? 'Rp0' : 'Rp' . number_format($item->baki_debet, 0, ',', '.') }}</td>
-                <td>{{ $item->rate }}%</td>
-                <td>{{ $item->angsuran == null ? 'Rp0' : 'Rp' . number_format($item->angsuran, 0, ',', '.') }}</td>
-                <td>{{ $item->kol }}</td>
-                <td>{{ $item->dpd }}</td>
-                <td>{{ $item->tujuan_kredit }}</td>
-                <td>{{ $item->tgl_awal ? $item->tgl_awal->translatedFormat('d M Y') : '' }}</td>
-                <td>{{ $item->tgl_akhir ? $item->tgl_akhir->translatedFormat('d M Y') : '' }}</td>
-                <td>{{ $item->pernah_restruck }}</td>
-                <td>{{ $item->alasan_restruck }}</td>
+                <td colspan="13" style="text-align: center"><i>Tidak Ada Data</i></td>
             </tr>
-        @endforeach
+        @endif
     </tbody>
 </table>
 

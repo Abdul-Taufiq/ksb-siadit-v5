@@ -346,7 +346,7 @@
     <div class="col-md-12 mb-4">
         <div class="form-group mb-2">
             <label for="jns_bjk">Kategori Usaha</label>
-            <select name="jns_bjk" id="jns_bjk" class="form-select is-invalid" required>
+            <select name="jns_bjk" id="jns_bjk" class="form-select is-invalid">
                 <option selected disabled>-Pilih-</option>
                 <option {{ $muk?->keuanganBjk?->jns_bjk == 'Pertanian' ? 'selected' : '' }} value="Pertanian">
                     Pertanian</option>

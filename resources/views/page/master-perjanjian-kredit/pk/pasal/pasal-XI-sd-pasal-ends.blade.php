@@ -96,29 +96,29 @@ dengan ketentuan Otoritas Jasa Keuangan. <br>
     </div>
     <table style="width: 100%; text-align: center">
         <tr>
-            <td style="width: 45%;   padding: 3px 0; text-align: center;">
-                <b>PT BPR KUSUMA SUMBING</b>
+            <td style="width: 35%;   padding: 3px 0; text-align: center;">
+                <b style="font-size: 13px;">PT BPR KUSUMA SUMBING</b>
             </td>
-            <td style="padding: 4px 0; width: 55%; text-align: center;">
-                <b>DEBITUR</b>
+            <td style="padding: 4px 0; width: 65%; text-align: center;">
+                <b style="font-size: 13px;">DEBITUR</b>
             </td>
         </tr>
         <tr style="text-align: center;">
-            <td style="width: 45%;   padding: 3px 0; text-align: center;">
+            <td style="width: 35%;   padding: 3px 0; text-align: center;">
                 <br><br><br><br>
                 @if ($pkpmk->jns_pinjaman == 'Kredit Pihak Terkait')
-                    (<b>EKO BAMBANG SETIYOSO</b>)
+                    (<b style="font-size: 13px;">EKO BAMBANG SETIYOSO</b>)
                 @else
-                    (<b>{{ $pkpmk->cabang->nama_pincab }}</b>)
+                    (<b style="font-size: 13px;">{{ $pkpmk->cabang->nama_pincab }}</b>)
                 @endif
             </td>
-            <td style="padding: 4px 0; width: 55%; text-align: center;">
+            <td style="padding: 4px 0; width: 65%; text-align: center;">
                 <br><br><br><br>
                 @if ($pkpmk->debitur->status_pernikahan == 'Menikah')
-                    (<b>{{ $pkpmk->debitur->nama_debitur }}</b>)
-                    (<b>{{ $pkpmk->debitur->nama_pasangan }}</b>)
+                    (<b style="font-size: 13px;">{{ $pkpmk->debitur->nama_debitur }}</b>)
+                    (<b style="font-size: 13px;">{{ $pkpmk->debitur->nama_pasangan }}</b>)
                 @else
-                    (<b>{{ $pkpmk->debitur->nama_debitur }}</b>)
+                    (<b style="font-size: 13px;">{{ $pkpmk->debitur->nama_debitur }}</b>)
                 @endif
             </td>
         </tr>
@@ -128,24 +128,24 @@ dengan ketentuan Otoritas Jasa Keuangan. <br>
         @if ($penjamin != '')
             @foreach ($penjamin as $item)
                 <tr style="text-align: center;">
-                    <td style="width: 45%;   padding: 3px 0; text-align: center">
-                        <b>&nbsp;</b>
+                    <td style="width: 35%;   padding: 3px 0; text-align: center">
+                        <b style="font-size: 13px;">&nbsp;</b>
                     </td>
-                    <td style="padding: 4px 0; width: 55%; text-align: center">
-                        <b>PENJAMIN {{ $loop->iteration }}</b>
+                    <td style="padding: 4px 0; width: 65%; text-align: center">
+                        <b style="font-size: 13px;">PENJAMIN {{ $loop->iteration }}</b>
                     </td>
                 </tr>
                 <tr style="text-align: center;">
-                    <td style="width: 45%;   padding: 3px 0; text-align: center">
-                        <b>&nbsp;</b>
+                    <td style="width: 35%;   padding: 3px 0; text-align: center">
+                        <b style="font-size: 13px;">&nbsp;</b>
                     </td>
-                    <td style="padding: 4px 0; width: 55%; text-align: center">
+                    <td style="padding: 4px 0; width: 65%; text-align: center">
                         <br><br><br><br><br>
                         @if ($item->nama_pasangan != '')
-                            (<b>{{ $item->nama_penjamin }}</b>)
-                            (<b>{{ $item->nama_pasangan }}</b>)
+                            (<b style="font-size: 13px;">{{ $item->nama_penjamin }}</b>)
+                            (<b style="font-size: 13px;">{{ $item->nama_pasangan }}</b>)
                         @else
-                            (<b>{{ $item->nama_penjamin }}</b>)
+                            (<b style="font-size: 13px;">{{ $item->nama_penjamin }}</b>)
                         @endif
                     </td>
                 </tr>
