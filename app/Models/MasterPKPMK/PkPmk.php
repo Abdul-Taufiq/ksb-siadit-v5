@@ -27,7 +27,9 @@ class PkPmk extends Model
         'tgl_print_pkpmk' => 'datetime',
         'tgl_print_sp_bawah_tangan' => 'datetime',
         'tgl_print_tpbj' => 'datetime',
-        'tgl_print_sppk' => 'datetime'
+        'tgl_print_sppk' => 'datetime',
+        'tgl_lahir' => 'date',
+        'tgl_surat_kuasa' => 'date',
     ];
 
     protected $dates = [
@@ -41,7 +43,9 @@ class PkPmk extends Model
         'tgl_print_pkpmk',
         'tgl_print_sp_bawah_tangan',
         'tgl_print_tpbj',
-        'tgl_print_sppk'
+        'tgl_print_sppk',
+        'tgl_lahir',
+        'tgl_surat_kuasa'
     ];
     protected $primaryKey = 'id_pkpmk';
     public $guarded = ['id_pkpmk'];

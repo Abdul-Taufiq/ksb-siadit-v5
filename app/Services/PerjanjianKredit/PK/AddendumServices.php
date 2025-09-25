@@ -2,6 +2,7 @@
 
 namespace App\Services\PerjanjianKredit\PK;
 
+use App\Models\Cabang;
 use App\Models\MasterAgunan\JamDeposito;
 use App\Models\MasterAgunan\JamKenda;
 use App\Models\MasterAgunan\JamTanah;
@@ -127,6 +128,9 @@ class AddendumServices
                 'updated_at' => now()
             ]);
         } else {
+            // ambil data pincab di tb cabang
+            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+
             $pkpmk = PkPmkAddendum::create([
                 'id_cabang' => Auth::user()->id_cabang,
                 'id_pkpmk' => $data['id_pkpmk'],
@@ -137,6 +141,16 @@ class AddendumServices
                 // 'jns_akta' => $data['jns_akta'],
                 'jns_pengikatan' => $data['jns_pengikatan'],
                 'tgl_akta_notaris' => $data['tgl_akta_notaris'],
+
+                'nama_pincab' => $pincab->nama_pincab,
+                'nik' => $pincab->nik,
+                'tempat_lahir' => $pincab->tempat_lahir,
+                'tgl_lahir' => $pincab->tgl_lahir,
+                'tempat_tinggal' => $pincab->tempat_tinggal,
+                'nomor_surat_kuasa' => $pincab->nomor_surat_kuasa,
+                'tgl_surat_kuasa' => $pincab->tgl_surat_kuasa,
+                'jabatan' => $pincab->jabatan,
+
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
@@ -404,6 +418,19 @@ class AddendumServices
             $kredit->status_kredit = "SELESAI";
             $kredit->tgl_awal = now();
             $kredit->tgl_akhir = $tgl_akhir;
+
+            // ambil data pincab di tb cabang
+            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+            $kredit->nama_pincab = $pincab->nama_pincab;
+            $kredit->nik = $pincab->nik;
+            $kredit->tempat_lahir = $pincab->tempat_lahir;
+            $kredit->tgl_lahir = $pincab->tgl_lahir;
+            $kredit->tempat_tinggal = $pincab->tempat_tinggal;
+            $kredit->nomor_surat_kuasa = $pincab->nomor_surat_kuasa;
+            $kredit->tgl_surat_kuasa = $pincab->tgl_surat_kuasa;
+            $kredit->jabatan = $pincab->jabatan;
+            $kredit->save();
+
             $kredit->save();
 
             // kenda

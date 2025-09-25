@@ -44,20 +44,20 @@
                     sebagai
                     <b>“BANK”</b>.
                 @else
-                    <b>{{ $pkpmk->cabang->nama_pincab }}</b>, lahir di
-                    {{ $pkpmk->cabang->tempat_lahir }},
+                    <b>{{ $pkpmk->nama_pincab }}</b>, lahir di
+                    {{ $pkpmk->tempat_lahir }},
                     pada tanggal
-                    {{ $pkpmk->cabang->tgl_lahir?->translatedFormat('d F Y') }},
-                    warga Negara Indonesia, bertempat tinggal di {{ $pkpmk->cabang->tempat_tinggal }},
+                    {{ $pkpmk->tgl_lahir?->translatedFormat('d F Y') }},
+                    warga Negara Indonesia, bertempat tinggal di {{ $pkpmk->tempat_tinggal }},
                     NIK:
-                    {{ $pkpmk->cabang->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
-                    {{ $pkpmk->cabang->jabatan }}
-                    PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING Cabang {{ $pkpmk->cabang->alamat }} dalam
+                    {{ $pkpmk->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
+                    {{ $pkpmk->jabatan }}
+                    PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING Cabang {{ $pkpmk->alamat }} dalam
                     jabatannya
                     tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
-                    {{ $pkpmk->cabang->nomor_surat_kuasa }},
+                    {{ $pkpmk->nomor_surat_kuasa }},
                     tanggal
-                    {{ $pkpmk->cabang->tgl_surat_kuasa->translatedFormat('d F Y') }},
+                    {{ $pkpmk->tgl_surat_kuasa->translatedFormat('d F Y') }},
                     oleh karena itu sah bertindak untuk dan atas nama
                     PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING, yang berkedudukan di Kecamatan Parakan,
                     Kabupaten

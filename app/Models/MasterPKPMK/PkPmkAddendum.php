@@ -28,7 +28,9 @@ class PkPmkAddendum extends Model
         'tgl_print_addendum' => 'datetime',
         'tgl_print_sp_bawah_tangan' => 'datetime',
         'tgl_print_tpbj' => 'datetime',
-        'tgl_print_sppk' => 'datetime'
+        'tgl_print_sppk' => 'datetime',
+        'tgl_lahir' => 'date',
+        'tgl_surat_kuasa' => 'date',
     ];
 
     protected $dates = [
@@ -42,7 +44,9 @@ class PkPmkAddendum extends Model
         'tgl_print_sp_agunan',
         'tgl_print_sp_asuransi',
         'tgl_print_tpbj',
-        'tgl_print_sppk'
+        'tgl_print_sppk',
+        'tgl_lahir',
+        'tgl_surat_kuasa'
     ];
 
     protected $primaryKey = 'id_addendum';

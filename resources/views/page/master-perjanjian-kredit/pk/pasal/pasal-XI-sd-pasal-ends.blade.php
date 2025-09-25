@@ -109,7 +109,7 @@ dengan ketentuan Otoritas Jasa Keuangan. <br>
                 @if ($pkpmk->jns_pinjaman == 'Kredit Pihak Terkait')
                     (<b style="font-size: 13px;">EKO BAMBANG SETIYOSO</b>)
                 @else
-                    (<b style="font-size: 13px;">{{ $pkpmk->cabang->nama_pincab }}</b>)
+                    (<b style="font-size: 13px;">{{ $pkpmk->nama_pincab }}</b>)
                 @endif
             </td>
             <td style="padding: 4px 0; width: 65%; text-align: center;">
