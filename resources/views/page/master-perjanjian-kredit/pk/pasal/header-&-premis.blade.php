@@ -44,7 +44,7 @@
                     <b>{{ $pkpmk->nama_pincab }}</b>, lahir di
                     {{ $pkpmk->tempat_lahir }},
                     pada tanggal
-                    {{ $pkpmk->tgl_lahir->translatedFormat('d F Y') }},
+                    {{ $pkpmk->tgl_lahir ? $pkpmk->tgl_lahir->translatedFormat('d F Y') : '' }},
                     warga Negara Indonesia, bertempat tinggal di {{ $pkpmk->tempat_tinggal }},
                     NIK:
                     {{ $pkpmk->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
@@ -54,7 +54,7 @@
                     tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
                     {{ $pkpmk->nomor_surat_kuasa }},
                     tanggal
-                    {{ $pkpmk->tgl_surat_kuasa->translatedFormat('d F Y') }},
+                    {{ $pkpmk->tgl_surat_kuasa ? $pkpmk->tgl_surat_kuasa->translatedFormat('d F Y') : '' }},
                     oleh karena itu sah bertindak untuk dan atas nama
                     PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING, yang berkedudukan di Kecamatan Parakan,
                     Kabupaten
