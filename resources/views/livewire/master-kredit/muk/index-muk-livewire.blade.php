@@ -7,7 +7,7 @@
                 <div class="row mb-3">
                     <div class="col-12 col-md-3 mb-2 mb-md-0">
                         <button type="button" class="btn btn-primary btn-sm w-100" data-bs-toggle="modal"
-                            data-bs-target="#modal" wire:click='showModal("Add", "null", "null")'>
+                            data-bs-target="#modal" wire:click='ShowModal("Add", "null", "null")'>
                             <i class="fa-solid fa-user-plus"></i> Add Data MUK
                         </button>
                     </div>

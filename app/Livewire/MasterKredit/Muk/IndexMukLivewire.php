@@ -98,7 +98,7 @@ class IndexMukLivewire extends Component
 
 
     // modal
-    public function showModal($status, $no_spk, $id)
+    public function ShowModal($status, $no_spk, $id)
     {
         $this->reset('spk'); // Reset untuk mencegah cache data lama
 
