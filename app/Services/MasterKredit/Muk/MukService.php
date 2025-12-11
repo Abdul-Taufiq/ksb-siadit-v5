@@ -327,6 +327,7 @@ class MukService
             'inventory' => $this->normalizeNumber($data['inventory']),
             'piutang_usaha' => $this->normalizeNumber($data['piutang_usaha']),
             'utang_usaha' => $this->normalizeNumber($data['utang_usaha']),
+            'utang_usaha' => $this->normalizeNumber($data['total_bd_modal_kerja_view']),
             'kmk' => $this->normalizeNumber($data['kmk']),
             'doh_1' => $data['doh_1'] == '∞' ? '0' : $this->normalizeNumber($data['doh_1']),
             'doh_2' => $data['doh_2'] == '∞' ? '0' : $this->normalizeNumber($data['doh_2']),

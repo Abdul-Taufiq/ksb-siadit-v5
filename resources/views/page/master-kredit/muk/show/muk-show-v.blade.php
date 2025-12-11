@@ -23,6 +23,13 @@
                 </td>
             </tr>
             <tr>
+                <td>Utang Kredit Modal Kerja</td>
+                <td>:</td>
+                <td>
+                    {{ $muk->working->utang_kmk != null ? 'Rp' . number_format($muk->working->utang_kmk, 0, ',', '.') : 'Rp0' }}
+                </td>
+            </tr>
+            <tr>
                 <td>Working Investment/KMK</td>
                 <td>:</td>
                 <td>

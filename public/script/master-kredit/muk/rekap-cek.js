@@ -352,8 +352,9 @@ function setHargaDiterima(i) {
     if (hPasarKeseluruhan) {
         hPasarKeseluruhan.addEventListener("keyup", function () {
             hPasarDiterima.value = setFormatRupiah(
-                toNumber(hPasarKeseluruhan.value) *
-                    (parseFloat(kendaSF.value) / 100)
+                (toNumber(hPasarKeseluruhan.value) *
+                    (100 - parseFloat(kendaSF.value))) /
+                    100
             );
 
             hPasarDiterima.classList.remove("is-invalid");

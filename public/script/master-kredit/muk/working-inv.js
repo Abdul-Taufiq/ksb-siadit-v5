@@ -61,7 +61,7 @@ function updateDoh1() {
 
     if (jnsKredit.value == "Berjangka") {
         let omset = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
-        total = inv / omset - 30;
+        total = (inv / omset) * 30;
         total = Math.round(total);
     } else {
         let harga_pp = toNumber(hpp.dataset.rawValue || hpp.value);
@@ -93,7 +93,7 @@ function updateDoh2() {
     if (jnsKredit.value == "Berjangka") {
         let periode =
             bjk_periode_usaha.dataset.rawValue || bjk_periode_usaha.value;
-        let total = piutang / periode - 30;
+        let total = (piutang / omset) * 30;
         total = Math.round(total);
     } else {
         let omset = toNumber(pendapatan.dataset.rawValue || pendapatan.value);
@@ -122,7 +122,7 @@ function updateDoh3() {
 
     if (jnsKredit.value == "Berjangka") {
         let omset = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
-        let total = utang / omset - 30;
+        let total = (utang / omset) * 30;
         total = Math.round(total);
     } else {
         let omset = toNumber(pendapatan.dataset.rawValue || pendapatan.value);

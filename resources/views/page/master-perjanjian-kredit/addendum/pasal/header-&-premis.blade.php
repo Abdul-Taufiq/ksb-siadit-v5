@@ -72,11 +72,19 @@
                     <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
                     lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
                     {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}, NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
+                    bertempat tinggal di
+
+                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                        Kabupaten/Kota
+                        {{ $pkpmk->debitur->kabupaten }}
+                    @else
+                        {{ $pkpmk->debitur->alamat_rumah }}
+                    @endif
+
+                    , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
                     {{ $pkpmk->debitur->pekerjaan }},
                     yang dalam melakukan perbuatan hukum ini memerlukan persetujuan dari
                     {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
@@ -98,11 +106,19 @@
                     <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
                     lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
                     {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}, NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
+                    bertempat tinggal di
+
+                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                        Kabupaten/Kota
+                        {{ $pkpmk->debitur->kabupaten }}
+                    @else
+                        {{ $pkpmk->debitur->alamat_rumah }}
+                    @endif
+
+                    , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
                     {{ $pkpmk->debitur->pekerjaan }},
                     yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan dari
                     {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
@@ -129,11 +145,19 @@
                     <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
                     lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
                     {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}, NIK: {{ $pkpmk->debitur->nik }}, yang dalam
+                    bertempat tinggal di
+
+                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                        Kabupaten/Kota
+                        {{ $pkpmk->debitur->kabupaten }}
+                    @else
+                        {{ $pkpmk->debitur->alamat_rumah }}
+                    @endif
+
+                    , NIK: {{ $pkpmk->debitur->nik }}, yang dalam
                     melakukan
                     perbuatan hukum ini tidak memerlukan
                     persetujuan dari siapapun karena tidak terikat dengan perkawinan yang sah, yang

@@ -212,6 +212,7 @@ function updateSelisihPersenBjk() {
 // Hitung TOTAL BD/OS di SLIK yang memiliki tujuan MODAL KERJA
 // total BD
 const totalBDMK = document.getElementById("total_bd_modal_kerja");
+const totalBDKMKView = document.getElementById("total_bd_modal_kerja_view");
 
 function updateTotalBDModalKerja() {
     let total = 0;
@@ -230,5 +231,9 @@ function updateTotalBDModalKerja() {
         totalBDMK.value = setRpId(total);
         totalBDMK.classList.remove("is-invalid");
         totalBDMK.classList.add("is-valid");
+
+        totalBDKMKView.value = setRpId(total);
+        totalBDKMKView.classList.remove("is-invalid");
+        totalBDKMKView.classList.add("is-valid");
     }
 }

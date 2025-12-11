@@ -208,21 +208,19 @@
             <textarea
                 class="form-control is-invalid {{ $debitur == null || $debitur->alamat_rumah == $debitur->alamat_ktp ? 'd-none' : '' }}"
                 name="alamat_rumah{{ $id_field }}" id="alamat_rumah{{ $id_field }}" rows="3"
-                placeholder="Alamat Rumah, contoh: Jl. Pangeran Diponegoro No.210, Jetis Selatan, Parakan Kauman, Kec. Parakan, Kabupaten Temanggung">{{ $debitur != null ? $debitur->alamat_rumah : null }}</textarea>
+                placeholder="HARUS SESUAI FORMAT!!!, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ...">{{ $debitur != null ? $debitur->alamat_rumah : null }}</textarea>
         </div>
     </div>
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-4 d-none">
         <div class="form-group">
             <label for="rt_rw_rumah_opsi{{ $id_field }}">RT/RW :</label>
             <select name="rt_rw_rumah_opsi{{ $id_field }}" id="rt_rw_rumah_opsi{{ $id_field }}"
                 class="form-control is-invalid" required>
-                <option disabled selected>- Pilih Status Alamat Domisili -</option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->rt_rw_rumah == $debitur->rt_rw_ktp) ? 'selected' : null }}
-                    value="Sama">Sama Dengan KTP</option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->rt_rw_rumah != $debitur->rt_rw_ktp) ? 'selected' : null }}
-                    value="Tidak">Tidak Sama Dengan KTP</option>
+                <option disabled>- Pilih Status Alamat Domisili -</option>
+                <option selected value="Sama">Sama Dengan KTP</option>
+                <option disabled value="Tidak">Tidak Sama Dengan KTP</option>
             </select>
             <input type="text" name="rt_rw_rumah{{ $id_field }}" id="rt_rw_rumah{{ $id_field }}"
                 required
@@ -503,7 +501,9 @@
                 <textarea
                     class="form-control is-invalid {{ ($debitur == null ? 'd-none' : $debitur->alamat_pasangan != 'sama dengan suaminya' && $debitur->alamat_pasangan != 'sama dengan istrinya') ? '' : 'd-none' }}"
                     name="alamat_pasangan{{ $id_field }}" id="alamat_pasangan{{ $id_field }}" rows="3"
-                    placeholder="Alamat Rumah, contoh: Jl. Pangeran Diponegoro No.210, Jetis Selatan, Parakan Kauman, Kec. Parakan, Kabupaten Temanggung">{{ $debitur != null ? $debitur->alamat_pasangan : null }}</textarea>
+                    placeholder="Alamat Rumah, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ...">{{ $debitur != null ? $debitur->alamat_pasangan : null }}</textarea>
             </div>
         </div>
         <div class="col-md-6 mb-4">

@@ -104,7 +104,10 @@
                 <div class="form-group">
                     <label for="alamat_{{ $loop->iteration }}">Alamat:</label>
                     <textarea name="alamat_{{ $loop->iteration }}" id="alamat_{{ $loop->iteration }}" required
-                        class="form-control is-invalid" placeholder="Alamat">{{ $item != null ? $item->alamat : null }}</textarea>
+                        class="form-control is-invalid" rows="3"
+                        placeholder="HARUS SESUAI FORMAT!!!, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Format: <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ...">{{ $item != null ? $item->alamat : null }}</textarea>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
@@ -191,7 +194,9 @@
                     <textarea
                         class="form-control is-invalid {{ $item->alamat_pasangan != 'sama dengan suaminya' && $item->alamat_pasangan != 'sama dengan istrinya' ? '' : 'd-none' }}"
                         name="alamat_pasangan_{{ $loop->iteration }}" id="alamat_pasangan_{{ $loop->iteration }}" rows="3"
-                        placeholder="Alamat Rumah, contoh: Jl. Pangeran Diponegoro No.210, Jetis Selatan, Parakan Kauman, Kec. Parakan, Kabupaten Temanggung">{{ $item->alamat_pasangan }}</textarea>
+                        placeholder="HARUS SESUAI FORMAT!!!, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ...">{{ $item->alamat_pasangan }}</textarea>
                 </div>
             </div>
         </div>

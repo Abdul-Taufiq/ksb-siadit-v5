@@ -46,6 +46,19 @@
             </tr>
             <tr>
                 <td style="width: 50%">
+                    <label for="total_bd_modal_kerja_view" class="notbold">Utang Kredit Modal Usaha</label>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Rp.</span>
+                        <input type="text" class="form-control is-invalid setRp" name="total_bd_modal_kerja_view"
+                            id="total_bd_modal_kerja_view" readonly
+                            value="{{ number_format($muk?->working?->utang_kmk, 0, ',', '.') ?? null }}">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%">
                     <label for="kmk" class="notbold">Working Investment/KMK</label>
                 </td>
                 <td>

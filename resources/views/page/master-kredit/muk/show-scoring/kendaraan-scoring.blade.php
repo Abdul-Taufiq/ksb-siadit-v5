@@ -231,7 +231,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3" style="padding-left: 30px">Harga Pasar yang Dapat Diterima</td>
+                            <td colspan="3" style="padding-left: 30px">Harga Taksasi yang Dapat Diterima</td>
                             <td colspan="3">
                                 :
                                 {{ 'Rp' . number_format($kenda->sc_kenda_agunan->harga_pasar_diterima, 0, ',', '.') }}

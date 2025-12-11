@@ -144,7 +144,7 @@
         </tr>
         <tr>
             <td>
-                <label class="notbold" for="harga_pasar_diterima_{{ $loop->iteration }}">Harga Pasar Yang Dapat
+                <label class="notbold" for="harga_pasar_diterima_{{ $loop->iteration }}">Harga Taksasi Yang Dapat
                     Diterima</label>
             </td>
             <td>

@@ -80,7 +80,9 @@ function tambahPenjamin() {
                     <div class="col-md-6 mb-4">
                         <div class="form-group">
                             <label for="alamat_${counter}">Alamat:</label>
-                            <textarea name="alamat_${counter}" id="alamat_${counter}" required class="form-control is-invalid" placeholder="Alamat"></textarea>
+                            <textarea name="alamat_${counter}" id="alamat_${counter}" required class="form-control is-invalid" rows="3" placeholder="HARUS SESUAI FORMAT!!!, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                            data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ..."></textarea>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
@@ -147,7 +149,9 @@ function tambahPenjamin() {
                                 <option value="sama dengan istrinya">Sama Dengan Istrinya</option>
                             </select>
                             <textarea class="form-control d-none is-invalid" name="alamat_pasangan_${counter}" id="alamat_pasangan_${counter}" rows="3"
-                                placeholder="Alamat Rumah, contoh: Jl. Pangeran Diponegoro No.210, Jetis Selatan, Parakan Kauman, Kec. Parakan, Kabupaten Temanggung"></textarea>
+                                placeholder="HARUS SESUAI FORMAT!!!, Jalan Pangeran Diponegoro Nomor 210, RT/RW 003/004, Desa/Kelurahan Karangsari, Kecamatan Parakan, Kabupaten/Kota Temanggung"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ..."></textarea>
                         </div>
                     </div>
                 </div>
