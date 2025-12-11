@@ -39,8 +39,9 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            // 'root' => storage_path('app/public'), // untuk local
+            'root' => base_path('../public_html/Laravel-public-kredit-v5/storage'), // Untuk Hosting
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
