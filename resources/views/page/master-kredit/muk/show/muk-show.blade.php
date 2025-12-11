@@ -30,8 +30,8 @@
                             @if ($muk->kredit->persetujuan->putusan != 'Cabang')
                                 Silahkan lihat file putusan di bawah ini <br>
                                 @if ($muk->file_putusan)
-                                    <a href="{{ asset('file_upload/putusan/' . $muk->file_putusan) }}" target="_blank"
-                                        style="font-weight: bold; color: darkcyan">
+                                    <a href="{{ asset('storage/file_upload/putusan/' . $muk->file_putusan) }}"
+                                        target="_blank" style="font-weight: bold; color: darkcyan">
                                         <i>{{ $muk->file_putusan }}</i>
                                     </a>
                                 @else
