@@ -2,7 +2,7 @@
     <div class="col-md-12 mb-3">
         <strong>Prospek Usaha :</strong>
         <div class="px-2">
-            {!! $muk->data->prospek_usaha !!}
+            {!! $muk->data?->prospek_usaha !!}
         </div>
     </div>
 </div>
@@ -10,7 +10,7 @@
     <div class="col-md-12 mb-3">
         <strong>Konsentrasi Pemasok dan Pelanggan :</strong>
         <div class="px-2">
-            {!! $muk->data->pemasok_dan_pelanggan !!}
+            {!! $muk->data?->pemasok_dan_pelanggan !!}
         </div>
     </div>
 </div>
