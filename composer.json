@@ -19,7 +19,9 @@
         "maatwebsite/excel": "^3.1",
         "mews/captcha": "^3.4",
         "mpdf/mpdf": "^8.2",
-        "riskihajar/terbilang": "^2.0"
+        "riskihajar/terbilang": "^2.0",
+        "setasign/fpdi": "^2.6",
+        "setasign/fpdi-fpdf": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

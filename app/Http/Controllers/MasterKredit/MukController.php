@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Mpdf\Mpdf;
 use Riskihajar\Terbilang\Facades\Terbilang;
+use setasign\Fpdi\Fpdi;
+
 
 class MukController extends Controller
 {
@@ -312,8 +314,51 @@ class MukController extends Controller
                 'isPhpEnabled' => true,
             ]);
 
+        // $no_muk = str_replace('/', '-', $muk->no_muk);
+        // return $pdf->stream('Master MUK No. ' . $no_muk .  '.pdf');
+
+        // $pdf->setPaper('A4', 'portrait');
+        $output = $pdf->output();
+
+        // simpan hasil dompdf ke file sementara
+        // buat nama file sementara yang unik
+        $uniqueName = 'temp_muk_' . uniqid() . '.pdf';
+        $tempFile   = storage_path('app/' . $uniqueName);
+        file_put_contents($tempFile, $output);
+
+        // gabungkan dengan PDF lama
+        $fpdi = new Fpdi();
+
+        // import PDF baru (hasil Dompdf)
+        $pageCount = $fpdi->setSourceFile($tempFile);
+        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+            $templateId = $fpdi->importPage($pageNo);
+            $size = $fpdi->getTemplateSize($templateId);
+            $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
+            $fpdi->useTemplate($templateId);
+        }
+
+        // import PDF lama
+        $pdfLama = storage_path('app/public/file_upload/putusan/putusan_693a93d728829.pdf'); // path PDF lama
+        $pageCount = $fpdi->setSourceFile($pdfLama);
+        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+            $templateId = $fpdi->importPage($pageNo);
+            $size = $fpdi->getTemplateSize($templateId);
+            $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
+            $fpdi->useTemplate($templateId);
+        }
+
+        // hapus file sementara setelah dipakai
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
+
+        // output gabungan
         $no_muk = str_replace('/', '-', $muk->no_muk);
-        return $pdf->stream('Master MUK No. ' . $no_muk .  '.pdf');
+        $fpdi->SetTitle('Print Master MUK ' . $muk->no_muk);
+        return response($fpdi->Output('S'))
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="Master MUK No. ' . $no_muk . '.pdf"');
     }
 
 

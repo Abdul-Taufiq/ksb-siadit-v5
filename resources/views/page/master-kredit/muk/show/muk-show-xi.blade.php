@@ -1,4 +1,4 @@
-<div class="mb-2">
+<div class="mb-1">
     <table class="table table-bordered table-sm w-100">
         <thead>
             <tr>
@@ -17,7 +17,11 @@
                 <td style="text-align: center">
                     {{ !empty($muk->putusan->rekom_pincab) ? $muk->putusan->rekom_pincab : 'Belum Ada data' }}</td>
                 <td style="text-align: center; vertical-align: bottom">
-                    <br><br><br><br><br><br>
+                    @if ($muk->putusan->rekom_pincab != null)
+                        <img style="max-width: 120px; max-height: 120px;"
+                            src="{{ public_path('images/ttd/pincab.jpg') }}">
+                    @endif
+                    <br>
                     (
                     {{ !empty($muk->putusan->nama_pincab) ? $muk->putusan->nama_pincab : 'Belum Ada data' }}
                     )
@@ -29,7 +33,11 @@
                 <td style="text-align: center">
                     {{ !empty($muk->putusan->rekom_kakom) ? $muk->putusan->rekom_kakom : 'Belum Ada data' }}</td>
                 <td style="text-align: center; vertical-align: bottom">
-                    <br><br><br><br><br><br>
+                    @if ($muk->putusan->rekom_kakom != null)
+                        <img style="max-width: 120px; max-height: 120px;"
+                            src="{{ public_path('images/ttd/kakom.jpg') }}">
+                    @endif
+                    <br>
                     (
                     {{ !empty($muk->putusan->nama_kakom) ? $muk->putusan->nama_kakom : 'Belum Ada data' }}
                     )
@@ -42,7 +50,11 @@
                     {{ !empty($muk->putusan->rekom_analis_cabang) ? $muk->putusan->rekom_analis_cabang : 'Belum Ada data' }}
                 </td>
                 <td style="text-align: center; vertical-align: bottom">
-                    <br><br><br><br><br><br>
+                    @if ($muk->putusan->rekom_analis_cabang != null)
+                        <img style="max-width: 120px; max-height: 120px;"
+                            src="{{ public_path('images/ttd/analis cabang.jpg') }}">
+                    @endif
+                    <br>
                     (
                     {{ !empty($muk->putusan->nama_analis_cabang) ? $muk->putusan->nama_analis_cabang : 'Belum Ada data' }}
                     )
@@ -54,7 +66,10 @@
                 <td style="text-align: center">
                     {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->rekom_ao : 'Belum Ada data' }}</td>
                 <td style="text-align: center; vertical-align: bottom">
-                    <br><br><br><br><br><br>
+                    @if ($muk->putusan->rekom_ao != null)
+                        <img style="max-width: 120px; max-height: 120px;" src="{{ public_path('images/ttd/ao.jpg') }}">
+                    @endif
+                    <br>
                     (
                     {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_ao : 'Belum Ada data' }}
                     )

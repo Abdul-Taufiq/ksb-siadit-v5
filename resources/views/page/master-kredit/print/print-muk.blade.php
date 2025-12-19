@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
-    <link rel="shortcut icon" href="{{ public_path('images/logo-ksb.png') }}">
-    <link rel="icon" href="{{ public_path('images/logo-ksb.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo-ksb.png') }}">
+    <link rel="icon" href="{{ asset('images/logo-ksb.png') }}">
     {{-- @include('page.master-kredit.muk.show-scoring.style') --}}
     <link rel="stylesheet" href="{{ public_path('template/css/style-for-print-dompdf.css') }}">
 
@@ -91,7 +91,7 @@
         </td>
     </table>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">I. PERMOHONAN NASABAH</div>
@@ -102,7 +102,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">II. DATA PEMOHON</div>
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">III. DATA HASIL SLIK</div>
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">IV. DATA KEUANGAN</div>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">V. WORKING INVESTMENT/KECUKUPAN MODAL KERJA</div>
@@ -146,7 +146,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">VI. DATA MANAGEMENT</div>
@@ -157,7 +157,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">VII. ANALISA INDUSTRI</div>
@@ -168,7 +168,7 @@
         </div>
     </div>
 
-    <div class="card mb-2" style="page-break-inside: avoid;">
+    <div class="card mb-1" style="page-break-inside: avoid;">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">VIII. DATA AGUNAN</div>
@@ -179,7 +179,7 @@
         </div>
     </div>
 
-    <div class="card mb-2" style="page-break-before: always; page-break-after: always;">
+    <div class="card mb-1" style="page-break-before: always; page-break-after: always;">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">IX. PENYIMPANGAN/DEVIASI</div>
@@ -190,7 +190,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card mb-1">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">X. USULAN/REKOMENDASI</div>
@@ -201,7 +201,7 @@
         </div>
     </div>
 
-    <div class="card mb-2">
+    <div class="card">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
                 <div class="head-judul">XI. PUTUSAN</div>
@@ -212,12 +212,11 @@
         </div>
     </div>
 
-
     {{-- footer --}}
     <script type="text/php">
         if (isset($pdf)) {
-                $x = 480;
-                $y = 810;
+                $x = 500;
+                $y = 820;
                 $text = "Halaman {PAGE_NUM} dari {PAGE_COUNT}";
                 $font = null;
                 $size = 10;
