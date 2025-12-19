@@ -35,7 +35,7 @@ function updateUsulanAngsuran() {
     let total; // Deklarasi variabel di luar `if` untuk mencegah scoping issue
 
     if (jns_kredit.value === "Berjangka") {
-        total = ((plafond * bungaValue) / 360) * 31;
+        total = (plafond * bungaValue * 31) / 360;
         // console.log("Berjangka: " + total);
     } else {
         total = ((plafond * jkwValue * bungaValue) / 12 + plafond) / jkwValue;
@@ -62,6 +62,38 @@ function updateUsulanAngsuran() {
 
     // trigger simpan data wi
     updateKmk();
+
+    // PERINGATAN KALAU IDIR TIDAK SESUAI KETENTUAN
+    const peringatan = document.getElementById("peringatan");
+    const buttonSave = document.getElementById("simpan");
+    const kredit = document.getElementById("jns_kredit");
+    let nilai_diizinkan = 70.0;
+
+    if (kredit.value === "Angsuran") {
+        let idirAngs = document.getElementById("idir");
+
+        if (idirAngs.value.replace(/,/g, ".") > nilai_diizinkan) {
+            buttonSave.setAttribute("disabled", "true");
+            peringatan.classList.remove("d-none");
+            console.log("tidak diizinkan");
+        } else {
+            buttonSave.removeAttribute("disabled");
+            peringatan.classList.add("d-none");
+            console.log("masih oke");
+        }
+    } else {
+        let idirBjk = document.getElementById("bjk_idir");
+
+        if (idirBjk.value.replace(/,/g, ".") > nilai_diizinkan) {
+            buttonSave.setAttribute("disabled", "true");
+            peringatan.classList.remove("d-none");
+            console.log("tidak diizinkan");
+        } else {
+            buttonSave.removeAttribute("disabled");
+            peringatan.classList.add("d-none");
+            console.log("masih oke");
+        }
+    }
 }
 
 // Pasang event listener ke input yang memicu perubahan jumlah angsuran

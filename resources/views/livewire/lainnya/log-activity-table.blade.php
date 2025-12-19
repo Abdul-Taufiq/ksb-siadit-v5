@@ -30,6 +30,11 @@
                         'nameSort' => 'aksi',
                         'displayName' => 'Aksi',
                     ])
+                    {{-- Aksi --}}
+                    @include('livewire.komponen.sorting-table', [
+                        'nameSort' => 'created_at',
+                        'displayName' => 'Created',
+                    ])
                 </tr>
             </thead>
             <tbody style="vertical-align: middle">
@@ -40,6 +45,7 @@
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{!! $item->aksi !!}</td>
+                        <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
                     </tr>
                 @endforeach
             </tbody>

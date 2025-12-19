@@ -89,7 +89,7 @@
                                                     <i class="fa-solid fa-xmark"></i> Rejected
                                                 </span>
                                             @else
-                                                <span class="badge text-bg-secondary" style="font-size: 11px;"
+                                                <span class="badge text-bg-info" style="font-size: 11px;"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-custom-class="custom-tooltip"
                                                     data-bs-title="Status ini hanya untuk follow up putusan selain cabang, jika putusan cabang ke data debitur">
@@ -162,6 +162,60 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="plafond" class="wajib">Plafond Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="plafond_sama_muk"
+                                            wire:model.live='plafond_cek'>
+                                        <label class="form-check-label notbold" for="plafond_sama_muk">
+                                            Plafond Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp.</span>
+                                        <input type="text" class="form-control form-control-sm" id="plafond"
+                                            name="plafond" wire:model.live='plafond'
+                                            onkeyup="this.value = formatAngka(this.value)"
+                                            {{ $plafond_cek == true ? 'disabled' : 'required' }}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="jkw" class="wajib">Jangka Waktu Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="jkw_sama_muk"
+                                            wire:model.live='jkw_cek'>
+                                        <label class="form-check-label notbold" for="jkw_sama_muk">
+                                            JKW Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="jkw"
+                                        name="jkw" wire:model.live='jkw'
+                                        onkeyup="this.value = formatAngka(this.value)"
+                                        {{ $jkw_cek == true ? 'disabled' : 'required' }}>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="bunga" class="wajib">Bunga Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="bunga_sama_muk"
+                                            wire:model.live='bunga_cek'>
+                                        <label class="form-check-label notbold" for="bunga_sama_muk">
+                                            Bunga Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="bunga"
+                                        name="bunga" wire:model.live='bunga'
+                                        onkeyup="this.value = formatAngka(this.value)"
+                                        {{ $bunga_cek == true ? 'disabled' : 'required' }}>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label for="file_putusan">Upload File Putusan MUK</label>
@@ -232,6 +286,24 @@
 
 @section('script')
     <script>
+        // fungsi RP
+        function formatAngka(angka) {
+            var numberString = angka.replace(/[^,\d]/g, "").toString(),
+                split = numberString.split(","),
+                sisa = split[0].length % 3,
+                hasil = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                var separator = sisa ? "." : "";
+                hasil += separator + ribuan.join(".");
+            }
+
+            hasil = split[1] !== undefined ? hasil + "," + split[1] : hasil;
+
+            return hasil;
+        }
+
         Livewire.on("inisialSelect2", () => {
             $('#spk').select2({
                 theme: "bootstrap-5",

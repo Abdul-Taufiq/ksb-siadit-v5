@@ -15,6 +15,7 @@
     {{-- bootsrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ public_path('template/css/style-for-print-dompdf.css') }}">
 
     <style>
         @font-face {
@@ -33,9 +34,10 @@
 
         body {
             font-family: Tahoma, sans-serif;
-            margin: 0cm 1.2cm 0cm 0cm;
+            /* margin: 1.5cm 1.2cm 1.5cm 2.5cm; */
             font-size: 11pt;
             text-align: justify !important;
+            line-height: 12pt;
         }
 
         table {
@@ -50,14 +52,12 @@
 
         h3 {
             font-size: 12pt !important;
-            /* line-height: 0px !important; */
-            margin-bottom: 0px !important;
-            font-weight: bold !important;
+            margin-bottom: -4px !important;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .col-md-6 {
@@ -107,29 +107,21 @@
             text-align: justify !important;
         }
 
-        /* .list {
-            margin-left: 6.2rem !important;
-        } */
-
-        .premis-jaminan {
-            margin-left: 5.1rem;
+        .list {
+            margin-left: 5.3rem !important;
         }
 
-        .btn-print {
-            position: fixed;
-            width: 100%;
-            background-color: rgb(53, 53, 53);
+        .premis-jaminan {
+            margin-left: 4.5rem;
         }
 
         .headlist {
             font-size: 11pt;
-            margin-left: 10px;
-            margin-bottom: 2px;
             font-family: Tahoma, sans-serif;
             text-align: justify;
         }
 
-        .list {
+        .listArgumen {
             float: left;
             width: 5%;
             margin-left: 2px;
@@ -138,6 +130,12 @@
         .desk {
             margin-left: 5%;
             width: 95%;
+        }
+
+        .btn-print {
+            position: fixed;
+            width: 100%;
+            background-color: rgb(53, 53, 53);
         }
 
         /* css saat di cetak */
@@ -200,26 +198,29 @@
         @switch($pkpmk->kredit->jns_kategori_spk)
             @case('Reschedulling')
                 <div class="headlist">
-                    <div class="list">1.</div>
+                    <div class="list">1. Pasal 2 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 2 diubah sehingga menjadi sebagai berikut : <br>
+                        <br>
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal2')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">2.</div>
+                    <div class="list">2. Pasal 3 diubah sehingga menjadi sebagai berikut : </div>
                     <div class="desk">
-                        Pasal 3 diubah sehingga menjadi sebagai berikut : <br>
+                        <br>
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal3')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">3.</div>
+                    <div class="list">3. Pasal 4 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 4 diubah sehingga menjadi sebagai berikut :
+                        <br>
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal4')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
             @break
 
             @case('Recondition')
@@ -227,33 +228,36 @@
 
             @case('Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)')
                 <div class="headlist">
-                    <div class="list">1.</div>
+                    <div class="list">1. Pasal 1 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 1 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal1')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">2.</div>
+                    <div class="list">2. Pasal 2 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 2 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal2')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">3.</div>
+                    <div class="list">3. Pasal 3 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 3 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal3')
                     </div>
                 </div>
                 <div class="headlist">
-                    <div class="list">4.</div>
+                    <div class="list">4. Pasal 4 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 4 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal4')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
             @break
 
             @case('Restructuring')
@@ -261,40 +265,45 @@
 
             @case('Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)')
                 <div class="headlist">
-                    <div class="list">1.</div>
+                    <div class="list">1. Pasal 1 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 1 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal1')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">2.</div>
+                    <div class="list">2. Pasal 2 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 2 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal2')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">3.</div>
+                    <div class="list">3. Pasal 3 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 3 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal3')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">4.</div>
+                    <div class="list">4. Pasal 4 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 4 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal4')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
                 <div class="headlist">
-                    <div class="list">5.</div>
+                    <div class="list">5. Pasal 5 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 5 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal5')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
             @break
 
             @case('Perubahan Fasilitas Kredit')
@@ -318,7 +327,7 @@
                 </div>
                 {{-- end pasal 6 --}}
 
-
+                <i class="text-danger">This Page Preview</i>
                 {{-- pasal 12 --}}
                 <div class="mb-4">
                     <div class="header">
@@ -334,7 +343,7 @@
                 </div>
                 {{-- end pasal 12 --}}
 
-
+                <i class="text-danger">This Page Preview</i>
                 {{-- pasal 13 --}}
                 <div class="mb-4">
                     <div class="header">
@@ -347,7 +356,7 @@
                 </div>
                 {{-- end pasal 13 --}}
 
-
+                <i class="text-danger">This Page Preview</i>
                 {{-- pasal 14 --}}
                 <div class="mb-4">
                     <div class="header">
@@ -377,7 +386,7 @@
                 </div>
                 {{-- end pasal 14 --}}
 
-
+                <i class="text-danger">This Page Preview</i>
                 {{-- pasal 15 --}}
                 <div class="mb-4">
                     <div class="header">
@@ -402,12 +411,13 @@
 
             @case('Mengubah Jaminan (Menambah)')
                 <div class="headlist">
-                    <div class="list">1.</div>
+                    <div class="list">1. Pasal 5 diubah sehingga menjadi sebagai berikut :</div>
                     <div class="desk">
-                        Pasal 5 diubah sehingga menjadi sebagai berikut :
+
                         @include('page.master-perjanjian-kredit.addendum.pasal.pasal5')
                     </div>
                 </div>
+                <i class="text-danger">This Page Preview</i>
             @break
         @endswitch
 
@@ -478,6 +488,8 @@
                 @endif
             </table>
         </div>
+
+        <i class="text-danger">This Page Preview</i>
     </div>
 
     {{-- footer --}}

@@ -243,11 +243,11 @@ class MukServiceEdit
             'id_cabang' => $id_cabang,
             'id_debitur' => $kredit->id_debitur,
             'jns_kredit' => $data['jns_kredit'],
-            'pertimbangan' => $data['pertimbangan'],
+            // 'pertimbangan' => $data['pertimbangan'],
             'putusan' => $data['putusan'],
             'jns_bunga' => $data['jns_bunga'],
-            'besar_bunga' =>  $this->normalizeNumber($data['besar_bunga']),
-            'jumlah_angsuran' => $this->normalizeNumber($data['jumlah_angsuran']),
+            'besar_bunga_muk' =>  $this->normalizeNumber($data['besar_bunga']),
+            'jumlah_angsuran_muk' => $this->normalizeNumber($data['jumlah_angsuran']),
             'provisi' =>  $this->normalizeNumber($data['provisi']),
             'jumlah_provisi' => $this->normalizeNumber($data['jumlah_provisi']),
             'besar_adm' =>  $this->normalizeNumber($data['besar_adm']),
@@ -259,8 +259,8 @@ class MukServiceEdit
 
         // update kredit
         $kredit->update([
-            'jumlah_disetujui' => $this->normalizeNumber($data['jumlah_disetujui']),
-            'jkw' => $data['jkw'],
+            'jumlah_muk' => $this->normalizeNumber($data['jumlah_disetujui']),
+            'jkw_muk' => $data['jkw'],
             'status_muk' => 'created'
         ]);
 
@@ -332,7 +332,7 @@ class MukServiceEdit
             // 'jns_penyimpangan' => $data['jns_penyimpangan'],
             'ketentuan_berlaku' => $data['ketentuan_berlaku'],
             'penyimpangan_diajukan' => $data['penyimpangan_diajukan'],
-            'pertimbangan' => $data['pertimbangan'],
+            // 'pertimbangan' => $data['pertimbangan'],
         ]);
         //     }
         // }

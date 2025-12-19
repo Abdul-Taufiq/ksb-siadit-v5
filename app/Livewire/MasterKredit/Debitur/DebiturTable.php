@@ -28,6 +28,7 @@ class DebiturTable extends Component
     public $analis_area_selected = null;
     public $analis_komite_selected = null;
     public $analis_area = [], $analis_komite = [];
+    public $plafond, $jkw, $bunga, $plafond_cek, $jkw_cek, $bunga_cek = null;
 
     protected $listeners = ['refreshTable' => '$refresh', 'UpdateStatus', 'reCallSelect'];
 
@@ -50,21 +51,21 @@ class DebiturTable extends Component
             case 'SUPER USER':
                 $this->kc = true;
                 $this->id_cabang = 99;
-                $this->id_area_1 = [1, 2, 3, 7, 10, 11];
-                $this->id_area_2 = [4, 5, 6, 8, 9];
+                $this->id_area_1 = [4, 5, 6, 7, 8, 9];
+                $this->id_area_2 = [1, 2, 3, 10, 11];
                 $this->id_area_3 = [3, 10];
                 break;
 
             case 'AREA 1':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [1, 2, 3, 7, 10, 11];
+                $this->id_cab_area = [4, 5, 6, 7, 8, 9];
                 break;
 
             case 'AREA 2':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [4, 5, 6, 8, 9];
+                $this->id_cab_area = [1, 2, 3, 10, 11];
                 break;
 
             case 'AREA 3':
@@ -143,6 +144,9 @@ class DebiturTable extends Component
             'analis_komite',
             'analis_komite_selected',
             'putusan',
+            'plafond',
+            'jkw',
+            'bunga',
         ]));
         $this->js("window.dispatchEvent(new Event('resetSummernote'))");
     }

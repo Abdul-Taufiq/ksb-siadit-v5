@@ -107,21 +107,21 @@
 
 <div class="mb-2">
     <strong>Ketentuan Yang Berlaku</strong>
-    <div style="font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
+    <div style="margin-left: 5px; font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
         {!! $muk->deviasi?->ketentuan_berlaku !!}
     </div>
 </div>
 
 <div class="mb-2">
     <strong>Penyimpangan Yang Diajukan</strong>
-    <div style="font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
+    <div style="margin-left: 5px; font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
         {!! $muk->deviasi?->penyimpangan_diajukan !!}
     </div>
 </div>
 
 <div class="mb-2">
     <strong>Pertimbangan</strong>
-    <div style="font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
+    <div style="margin-left: 5px; font-size: {{ strpos(url()->current(), 'print') !== false ? '8pt' : '9pt' }}">
         {!! $muk->deviasi?->pertimbangan !!}
     </div>
 </div>

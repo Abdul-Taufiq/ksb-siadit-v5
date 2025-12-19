@@ -56,21 +56,21 @@ class LogTrackingTable extends Component
             case 'SUPER USER':
                 $this->kc = true;
                 $this->id_cabang = 99;
-                $this->id_area_1 = [1, 2, 3, 7, 10, 11];
-                $this->id_area_2 = [4, 5, 6, 8, 9];
+                $this->id_area_1 = [4, 5, 6, 7, 8, 9];
+                $this->id_area_2 = [1, 2, 3, 10, 11];
                 $this->id_area_3 = [3, 10];
                 break;
 
             case 'AREA 1':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [1, 2, 3, 7, 10, 11];
+                $this->id_cab_area = [4, 5, 6, 7, 8, 9];
                 break;
 
             case 'AREA 2':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [4, 5, 6, 8, 9];
+                $this->id_cab_area = [1, 2, 3, 10, 11];
                 break;
 
             case 'AREA 3':

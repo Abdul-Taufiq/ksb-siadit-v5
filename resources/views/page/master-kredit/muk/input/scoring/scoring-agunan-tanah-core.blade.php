@@ -71,9 +71,8 @@
     <div class="form-group">
         <label for="hak_kepemilikan_{{ $loop->iteration }}">Hak Kepemilikan</label>
         <input type="text" class="form-control form-control-sm" name="hak_kepemilikan_{{ $loop->iteration }}"
-            id="hak_kepemilikan_{{ $loop->iteration }}" required
-            value="{{ $tanah->sc_tanah_agunan?->hak_kepemilikan ?? $tanah->jns_jaminan }}" maxlength="20"
-            value="{{ $tanah->sc_tanah_agunan?->hak_kepemilikan }}">
+            id="hak_kepemilikan_{{ $loop->iteration }}" required maxlength="20"
+            oninput="this.value = this.value.toUpperCase()">
     </div>
 </div>
 <div class="col-md-4 mb-4">

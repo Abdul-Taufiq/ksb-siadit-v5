@@ -99,42 +99,46 @@
                 {{-- Rekap --}}
                 @if (Auth::user()->jabatan != 'AO')
                     <li>
-                        <a class="show-cat-btn {{ request()->is('rekap*') ? 'active' : '' }}" href="##">
-                            <span class="icon master-rekap" aria-hidden="true"></span>Rekap Data
-                            <span class="category__btn transparent-btn {{ request()->is('rekap*') ? 'rotated' : '' }}"
+                        <a class="show-cat-btn {{ request()->is('rekap*', 'apht*', 'jaminan*') ? 'active' : '' }}"
+                            href="##">
+                            <span class="icon master-rekap" aria-hidden="true"></span>Menu Lainnya
+                            <span
+                                class="category__btn transparent-btn {{ request()->is('rekap*', 'apht*', 'jaminan*') ? 'rotated' : '' }}"
                                 title="Open list">
                                 <span class="sr-only">Open list</span>
                                 <span class="icon arrow-down" aria-hidden="true"></span>
                             </span>
                         </a>
-                        <ul class="sub-menu {{ request()->is('rekap*') ? '' : 'd-none' }}">
+                        <ul class="sub-menu {{ request()->is('rekap*', 'apht*', 'jaminan*') ? '' : 'd-none' }}">
                             <li>
                                 <a href="{{ route('rekap.spk') }}"
                                     class="{{ request()->is('rekap*') ? 'active' : '' }}"
                                     style="{{ request()->is('rekap*') ? 'opacity: 1;' : '' }}">
                                     <span class="icon sub-icon"></span>
-                                    SPK
+                                    Rekap Data SPK
                                 </a>
                             </li>
-                            {{-- <li>
-                            <a href="{{ route('addendum.index') }}"
-                            class="{{ request()->is('addendum*') ? 'active' : '' }}"
-                            style="{{ request()->is('addendum*') ? 'opacity: 1;' : '' }}">
-                            <span class="icon sub-icon"></span>
-                            Data Addendum
-                        </a>
-                    </li> --}}
+                            <li>
+                                <a href="/apht/tracking-index" class="{{ request()->is('apht*') ? 'active' : '' }}"
+                                    style="{{ request()->is('apht*') ? 'opacity: 1;' : '' }}">
+                                    <span class="icon sub-icon"></span>
+                                    Tracking APHT
+                                </a>
+                            </li>
+
+                            @if (Auth::user()->jabatan != 'LOW USER' || Auth::user()->jabatan != 'MEDIUM USER')
+                                <li>
+                                    <a href="{{ route('jaminan.tanah.index') }}"
+                                        class="{{ request()->is('jaminan/tanah') ? 'active' : '' }}"
+                                        style="{{ request()->is('jaminan/tanah') ? 'opacity: 1;' : '' }}">
+                                        <span class="icon sub-icon"></span>
+                                        Jaminan Tanah
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
-
-                {{-- Tracking Apht --}}
-                <li>
-                    <a class="{{ request()->is('apht*') ? 'active' : '' }}" href="/apht/tracking-index">
-                        <span class="icon tracking-apht" aria-hidden="true"></span>
-                        <span style="margin-top: 4px;">Tracking APHT</span>
-                    </a>
-                </li>
             </ul>
 
 

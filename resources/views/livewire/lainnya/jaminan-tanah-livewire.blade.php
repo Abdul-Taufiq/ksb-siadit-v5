@@ -3,14 +3,14 @@
     <div class="stat-cards-item">
         <div class="card-body w-100">
             <div class="">
-
                 {{-- Tables & button --}}
                 @include('livewire.komponen.searching-table')
 
                 {{-- button --}}
                 <div class="row">
                     <div class="col-md-6">
-                        <b>Cari data :</b> Kantor Cabang, Nama Debitur, No SPK, Petugas Penerima
+                        <b>Cari data :</b> Kantor Cabang, Atas Nama, Jenis Jaminan, No SHM/SHGB, Desa,
+                        Kecamatan, Kabupaten, Provinsi
                         <br>
                         <i>
                             <b>NOTE : </b> Untuk export data, pastikan semua filter sudah diatur sesuai kebutuhan, data
@@ -19,9 +19,6 @@
                     </div>
                     <div class="col-md-6 text-end mb-3">
                         <div class="btn-group btn-group-sm col-md-8 w-100">
-                            <button id="btn-pdf-ao" type="button" class="btn btn-outline-primary btn-md">
-                                <i class="fa-solid fa-download"></i> PDF (Skor AO)
-                            </button>
                             <button id="btn-pdf" type="button" class="btn btn-outline-primary btn-md"
                                 onclick="exportToPDF()">
                                 <i class="fa-solid fa-download"></i> PDF
@@ -44,54 +41,81 @@
                                     'displayName' => 'Cabang',
                                 ])
                                 @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'petugas_penerima',
-                                    'displayName' => 'Petugas Penerima',
+                                    'nameSort' => 'atas_nama',
+                                    'displayName' => 'Atas Nama',
                                 ])
                                 @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'no_spk',
-                                    'displayName' => 'No SPK',
+                                    'nameSort' => 'info_shm',
+                                    'displayName' => 'Info SHM',
                                 ])
                                 @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'nama_debitur',
-                                    'displayName' => 'Nama Debitur',
+                                    'nameSort' => 'alamat_shm',
+                                    'displayName' => 'Alamat SHM',
                                 ])
                                 @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'tgl_pengajuan',
-                                    'displayName' => 'Tgl Pengajuan',
+                                    'nameSort' => 'nilai_jaminan',
+                                    'displayName' => 'Nilai Jaminan',
                                 ])
                                 @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'status_akhir',
-                                    'displayName' => 'Status',
-                                ])
-                                @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'jumlah_pengajuan',
-                                    'displayName' => 'Jumlah Pengajuan',
-                                ])
-                                @include('livewire.komponen.sorting-table', [
-                                    'nameSort' => 'jumlah_disetujui',
-                                    'displayName' => 'Jumlah Disetujui',
+                                    'nameSort' => 'nilai_taksasi',
+                                    'displayName' => 'Nilai Taksasi',
                                 ])
                                 <th style="width: 0.15rem;" class="hide-on-export">Aksi</th>
                             </tr>
                         </thead>
                         <tbody style="vertical-align: middle">
-                            @if ($kredit->isNotEmpty())
-                                @foreach ($kredit as $data => $item)
+                            @if ($jaminan->isNotEmpty())
+                                @foreach ($jaminan as $data => $item)
                                     <tr wire:key='{{ sha1($item->id_kredit) }}'>
-                                        <td>{{ $loop->index + $kredit->firstItem() }}</td>
-                                        <td>{{ $item->cabang->cabang }}</td>
-                                        <td>{{ $item->petugas_penerima }}</td>
-                                        <td>{{ $item->no_spk }}</td>
-                                        <td>{{ $item->debitur->nama_debitur }}</td>
-                                        <td>{{ $item->tgl_pengajuan?->translatedFormat('d F Y') }}</td>
-                                        <td>{{ $item->status_akhir }}</td>
-                                        <td>{{ 'Rp' . number_format($item->jumlah_pengajuan, 0, ',', '.') }}</td>
-                                        <td>
-                                            {{ $item->jumlah_disetujui ? 'Rp' . number_format($item->jumlah_disetujui, 0, ',', '.') : '-' }}
+                                        <td>{{ $loop->index + $jaminan->firstItem() }}</td>
+                                        <td>{{ $item->kredit->cabang->cabang }}</td>
+                                        <td>{{ $item->atas_nama }}</td>
+                                        <td style="vertical-align: top">
+                                            <ol style="padding-left: 5px;">
+                                                <li>
+                                                    <b>Nomor : </b>{{ $item->no_shm_shgb }}
+                                                </li>
+                                                <li>
+                                                    <b>Jns Jaminan : </b>{{ $item->jns_jaminan }}
+                                                </li>
+                                                <li>
+                                                    <b>Type Sertif : </b>{{ $item->type_sertifikat }}
+                                                </li>
+                                                <li>
+                                                    <b>Tgl Sertif :
+                                                    </b>{{ $item->tgl_sertifikat?->translatedFormat('d F Y') }}
+                                                </li>
+                                                <li>
+                                                    <b>Luas : </b>{{ $item->luas }} M²
+                                                </li>
+                                            </ol>
                                         </td>
+                                        <td style="vertical-align: top">
+                                            <ol style="padding-left: 5px;">
+                                                <li>
+                                                    <b>Desa : </b>{{ $item->desa }}
+                                                </li>
+                                                <li>
+                                                    <b>Kecamatan : </b>{{ $item->kecamatan }}
+                                                </li>
+                                                <li>
+                                                    <b>Kabupaten : </b>{{ $item->kabupaten }}
+                                                </li>
+                                                <li>
+                                                    <b>Provinsi : </b>{{ $item->provinsi }}
+                                                </li>
+                                            </ol>
+                                        </td>
+                                        <td>{{ 'Rp' . number_format($item->nilai_jaminan, 0, ',', '.') }}</td>
+                                        <td>{{ 'Rp' . number_format($item->nilai_taksasi, 0, ',', '.') }}</td>
                                         <td class="hide-on-export">
-                                            <a href="{{ route('debitur.show', encrypt($item->id_kredit)) }}"
-                                                class="btn btn-info btn-sm btn-aksi" title="Show Detail">
+                                            @php
+                                                foreach ($item->kredit->muk as $muk) {
+                                                    $id_muk = $muk->id_muk;
+                                                }
+                                            @endphp
+                                            <a href="{{ route('muk.show', encrypt($id_muk)) }}"
+                                                class="btn btn-info btn-sm btn-aksi" title="Show Detail MUK">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
@@ -106,7 +130,7 @@
                     </table>
                 </div>
 
-                {{ $kredit->onEachSide(1)->links('vendor.livewire.bootstrap', data: ['scrollTo' => false]) }}
+                {{ $jaminan->onEachSide(1)->links('vendor.livewire.bootstrap', data: ['scrollTo' => false]) }}
             </div>
         </div>
     </div>
@@ -244,13 +268,11 @@
             // Atur lebar kolom (kurangi karena kolom "Aksi" dihapus)
             worksheet.getColumn(1).width = 7; // No
             worksheet.getColumn(2).width = 20; // Cabang
-            worksheet.getColumn(3).width = 35; // Petugas
-            worksheet.getColumn(4).width = 35; // No SPK
-            worksheet.getColumn(5).width = 35; // Nama Debitur
-            worksheet.getColumn(6).width = 25; // Tgl Pengajuan
-            worksheet.getColumn(7).width = 20; // Status
-            worksheet.getColumn(8).width = 25; // Jumlah Pengajuan
-            worksheet.getColumn(9).width = 25; // Jumlah Disetujui
+            worksheet.getColumn(3).width = 35; // AN
+            worksheet.getColumn(4).width = 50; // Info
+            worksheet.getColumn(5).width = 50; // Alamat
+            worksheet.getColumn(6).width = 35; // Nilai Jaminan
+            worksheet.getColumn(7).width = 35; // Nilai Taksasi
 
             // Atur tinggi header
             headerRow.height = 25;
@@ -270,7 +292,7 @@
             const blob = new Blob([buffer], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             });
-            saveAs(blob, "data-rekap-spk.xlsx");
+            saveAs(blob, "data-jaminan-tanah.xlsx");
         }
     </script>
 
@@ -298,7 +320,7 @@
 
             const opt = {
                 margin: 0.2,
-                filename: 'data-rekap-spk.pdf',
+                filename: 'data-jaminan-tanah.pdf',
                 image: {
                     type: 'jpeg',
                     quality: 0.98
@@ -329,25 +351,4 @@
     {{-- setTimeout(() => {
             document.querySelectorAll('.hide-on-export').forEach(el => el.style.display = '');
         }, 1000); --}}
-
-
-    {{-- pdf ao --}}
-    <script>
-        $("#btn-pdf-ao").on("click", function(e) {
-            tgl_awal = document.getElementById('tgl_awal').value;
-            tgl_akhir = document.getElementById('tgl_akhir').value;
-            id_cabang = document.getElementById('id_cabang').value;
-
-            // encryp like base64_enncode
-            id = btoa(id_cabang);
-
-            if (tgl_awal == '' || tgl_akhir == '' || tgl_akhir < tgl_awal) {
-                alert("Format Tanggal Tidak Valid atau Tanggal akhir tidak boleh lebih kecil dari tanggal awal.");
-                return; // Stop eksekusi jika tanggal tidak valid
-            } else {
-                window.open('/rekap/spk/print-penilaian-ao/' + id + '/' + tgl_awal + '/' + tgl_akhir, '_blank');
-            }
-
-        });
-    </script>
 @endsection

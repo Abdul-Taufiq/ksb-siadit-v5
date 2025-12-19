@@ -1,12 +1,12 @@
 <div class="row" style="margin-left: 5px;">
-    <div
+    {{-- <div
         class="col-md-12 mb-4 {{ Auth::user()->jabatan == 'Legal' || Auth::user()->jabatan == 'Kasi Operasional' ? 'd-none' : '' }}">
         <div class="form-group">
             <label for="pertimbangan" class="notbold">Dari hasil analisa yang telah dilakukan, maka dapat diusulkan bahwa
                 pengajuan kredit diatas dapat disetujui dengan pertimbangan sebagai berikut :</label>
             <textarea name="pertimbangan" id="pertimbangan">{{ $kredit?->persetujuan?->pertimbangan ?? null }}</textarea>
         </div>
-    </div>
+    </div> --}}
     <div class="col-md-6">
         <table class="table table-striped table-sm w-100">
             <tr>
@@ -15,10 +15,23 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
+
+                        @php
+                            if (Request::is('debitur/sos-update-pas*')) {
+                                $plafonds =
+                                    $kredit->jumlah_disetujui != null
+                                        ? number_format($kredit->jumlah_disetujui, 0, ',', '.')
+                                        : 0;
+                            } else {
+                                $plafonds =
+                                    $kredit?->jumlah_muk != null ? number_format($kredit->jumlah_muk, 0, ',', '.') : 0;
+                            }
+                        @endphp
+
+
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="jumlah_disetujui"
-                            name="jumlah_disetujui" required
-                            value="{{ number_format($kredit?->jumlah_disetujui, 0, ',', '.') ?? null }}">
+                            name="jumlah_disetujui" required value="{{ $plafonds }}">
                     </div>
                 </td>
             </tr>
@@ -46,9 +59,18 @@
                 </td>
                 <td>
                     <div class="form-group">
+
+                        @php
+                            if (Request::is('debitur/sos-update-pas*')) {
+                                $jkww = $kredit->jkw != null ? number_format($kredit->jkw, 0, ',', '.') : 0;
+                            } else {
+                                $jkww = $kredit?->jkw_muk != null ? number_format($kredit->jkw_muk, 0, ',', '.') : 0;
+                            }
+                        @endphp
+
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control is-invalid setRp" id="jkw" name="jkw"
-                                min="1" required value="{{ number_format($kredit?->jkw, 0, ',', '.') ?? null }}">
+                                min="1" required value="{{ $jkww }}">
                             <span class="input-group-text">Bulan</span>
                         </div>
                     </div>
@@ -76,9 +98,23 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
+
+                        @php
+                            if (Request::is('debitur/sos-update-pas*')) {
+                                $bunga =
+                                    $kredit->persetujuan->besar_bunga != null
+                                        ? number_format($kredit->persetujuan->besar_bunga ?? 0, 2, ',', '.')
+                                        : 0;
+                            } else {
+                                $bunga =
+                                    $kredit?->persetujuan?->besar_bunga_muk != null
+                                        ? number_format($kredit?->persetujuan?->besar_bunga_muk ?? 0, 2, ',', '.')
+                                        : 0;
+                            }
+                        @endphp
+
                         <input type="text" class="form-control is-invalid" id="besar_bunga" name="besar_bunga"
-                            min="1" maxlength="5" required
-                            value="{{ number_format($kredit?->persetujuan?->besar_bunga ?? 0, 2, ',', '.') }}">
+                            min="1" maxlength="5" required value="{{ $bunga }}">
                         <span class="input-group-text">% / Tahun</span>
                     </div>
                 </td>
@@ -174,12 +210,27 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
+
+                        @php
+                            if (Request::is('debitur/sos-update-pas*')) {
+                                $angsuran =
+                                    $kredit->persetujuan->jumlah_angsuran != null
+                                        ? number_format($kredit->persetujuan->jumlah_angsuran, 0, ',', '.')
+                                        : 0;
+                            } else {
+                                $angsuran =
+                                    $kredit?->persetujuan?->jumlah_angsuran_muk != null
+                                        ? number_format($kredit?->persetujuan?->jumlah_angsuran_muk, 0, ',', '.')
+                                        : 0;
+                            }
+                        @endphp
+
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="jumlah_angsuran"
                             name="jumlah_angsuran" data-bs-toggle="tooltip" data-bs-placement="top"
                             data-bs-custom-class="custom-tooltip"
                             data-bs-title="Hanya berlaku untuk jenis bunga FLAT saja." required
-                            value="{{ number_format($kredit?->persetujuan?->jumlah_angsuran, 0, ',', '.') ?? null }}">
+                            value="{{ $angsuran }}">
                     </div>
                 </td>
             </tr>

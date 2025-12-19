@@ -24,7 +24,7 @@
                         <option value="99">- All cabang -</option>
                         <option value="AREA 1">AREA 1</option>
                         <option value="AREA 2">AREA 2</option>
-                        <option value="AREA 3">AREA 3</option>
+                        {{-- <option value="AREA 3">AREA 3</option> --}}
                         <option value="1">Kantor Pusat Operasional</option>
                         <option value="2">KC Temanggung</option>
                         <option value="3">KC Wonosobo</option>
@@ -41,18 +41,18 @@
                         <option value="4">KC Ambarawa</option>
                         <option value="5">KC Semarang</option>
                         <option value="6">KC Mranggen</option>
+                        <option value="7">KC Sukorejo</option>
                         <option value="8">KC Weleri</option>
-                        <option value="11">KC Sokaraja</option>
+                        <option value="9">KC Delanggu</option>
                     @elseif ($level == 'AREA 2')
                         <option value="AREA 2">AREA 2</option>
                         <option value="1">Kantor Pusat Operasional</option>
                         <option value="2">KC Temanggung</option>
-                        <option value="7">KC Sukorejo</option>
-                        <option value="9">KC Delanggu</option>
-                    @elseif ($level == 'AREA 3')
-                        <option value="AREA 3">AREA 3</option>
                         <option value="3">KC Wonosobo</option>
                         <option value="10">KC Gombong</option>
+                        <option value="11">KC Sokaraja</option>
+                    @elseif ($level == 'AREA 3')
+                        <option value="AREA 3">AREA 3</option>
                     @else
                         <option value="{{ $id_cabang }}">{{ $id_cabang }}</option>
                     @endif

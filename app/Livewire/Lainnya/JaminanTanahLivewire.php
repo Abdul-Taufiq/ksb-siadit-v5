@@ -1,31 +1,32 @@
 <?php
 
-namespace App\Livewire\Rekap;
+namespace App\Livewire\Lainnya;
 
-use App\Traits\RekapTraits;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\JaminanTrait;
 use Livewire\Component;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Url;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class RekapLivewire extends Component
+class JaminanTanahLivewire extends Component
 {
-    use WithPagination, WithoutUrlPagination, RekapTraits;
-    // for filter
-    public $sortBy = 'created_at', $sortDir = 'desc', $search = '', $perPage = 10;
+    use WithPagination, WithoutUrlPagination, JaminanTrait;
+    public $perPage = 10;
+
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $search = '';
+
+    // #[Url(history: true)]
+    public $sortBy = 'created_at';
+    // #[Url(history: true)]
+    public $sortDir = 'desc';
     public $kc = false, $id_cabang, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
-    // for modal
-    // public $modal_title, $spk = [], $status, $catatan, $keterangan_kaops = 0, $id;
-
-    public function boot()
-    {
-        // $this->pk_services = $pk_services;
-        // $this->add_services = $add_services;
-    }
-
 
     // listener
     protected $listeners = ['refreshTable' => '$refresh', 'tableUpdated'];
+
 
     public function mount()
     {
@@ -64,6 +65,7 @@ class RekapLivewire extends Component
         }
     }
 
+
     // sett sortir
     public function setSortBy($field)
     {
@@ -78,20 +80,19 @@ class RekapLivewire extends Component
 
     public function resetFilter()
     {
-        $this->reset(['search', 'tgl_awal', 'tgl_akhir', 'id_cabang', 'sortBy']);
+        $this->reset(['search', 'tgl_awal', 'tgl_akhir']);
         $this->resetPage();
-        $this->mount();
     }
 
 
     public function render()
     {
-        $kredit = $this->index();
+        $jaminan = $this->index();
 
-
-        /** @disregard P1013 Undifined method */
-        return view('livewire.rekap.rekap-livewire', compact('kredit'))
-            ->extends('livewire.komponen.layouts.app', ['title' => 'Rekap Data SPK'])
+        // untuk mengecualikan error
+        /** @disregard P1013 Undefined method */
+        return view('livewire.lainnya.jaminan-tanah-livewire', compact('jaminan'))
+            ->extends('livewire.komponen.layouts.app', ['title' => 'Data Jaminan Pertanahan'])
             ->section('livewire-konten');
     }
 }

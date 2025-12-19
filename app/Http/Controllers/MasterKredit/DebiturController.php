@@ -7,6 +7,7 @@ use App\Models\MasterKredit\Debitur;
 use App\Models\MasterKredit\Kredit;
 use App\Models\MasterKredit\Persetujuan;
 use App\Models\Output\LogActivity;
+use App\Models\Output\TrackingSPK;
 use App\Services\MasterKredit\Debitur\DebiturService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -206,6 +207,8 @@ class DebiturController extends Controller
         $kredit->update([
             'jumlah_disetujui' => $this->normalizeNumber($request->jumlah_disetujui),
             'jkw' => $request->jkw,
+            'status_pincab' => 'SOS',
+            'status_kredit' => '(*) S.O.S Update PAS perlu persetujuan Pincab',
             'catatan_tambahan' => $request->catatan_sos . '<br><b> » Edited by ' . Auth::user()->nama . ' Jabatan: ' . Auth::user()->jabatan . ' at ' . now()->format('d-m-Y, H:i') . '</b>',
         ]);
 
@@ -222,6 +225,33 @@ class DebiturController extends Controller
             'besar_survey' =>  $this->normalizeNumber($request->besar_survey),
             'biaya_survey' =>  $this->normalizeNumber($request->biaya_survey),
             'denda_hari' => $this->normalizeNumber($request->denda_hari),
+        ]);
+
+        // tracking & log
+        LogActivity::AddLog("(*) S.O.S Update PAS | SPK : {$kredit->no_spk} | Debitur: {$kredit->debitur->nama_debitur}");
+
+        // update tracking legal
+        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+            ->where('jabatan', 'Legal')
+            ->orderByDesc('id_tracking')
+            ->first();
+        $tracking->update([
+            'nama' => Auth::user()->nama,
+            'status' => '(*) S.O.S Update PAS',
+            'tgl_status' => now(),
+            'status_spk' => 'Disetujui',
+        ]);
+
+        // tracking SPK
+        TrackingSPK::AddTrackingSPK($kredit, [
+            'id_kredit' => $kredit->id_kredit,
+            'id_cabang' => $kredit->id_cabang,
+            'petugas_penerima' => $kredit->petugas_penerima,
+            'nama' => null,
+            'jabatan' => 'Pimpinan Cabang',
+            'status' => null,
+            'tgl_masuk' => now(),
+            'status_spk' => 'Disetujui'
         ]);
 
 

@@ -53,4 +53,18 @@ class JamTanah extends Model
     {
         return $this->belongsTo(SC_Tanah_Scoring::class, 'id_jaminan_pertanahan', 'id_jaminan_pertanahan');
     }
+
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('atas_nama', 'like', "%{$search}%")
+                ->orWhere('jns_jaminan', 'like', "%{$search}%")
+                ->orWhere('no_shm_shgb', 'like', "%{$search}%")
+                ->orWhere('desa', 'like', "%{$search}%")
+                ->orWhere('kecamatan', 'like', "%{$search}%")
+                ->orWhere('kabupaten', 'like', "%{$search}%")
+                ->orWhere('provinsi', 'like', "%{$search}%");
+        });
+    }
 }

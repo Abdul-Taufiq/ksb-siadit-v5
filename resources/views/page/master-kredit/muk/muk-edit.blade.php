@@ -108,7 +108,8 @@
                                 <div class="d-flex">
                                     <button type="button" id="simpan" class="btn btn-primary"
                                         style="letter-spacing: 2px;">
-                                        <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> & Lanjutkan</button>
+                                        <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> &
+                                        Lanjutkan</button>
 
                                     <div class="bg-danger text-warning m-2 p-2 rounded d-none" id="peringatan">
                                         <i class="fa-solid fa-triangle-exclamation"></i>

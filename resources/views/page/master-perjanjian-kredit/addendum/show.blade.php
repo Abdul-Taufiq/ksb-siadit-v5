@@ -9,254 +9,281 @@
             <div class="stat-cards-item mb-2">
                 <div class="card-body w-100">
 
-                    @if ($pkpmk->kredit->status_kaops == 'Approve')
-                        {{-- Print SPPK Dulu --}}
-                        @if ($pkpmk->tgl_print_sppk === null)
-                            <div class="row">
-                                <div class="col-md-3 ">
-                                    <button type="button" class="btn btn-primary btn-icon-text btn-rounded btnsppk w-100"
-                                        data-id="{{ encrypt($pkpmk->id_addendum) }}">
-                                        <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                        <b>PRINT SPPK</b>
-                                    </button>
-                                    <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan Permohonan
-                                            Kredit)</i>
-                                    </p>
-                                </div>
-                                <div class="col-md-9">
-                                    <h5 style="color: red; text-align: center;">
-                                        <i>Print tidak dapat dilakukan karena waktu Print SPPK belum ada 1
-                                            Hari!</i>
-                                    </h5>
-                                    <p style="text-align: center; font-style: italic">
-                                        (Tombol <b>PRINT</b> akan muncul ketika Print SPPK dilakukan terhitung 1
-                                        hari sebelumnya)
-                                    </p>
-                                </div>
-                            </div>
-                        @elseif($pkpmk->tgl_print_sppk->startOfDay()->diffInDays(now()) < 1)
-                            <div class="row">
-                                <div class="col-md-3 ">
-                                    <button type="button" class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100"
-                                        disabled>
-                                        <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                        <b>PRINT SPPK</b>
-                                    </button>
-                                    <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan Permohonan
-                                            Kredit)</i>
-                                    </p>
-                                </div>
-                                <div class="col-md-9">
-                                    <h4 style="color: red; text-align: center;">
-                                        <i>Print tidak dapat dilakukan karena waktu Print SPPK belum ada 1
-                                            Hari!</i>
-                                    </h4>
-                                    <p style="text-align: center; font-style: italic">
-                                        (Tombol <b>PRINT</b> akan muncul ketika Print SPPK dilakukan terhitung 1
-                                        hari sebelumnya)
-                                    </p>
-                                </div>
-                            </div>
-                        @else
-                            {{-- Angsuran PK --}}
-                            <div class="row">
-                                <div class="col-md-3 ">
-                                    <button type="button" class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100"
-                                        disabled>
-                                        <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                        <b>PRINT SPPK</b>
-                                    </button>
-                                    <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan Permohonan
-                                            Kredit)</i>
-                                    </p>
-                                </div>
-
-                                @if ($pkpmk->kredit->persetujuan->jns_kredit == 'Angsuran')
-                                    @if ($pkpmk->tgl_print_addendum === null)
-                                        <div class="col-md-3 ">
-                                            <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
-                                                data-id="{{ encrypt($pkpmk->id_addendum) }}">
-                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT PK</b>
-                                            </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i></p>
+                    @if (Auth::user()->jabatan == 'Legal')
+                        @if ($pkpmk->kredit->status_kaops == 'Approve')
+                            {{-- Print SPPK Dulu --}}
+                            @if ($pkpmk->tgl_print_sppk === null)
+                                @if ($pkpmk->kredit->status_pincab != 'Approve')
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5 style="color: red; text-align: center;">
+                                                <i>Print tidak dapat dilakukan Saat Ini!</i>
+                                            </h5>
+                                            <p style="text-align: center; font-style: italic">
+                                                (Mungkin anda telah menggunakan tombol <b>S.O.S</b> oleh sebab itu
+                                                memerlukan
+                                                persetujuan kembali dari <b>Pimpinan Cabang</b> yang bersangkutan)
+                                            </p>
                                         </div>
-                                    @else
-                                        <div class="col-md-3 ">
-                                            <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT PK</b>
-                                            </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i></p>
-                                        </div>
-                                    @endif
+                                    </div>
                                 @else
-                                    {{-- button pkpmk --}}
-                                    @if ($pkpmk->tgl_print_addendum === null)
+                                    <div class="row">
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                class="btn btn-primary btn-icon-text btn-rounded btnsppk w-100"
                                                 data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT PMK</b>
+                                                <b>PRINT SPPK</b>
                                             </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i></p>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan
+                                                    Permohonan
+                                                    Kredit)</i>
+                                            </p>
                                         </div>
-                                    @else
-                                        <div class="col-md-3 ">
-                                            <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT PMK</b>
-                                            </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i></p>
+                                        <div class="col-md-9">
+                                            <h5 style="color: red; text-align: center;">
+                                                <i>Print tidak dapat dilakukan karena waktu Print SPPK belum ada 1
+                                                    Hari!</i>
+                                            </h5>
+                                            <p style="text-align: center; font-style: italic">
+                                                (Tombol <b>PRINT</b> akan muncul ketika Print SPPK dilakukan terhitung 1
+                                                hari sebelumnya)
+                                            </p>
                                         </div>
-                                    @endif
+                                    </div>
                                 @endif
+                            @elseif($pkpmk->tgl_print_sppk->startOfDay()->diffInDays(now()) < 1)
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT SPPK</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan Permohonan
+                                                Kredit)</i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h4 style="color: red; text-align: center;">
+                                            <i>Print tidak dapat dilakukan karena waktu Print SPPK belum ada 1
+                                                Hari!</i>
+                                        </h4>
+                                        <p style="text-align: center; font-style: italic">
+                                            (Tombol <b>PRINT</b> akan muncul ketika Print SPPK dilakukan terhitung 1
+                                            hari sebelumnya)
+                                        </p>
+                                    </div>
+                                </div>
+                            @else
+                                {{-- Angsuran PK --}}
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT SPPK</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Persetujuan Permohonan
+                                                Kredit)</i>
+                                        </p>
+                                    </div>
 
-
-                                @if ($pkpmk->kredit->jamkenda->isNotEmpty())
-                                    {{-- button SPA --}}
-                                    @if ($pkpmk->tgl_print_sp_agunan === null)
-                                        <div class="col-md-3 ">
-                                            <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
-                                                data-id="{{ encrypt($pkpmk->id_addendum) }}">
-                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT SPA</b>
-                                            </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan
-                                                    Agunan)</i></p>
-                                        </div>
+                                    @if ($pkpmk->kredit->persetujuan->jns_kredit == 'Angsuran')
+                                        @if ($pkpmk->tgl_print_addendum === null)
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT PK</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                                </p>
+                                            </div>
+                                        @else
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT PK</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                                </p>
+                                            </div>
+                                        @endif
                                     @else
-                                        <div class="col-md-3 ">
-                                            <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT SPA</b>
-                                            </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan
-                                                    Agunan)</i></p>
-                                        </div>
+                                        {{-- button pkpmk --}}
+                                        @if ($pkpmk->tgl_print_addendum === null)
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT PMK</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                                </p>
+                                            </div>
+                                        @else
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT PMK</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                                </p>
+                                            </div>
+                                        @endif
                                     @endif
-                                    {{-- End button SPA --}}
 
-                                    {{-- button SPPJF --}}
-                                    @if ($pkpmk->tgl_print_sp_bawah_tangan === null)
+
+                                    @if ($pkpmk->kredit->jamkenda->isNotEmpty())
+                                        {{-- button SPA --}}
+                                        @if ($pkpmk->tgl_print_sp_agunan === null)
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
+                                                    data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT SPA</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan
+                                                        Agunan)</i></p>
+                                            </div>
+                                        @else
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT SPA</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan
+                                                        Agunan)</i></p>
+                                            </div>
+                                        @endif
+                                        {{-- End button SPA --}}
+
+                                        {{-- button SPPJF --}}
+                                        @if ($pkpmk->tgl_print_sp_bawah_tangan === null)
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
+                                                    data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT SPPJF</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian
+                                                        Penyerahan
+                                                        Jaminan
+                                                        Fidusia)</i></p>
+                                            </div>
+                                        @else
+                                            <div class="col-md-3 ">
+                                                <button type="button"
+                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                    <b>PRINT SPPJF</b>
+                                                </button>
+                                                <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian
+                                                        Penyerahan
+                                                        Jaminan Fidusia)</i></p>
+                                            </div>
+                                        @endif
+                                        {{-- end button SPPJF --}}
+                                    @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
-                                                data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                <b>PRINT SPPJF</b>
+                                                <b>PRINT SPA</b>
                                             </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian Penyerahan
-                                                    Jaminan
-                                                    Fidusia)</i></p>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan
+                                                    Agunan)</i>
+                                            </p>
                                         </div>
-                                    @else
                                         <div class="col-md-3 ">
                                             <button type="button"
                                                 class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPPJF</b>
                                             </button>
-                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian Penyerahan
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian
+                                                    Penyerahan
                                                     Jaminan Fidusia)</i></p>
                                         </div>
                                     @endif
-                                    {{-- end button SPPJF --}}
-                                @else
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT SPA</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan Agunan)</i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT SPPJF</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Perjanjian Penyerahan
-                                                Jaminan Fidusia)</i></p>
-                                    </div>
-                                @endif
 
 
-                                {{-- button Asuransi --}}
-                                @if ($pkpmk->tgl_print_sp_asuransi === null && $pkpmk->kredit->persetujuan->asuransi != 'Ya')
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
-                                            data-id="{{ encrypt($pkpmk->id_addendum) }}">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT SPTMA</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan Tidak
-                                                Mengikuti Asuransi)</i></p>
-                                    </div>
-                                @else
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT SPTMA</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan Tidak
-                                                Mengikuti
-                                                Asuransi)</i></p>
-                                    </div>
-                                @endif
+                                    {{-- button Asuransi --}}
+                                    @if ($pkpmk->tgl_print_sp_asuransi === null && $pkpmk->kredit->persetujuan->asuransi != 'Ya')
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
+                                                data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT SPTMA</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan Tidak
+                                                    Mengikuti Asuransi)</i></p>
+                                        </div>
+                                    @else
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT SPTMA</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Surat Pernyataan Tidak
+                                                    Mengikuti
+                                                    Asuransi)</i></p>
+                                        </div>
+                                    @endif
 
 
-                                @if ($pkpmk->tgl_print_tpbj === null)
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
-                                            data-id="{{ encrypt($pkpmk->id_addendum) }}">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT TPBJ</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Tanda Penerimaan Barang
-                                                Jaminan)</i>
-                                        </p>
-                                    </div>
-                                @else
-                                    <div class="col-md-3 ">
-                                        <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
-                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                            <b>PRINT TPBJ</b>
-                                        </button>
-                                        <p style="text-align: center; padding-top: 5px;"><i>(Tanda Penerimaan Barang
-                                                Jaminan)</i>
-                                        </p>
-                                    </div>
-                                @endif
-                            </div>
-                            {{-- End Angsuran PK --}}
+                                    @if ($pkpmk->tgl_print_tpbj === null)
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
+                                                data-id="{{ encrypt($pkpmk->id_addendum) }}">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT TPBJ</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Tanda Penerimaan Barang
+                                                    Jaminan)</i>
+                                            </p>
+                                        </div>
+                                    @else
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT TPBJ</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Tanda Penerimaan Barang
+                                                    Jaminan)</i>
+                                            </p>
+                                        </div>
+                                    @endif
+                                </div>
+                                {{-- End Angsuran PK --}}
+                            @endif
+                        @elseif ($pkpmk->kredit->status_pincab != 'Approve')
+                            <h3 style="color: red; text-align: center;"><i>Data ini belum mendapat persetujuan dari
+                                    Pimpinan Cabang!</i></h3>
+                            <p style="text-align: center; font-style: italic">
+                                (Tombol <b>PRINT</b> akan muncul ketika sudah ada persetujuan dari Kasi Pimpinan
+                                Cabang)
+                            </p>
+                        @else
+                            <h3 style="color: red; text-align: center;"><i>Data ini belum mendapat persetujuan dari
+                                    Kasi Operasional!</i></h3>
+                            <p style="text-align: center; font-style: italic">
+                                (Tombol <b>PRINT</b> akan muncul ketika sudah ada persetujuan dari Kasi
+                                Operasional)
+                            </p>
                         @endif
-                    @elseif ($pkpmk->kredit->status_pincab != 'Approve')
-                        <h3 style="color: red; text-align: center;"><i>Data ini belum mendapat persetujuan dari
-                                Pimpinan Cabang!</i></h3>
-                        <p style="text-align: center; font-style: italic">
-                            (Tombol <b>PRINT</b> akan muncul ketika sudah ada persetujuan dari Kasi Pimpinan
-                            Cabang)
-                        </p>
-                    @else
-                        <h3 style="color: red; text-align: center;"><i>Data ini belum mendapat persetujuan dari
-                                Kasi Operasional!</i></h3>
-                        <p style="text-align: center; font-style: italic">
-                            (Tombol <b>PRINT</b> akan muncul ketika sudah ada persetujuan dari Kasi
-                            Operasional)
-                        </p>
                     @endif
                 </div>
             </div>
@@ -273,7 +300,7 @@
 
                         <br>
                         <br>
-                        @if ($pkpmk->tgl_print_sppk === null)
+                        @if ($pkpmk->tgl_print_sppk === null && $pkpmk->kredit->status_kaops == 'Approve')
                             <a href="{{ route('debitur.sos.edit.pas', base64_encode($pkpmk->kredit->id_kredit)) }}"
                                 class="btn btn-outline-warning">S.O.S (for update PAS)</a>
                         @endif

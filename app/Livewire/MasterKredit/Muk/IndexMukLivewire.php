@@ -3,6 +3,7 @@
 namespace App\Livewire\MasterKredit\Muk;
 
 use App\Models\MasterKredit\Kredit;
+use App\Models\MasterKredit\Persetujuan;
 use App\Models\MasterMUK\Muk;
 use App\Models\Output\TrackingSPK;
 use App\Services\MasterKredit\Muk\MukService;
@@ -23,6 +24,7 @@ class IndexMukLivewire extends Component
     public $kc = false, $id_cabang, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
     public $modal_title, $spk = [], $id_kredit, $file_putusan, $metode;
+    public $plafond, $jkw, $bunga, $plafond_cek, $jkw_cek, $bunga_cek = null;
     // load services
     protected MukService $mukservice;
     public function boot(MukService $muk_service)
@@ -47,21 +49,21 @@ class IndexMukLivewire extends Component
             case 'SUPER USER':
                 $this->kc = true;
                 $this->id_cabang = 99;
-                $this->id_area_1 = [1, 2, 3, 7, 10, 11];
-                $this->id_area_2 = [4, 5, 6, 8, 9];
+                $this->id_area_1 = [4, 5, 6, 7, 8, 9];
+                $this->id_area_2 = [1, 2, 3, 10, 11];
                 $this->id_area_3 = [3, 10];
                 break;
 
             case 'AREA 1':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [1, 2, 3, 7, 10, 11];
+                $this->id_cab_area = [4, 5, 6, 7, 8, 9];
                 break;
 
             case 'AREA 2':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [4, 5, 6, 8, 9];
+                $this->id_cab_area = [1, 2, 3, 10, 11];
                 break;
 
             case 'AREA 3':
@@ -173,6 +175,51 @@ class IndexMukLivewire extends Component
             ]);
         }
 
+
+        // UPDATE PLAFOND, JKW, BUNGA DAN P.A.S
+        // PERSETUJUAN PINCAB
+        $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first();
+        if ($this->bunga_cek == true) {
+            $persetujuan->besar_bunga = $persetujuan->besar_bunga_muk;
+        } else {
+            $persetujuan->besar_bunga = $this->normalizeNumber($this->bunga);
+        }
+        // save
+        $persetujuan->save();
+
+        if ($this->plafond_cek == true) {
+            $kredit->jumlah_disetujui = $kredit->jumlah_muk;
+        } else {
+            $kredit->jumlah_disetujui = $this->normalizeNumber($this->plafond);
+        }
+
+        if ($this->jkw_cek == true) {
+            $kredit->jkw = $kredit->jkw;
+        } else {
+            $kredit->jkw = $this->normalizeNumber($this->jkw);
+        }
+        // save
+        $kredit->save();
+
+        // UPDATE JUMLAH ANGSURAN DAN BIAYA P.A.S
+        if ($this->bunga_cek == false || $this->plafond_cek == false || $this->jkw_cek == false) {
+            if ($persetujuan->jns_kredit == 'Berjangka') {
+                $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
+            } else {
+                $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+            }
+
+            // biaya pas
+            $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
+            $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
+            $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
+            $persetujuan->save();
+
+            $persetujuan->update([
+                'denda_hari' => (2 / 1000) * $persetujuan->jumlah_angsuran
+            ]);
+        }
+
         $this->reset('file_putusan');
         // 🔥 Kirim event ke Livewire atau JavaScript
         $this->dispatch('AlertSuccess', [
@@ -205,5 +252,23 @@ class IndexMukLivewire extends Component
         return view('livewire.master-kredit.muk.index-muk-livewire', compact('muk'))
             ->extends('livewire.komponen.layouts.app', ['title' => 'Data MUK'])
             ->section('livewire-konten');
+    }
+
+
+
+    // fungsi normal untuk setting number
+    function normalizeNumber($value)
+    {
+        if ($value === '∞') {
+            return 0;
+        }
+
+        $value = str_replace('.', '', $value); // hapus ribuan
+        $value = str_replace(',', '.', $value); // ubah desimal
+        return floatval($value);
+
+        // normalnya
+        // $nilai = "49.000,89";
+        // $jumlah_pengajuan = str_replace(',', '.', str_replace('.', '', $data['rate_1']));
     }
 }

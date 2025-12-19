@@ -107,12 +107,15 @@
                         $jamTanah->sum('nilai_taksasi') +
                         $jamKenda->sum('nilai_taksasi') +
                         $jamDepo->sum('nilai_taksasi');
-                    $totalLtv =
-                        $totalNilaiAgunan != 0
-                            ? ($muk->kredit->jumlah_disetujui / $totalNilaiAgunan) * (100 / 100)
-                            : '0';
+                    if ($totalNilaiAgunan != 0 && $muk->kredit->jumlah_muk != null) {
+                        $xtotal = $muk->kredit->jumlah_muk / $totalNilaiAgunan;
+                    } else {
+                        $xtotal = 0;
+                    }
+
+                    $totalLtv = $xtotal * 100;
                 @endphp
-                {{ number_format($totalLtv, 0, ',', '.') . '%' }}
+                {{ number_format($totalLtv, 2, ',', '.') . '%' }}
             </td>
         </tr>
     </tbody>

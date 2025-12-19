@@ -41,21 +41,21 @@ class PerjanjianKredit extends Component
             case 'SUPER USER':
                 $this->kc = true;
                 $this->id_cabang = 99;
-                $this->id_area_1 = [1, 2, 3, 7, 10, 11];
-                $this->id_area_2 = [4, 5, 6, 8, 9];
+                $this->id_area_1 = [4, 5, 6, 7, 8, 9];
+                $this->id_area_2 = [1, 2, 3, 10, 11];
                 $this->id_area_3 = [3, 10];
                 break;
 
             case 'AREA 1':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [1, 2, 3, 7, 10, 11];
+                $this->id_cab_area = [4, 5, 6, 7, 8, 9];
                 break;
 
             case 'AREA 2':
                 $this->kc = true;
                 $this->id_cabang = null;
-                $this->id_cab_area = [4, 5, 6, 8, 9];
+                $this->id_cab_area = [1, 2, 3, 10, 11];
                 break;
 
             case 'AREA 3':
@@ -123,39 +123,77 @@ class PerjanjianKredit extends Component
         $pkpmk = PkPmk::find($ids);
         $user = Auth::user();
 
-        // update kredit
-        $kredit = Kredit::find($pkpmk->id_kredit);
-        $kredit->update([
-            'status_legal' => 'Terkirim',
-            'status_kredit' => 'Data Dikirim Ke Kasi Operasional',
-        ]);
+        // USER PIMPINAN CABANG
+        if ($user->jabatan == 'Pimpinan Cabang') {
+            // update kredit
+            $kredit = Kredit::find($pkpmk->id_kredit);
+            $kredit->update([
+                'status_pincab' => 'Approve',
+                'status_kredit' => 'Pimpinan Cabang Approve',
+            ]);
 
-        // Log Aktivitas
-        LogActivity::AddLog("(cs) Data PK | SPK: {$pkpmk->kredit->no_spk} | NIK: {$pkpmk->debitur->nik} | Nama: {$pkpmk->debitur->nama_debitur}");
+            // Log Aktivitas
+            LogActivity::AddLog("(*) S.O.S Disetujui | SPK: {$pkpmk->kredit->no_spk} | NIK: {$pkpmk->debitur->nik} | Nama: {$pkpmk->debitur->nama_debitur}");
 
-        // tracking lama
-        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-            ->where('jabatan', $user->jabatan)
-            ->orderByDesc('id_tracking')
-            ->first();
-        $tracking->update([
-            'nama' => $user->nama,
-            'status' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
-            'tgl_status' => now(),
-            'status_spk' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
-        ]);
+            // tracking lama
+            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                ->where('jabatan', $user->jabatan)
+                ->orderByDesc('id_tracking')
+                ->first();
+            $tracking->update([
+                'nama' => $user->nama,
+                'status' => '(*) S.O.S Disetujui',
+                'tgl_status' => now(),
+                'status_spk' => 'Disetujui',
+            ]);
 
-        // tracking selanjutnya
-        TrackingSPK::AddTrackingSPK($kredit, [
-            'id_cabang' => $kredit->id_cabang,
-            'id_kredit' => $kredit->id_kredit,
-            'petugas_penerima' => $kredit->petugas_penerima,
-            'nama' => null,
-            'jabatan' => 'Kasi Operasional',
-            'status' => null,
-            'tgl_masuk' => now(),
-            'status_spk' => 'Disetujui',
-        ]);
+            // tracking selanjutnya
+            TrackingSPK::AddTrackingSPK($kredit, [
+                'id_cabang' => $kredit->id_cabang,
+                'id_kredit' => $kredit->id_kredit,
+                'petugas_penerima' => $kredit->petugas_penerima,
+                'nama' => null,
+                'jabatan' => 'Legal',
+                'status' => null,
+                'tgl_masuk' => now(),
+                'status_spk' => 'Disetujui',
+            ]);
+        } else {
+            // update kredit
+            $kredit = Kredit::find($pkpmk->id_kredit);
+            $kredit->update([
+                'status_legal' => 'Terkirim',
+                'status_kredit' => 'Data Dikirim Ke Kasi Operasional',
+            ]);
+
+            // Log Aktivitas
+            LogActivity::AddLog("(cs) Data PK | SPK: {$pkpmk->kredit->no_spk} | NIK: {$pkpmk->debitur->nik} | Nama: {$pkpmk->debitur->nama_debitur}");
+
+            // tracking lama
+            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                ->where('jabatan', $user->jabatan)
+                ->orderByDesc('id_tracking')
+                ->first();
+            $tracking->update([
+                'nama' => $user->nama,
+                'status' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
+                'tgl_status' => now(),
+                'status_spk' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
+            ]);
+
+            // tracking selanjutnya
+            TrackingSPK::AddTrackingSPK($kredit, [
+                'id_cabang' => $kredit->id_cabang,
+                'id_kredit' => $kredit->id_kredit,
+                'petugas_penerima' => $kredit->petugas_penerima,
+                'nama' => null,
+                'jabatan' => 'Kasi Operasional',
+                'status' => null,
+                'tgl_masuk' => now(),
+                'status_spk' => 'Disetujui',
+            ]);
+        }
+
 
         $this->dispatch('AlertSuccess', ['message' => 'Data berhasil diubah status!', 'id' => Crypt::encrypt($kredit->id_kredit)]);
     }

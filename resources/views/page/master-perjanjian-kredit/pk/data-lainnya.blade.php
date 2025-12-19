@@ -109,18 +109,18 @@
     </div>
 
     {{-- tambahan new 17/03/2025 : SPPK --}}
-    @if ($kredit->persetujuan->jns_kredit == 'Berjangka')
-        <div class="col-md-6 mb-3">
-            <label for="jumlah_angsuran">Biaya Angsuran : (Berjangka: ambil nilai
-                terbesar)</label>
-            <div class="input-group">
-                <span class="input-group-text">Rp.</span>
-                <input type="text" name="jumlah_angsuran" id="jumlah_angsuran" class="form-control setRp"
-                    required placeholder="Biaya Angsuran"
-                    value="{{ number_format($kredit->persetujuan->jumblah_angsuran, 0, ',', '.') }}">
-            </div>
+    {{-- @if ($kredit->persetujuan->jns_kredit == 'Berjangka') --}}
+    <div class="col-md-6 mb-3">
+        <label for="jumlah_angsuran">Biaya Angsuran : (Jika Berjangka: ambil nilai
+            terbesar)</label>
+        <div class="input-group">
+            <span class="input-group-text">Rp.</span>
+            <input type="text" name="jumlah_angsuran" id="jumlah_angsuran" class="form-control setRp" required
+                placeholder="Biaya Angsuran"
+                value="{{ number_format($kredit->persetujuan->jumlah_angsuran, 0, ',', '.') }}">
         </div>
-    @endif
+    </div>
+    {{-- @endif --}}
     <div class="col-md-6 mb-3">
         <label for="biaya_asuransi_kebakaran">Biaya Asuransi Kebakaran :</label>
         <div class="input-group">

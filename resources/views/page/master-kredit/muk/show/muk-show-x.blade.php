@@ -1,10 +1,10 @@
-<p class="mb-1">
+{{-- <p class="mb-1">
     Dari hasil analisa yang telah dilakukan, maka dapat diusulkan bahwa pengajuan kredit diatas dapat disetujui dengan
     pertimbanagan sebagai berikut:
 </p>
 <div class="mx-2 mb-2" style="font-weight: bold; font-size: 9pt;">
     {!! $muk->kredit->persetujuan->pertimbangan !!}
-</div>
+</div> --}}
 
 <p>
     Kondisi dan persyaratan yang diajukan:
@@ -22,8 +22,8 @@
         <td>Plafond</td>
         <td>:</td>
         <td>
-            {{ 'Rp' . number_format($muk->kredit->jumlah_disetujui, 0, ',', '.') }}
-            <i>( {{ terbilang_id($muk->kredit->jumlah_disetujui) }} )</i>
+            {{ $muk->kredit->jumlah_muk != null ? 'Rp' . number_format($muk->kredit->jumlah_muk, 0, ',', '.') : 0 }}
+            <i>( {{ $muk->kredit->jumlah_muk != null ? terbilang_id($muk->kredit->jumlah_muk) : 'nol' }} )</i>
         </td>
     </tr>
     <tr>
@@ -37,14 +37,14 @@
         <td>Jangka Waktu</td>
         <td>:</td>
         <td>
-            {{ $muk->kredit->jkw }} Bulan
+            {{ $muk->kredit->jkw_muk }} Bulan
         </td>
     </tr>
     <tr>
         <td>Suku Bunga</td>
         <td>:</td>
         <td>
-            {{ $muk->kredit->persetujuan->besar_bunga }}% / Tahun
+            {{ $muk->kredit->persetujuan->besar_bunga_muk }}% / Tahun
         </td>
     </tr>
     <tr>
@@ -75,7 +75,7 @@
         <td>Angsuran/bul</td>
         <td>:</td>
         <td>
-            {{ 'Rp' . number_format($muk->kredit->persetujuan->jumlah_angsuran, 0, ',', '.') }}
+            {{ $muk->kredit->persetujuan->jumlah_angsuran_muk != null ? 'Rp' . number_format($muk->kredit->persetujuan->jumlah_angsuran_muk, 0, ',', '.') : 0 }}
         </td>
     </tr>
     <tr>

@@ -287,11 +287,23 @@ class AddendumServices
 
             $pkpmk->no_sppk = $nomer;
             $pkpmk->tgl_print_sppk = now();
+            // ambil data pincab di tb cabang
+            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+            $pkpmk->nama_pincab = $pincab->nama_pincab;
+            $pkpmk->nik = $pincab->nik;
+            $pkpmk->tempat_lahir = $pincab->tempat_lahir;
+            $pkpmk->tgl_lahir = $pincab->tgl_lahir;
+            $pkpmk->tempat_tinggal = $pincab->tempat_tinggal;
+            $pkpmk->nomor_surat_kuasa = $pincab->nomor_surat_kuasa;
+            $pkpmk->tgl_surat_kuasa = $pincab->tgl_surat_kuasa;
+            $pkpmk->jabatan = $pincab->jabatan;
             $pkpmk->save();
         }
 
         // Log Activity $debitur, $kredit, $status_aksi
         LogActivity::AddLog("(p) Print SPPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: Printed SPPK");
+
+        return $pkpmk;
     }
 
 
@@ -412,25 +424,22 @@ class AddendumServices
             $pkpmk->tgl_awal = now();
             $pkpmk->tgl_print_addendum = now();
             $pkpmk->tgl_akhir = $tgl_akhir;
+            // ambil data pincab di tb cabang
+            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+            $pkpmk->nama_pincab = $pincab->nama_pincab;
+            $pkpmk->nik = $pincab->nik;
+            $pkpmk->tempat_lahir = $pincab->tempat_lahir;
+            $pkpmk->tgl_lahir = $pincab->tgl_lahir;
+            $pkpmk->tempat_tinggal = $pincab->tempat_tinggal;
+            $pkpmk->nomor_surat_kuasa = $pincab->nomor_surat_kuasa;
+            $pkpmk->tgl_surat_kuasa = $pincab->tgl_surat_kuasa;
+            $pkpmk->jabatan = $pincab->jabatan;
             $pkpmk->save();
 
             $kredit->status_legal = "Printed";
             $kredit->status_kredit = "SELESAI";
             $kredit->tgl_awal = now();
             $kredit->tgl_akhir = $tgl_akhir;
-
-            // ambil data pincab di tb cabang
-            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
-            $kredit->nama_pincab = $pincab->nama_pincab;
-            $kredit->nik = $pincab->nik;
-            $kredit->tempat_lahir = $pincab->tempat_lahir;
-            $kredit->tgl_lahir = $pincab->tgl_lahir;
-            $kredit->tempat_tinggal = $pincab->tempat_tinggal;
-            $kredit->nomor_surat_kuasa = $pincab->nomor_surat_kuasa;
-            $kredit->tgl_surat_kuasa = $pincab->tgl_surat_kuasa;
-            $kredit->jabatan = $pincab->jabatan;
-            $kredit->save();
-
             $kredit->save();
 
             // kenda
@@ -451,6 +460,8 @@ class AddendumServices
 
         // Log Activity $debitur, $kredit, $status_aksi
         LogActivity::AddLog("(p) Print Addendum | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: Printed PK");
+
+        return $pkpmk;
     }
 
 

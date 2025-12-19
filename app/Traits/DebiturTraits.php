@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\MasterKredit\Debitur;
 use App\Models\MasterKredit\Kredit;
+use App\Models\MasterKredit\Persetujuan;
 use App\Models\MasterMUK\Muk;
 use App\Models\MasterMUK\MukPutusan;
 use App\Models\Output\LogActivity;
@@ -172,6 +173,49 @@ trait DebiturTraits
                 $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
             } else {
                 $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+
+                // PERSETUJUAN PINCAB
+                $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first();
+                if ($this->bunga_cek == true) {
+                    $persetujuan->besar_bunga = $persetujuan->besar_bunga_muk;
+                } else {
+                    $persetujuan->besar_bunga = $this->normalizeNumber($this->bunga);
+                }
+                // save
+                $persetujuan->save();
+
+                if ($this->plafond_cek == true) {
+                    $kredit->jumlah_disetujui = $kredit->jumlah_muk;
+                } else {
+                    $kredit->jumlah_disetujui = $this->normalizeNumber($this->plafond);
+                }
+
+                if ($this->jkw_cek == true) {
+                    $kredit->jkw = $kredit->jkw;
+                } else {
+                    $kredit->jkw = $this->normalizeNumber($this->jkw);
+                }
+                // save
+                $kredit->save();
+
+                // UPDATE JUMLAH ANGSURAN DAN BIAYA P.A.S
+                if ($this->bunga_cek == false || $this->plafond_cek == false || $this->jkw_cek == false) {
+                    if ($persetujuan->jns_kredit == 'Berjangka') {
+                        $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
+                    } else {
+                        $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                    }
+
+                    // biaya pas
+                    $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
+                    $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
+                    $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
+                    $persetujuan->save();
+
+                    $persetujuan->update([
+                        'denda_hari' => (2 / 1000) * $persetujuan->jumlah_angsuran
+                    ]);
+                }
             }
         } else {
             $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
@@ -364,5 +408,23 @@ trait DebiturTraits
         // log & dispatch event
         LogActivity::AddLog("(cs) Data SPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: {$kredit->status_kredit} |");
         $this->dispatch('AlertSuccess', ['message' => 'Data berhasil diubah status!', 'id' => Crypt::encrypt($kredit->id_kredit)]);
+    }
+
+
+
+    // fungsi normal untuk setting number
+    function normalizeNumber($value)
+    {
+        if ($value === '∞') {
+            return 0;
+        }
+
+        $value = str_replace('.', '', $value); // hapus ribuan
+        $value = str_replace(',', '.', $value); // ubah desimal
+        return floatval($value);
+
+        // normalnya
+        // $nilai = "49.000,89";
+        // $jumlah_pengajuan = str_replace(',', '.', str_replace('.', '', $data['rate_1']));
     }
 }

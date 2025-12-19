@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
-    <link rel="shortcut icon" href="{{ asset('images/logo-ksb.png') }}">
-    <link rel="icon" href="{{ asset('images/logo-ksb.png') }}">
+    <link rel="shortcut icon" href="{{ public_path('images/logo-ksb.png') }}">
+    <link rel="icon" href="{{ public_path('images/logo-ksb.png') }}">
     {{-- @include('page.master-kredit.muk.show-scoring.style') --}}
     <link rel="stylesheet" href="{{ public_path('template/css/style-for-print-dompdf.css') }}">
 
@@ -211,6 +211,7 @@
             @include('page.master-kredit.muk.show.muk-show-xi')
         </div>
     </div>
+
 
     {{-- footer --}}
     <script type="text/php">

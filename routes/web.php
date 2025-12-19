@@ -12,6 +12,7 @@ use App\Http\Controllers\MasterKredit\SpkController;
 use App\Http\Controllers\MasterPKPMK\AddendumController;
 use App\Http\Controllers\MasterPKPMK\PkPmkController;
 use App\Http\Controllers\MasterUserController;
+use App\Livewire\Lainnya\JaminanTanahLivewire;
 use App\Livewire\Lainnya\LogAppVersion;
 use App\Livewire\Lainnya\TAphtLivewire;
 use App\Livewire\MasterKredit\Muk\AddMukLivewire;
@@ -207,6 +208,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tracking-show/{id}', [TAphtServices::class, 'showData'])->name('apht.show');
     });
 
+
+    // Menu Jaminan Tanah
+    Route::prefix('jaminan')->group(function () {
+        Route::get('tanah', JaminanTanahLivewire::class)->name('jaminan.tanah.index');
+    });
 
 
     // LOG

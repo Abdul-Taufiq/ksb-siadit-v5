@@ -120,7 +120,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="pengeluaran_usaha"
-                            name="pengeluaran_usaha" readonly
+                            name="pengeluaran_usaha"
                             value="{{ number_format($muk?->keuangan?->pengeluaran_usaha, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -133,7 +133,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="keuntungan_usaha"
-                            name="keuntungan_usaha" readonly
+                            name="keuntungan_usaha"
                             value="{{ number_format($muk?->keuangan?->keuntungan_usaha, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -172,7 +172,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="total_penghasilan"
-                            name="total_penghasilan" readonly
+                            name="total_penghasilan"
                             value="{{ number_format($muk?->keuangan?->total_penghasilan, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -266,7 +266,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="total_pengeluaran"
-                            name="total_pengeluaran" readonly
+                            name="total_pengeluaran"
                             value="{{ number_format($muk?->keuangan?->total_pengeluaran, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -279,7 +279,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="sisa_penghasilan"
-                            name="sisa_penghasilan" readonly
+                            name="sisa_penghasilan"
                             value="{{ number_format($muk?->keuangan?->sisa_penghasilan, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -292,7 +292,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="keu_angsuran_pinjaman"
-                            name="keu_angsuran_pinjaman" readonly
+                            name="keu_angsuran_pinjaman"
                             value="{{ number_format($muk?->keuangan?->keu_angsuran_pinjaman, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -305,7 +305,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="rekomendasi_asr"
-                            name="rekomendasi_asr" readonly
+                            name="rekomendasi_asr"
                             value="{{ number_format($muk?->keuangan?->rekomendasi_asr, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -318,7 +318,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="dis_income"
-                            name="dis_income" readonly
+                            name="dis_income"
                             value="{{ number_format($muk?->keuangan?->dis_income, 0, ',', '.') ?? '' }}">
                     </div>
                 </td>
@@ -329,7 +329,7 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control is-invalid" id="idir" name="idir" readonly
+                        <input type="text" class="form-control is-invalid" id="idir" name="idir"
                             value="{{ number_format($muk?->keuangan?->idir ?? 0, 2, ',', '.') }}">
                         <span class="input-group-text">%</span>
                     </div>
@@ -479,7 +479,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_pengeluaran_usaha"
-                            name="bjk_pengeluaran_usaha" readonly
+                            name="bjk_pengeluaran_usaha"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_pengeluaran_lainnya, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -492,7 +492,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_keuntungan_usaha"
-                            name="bjk_keuntungan_usaha" readonly
+                            name="bjk_keuntungan_usaha"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_keuntungan_usaha, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -505,7 +505,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_keuntungan_bulan"
-                            name="bjk_keuntungan_bulan" readonly
+                            name="bjk_keuntungan_bulan"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_keuntungan_bulan, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -531,7 +531,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_total_penghasilan"
-                            name="bjk_total_penghasilan" readonly
+                            name="bjk_total_penghasilan"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_total_penghasilan_lainnya, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -626,7 +626,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_total_pengeluaran"
-                            name="bjk_total_pengeluaran" readonly
+                            name="bjk_total_pengeluaran"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_total_pengeluaran, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -639,7 +639,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_sisa_penghasilan"
-                            name="bjk_sisa_penghasilan" readonly
+                            name="bjk_sisa_penghasilan"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_sisa_penghasilan, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -652,7 +652,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_angsuran_pinjaman"
-                            name="bjk_angsuran_pinjaman" readonly
+                            name="bjk_angsuran_pinjaman"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_angsuran_pinjaman, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -665,7 +665,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_kewajiban_bunga"
-                            name="bjk_kewajiban_bunga" readonly
+                            name="bjk_kewajiban_bunga"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_kewajiban_bunga, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -678,7 +678,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_kewajiban_akhir"
-                            name="bjk_kewajiban_akhir" readonly
+                            name="bjk_kewajiban_akhir"
                             value="{{ number_format($muk?->keuanganBjk?->bjk_kewajiban_akhir, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -690,7 +690,7 @@
                 <td>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control is-invalid" id="bjk_idir" name="bjk_idir"
-                            readonly value="{{ number_format($muk?->keuanganBjk?->bjk_idir ?? 0, 2, ',', '.') }}">
+                            value="{{ number_format($muk?->keuanganBjk?->bjk_idir ?? 0, 2, ',', '.') }}">
                         <span class="input-group-text">%</span>
                     </div>
                 </td>
@@ -738,7 +738,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-text">Rp.</span>
                 <input type="text" class="form-control is-invalid setRp" id="selisih_penghasilan"
-                    name="selisih_penghasilan" readonly
+                    name="selisih_penghasilan"
                     value="{{ number_format($muk?->keuanganBjk?->selisih_penghasilan, 0, ',', '.') ?? null }}">
             </div>
         </div>
@@ -747,7 +747,7 @@
         <label for="selisih_persen">&nbsp;</label>
         <div class="input-group input-group-sm">
             <input type="text" class="form-control is-invalid" id="selisih_persen" name="selisih_persen"
-                value="{{ number_format($muk?->keuangan?->selisih_persen ?? 0, 2, ',', '.') }}" readonly>
+                value="{{ number_format($muk?->keuangan?->selisih_persen ?? 0, 2, ',', '.') }}">
             <span class="input-group-text">%</span>
         </div>
     </div>

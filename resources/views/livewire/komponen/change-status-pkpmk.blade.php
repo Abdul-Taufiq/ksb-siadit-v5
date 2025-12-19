@@ -1,6 +1,10 @@
 @switch(Auth::user()->jabatan)
     @case('Legal')
-        @if ($pkpmk->kredit->status_kaops == 'Approve' && $pkpmk->kredit->status_legal != 'Printed')
+        @if ($pkpmk->kredit->status_pincab == 'SOS')
+            <span class="badge text-bg-warning" style="font-size: 11px;" title="Kaops Approve">
+                <i class="fa-solid fa-circle-exclamation"></i> SOS
+            </span>
+        @elseif ($pkpmk->kredit->status_kaops == 'Approve' && $pkpmk->kredit->status_legal != 'Printed')
             @if ($pkpmk->kredit->keterangan_kaops == 'Tidak Lengkap')
                 <div class="btn-group dropend">
                     <button type="button" class="btn btn-warning dropdown-toggle"
@@ -90,6 +94,30 @@
         @else
             <span class="badge text-bg-secondary" style="font-size: 11px;" title="Not Needed">
                 <i class="fa-solid fa-circle-exclamation"></i> NotYet
+            </span>
+        @endif
+    @break
+
+    @case('Pimpinan Cabang')
+        @if ($pkpmk->kredit->status_pincab == 'SOS')
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-secondary dropdown-toggle"
+                    style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Status
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <button type="button" class="dropdown-item"
+                            onclick="if(confirm('Anda yakin menyetujui perubahan ini?')) { @this.call('SendKaops', 'Send', '{{ $type == 'pkpmk' ? base64_encode($pkpmk->id_pkpmk) : base64_encode($pkpmk->id_addendum) }}') }">
+                            Approve Perubahan
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        @else
+            <span class="badge text-bg-secondary" style="font-size: 11px;" title="Not Needed">
+                <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
             </span>
         @endif
     @break

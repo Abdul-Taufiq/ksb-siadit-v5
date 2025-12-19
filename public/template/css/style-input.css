@@ -10,6 +10,11 @@ label:not(.notbold) {
     letter-spacing: 1px !important;
 }
 
+label.wajib::after {
+    content: " *";
+    color: red;
+}
+
 label:has(+ input[required])::after {
     content: " *";
     color: red;

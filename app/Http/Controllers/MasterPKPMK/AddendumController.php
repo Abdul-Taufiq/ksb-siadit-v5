@@ -153,15 +153,15 @@ class AddendumController extends Controller
     {
         $this->authorize('createLegal', PkPmkAddendum::class);
         $ids = Crypt::decrypt($idPkpmk);
-        $pkpmk = PkPmkAddendum::find($ids);
+        $pkpmkV = PkPmkAddendum::find($ids);
 
-        $jam_tanah = JamTanah::where('id_kredit', $pkpmk->id_kredit)->get();
-        $jam_kenda = JamKenda::where('id_kredit', $pkpmk->id_kredit)->get();
-        $jam_depo = JamDeposito::where('id_kredit', $pkpmk->id_kredit)->get();
-        $penjamin = Penjamin::where('id_kredit', $pkpmk->id_kredit)->get();
+        $jam_tanah = JamTanah::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $jam_kenda = JamKenda::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $jam_depo = JamDeposito::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $penjamin = Penjamin::where('id_kredit', $pkpmkV->id_kredit)->get();
 
         // create no sppk dan logika lainnya
-        $this->PkServices->genetareSppk($ids, 'Addendum');
+        $pkpmk = $this->PkServices->genetareSppk($ids, 'Addendum');
 
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.pk.print-sppk',
@@ -189,18 +189,18 @@ class AddendumController extends Controller
     {
         $this->authorize('createLegal', PKPmk::class);
         $ids = Crypt::decrypt($idPkpmk);
-        $pkpmk = PkPmkAddendum::find($ids);
-        $jam_tanah = JamTanah::where('id_kredit', $pkpmk->id_kredit)->get();
-        $jam_kenda = JamKenda::where('id_kredit', $pkpmk->id_kredit)->get();
-        $jam_depo = JamDeposito::where('id_kredit', $pkpmk->id_kredit)->get();
-        // $pikarEks = PikarEks::where('id_kredit', $pkpmk->id_kredit)->first();
-        $penjamin = Penjamin::where('id_kredit', $pkpmk->id_kredit)->get();
-        $addDobel = PkPmkAddendum::where('id_pkpmk', $pkpmk->id_pkpmk)->orderBy('created_at', 'ASC')->get();
+        $pkpmkV = PkPmkAddendum::find($ids);
+        $jam_tanah = JamTanah::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $jam_kenda = JamKenda::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $jam_depo = JamDeposito::where('id_kredit', $pkpmkV->id_kredit)->get();
+        // $pikarEks = PikarEks::where('id_kredit', $pkpmkV->id_kredit)->first();
+        $penjamin = Penjamin::where('id_kredit', $pkpmkV->id_kredit)->get();
+        $addDobel = PkPmkAddendum::where('id_pkpmk', $pkpmkV->id_pkpmk)->orderBy('created_at', 'ASC')->get();
 
-        $judul =  $pkpmk->persetujuan->jns_kredit == 'Angsuran' ? 'PK' : 'PMK';
+        $judul =  $pkpmkV->persetujuan->jns_kredit == 'Angsuran' ? 'PK' : 'PMK';
 
         // create no sppk dan logika lainnya
-        $this->AddServices->genetarePk($ids);
+        $pkpmk = $this->AddServices->genetarePk($ids);
 
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.addendum.print-addendum',

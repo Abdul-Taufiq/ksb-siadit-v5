@@ -107,6 +107,10 @@
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
                 </span>
+            @elseif ($kredit->status_pincab == 'SOS')
+                <span class="badge text-bg-warning" style="font-size: 11px;" title="Rejected">
+                    <i class="fa-solid fa-circle-exclamation"></i> SOSfromLegal
+                </span>
             @else
                 @if ($kredit->status_akhir == 'DEBITUR CENCEL')
                     <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
@@ -127,16 +131,24 @@
             @if (
                 $kredit->status_legal == 'Created' ||
                     ($kredit->status_legal == 'Terkirim') | ($kredit->status_legal == 'Print SPPK'))
-                <span class="badge text-bg-info" style="font-size: 11px;" title="Created PK/Sended To Kaops">
-                    <i class="fa-solid fa-circle-exclamation"></i> onProccess
-                </span>
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-info dropdown-toggle"
+                        style="width: 100px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-exclamation"></i> onProccess
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
+                                wire:click='ShowModal("Tidak Diambil", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>
+                                Tidak Diambil
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             @elseif ($kredit->status_legal == 'Printed')
                 <span class="badge text-bg-success" style="font-size: 11px;" title="Legal Printed">
                     <i class="fa-solid fa-check"></i> Printed
-                </span>
-            @elseif ($kredit->status_legal == 'Tidak Diambil')
-                <span class="badge text-bg-warning" style="font-size: 11px;" title="DISETUJUI (TIDAK DIAMBIL)">
-                    <i class="fa-solid fa-xmark"></i> notTaken
                 </span>
             @else
                 <div class="btn-group dropend">
@@ -156,9 +168,15 @@
                 </div>
             @endif
         @else
-            <span class="badge text-bg-secondary" style="font-size: 11px;" title="Belum Diperlukan">
-                <i class="fa-solid fa-circle-exclamation"></i> NotYet
-            </span>
+            @if ($kredit->status_legal == 'Tidak Diambil')
+                <span class="badge text-bg-danger" style="font-size: 11px;" title="DISETUJUI (TIDAK DIAMBIL)">
+                    <i class="fa-solid fa-xmark"></i> notTaken
+                </span>
+            @else
+                <span class="badge text-bg-secondary" style="font-size: 11px;" title="Belum Diperlukan">
+                    <i class="fa-solid fa-circle-exclamation"></i> NotYet
+                </span>
+            @endif
         @endif
     @break
 
@@ -213,13 +231,70 @@
                             </div>
                         </div>
                     @endif --}}
+                    @if (
+                        ($putusan == 'Cabang' && Auth::user()->jabatan == 'Pimpinan Cabang') ||
+                            ($putusan != 'Cabang' && Auth::user()->jabatan == 'Analis Cabang'))
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="plafond" class="wajib">Plafond Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="plafond_sama_muk"
+                                            wire:model.live='plafond_cek'>
+                                        <label class="form-check-label notbold" for="plafond_sama_muk">
+                                            Plafond Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp.</span>
+                                        <input type="text" class="form-control form-control-sm" id="plafond"
+                                            name="plafond" wire:model.live='plafond'
+                                            onkeyup="this.value = formatAngka(this.value)"
+                                            {{ $plafond_cek == true ? 'disabled' : 'required' }}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="jkw" class="wajib">Jangka Waktu Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="jkw_sama_muk"
+                                            wire:model.live='jkw_cek'>
+                                        <label class="form-check-label notbold" for="jkw_sama_muk">
+                                            JKW Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="jkw"
+                                        name="jkw" wire:model.live='jkw'
+                                        onkeyup="this.value = formatAngka(this.value)"
+                                        {{ $jkw_cek == true ? 'disabled' : 'required' }}>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="bunga" class="wajib">Bunga Yang Disetujui</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="bunga_sama_muk"
+                                            wire:model.live='bunga_cek'>
+                                        <label class="form-check-label notbold" for="bunga_sama_muk">
+                                            Bunga Sama dengan MUK
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="bunga"
+                                        name="bunga" wire:model.live='bunga'
+                                        onkeyup="this.value = formatAngka(this.value)"
+                                        {{ $bunga_cek == true ? 'disabled' : 'required' }}>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     @if (!in_array($status, ['Tidak Diambil', 'Cencel']))
                         <div class="form-group mb-2">
                             <label for="rekomendasi">Rekomendasi?</label>
-                            <select id="rekomendasi" class="form-select form-select-sm"
-                                wire:model.live='rekomendasi'>
-                                <option value="0" selected disabled>-Pilih-</option>
+                            <select id="rekomendasi" class="form-select form-select-sm" wire:model.live='rekomendasi'
+                                required>
+                                <option valuedisabled="0" selected>-Pilih-</option>
                                 <option value="Rekomendasi">Rekomendasi</option>
                                 <option value="Tidak Rekomendasi">Tidak Rekomendasi</option>
                             </select>
@@ -227,9 +302,9 @@
                     @endif
 
                     <div class="form-group">
-                        <label for="catatan">Catatan : </label>
+                        <label for="catatan" class="wajib">Catatan : </label>
                         <div wire:ignore>
-                            <textarea class="form-control" id="catatan" required wire:model='catatan'></textarea>
+                            <textarea class="form-control" id="catatan" required wire:model='catatan' required></textarea>
                         </div>
                     </div>
                     <br>
@@ -280,6 +355,25 @@
 
 @push('scripts')
     <script>
+        // fungsi RP
+        function formatAngka(angka) {
+            var numberString = angka.replace(/[^,\d]/g, "").toString(),
+                split = numberString.split(","),
+                sisa = split[0].length % 3,
+                hasil = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                var separator = sisa ? "." : "";
+                hasil += separator + ribuan.join(".");
+            }
+
+            hasil = split[1] !== undefined ? hasil + "," + split[1] : hasil;
+
+            return hasil;
+        }
+
+
         Livewire.on("initializeSummernote", () => {
             $('#catatan').summernote({
                 placeholder: 'Isikan Catatan ....',
