@@ -110,11 +110,14 @@
                                         <td>{{ 'Rp' . number_format($item->nilai_taksasi, 0, ',', '.') }}</td>
                                         <td class="hide-on-export">
                                             @php
+                                                $id_muks = 0; // default
+
                                                 foreach ($item->kredit->muk as $muk) {
-                                                    $id_muk = $muk->id_muk;
+                                                    $id_muks = $muk?->id_muk ?? 0;
                                                 }
+
                                             @endphp
-                                            <a href="{{ route('muk.show', encrypt($id_muk)) }}"
+                                            <a href="{{ route('muk.show', encrypt($id_muks)) }}"
                                                 class="btn btn-info btn-sm btn-aksi" title="Show Detail MUK">
                                                 <i class="fa fa-eye"></i>
                                             </a>
