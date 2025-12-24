@@ -233,15 +233,29 @@ class IndexMukLivewire extends Component
     {
 
         // ini untuk show SPK yang akan ditambahkan MUK
-        $this->spk = Kredit::where('id_cabang', Auth::user()->id_cabang)
-            ->whereNull('status_analis')
+        // $this->spk = Kredit::whereNull('status_analis')
+        $query = Kredit::whereNull('status_analis')
             ->whereNull('status_muk')
             ->where(function ($query) {
                 $query->where('status_ao', 'Terkirim')
                     ->orWhere('status_ao', 'Approve');
             })
-            ->orderBy('id_kredit', 'desc')
-            ->get();
+            ->orderBy('id_kredit', 'desc');
+
+        switch (Auth::user()->sub_jabatan) {
+            case 'Analis Cabang (ALT)':
+                $query->where('id_cabang', Auth::user()->id_cabang);
+                break;
+            case 'Staf Analis Area':
+                $query->whereIn('id_cabang', $this->id_cab_area);
+                break;
+
+            default:
+                $query->where('id_cabang', Auth::user()->id_cabang);
+                break;
+        }
+
+        $this->spk = $query->get();
 
         // ini untuk data yg tampil di table
         $muk = $this->mukservice->index($this->all());

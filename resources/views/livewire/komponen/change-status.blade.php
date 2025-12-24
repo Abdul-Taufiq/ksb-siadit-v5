@@ -30,34 +30,40 @@
 
     {{-- Analis --}}
     @case('Analis Cabang')
-        @if (
-            $kredit->status_ao != null &&
-                $kredit->status_ao != 'Cencel' &&
-                $kredit->status_ao != 'Reject' &&
-                $kredit->status_analis == null)
-            @include('livewire.komponen.button-modal')
+        @if (Auth::user()->sub_jabatan == 'Analis Cabang (ALT)')
+            <span class="badge text-bg-secondary" style="font-size: 11px;" title="Tidak Diperlukan">
+                <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
+            </span>
         @else
-            @if ($kredit->status_analis == 'Approve')
-                <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
-                    <i class="fa-solid fa-check"></i> Approved
-                </span>
-            @elseif ($kredit->status_analis == 'Reject')
-                <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
-                    <i class="fa-solid fa-xmark"></i> Rejected
-                </span>
-            @elseif ($kredit->status_analis == 'Cencel')
-                <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                    <i class="fa-solid fa-xmark"></i> Cencel
-                </span>
+            @if (
+                $kredit->status_ao != null &&
+                    $kredit->status_ao != 'Cencel' &&
+                    $kredit->status_ao != 'Reject' &&
+                    $kredit->status_analis == null)
+                @include('livewire.komponen.button-modal')
             @else
-                @if ($kredit->status_ao == 'Reject')
+                @if ($kredit->status_analis == 'Approve')
+                    <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
+                        <i class="fa-solid fa-check"></i> Approved
+                    </span>
+                @elseif ($kredit->status_analis == 'Reject')
                     <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
-                        <i class="fa-solid fa-xmark"></i> RejectedAO
+                        <i class="fa-solid fa-xmark"></i> Rejected
+                    </span>
+                @elseif ($kredit->status_analis == 'Cencel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                        <i class="fa-solid fa-xmark"></i> Cencel
                     </span>
                 @else
-                    <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
-                        <i class="fa-solid fa-circle-exclamation"></i> NotYet
-                    </span>
+                    @if ($kredit->status_ao == 'Reject')
+                        <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
+                            <i class="fa-solid fa-xmark"></i> RejectedAO
+                        </span>
+                    @else
+                        <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
+                            <i class="fa-solid fa-circle-exclamation"></i> NotYet
+                        </span>
+                    @endif
                 @endif
             @endif
         @endif

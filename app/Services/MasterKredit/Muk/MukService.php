@@ -358,7 +358,8 @@ class MukService
         $kredit->update([
             'jumlah_muk' => $this->normalizeNumber($data['jumlah_disetujui']),
             'jkw_muk' => $data['jkw_muk'],
-            'status_muk' => 'created'
+            'status_muk' => 'created',
+            'nama_analis' => Auth::user()->nama,
         ]);
 
         return $muk;

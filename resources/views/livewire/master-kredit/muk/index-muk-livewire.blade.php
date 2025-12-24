@@ -59,25 +59,35 @@
                                         <td>{{ $item->tgl_muk->translatedFormat('d F Y') }}</td>
                                         <td>
                                             @if ($item->status_pincab == 'Approve' && $item->status_analis_cabang == null)
-                                                <div class="btn-group dropend">
-                                                    <button type="button" class="btn btn-secondary dropdown-toggle"
-                                                        style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Status
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <button type="button" class="dropdown-item"
-                                                                data-bs-toggle="modal" data-bs-target="#modalID"
-                                                                wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button type="button" class="dropdown-item"
-                                                                data-bs-toggle="modal" data-bs-target="#modalID"
-                                                                wire:click='ShowModal("Reject", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Reject</button>
-                                                        </li>
-                                                </div>
+                                                {{-- untuk analis cabang atau analis area --}}
+                                                @if ($item->kredit->nama_analis == Auth::user()->nama)
+                                                    <div class="btn-group dropend">
+                                                        <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                            style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Status
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <button type="button" class="dropdown-item"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalID"
+                                                                    wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" class="dropdown-item"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalID"
+                                                                    wire:click='ShowModal("Reject", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Reject</button>
+                                                            </li>
+                                                    </div>
+                                                @else
+                                                    <span class="badge text-bg-info" style="font-size: 11px;"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-bs-title="Status ini hanya untuk follow up putusan selain cabang, jika putusan cabang ke data debitur dan hanya untuk Analis yg bersangkutan saja">
+                                                        <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
+                                                    </span>
+                                                @endif
                                             @elseif ($item->status_analis_cabang == 'Approve')
                                                 <span class="badge text-bg-success" style="font-size: 11px;"
                                                     title="Approved">
@@ -103,7 +113,7 @@
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             {{-- aksi edit --}}
-                                            @if (Auth::user()->jabatan == 'Analis Cabang')
+                                            @if (Auth::user()->jabatan == 'Analis Cabang' && $item->kredit->nama_analis == Auth::user()->nama)
                                                 @if ($item->status_pincab == 'Approve' && $item->status_analis_cabang == null)
                                                     <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
                                                         class="btn btn-warning btn-sm btn-aksi edit_data"
@@ -126,7 +136,7 @@
                                             @else
                                                 <a href="#"
                                                     class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                    title="Edit">
+                                                    title="Hanya Analis yg membuat MUK yang dapat mengedit data MUK">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             @endif
