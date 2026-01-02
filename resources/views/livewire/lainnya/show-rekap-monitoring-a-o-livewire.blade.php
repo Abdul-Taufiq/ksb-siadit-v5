@@ -39,23 +39,23 @@
                         </div>
                     </div>
 
-                    {{-- @if (Auth::user()->jabatan != 'AO') --}}
-                    <div class="col-md-4 text-md-end">
-                        <label for="search"><strong>&nbsp;</strong></label>
-                        <div class="d-flex align-items-center">
-                            <div class="btn-group btn-group-sm col-md-8 w-100">
-                                {{-- <button id="btn-pdf" type="button" class="btn btn-outline-primary btn-md"
+                    @if (Auth::user()->jabatan != 'AO')
+                        <div class="col-md-4 text-md-end">
+                            <label for="search"><strong>&nbsp;</strong></label>
+                            <div class="d-flex align-items-center">
+                                <div class="btn-group btn-group-sm col-md-8 w-100">
+                                    {{-- <button id="btn-pdf" type="button" class="btn btn-outline-primary btn-md"
                                 onclick="exportToPDF()">
                                 <i class="fa-solid fa-download"></i> PDF
                             </button> --}}
-                                <button id="btn-excel" type="button" class="btn btn-outline-primary btn-md"
-                                    onclick="exportExcelJS()">
-                                    <i class="fa-solid fa-download"></i> Excel
-                                </button>
+                                    <button id="btn-excel" type="button" class="btn btn-outline-primary btn-md"
+                                        onclick="exportExcelJS()">
+                                        <i class="fa-solid fa-download"></i> Excel
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- @endif --}}
+                    @endif
                 </div>
 
 
@@ -67,6 +67,16 @@
                             data
                             yang tampil didalam tabel akan diekspor.
                         </i>
+                        <input type="hidden" name="nama_ao" id="nama_ao" value="{{ $user->nama }}">
+                        <input type="hidden" name="cabang" id="cabang" value="{{ strtoupper($cabang->cabang) }}">
+                        <input type="hidden" name="tgl" id="tgl" value="{{ $tgl }}">
+                        <input type="hidden" name="persen_kunjungan" id="persen_kunjungan"
+                            value="{{ $persen_kunjungan }}">
+                        <input type="hidden" name="sukses_rate" id="sukses_rate" value="{{ $sukses_rate }}">
+                        <input type="hidden" name="sukses_noa" id="sukses_noa" value="{{ $sukses_noa }}">
+                        <input type="hidden" name="sukses_prospek" id="sukses_prospek" value="{{ $sukses_prospek }}">
+                        <input type="hidden" name="total_kunjungan" id="total_kunjungan"
+                            value="{{ $monitoring->count() }}">
                     </div>
                 </div>
 
@@ -76,16 +86,33 @@
                             <tr>
                                 <th colspan="15">
                                     <center>
-                                        REKAP PROSPEK AO LANDING <i
-                                            style="text-transform: uppercase">{{ $user->nama }}</i> <br>
+                                        REKAP PROSPEK AO LANDING <span
+                                            style="text-transform: uppercase">{{ $cabang->cabang }}</span> &nbsp; ||
+                                        &nbsp;
+                                        <i style="text-transform: uppercase">{{ $user->nama }}</i> <br>
                                         TANGGAL {{ $tgl }}
                                     </center>
                                 </th>
                             </tr>
                             <tr>
-                                <th colspan="7" style="text-align: left;">
-                                    Total Kunjungan: {{ $monitoring->count() }} |
-                                    {{ number_format(($monitoring->count() / 160) * 100, 2) }}% dari 160 Kunjungan
+                                <th colspan="5" style="text-align: left;"
+                                    class="{{ $persen_kunjungan < 80 ? 'text-danger' : 'text-success' }}">
+                                    Total Kunjungan: &nbsp; {{ $monitoring->count() }} &nbsp; &nbsp; | &nbsp; &nbsp;
+                                    {{ $persen_kunjungan }}% dari 160 Kunjungan
+                                </th>
+                                <th colspan="10" style="text-align: left">
+                                    Sukses <i>rate</i> Aplikasi Masuk terhadap jumlah Prospek: &nbsp;
+                                    {{ $sukses_rate }}%
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" style="text-align: left;">
+                                    Sukses <i>rate</i> NOA terhadap Aplikasi Masuk: &nbsp;
+                                    {{ $sukses_noa }}%
+                                </th>
+                                <th colspan="10" style="text-align: left">
+                                    Sukses <i>rate</i> NOA terhadap Prospek AO: &nbsp;
+                                    {{ $sukses_prospek }}%
                                 </th>
                             </tr>
                             <tr>
@@ -100,11 +127,12 @@
                                     'displayName' => 'Tanggal Kunjungan',
                                     'class' => 'rowspan="2"',
                                 ])
-                                @include('livewire.komponen.sorting-table', [
+                                {{-- @include('livewire.komponen.sorting-table', [
                                     'nameSort' => 'nama_ao',
                                     'displayName' => 'Nama AO',
                                     'class' => 'rowspan="2"',
-                                ])
+                                ]) --}}
+                                <th rowspan="2">Status</th>
                                 @include('livewire.komponen.sorting-table', [
                                     'nameSort' => 'nama_cadeb',
                                     'displayName' => 'Nama Cadeb',
@@ -170,7 +198,11 @@
                                         <td style="min-width: 100px;">
                                             {{ $item->tgl_kunjungan?->format('d-m-Y') ?? '-' }}
                                         </td>
-                                        <td style="min-width: 150px;">{{ $item->nama_ao }}</td>
+                                        <td style="min-width: 100px;" data-status-pk="{{ $item->status_pk }}"
+                                            data-status="{{ $item->status }}"
+                                            class="{{ $item->status_pk != null ? 'text-success' : ($item->status != null ? 'text-info' : '-') }}">
+                                            {{ $item->status_pk != null ? $item->status_pk : ($item->status != null ? $item->status : '-') }}
+                                        </td>
                                         <td style="min-width: 150px;">{{ $item->nama_cadeb }}</td>
 
                                         @php
@@ -323,52 +355,157 @@
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet("Data");
 
-            // --- Header manual agar rowspan/colspan aktif ---
-            worksheet.mergeCells('A1:A2'); // No
-            worksheet.getCell('A1').value = 'No';
+            let nama_ao = document.getElementById('nama_ao').value;
+            let cabang = document.getElementById('cabang').value;
+            let tgl = document.getElementById('tgl').value;
+            let persen_kunjungan = document.getElementById('persen_kunjungan').value;
+            let sukses_rate = document.getElementById('sukses_rate').value;
+            let sukses_noa = document.getElementById('sukses_noa').value;
+            let sukses_prospek = document.getElementById('sukses_prospek').value;
+            let total_kunjungan = document.getElementById('total_kunjungan').value;
 
-            worksheet.mergeCells('B1:B2'); // Cabang
-            worksheet.getCell('B1').value = 'Cabang';
+            // --- Judul utama ---
+            worksheet.mergeCells('A1:O1');
+            worksheet.getCell('A1').value =
+                'REKAP PROSPEK AO LANDING KPO Parakan ' + cabang + ' || ' + nama_ao +
+                '\nTANGGAL ' + tgl;
+            // tinggi baris
+            worksheet.getRow(1).height = 50;
+            // alignment
+            worksheet.getCell('A1').alignment = {
+                horizontal: 'center',
+                vertical: 'middle',
+                wrapText: true
+            };
+            // font
+            worksheet.getCell('A1').font = {
+                bold: true,
+                size: 12
+            };
+            // background fill
+            worksheet.getCell('A1').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: 'CFE2FF'
+                }
+            };
 
-            worksheet.mergeCells('C1:C2'); // Tanggal Kunjungan
-            worksheet.getCell('C1').value = 'Tanggal Kunjungan';
 
-            worksheet.mergeCells('D1:D2'); // Nama AO
-            worksheet.getCell('D1').value = 'Nama AO';
+            // --- Ringkasan baris 2 & 3 ---
+            worksheet.mergeCells('A2:D2');
+            worksheet.getCell('A2').value = 'Total Kunjungan: ' + total_kunjungan + '  |  ' + persen_kunjungan +
+                '% dari 160 Kunjungan';
+            worksheet.getCell('A2').alignment = {
+                horizontal: 'left',
+                vertical: 'middle'
+            };
+            worksheet.getCell('A2').font = {
+                bold: true,
+            };
+            worksheet.getCell('A2').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: 'CFE2FF'
+                }
+            };
 
-            worksheet.mergeCells('E1:E2'); // Nama Cadeb
-            worksheet.getCell('E1').value = 'Nama Cadeb';
+            // warna font total kunjungan: merah default, hijau jika kondisi terpenuhi
+            worksheet.getCell('A2').font = {
+                bold: true,
+                color: {
+                    argb: (parseInt(total_kunjungan) >= 160 ? 'FF008000' : 'FFFF0000')
+                } // hijau jika >=160, merah jika kurang
+            };
 
-            worksheet.mergeCells('F1:F2'); // No HP Cadeb
-            worksheet.getCell('F1').value = 'No HP Cadeb';
+            worksheet.mergeCells('E2:O2');
+            worksheet.getCell('E2').value = 'Sukses rate Aplikasi Masuk terhadap jumlah Prospek: ' + sukses_rate + '%';
+            worksheet.getCell('E2').alignment = {
+                horizontal: 'left',
+                vertical: 'middle'
+            };
+            worksheet.getCell('E2').font = {
+                bold: true,
+            };
+            worksheet.getCell('E2').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: 'CFE2FF'
+                }
+            };
 
-            // Alamat Domisili/Usaha (colspan 4)
-            worksheet.mergeCells('G1:J1');
-            worksheet.getCell('G1').value = 'Alamat Domisili/Usaha';
-            worksheet.getCell('G2').value = 'Dusun';
-            worksheet.getCell('H2').value = 'Desa';
-            worksheet.getCell('I2').value = 'Kecamatan';
-            worksheet.getCell('J2').value = 'Kab/Kota';
+            worksheet.mergeCells('A3:D3');
+            worksheet.getCell('A3').value = 'Sukses rate NOA terhadap Aplikasi Masuk: ' + sukses_noa + '%';
+            worksheet.getCell('A3').alignment = {
+                horizontal: 'left',
+                vertical: 'middle'
+            };
+            worksheet.getCell('A3').font = {
+                bold: true,
+            };
+            worksheet.getCell('A3').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: 'CFE2FF'
+                }
+            };
 
-            worksheet.mergeCells('K1:K2'); // Usaha
-            worksheet.getCell('K1').value = 'Usaha';
+            worksheet.mergeCells('E3:O3');
+            worksheet.getCell('E3').value = 'Sukses rate NOA terhadap Prospek AO: ' + sukses_prospek + '%';
+            worksheet.getCell('E3').alignment = {
+                horizontal: 'left',
+                vertical: 'middle'
+            };
+            worksheet.getCell('E3').font = {
+                bold: true,
+            };
+            worksheet.getCell('E3').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: 'CFE2FF'
+                }
+            };
 
-            worksheet.mergeCells('L1:L2'); // Potensi Plafond
-            worksheet.getCell('L1').value = 'Potensi Plafond';
+            // tinggi baris
+            worksheet.getRow(2).height = 30;
+            worksheet.getRow(3).height = 30;
 
-            worksheet.mergeCells('M1:M2'); // Kunjungan Ke-
-            worksheet.getCell('M1').value = 'Kunjungan Ke-';
+            // --- Header tabel ---
+            worksheet.mergeCells('A4:A5');
+            worksheet.getCell('A4').value = 'No';
+            worksheet.mergeCells('B4:B5');
+            worksheet.getCell('B4').value = 'Cabang';
+            worksheet.mergeCells('C4:C5');
+            worksheet.getCell('C4').value = 'Tanggal Kunjungan';
+            worksheet.mergeCells('D4:D5');
+            worksheet.getCell('D4').value = 'Status';
+            worksheet.mergeCells('E4:E5');
+            worksheet.getCell('E4').value = 'Nama Cadeb';
+            worksheet.mergeCells('F4:F5');
+            worksheet.getCell('F4').value = 'No HP Cadeb';
+            worksheet.mergeCells('G4:J4');
+            worksheet.getCell('G4').value = 'Alamat Domisili/Usaha';
+            worksheet.getCell('G5').value = 'Dusun';
+            worksheet.getCell('H5').value = 'Desa';
+            worksheet.getCell('I5').value = 'Kecamatan';
+            worksheet.getCell('J5').value = 'Kab/Kota';
+            worksheet.mergeCells('K4:K5');
+            worksheet.getCell('K4').value = 'Usaha';
+            worksheet.mergeCells('L4:L5');
+            worksheet.getCell('L4').value = 'Potensi Plafond';
+            worksheet.mergeCells('M4:M5');
+            worksheet.getCell('M4').value = 'Kunjungan Ke-';
+            worksheet.mergeCells('N4:N5');
+            worksheet.getCell('N4').value = 'Keterangan';
+            worksheet.mergeCells('O4:O5');
+            worksheet.getCell('O4').value = 'Klasifikasi';
 
-            worksheet.mergeCells('N1:N2'); // Keterangan
-            worksheet.getCell('N1').value = 'Keterangan';
-
-            worksheet.mergeCells('O1:O2'); // Klasifikasi
-            worksheet.getCell('O1').value = 'Klasifikasi';
-
-            // --- Styling header ---
-            worksheet.getRow(1).height = 25;
-            worksheet.getRow(2).height = 20;
-            [1, 2].forEach(r => {
+            // Styling header baris 4–5
+            [4, 5].forEach(r => {
                 worksheet.getRow(r).eachCell(cell => {
                     cell.font = {
                         bold: true
@@ -382,7 +519,8 @@
                     };
                     cell.alignment = {
                         horizontal: 'center',
-                        vertical: 'middle'
+                        vertical: 'middle',
+                        wrapText: true
                     };
                 });
             });
@@ -390,64 +528,152 @@
             // --- Lebar kolom ---
             worksheet.columns = [{
                     width: 5
-                }, // No
-                {
+                }, {
                     width: 20
-                }, // Cabang
-                {
+                }, {
                     width: 20
-                }, // Tgl Kunjungan
-                {
-                    width: 25
-                }, // Nama AO
-                {
-                    width: 25
-                }, // Nama Cadeb
-                {
-                    width: 20
-                }, // No HP
-                {
-                    width: 20
-                }, // Dusun
-                {
-                    width: 20
-                }, // Desa
-                {
-                    width: 20
-                }, // Kecamatan
-                {
-                    width: 20
-                }, // Kab/Kota
-                {
-                    width: 25
-                }, // Usaha
-                {
-                    width: 15
-                }, // Kunjungan Ke-
+                }, {
+                    width: 30
+                },
                 {
                     width: 30
-                }, // Keterangan
-                {
+                }, {
                     width: 20
-                }, // Klasifikasi
+                }, {
+                    width: 25
+                }, {
+                    width: 25
+                },
+                {
+                    width: 25
+                }, {
+                    width: 25
+                }, {
+                    width: 30
+                }, {
+                    width: 25
+                },
+                {
+                    width: 15
+                }, {
+                    width: 50
+                }, {
+                    width: 20
+                }
             ];
 
             // --- Isi data dari tbody ---
             const table = document.getElementById("exportTable");
             table.querySelectorAll("tbody tr").forEach(row => {
                 const rowData = [];
-                row.querySelectorAll("td").forEach(td => {
-                    rowData.push(td.innerText);
+                row.querySelectorAll("td").forEach((td, colIndex) => {
+                    let value = td.innerText;
+
+                    // khusus kolom status (index 3)
+                    if (colIndex === 3) {
+                        const statusPk = td.getAttribute("data-status-pk");
+                        const status = td.getAttribute("data-status");
+
+                        if (statusPk) {
+                            value = statusPk;
+                        } else if (status) {
+                            value = status;
+                        } else {
+                            value = "-";
+                        }
+                    }
+
+                    rowData.push(value);
                 });
                 worksheet.addRow(rowData);
             });
+
+            // --- Styling body ---
+            worksheet.eachRow({
+                includeEmpty: false
+            }, function(row, rowNumber) {
+                if (rowNumber >= 6) {
+                    row.height = 25;
+                }
+                row.eachCell({
+                    includeEmpty: false
+                }, function(cell, colNumber) {
+                    // border
+                    cell.border = {
+                        top: {
+                            style: 'thin',
+                            color: {
+                                argb: '000000'
+                            }
+                        },
+                        left: {
+                            style: 'thin',
+                            color: {
+                                argb: '000000'
+                            }
+                        },
+                        bottom: {
+                            style: 'thin',
+                            color: {
+                                argb: '000000'
+                            }
+                        },
+                        right: {
+                            style: 'thin',
+                            color: {
+                                argb: '000000'
+                            }
+                        }
+                    };
+
+                    // alignment
+                    if (rowNumber >= 6) {
+                        cell.alignment = {
+                            vertical: 'top',
+                            horizontal: 'left',
+                            wrapText: true
+                        };
+                    }
+
+                    // warna font khusus kolom status (colNumber 4 karena index 3)
+                    if (colNumber === 4 && rowNumber >= 6) {
+                        if (cell.value && cell.value !== "-") {
+                            // cek apakah berasal dari status_pk atau status
+                            const statusPk = row.getCell(4).value; // ambil isi cell status
+                            if (statusPk === "Cetak PK") {
+                                cell.font = {
+                                    color: {
+                                        argb: 'FF008000'
+                                    },
+                                    bold: true
+                                }; // hijau
+                            } else {
+                                cell.font = {
+                                    color: {
+                                        argb: 'FF0000FF'
+                                    },
+                                    bold: true
+                                }; // biru
+                            }
+                        } else {
+                            cell.font = {
+                                color: {
+                                    argb: 'FF000000'
+                                }
+                            };
+                        }
+                    }
+                });
+            });
+
+
 
             // --- Simpan file ---
             const buffer = await workbook.xlsx.writeBuffer();
             const blob = new Blob([buffer], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             });
-            saveAs(blob, "data-monitoring-ao.xlsx");
+            saveAs(blob, "Rekap-data-prospek-ao-" + nama_ao + ".xlsx");
         }
     </script>
 @endsection

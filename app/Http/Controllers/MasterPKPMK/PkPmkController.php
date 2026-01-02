@@ -14,6 +14,7 @@ use App\Models\MasterMUK\Muk;
 use App\Models\MasterPKPMK\PkPmk;
 use App\Models\MasterPKPMK\PkPmkAddendum;
 use App\Models\Output\LogActivity;
+use App\Models\Output\MonitoringAo;
 use App\Services\PerjanjianKredit\PK\PkServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -188,6 +189,14 @@ class PkPmkController extends Controller
 
         // create no sppk dan logika lainnya
         $pkpmk = $this->PkServices->genetarePk($ids);
+
+        // monitoring AO 
+        $monitoring = MonitoringAo::where('no_hp_cadeb', $pkpmkV->debitur->no_telp)->orderByDesc('id')->first();
+        if ($monitoring) {
+            $monitoring->update([
+                'status_pk' => 'Cetak PK',
+            ]);
+        }
 
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.pk.print-pkpmk',

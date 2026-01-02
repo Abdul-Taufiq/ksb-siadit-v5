@@ -88,7 +88,7 @@ class ShowRekapMonitoringAOLivewire extends Component
 
     public function resetFilter()
     {
-        $this->reset(['search', 'tgl_awal', 'tgl_akhir']);
+        $this->reset(['search']);
         $this->resetPage();
     }
 
@@ -114,11 +114,20 @@ class ShowRekapMonitoringAOLivewire extends Component
             $monitoring  = $monitoring->paginate($total > 0 ? $total : 1);
         }
 
+        // Persentase Kunjungan
+        $persen_kunjungan = number_format(($monitoring->count() / 160) * 100, 2);
+        // persentase aplikasi masuk terhadap jumlah prospek/ yang sampe create spk
+        $sukses_rate = number_format(($monitoring->where('status', 'Create SPK')->count() / $monitoring->count()) * 100, 2);
+        // persentase rate noa terhadap aplikasi masuk/ yang sampe cair
+        $sukses_noa = number_format(($monitoring->where('status_pk', 'Cetak PK')->count() / $monitoring->where('status', 'Create SPK')->count()) * 100, 2);
+        // persentase rate noa terhadap prospek ao
+        $sukses_prospek = number_format(($monitoring->where('status_pk', 'Cetak PK')->count() / $monitoring->count()) * 100, 2);
 
+        // tgl
         $tgl = Carbon::parse($this->tgl_awal)->Translatedformat('d F Y') . ' s/d ' . Carbon::parse($this->tgl_akhir)->Translatedformat('d F Y');
         // untuk mengecualikan error
         /** @disregard P1013 Undefined method */
-        return view('livewire.lainnya.show-rekap-monitoring-a-o-livewire', compact('monitoring', 'cabang', 'user', 'tgl'))
+        return view('livewire.lainnya.show-rekap-monitoring-a-o-livewire', compact('monitoring', 'cabang', 'user', 'tgl', 'persen_kunjungan', 'sukses_rate', 'sukses_noa', 'sukses_prospek'))
             ->extends('livewire.komponen.layouts.app', ['title' => 'Rekap Data Aktivitas Harian AO'])
             ->section('livewire-konten');
     }

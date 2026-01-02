@@ -7,6 +7,7 @@ use App\Models\MasterKredit\Debitur;
 use App\Models\MasterKredit\Kredit;
 use App\Models\MasterKredit\Persetujuan;
 use App\Models\Output\LogActivity;
+use App\Models\Output\MonitoringAo;
 use App\Models\Output\TrackingSPK;
 use App\Services\MasterKredit\Debitur\DebiturService;
 use Illuminate\Http\Request;
@@ -48,6 +49,14 @@ class DebiturController extends Controller
     public function store(Request $request)
     {
         $debitur = $this->debiturService->createDebitur($request->all());
+
+        // monitoring AO 
+        $monitoring = MonitoringAo::where('no_hp_cadeb', $request->no_telp)->orderByDesc('id')->first();
+        if ($monitoring) {
+            $monitoring->update([
+                'status' => 'Create SPK',
+            ]);
+        }
 
         // Log Aktivitas
         LogActivity::AddLog("(+) Data Debitur | NIK: {$debitur->nik} | Nama: {$debitur->nama_debitur}");

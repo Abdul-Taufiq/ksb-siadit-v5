@@ -14,6 +14,7 @@ use App\Models\MasterMUK\Muk;
 use App\Models\MasterPKPMK\PkPmk;
 use App\Models\MasterPKPMK\PkPmkAddendum;
 use App\Models\Output\LogActivity;
+use App\Models\Output\MonitoringAo;
 use App\Services\PerjanjianKredit\PK\AddendumServices;
 use App\Services\PerjanjianKredit\PK\PkServices;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -201,6 +202,14 @@ class AddendumController extends Controller
 
         // create no sppk dan logika lainnya
         $pkpmk = $this->AddServices->genetarePk($ids);
+
+        // monitoring AO 
+        $monitoring = MonitoringAo::where('no_hp_cadeb', $pkpmkV->debitur->no_telp)->orderByDesc('id')->first();
+        if ($monitoring) {
+            $monitoring->update([
+                'status_pk' => 'Cetak PK',
+            ]);
+        }
 
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.addendum.print-addendum',

@@ -74,6 +74,10 @@
                         <tbody style="vertical-align: middle">
                             @if ($monitoring->isNotEmpty())
                                 @foreach ($monitoring as $data => $item)
+                                    @php
+                                        $persen_kunjungan = number_format(($item->total_kunjungan / 160) * 100, 2);
+                                    @endphp
+
                                     <tr wire:key='{{ sha1($item->id) }}'>
                                         <td style="text-align: center; width: 3%">
                                             {{ $loop->index + $monitoring->firstItem() }}
@@ -85,8 +89,9 @@
                                         <td style="vertical-align: middle; text-align: center">
                                             <b>{{ $item->total_kunjungan }}</b>
                                         </td>
-                                        <td style="vertical-align: middle; text-align: center">
-                                            <b>{{ number_format(($item->total_kunjungan / 160) * 100, 2) }}%</b>
+                                        <td style="vertical-align: middle; text-align: center;"
+                                            class="{{ $persen_kunjungan < 80 ? 'text-danger' : 'text-success' }}">
+                                            <b>{{ $persen_kunjungan }}%</b>
                                         </td>
                                         <td>
                                             @if ($tgl_awal != null && $tgl_akhir != null && $tgl_awal < $tgl_akhir)
@@ -234,51 +239,19 @@
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet("Data");
 
-            // --- Header manual agar rowspan/colspan aktif ---
-            worksheet.mergeCells('A1:A2'); // No
+            // --- Header manual ---
+            worksheet.mergeCells('A1:A2');
             worksheet.getCell('A1').value = 'No';
-
-            worksheet.mergeCells('B1:B2'); // Cabang
+            worksheet.mergeCells('B1:B2');
             worksheet.getCell('B1').value = 'Cabang';
-
-            worksheet.mergeCells('C1:C2'); // Tanggal Kunjungan
-            worksheet.getCell('C1').value = 'Tanggal Kunjungan';
-
-            worksheet.mergeCells('D1:D2'); // Nama AO
-            worksheet.getCell('D1').value = 'Nama AO';
-
-            worksheet.mergeCells('E1:E2'); // Nama Cadeb
-            worksheet.getCell('E1').value = 'Nama Cadeb';
-
-            worksheet.mergeCells('F1:F2'); // No HP Cadeb
-            worksheet.getCell('F1').value = 'No HP Cadeb';
-
-            // Alamat Domisili/Usaha (colspan 4)
-            worksheet.mergeCells('G1:J1');
-            worksheet.getCell('G1').value = 'Alamat Domisili/Usaha';
-            worksheet.getCell('G2').value = 'Dusun';
-            worksheet.getCell('H2').value = 'Desa';
-            worksheet.getCell('I2').value = 'Kecamatan';
-            worksheet.getCell('J2').value = 'Kab/Kota';
-
-            worksheet.mergeCells('K1:K2'); // Usaha
-            worksheet.getCell('K1').value = 'Usaha';
-
-            worksheet.mergeCells('L1:L2'); // Potensi Plafond
-            worksheet.getCell('L1').value = 'Potensi Plafond';
-
-            worksheet.mergeCells('M1:M2'); // Kunjungan Ke-
-            worksheet.getCell('M1').value = 'Kunjungan Ke-';
-
-            worksheet.mergeCells('N1:N2'); // Keterangan
-            worksheet.getCell('N1').value = 'Keterangan';
-
-            worksheet.mergeCells('O1:O2'); // Klasifikasi
-            worksheet.getCell('O1').value = 'Klasifikasi';
+            worksheet.mergeCells('C1:C2');
+            worksheet.getCell('C1').value = 'Nama AO';
+            worksheet.mergeCells('D1:D2');
+            worksheet.getCell('D1').value = 'Jumlah Kunjungan';
+            worksheet.mergeCells('E1:E2');
+            worksheet.getCell('E1').value = 'Target 80%/160';
 
             // --- Styling header ---
-            worksheet.getRow(1).height = 25;
-            worksheet.getRow(2).height = 20;
             [1, 2].forEach(r => {
                 worksheet.getRow(r).eachCell(cell => {
                     cell.font = {
@@ -301,64 +274,72 @@
             // --- Lebar kolom ---
             worksheet.columns = [{
                     width: 5
-                }, // No
-                {
-                    width: 20
-                }, // Cabang
-                {
-                    width: 20
-                }, // Tgl Kunjungan
-                {
+                }, {
                     width: 25
-                }, // Nama AO
-                {
+                }, {
+                    width: 35
+                }, {
                     width: 25
-                }, // Nama Cadeb
+                },
                 {
-                    width: 20
-                }, // No HP
-                {
-                    width: 20
-                }, // Dusun
-                {
-                    width: 20
-                }, // Desa
-                {
-                    width: 20
-                }, // Kecamatan
-                {
-                    width: 20
-                }, // Kab/Kota
-                {
-                    width: 25
-                }, // Usaha
-                {
-                    width: 15
-                }, // Kunjungan Ke-
-                {
-                    width: 30
-                }, // Keterangan
-                {
-                    width: 20
-                }, // Klasifikasi
+                    width: 35
+                },
             ];
 
-            // --- Isi data dari tbody ---
+            // --- Isi data dari tbody + warna teks saja ---
             const table = document.getElementById("exportTable");
-            table.querySelectorAll("tbody tr").forEach(row => {
-                const rowData = [];
-                row.querySelectorAll("td").forEach(td => {
-                    rowData.push(td.innerText);
+
+            // tentukan kolom yang mau diexport (misalnya kolom 0–4 saja)
+            const allowedCols = [0, 1, 2, 3, 4];
+
+            table.querySelectorAll("tbody tr").forEach((row, rowIndex) => {
+                row.querySelectorAll("td").forEach((td, colIndex) => {
+                    // skip kolom yang tidak ada di allowedCols
+                    if (!allowedCols.includes(colIndex)) return;
+
+                    const cell = worksheet.getCell(rowIndex + 3, colIndex +
+                        1); // +3 karena header 2 row
+                    cell.value = td.innerText;
+
+                    // ambil style teks dari td
+                    const style = window.getComputedStyle(td);
+                    const color = style.color;
+                    if (color) {
+                        const rgb = color.match(/\d+/g);
+                        if (rgb) {
+                            cell.font = {
+                                color: {
+                                    argb: rgbToHex(rgb)
+                                }
+                            };
+                        }
+                    }
+
+                    cell.alignment = {
+                        horizontal: 'center',
+                        vertical: 'middle'
+                    };
                 });
-                worksheet.addRow(rowData);
             });
+
+            // helper convert rgb to hex argb
+            function rgbToHex(rgb) {
+                const [r, g, b] = rgb.map(x => parseInt(x).toString(16).padStart(2, '0'));
+                return 'FF' + r + g + b; // FF = alpha
+            }
+
+            // helper convert rgb to hex argb
+            function rgbToHex(rgb) {
+                const [r, g, b] = rgb.map(x => parseInt(x).toString(16).padStart(2, '0'));
+                return 'FF' + r + g + b; // FF = alpha
+            }
 
             // --- Simpan file ---
             const buffer = await workbook.xlsx.writeBuffer();
             const blob = new Blob([buffer], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             });
-            saveAs(blob, "data-monitoring-ao.xlsx");
+            saveAs(blob, "Rekap-data-prospek-ao.xlsx");
         }
     </script>
 

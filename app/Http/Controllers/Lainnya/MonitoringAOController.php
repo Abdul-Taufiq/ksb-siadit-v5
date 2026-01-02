@@ -76,8 +76,8 @@ class MonitoringAOController extends Controller
     {
         $ids = Crypt::decrypt($id);
         $monitor = MonitoringAo::findOrFail($ids);
-        $monitor->id_cabang = Auth::user()->id_cabang;
-        $monitor->nama_ao = Auth::user()->nama;
+        // $monitor->id_cabang = Auth::user()->id_cabang;
+        // $monitor->nama_ao = Auth::user()->nama;
         $monitor->no_hp_cadeb = $request->input('no_hp_cadeb_edit');
         $monitor->nama_cadeb = $request->input('nama_cadeb_edit');
         $monitor->usaha = $request->input('usaha_edit');
@@ -89,34 +89,12 @@ class MonitoringAOController extends Controller
         $monitor->kunjungan_ke = $request->input('kunjungan_ke_edit');
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond_edit'));
         $monitor->keterangan = $request->input('keterangan_edit');
-        $monitor->tgl_kunjungan = now();
+        // $monitor->tgl_kunjungan = now();
         $monitor->save();
 
         return redirect(route('monitoring.ao.index'))->with('AlertSuccess', 'Data Monitoring AO berhasil disimpan.');
     }
 
-
-
-    // +++++++++++++++++++++++++++++++++
-    // Rekap Monitoring AO Livewire
-    // +++++++++++++++++++++++++++++++++
-    public function showRekap($nama, $tgl_awal, $tgl_akhir)
-    {
-        $namas = Crypt::decrypt($nama);
-        $user = User::where('nama', $namas)->first();
-        $cabang = Cabang::where('id_cabang', $user->id_cabang)->first();
-
-        $monitoring = MonitoringAo::where('nama_ao', $namas)
-            ->whereBetween('tgl_kunjungan', [$tgl_awal, $tgl_akhir])
-            ->get();
-
-        return view('page.lainnya.rekap-monitoring-ao-show', [
-            'title' => 'Detail Aktivitas Harian AO',
-            'nama_ao' => $namas,
-            'cabang' => $cabang->cabang,
-            'monitoring' => $monitoring,
-        ]);
-    }
 
 
 
