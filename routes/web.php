@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\Lainnya\LogActivityController;
+use App\Http\Controllers\Lainnya\MonitoringAOController;
 use App\Http\Controllers\Lainnya\RekapController;
 use App\Http\Controllers\MasterKredit\AgunanController;
 use App\Http\Controllers\MasterKredit\DebiturController;
@@ -14,6 +15,9 @@ use App\Http\Controllers\MasterPKPMK\PkPmkController;
 use App\Http\Controllers\MasterUserController;
 use App\Livewire\Lainnya\JaminanTanahLivewire;
 use App\Livewire\Lainnya\LogAppVersion;
+use App\Livewire\Lainnya\MonitoringAOLivewire;
+use App\Livewire\Lainnya\RekapMonitoringAOLivewire;
+use App\Livewire\Lainnya\ShowRekapMonitoringAOLivewire;
 use App\Livewire\Lainnya\TAphtLivewire;
 use App\Livewire\MasterKredit\Muk\AddMukLivewire;
 use App\Livewire\MasterKredit\Muk\IndexMukLivewire;
@@ -212,6 +216,20 @@ Route::middleware(['auth'])->group(function () {
     // Menu Jaminan Tanah
     Route::prefix('jaminan')->group(function () {
         Route::get('tanah', JaminanTanahLivewire::class)->name('jaminan.tanah.index');
+    });
+
+
+    // Monitoring AO
+    Route::prefix('monitoring')->group(function () {
+        Route::get('ao', MonitoringAOLivewire::class)->name('monitoring.ao.index');
+        Route::get('ao/create', [MonitoringAOController::class, 'create'])->name('monitoring.ao.create');
+        Route::post('/store', [MonitoringAOController::class, 'store'])->name('monitoring.ao.store');
+        Route::get('ao/edit/{id}', [MonitoringAOController::class, 'edit'])->name('monitoring.ao.edit');
+        Route::patch('/update/{id}', [MonitoringAOController::class, 'update'])->name('monitoring.ao.update');
+        Route::get('/lookup-cadeb', [MonitoringAOController::class, 'lookupCadeb'])->name('monitoring.ao.lookup');
+
+        Route::get('rekap', RekapMonitoringAOLivewire::class)->name('monitoring.rekap.index');
+        Route::get('rekap/show/{nama}/{tgl_awal}/{tgl_akhir}', ShowRekapMonitoringAOLivewire::class)->name('monitoring.rekap.show');
     });
 
 

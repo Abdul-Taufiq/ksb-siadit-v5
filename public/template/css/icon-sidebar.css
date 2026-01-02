@@ -78,6 +78,13 @@
     background-image: url(../font-awesome/svgs/solid/clock.svg);
     filter: invert(100%); /* Mengubah warna ikon menjadi putih */
 }
+
+.activity-ao {
+    width: 20px;
+    height: 20px;
+    background-image: url(../font-awesome/svgs/solid/chart-line.svg);
+    filter: invert(100%); /* Mengubah warna ikon menjadi putih */
+}
 .sub-icon {
     width: 10px;
     height: 10px;

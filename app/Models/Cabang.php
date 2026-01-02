@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\MasterMUK\Muk;
+use App\Models\Output\MonitoringAo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -51,5 +52,10 @@ class Cabang extends Model
     public function Muk(): HasMany
     {
         return $this->hasMany(Muk::class, 'id_cabang', 'id_cabang');
+    }
+
+    public function monitoringao(): HasMany
+    {
+        return $this->hasMany(MonitoringAo::class, 'id_cabang', 'id_cabang');
     }
 }

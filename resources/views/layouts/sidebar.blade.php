@@ -96,6 +96,37 @@
                     </ul>
                 </li>
 
+
+                {{-- Aktifitas Harian AO --}}
+                <li>
+                    <a class="show-cat-btn {{ request()->is('monitoring*') ? 'active' : '' }}" href="##">
+                        <span class="icon activity-ao" aria-hidden="true"></span>Aktivitas Harian AO
+                        <span class="category__btn transparent-btn {{ request()->is('monitoring*') ? 'rotated' : '' }}"
+                            title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="sub-menu {{ request()->is('monitoring*') ? '' : 'd-none' }}">
+                        <li>
+                            <a href="/monitoring/ao" class="{{ request()->is('monitoring/ao*') ? 'active' : '' }}"
+                                style="{{ request()->is('monitoring/ao*') ? 'opacity: 1;' : '' }}">
+                                <span class="icon sub-icon"></span>
+                                Prospek AO
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/monitoring/rekap"
+                                class="{{ request()->is('monitoring/rekap*') ? 'active' : '' }}"
+                                style="{{ request()->is('monitoring/rekap*') ? 'opacity: 1;' : '' }}">
+                                <span class="icon sub-icon"></span>
+                                Rekap Prospek AO
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 {{-- Rekap --}}
                 @if (Auth::user()->jabatan != 'AO')
                     <li>
@@ -126,7 +157,7 @@
                                 </a>
                             </li>
 
-                            @if (Auth::user()->jabatan != 'LOW USER' || Auth::user()->jabatan != 'MEDIUM USER')
+                            @if (Auth::user()->level != 'LOW USER' && Auth::user()->level != 'MEDIUM USER')
                                 <li>
                                     <a href="{{ route('jaminan.tanah.index') }}"
                                         class="{{ request()->is('jaminan/tanah') ? 'active' : '' }}"

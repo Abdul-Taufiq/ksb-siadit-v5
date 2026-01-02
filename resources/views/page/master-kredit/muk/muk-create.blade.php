@@ -88,7 +88,7 @@
                         <br><br>
 
                         {{-- tombol save --}}
-                        <div class="card">
+                        <div class="card  btn-print">
                             <div class="card-body">
                                 <div class="form-group mb-0">
                                     <div class="custom-control custom-checkbox">
@@ -102,15 +102,23 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-between">
                                     <button type="button" id="simpan" class="btn btn-primary"
                                         style="letter-spacing: 2px;">
-                                        <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> & Lanjutkan</button>
+                                        <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> &
+                                        Lanjutkan</button>
 
                                     <div class="bg-danger text-warning m-2 p-2 rounded d-none" id="peringatan">
                                         <i class="fa-solid fa-triangle-exclamation"></i>
                                         <strong> Tidak Dapat Menyimpan karena WI tidak sesuai dengan Ketentuan!
                                         </strong>
+                                    </div>
+
+                                    <div>
+                                        <button type="button" id="simpan" class="btn btn-info"
+                                            style="letter-spacing: 2px;" onClick="window.print();return false">
+                                            <i class="fa-solid fa-print"></i> &nbsp; <b>Print</b> Inputan</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

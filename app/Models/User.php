@@ -60,10 +60,10 @@ class User extends Authenticatable
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
 
-    public function Cabang()
-    {
-        return $this->belongsTo(Cabang::class, 'id_cabang', 'id_cabang');
-    }
+    // public function cabang()
+    // {
+    //     return $this->belongsTo(Cabang::class, 'id_cabang', 'id_cabang');
+    // }
 
 
     public function scopeSearch($query, $search)
