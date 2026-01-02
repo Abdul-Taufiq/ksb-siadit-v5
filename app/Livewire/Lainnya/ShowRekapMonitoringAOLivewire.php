@@ -116,12 +116,33 @@ class ShowRekapMonitoringAOLivewire extends Component
 
         // Persentase Kunjungan
         $persen_kunjungan = number_format(($monitoring->count() / 160) * 100, 2);
+        $mon_count = $monitoring->count();
+
         // persentase aplikasi masuk terhadap jumlah prospek/ yang sampe create spk
-        $sukses_rate = number_format(($monitoring->where('status', 'Create SPK')->count() / $monitoring->count()) * 100, 2);
+        $suk_rate = $monitoring->where('status', 'Create SPK')->count();
+        if ($suk_rate > 0 && $mon_count > 0) {
+            $sukses_rate = number_format(($suk_rate / $mon_count) * 100, 2);
+        } else {
+            $sukses_rate = 0;
+        }
+
         // persentase rate noa terhadap aplikasi masuk/ yang sampe cair
-        $sukses_noa = number_format(($monitoring->where('status_pk', 'Cetak PK')->count() / $monitoring->where('status', 'Create SPK')->count()) * 100, 2);
+        $cetakPkCount = $monitoring->where('status_pk', 'Cetak PK')->count();
+        $createSpkCount = $monitoring->where('status', 'Create SPK')->count();
+        if ($createSpkCount > 0) {
+            $sukses_noa = number_format(($cetakPkCount / $createSpkCount) * 100, 2);
+        } else {
+            $sukses_noa = 0; // atau bisa '-' sesuai kebutuhan tampilan
+        }
+
         // persentase rate noa terhadap prospek ao
-        $sukses_prospek = number_format(($monitoring->where('status_pk', 'Cetak PK')->count() / $monitoring->count()) * 100, 2);
+        $suk_prospek = $monitoring->where('status_pk', 'Cetak PK')->count();
+        $createSpkCount = $monitoring->where('status', 'Create SPK')->count();
+        if ($createSpkCount > 0 && $mon_count > 0) {
+            $sukses_prospek = number_format(($cetakPkCount / $mon_count) * 100, 2);
+        } else {
+            $sukses_prospek = 0; // atau bisa '-' sesuai kebutuhan tampilan
+        }
 
         // tgl
         $tgl = Carbon::parse($this->tgl_awal)->Translatedformat('d F Y') . ' s/d ' . Carbon::parse($this->tgl_akhir)->Translatedformat('d F Y');
