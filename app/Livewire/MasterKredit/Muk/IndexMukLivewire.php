@@ -140,7 +140,7 @@ class IndexMukLivewire extends Component
         $id_kre = base64_decode($this->id_kredit);
         $muk = Muk::where('id_kredit', $id_kre)->first();
         $muk->file_putusan = $fileName;
-        $muk->status_analis_cabang = $this->metode;
+        $muk->status_kakom = $this->metode;
         $muk->save();
 
         // update kredit

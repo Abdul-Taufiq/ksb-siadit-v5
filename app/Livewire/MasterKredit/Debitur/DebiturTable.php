@@ -115,10 +115,10 @@ class DebiturTable extends Component
             $this->rekomendasi = 'Tidak Rekomendasi';
         }
 
-        $this->analis_area = User::where('jabatan', 'Analis Area')
-            ->whereNot('nama', 'Like', '%dummy%')->get();
-        $this->analis_komite = User::where('jabatan', 'like', 'Analis%')
-            ->whereNot('nama', 'Like', '%dummy%')->get();
+        // $this->analis_area = User::where('jabatan', 'Analis Area')
+        //     ->whereNot('nama', 'Like', '%dummy%')->get();
+        // $this->analis_komite = User::where('jabatan', 'like', 'Analis%')
+        //     ->whereNot('nama', 'Like', '%dummy%')->get();
 
         $this->id_kredit = base64_decode($id);
         $kredit = Kredit::find(base64_decode($id));
@@ -177,6 +177,36 @@ class DebiturTable extends Component
         } else {
             $this->EditStatus();
         }
+    }
+
+
+    // update status AO untuk reject slik
+    public function RejectSLIK($no_spk, $id)
+    {
+        $this->id_kredit = base64_decode($id);
+        $kredit = Kredit::find($this->id_kredit);
+        $kredit->status_ao = 'Reject';
+        $kredit->status_kredit = 'AO Reject SLIK';
+        $kredit->status_akhir = 'DITOLAK';
+        $kredit->catatan_ao = 'SLIK JELEK <br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
+        $kredit->save();
+
+        // tracking lama
+        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+            ->where('jabatan', 'AO')
+            ->orderByDesc('id_tracking')
+            ->first();
+        $tracking->update([
+            'nama' => Auth::user()->nama,
+            'status' => 'Reject SLIK',
+            'tgl_status' => now(),
+            'status_spk' => 'REJECT SLIK',
+        ]);
+
+        $this->dispatch('AlertSuccess', [
+            'message' => 'Data SPK ' . $no_spk . ' Berhasil di Reject SLIK.',
+            'userId' => sha1($kredit->id_kredit)
+        ]);
     }
 
 

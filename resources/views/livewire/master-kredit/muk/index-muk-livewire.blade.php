@@ -58,9 +58,9 @@
                                         <td>{{ $item->no_muk }}</td>
                                         <td>{{ $item->tgl_muk->translatedFormat('d F Y') }}</td>
                                         <td>
-                                            @if ($item->status_pincab == 'Approve' && $item->status_analis_cabang == null)
+                                            @if ($item->status_pincab == 'Approve' && $item->status_kakom == null)
                                                 {{-- untuk analis cabang atau analis area --}}
-                                                @if ($item->kredit->nama_analis == Auth::user()->nama)
+                                                @if (Auth::user()->jabatan == 'Kasi Komersial')
                                                     <div class="btn-group dropend">
                                                         <button type="button" class="btn btn-secondary dropdown-toggle"
                                                             style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
@@ -84,16 +84,16 @@
                                                     <span class="badge text-bg-info" style="font-size: 11px;"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-custom-class="custom-tooltip"
-                                                        data-bs-title="Status ini hanya untuk follow up putusan selain cabang, jika putusan cabang ke data debitur dan hanya untuk Analis yg bersangkutan saja">
+                                                        data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya. <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
                                                         <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
                                                     </span>
                                                 @endif
-                                            @elseif ($item->status_analis_cabang == 'Approve')
+                                            @elseif ($item->status_kakom == 'Approve')
                                                 <span class="badge text-bg-success" style="font-size: 11px;"
                                                     title="Approved">
                                                     <i class="fa-solid fa-check"></i> Approved
                                                 </span>
-                                            @elseif ($item->status_analis_cabang == 'Reject')
+                                            @elseif ($item->status_kakom == 'Reject')
                                                 <span class="badge text-bg-danger" style="font-size: 11px;"
                                                     title="Rejected">
                                                     <i class="fa-solid fa-xmark"></i> Rejected
@@ -102,7 +102,7 @@
                                                 <span class="badge text-bg-info" style="font-size: 11px;"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-custom-class="custom-tooltip"
-                                                    data-bs-title="Status ini hanya untuk follow up putusan selain cabang, jika putusan cabang ke data debitur">
+                                                    data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya, <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
                                                     <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
                                                 </span>
                                             @endif
@@ -113,30 +113,40 @@
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             {{-- aksi edit --}}
-                                            @if (Auth::user()->jabatan == 'Analis Cabang' && $item->kredit->nama_analis == Auth::user()->nama)
-                                                @if ($item->status_pincab == 'Approve' && $item->status_analis_cabang == null)
-                                                    <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                        class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                        title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                @elseif ($item->kredit->status_analis == null)
-                                                    <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                        class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                        title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                @else
+                                            @if (Auth::user()->sub_jabatan == 'Staf Analis Area' || Auth::user()->jabatan == 'Analis Cabang')
+                                                @if ($item->status_pincab != null && $item->status_kakom != null)
                                                     <a href="#"
                                                         class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
                                                         title="Edit">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
+                                                @else
+                                                    @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                                                        @if ($item->kredit->nama_analis == null || $item->kredit->nama_analis == Auth::user()->nama)
+                                                            <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                                class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                                title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="#"
+                                                                class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                                title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        @endif
+                                                    @else
+                                                        <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                            class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                            title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    @endif
                                                 @endif
                                             @else
                                                 <a href="#"
                                                     class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                    title="Hanya Analis yg membuat MUK yang dapat mengedit data MUK">
+                                                    title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             @endif

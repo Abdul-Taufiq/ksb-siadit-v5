@@ -14,7 +14,8 @@
             <td>
                 <input type="date" name="tgl_jatuh_tempo_{{ $loop->iteration }}"
                     id="tgl_jatuh_tempo_{{ $loop->iteration }}" class="form-control form-control-sm" required
-                    value="{{ $depo->sc_depo?->tgl_jatuh_tempo?->format('Y-m-d') }}">
+                    value="{{ $depo->sc_depo?->tgl_jatuh_tempo?->format('Y-m-d') }}"
+                    value="{{ optional(data_get($depo, "$vanalisDepo.tgl_jatuh_tempo") ?? data_get($depo, "$vcabDepo.tgl_jatuh_tempo"))->format('Y-m-d') }}">
             </td>
         </tr>
         <tr>
@@ -24,7 +25,7 @@
             <td>
                 <input type="text" name="nama_pemilik_{{ $loop->iteration }}"
                     id="nama_pemilik_{{ $loop->iteration }}" class="form-control form-control-sm" required
-                    value="{{ $depo->sc_depo?->nama_pemilik }}">
+                    value="{{ data_get($depo, "$vanalisDepo.nama_pemilik") ?? data_get($depo, "$vcabDepo.nama_pemilik") }}">
             </td>
             <td>
                 <label class="notbold" for="nominal_{{ $loop->iteration }}">Nominal</label>
@@ -34,7 +35,7 @@
                     <span class="input-group-text">Rp</span>
                     <input type="text" name="nominal_{{ $loop->iteration }}" id="nominal_{{ $loop->iteration }}"
                         class="form-control form-control-sm setRp" required
-                        value="{{ number_format($depo->sc_depo?->nominal, 0, ',', '.') }}">
+                        value="{{ number_format(data_get($depo, "$vanalisDepo.nominal") ?? data_get($depo, "$vcabDepo.nominal"), 0, ',', '.') }}">
                 </div>
             </td>
         </tr>
@@ -44,7 +45,7 @@
             </td>
             <td>
                 <textarea name="alamat_pemilik_{{ $loop->iteration }}" id="alamat_pemilik_{{ $loop->iteration }}" cols="30"
-                    rows="2" class="form-control" required>{{ $depo->sc_depo?->keterangan_lainnya }}</textarea>
+                    rows="2" class="form-control" required>{{ data_get($depo, "$vanalisDepo.keterangan_lainnya") ?? data_get($depo, "$vcabDepo.keterangan_lainnya") }}</textarea>
             </td>
             <td>
                 <label class="notbold" for="aro_{{ $loop->iteration }}">Automatic Roll Over (ARO)</label>
@@ -53,8 +54,12 @@
                 <select name="aro_{{ $loop->iteration }}" id="aro_{{ $loop->iteration }}"
                     class="form-select form-select-sm">
                     <option selected disabled>-Pilih-</option>
-                    <option {{ $depo->sc_depo?->aro == 'Ya' ? 'selected' : '' }} value="Ya">Ya</option>
-                    <option {{ $depo->sc_depo?->aro == 'Tidak' ? 'selected' : '' }} value="Tidak">Tidak</option>
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.aro") ?? data_get($depo, "$vcabDepo.aro")) == 'Ya' ? 'selected' : '' }}
+                        value="Ya">Ya</option>
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.aro") ?? data_get($depo, "$vcabDepo.aro")) == 'Tidak' ? 'selected' : '' }}
+                        value="Tidak">Tidak</option>
                 </select>
             </td>
         </tr>
@@ -65,7 +70,7 @@
             <td>
                 <input type="text" name="bank_penerbit_{{ $loop->iteration }}"
                     id="bank_penerbit_{{ $loop->iteration }}" class="form-control form-control-sm" required
-                    value="{{ $depo->sc_depo?->bank_penerbit }}">
+                    value="{{ data_get($depo, "$vanalisDepo.bank_penerbit") ?? data_get($depo, "$vcabDepo.bank_penerbit") }}">
             </td>
             <td>
                 <label class="notbold" for="jns_aro_{{ $loop->iteration }}">Jenis ARO</label>
@@ -74,23 +79,37 @@
                 <select name="jns_aro_{{ $loop->iteration }}" id="jns_aro_{{ $loop->iteration }}"
                     class="form-select form-select-sm">
                     <option selected disabled>-Pilih-</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'Non ARO' ? 'selected' : '' }} value="Non ARO">Non ARO
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'Non ARO' ? 'selected' : '' }}
+                        value="Non ARO">Non ARO
                     </option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO 1 Bulan' ? 'selected' : '' }} value="ARO 1 Bulan">ARO 1
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO 1 Bulan' ? 'selected' : '' }}
+                        value="ARO 1 Bulan">ARO 1
                         Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO 3 Bulan' ? 'selected' : '' }} value="ARO 3 Bulan">ARO 3
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO 3 Bulan' ? 'selected' : '' }}
+                        value="ARO 3 Bulan">ARO 3
                         Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO 6 Bulan' ? 'selected' : '' }} value="ARO 6 Bulan">ARO 6
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO 6 Bulan' ? 'selected' : '' }}
+                        value="ARO 6 Bulan">ARO 6
                         Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO 12 Bulan' ? 'selected' : '' }} value="ARO 12 Bulan">ARO
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO 12 Bulan' ? 'selected' : '' }}
+                        value="ARO 12 Bulan">ARO
                         12 Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO Pokok 1 Bulan' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO Pokok 1 Bulan' ? 'selected' : '' }}
                         value="ARO Pokok 1 Bulan">ARO Pokok 1 Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO Pokok 3 Bulan' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO Pokok 3 Bulan' ? 'selected' : '' }}
                         value="ARO Pokok 3 Bulan">ARO Pokok 3 Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO Pokok 6 Bulan' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO Pokok 6 Bulan' ? 'selected' : '' }}
                         value="ARO Pokok 6 Bulan">ARO Pokok 6 Bulan</option>
-                    <option {{ $depo->sc_depo?->jns_aro == 'ARO Pokok 12 Bulan' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.jns_aro") ?? data_get($depo, "$vcabDepo.jns_aro")) == 'ARO Pokok 12 Bulan' ? 'selected' : '' }}
                         value="ARO Pokok 12 Bulan">ARO Pokok 12 Bulan</option>
                 </select>
             </td>
@@ -102,7 +121,7 @@
             <td>
                 <input type="date" name="tgl_bilyet_{{ $loop->iteration }}" id="tgl_bilyet_{{ $loop->iteration }}"
                     class="form-control form-control-sm" required
-                    value="{{ $depo->sc_depo?->tgl_bilyet?->format('Y-m-d') }}">
+                    value="{{ optional(data_get($depo, "$vanalisDepo.tgl_bilyet") ?? data_get($depo, "$vcabDepo.tgl_bilyet"))->format('Y-m-d') }}">
             </td>
             <td>
                 <label class="notbold" for="hubungan_dgn_debitur_{{ $loop->iteration }}">Hubungan Dengan
@@ -112,15 +131,23 @@
                 <select name="hubungan_dgn_debitur_{{ $loop->iteration }}"
                     id="hubungan_dgn_debitur_{{ $loop->iteration }}" class="form-select form-select-sm">
                     <option selected disabled>-Pilih-</option>
-                    <option {{ $depo->sc_depo?->hubungan_dgn_debitur == 'Sendiri' ? 'selected' : '' }} value="Sendiri">
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.hubungan_dgn_debitur") ?? data_get($depo, "$vcabDepo.hubungan_dgn_debitur")) == 'Sendiri' ? 'selected' : '' }}
+                        value="Sendiri">
                         Sendiri</option>
-                    <option {{ $depo->sc_depo?->hubungan_dgn_debitur == 'Suami/Istri' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.hubungan_dgn_debitur") ?? data_get($depo, "$vcabDepo.hubungan_dgn_debitur")) == 'Suami/Istri' ? 'selected' : '' }}
                         value="Suami/Istri">Suami/Istri</option>
-                    <option {{ $depo->sc_depo?->hubungan_dgn_debitur == 'Orang Tua' ? 'selected' : '' }}
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.hubungan_dgn_debitur") ?? data_get($depo, "$vcabDepo.hubungan_dgn_debitur")) == 'Orang Tua' ? 'selected' : '' }}
                         value="Orang Tua">Orang Tua</option>
-                    <option {{ $depo->sc_depo?->hubungan_dgn_debitur == 'Anak' ? 'selected' : '' }} value="Anak">Anak
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.hubungan_dgn_debitur") ?? data_get($depo, "$vcabDepo.hubungan_dgn_debitur")) == 'Anak' ? 'selected' : '' }}
+                        value="Anak">Anak
                     </option>
-                    <option {{ $depo->sc_depo?->hubungan_dgn_debitur == 'Lainnya' ? 'selected' : '' }} value="Lainnya">
+                    <option
+                        {{ (data_get($depo, "$vanalisDepo.hubungan_dgn_debitur") ?? data_get($depo, "$vcabDepo.hubungan_dgn_debitur")) == 'Lainnya' ? 'selected' : '' }}
+                        value="Lainnya">
                         Lainnya</option>
                 </select>
             </td>
@@ -131,7 +158,7 @@
             </td>
             <td colspan="3">
                 <textarea name="keterangan_lainnya_{{ $loop->iteration }}" id="keterangan_lainnya_{{ $loop->iteration }}"
-                    cols="30" rows="2" class="form-control" required>{{ $depo->sc_depo?->keterangan_lainnya }}</textarea>
+                    cols="30" rows="2" class="form-control" required>{{ data_get($depo, "$vanalisDepo.keterangan_lainnya") ?? data_get($depo, "$vcabDepo.keterangan_lainnya") }}</textarea>
             </td>
         </tr>
 

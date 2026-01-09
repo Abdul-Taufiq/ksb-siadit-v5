@@ -73,10 +73,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
     // Profile
-    Route::resource('profile', ProfileController::class)->only([
-        'index',
-        'update'
-    ]);
+    // Route::resource('profile', ProfileController::class)->only([
+    //     'index',
+    //     'update'
+    // ]);
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('profile/upload/{user}', [ProfileController::class, 'upload'])->name('profile.upload');
     // User
     Route::resource('master-user', MasterUserController::class);
@@ -154,11 +155,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('form-muk/add/part-empat/{idMuk}', [MukController::class, 'addMukPartEmpat'])->name('muk.add.partempat');
         Route::post('form-muk/store/part-empat', [MukController::class, 'storeMukPartEmpat'])->name('muk.store.partempat');
         Route::get('show-muk/scoring/{idMuk}', [MukController::class, 'showScoring'])->name('show.scoring');
+        Route::get('show-muk/scoring/anar/{idMuk}', [MukController::class, 'showScoring'])->name('show.scoring.anar');
         Route::get('form-muk/edit/{id}', [MukController::class, 'editMuk'])->name('muk.edit');
 
         // print
         Route::get('print-muk/{id}', [MukController::class, 'printMuk'])->name('print.muk');
         Route::get('print-muk-scoring/{agunan}/{idJaminan}/{idMuk}', [MukController::class, 'printScoring'])->name('print.scoring');
+        Route::get('print-muk-scoring/anar/{agunan}/{idJaminan}/{idMuk}', [MukController::class, 'printScoring'])->name('print.scoring');
     });
 
 

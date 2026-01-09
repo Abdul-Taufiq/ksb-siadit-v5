@@ -51,6 +51,14 @@ class MonitoringAOController extends Controller
 
     public function store(Request $request)
     {
+        $tigaBulan = now()->subMonths(3)->startOfMonth()->format('Y-m-d');
+        $prospekAO = MonitoringAo::where('no_hp_cadeb', $request->no_hp_cadeb)
+            ->where('id_cabang', Auth::user()->id_cabang)
+            ->where('nama_ao', Auth::user()->nama)
+            ->whereBetween('tgl_kunjungan', [$tigaBulan, now()])
+            ->orderByDesc('tgl_kunjungan')
+            ->first();
+
         $monitor = new MonitoringAo();
         $monitor->id_cabang = Auth::user()->id_cabang;
         $monitor->nama_ao = Auth::user()->nama;
@@ -62,7 +70,8 @@ class MonitoringAOController extends Controller
         $monitor->kecamatan = $request->input('kecamatan');
         $monitor->kabupaten = $request->input('kabupaten');
         $monitor->klasifikasi = $request->input('klasifikasi');
-        $monitor->kunjungan_ke = $request->input('kunjungan_ke');
+        // $monitor->kunjungan_ke = $request->input('kunjungan_ke');
+        $monitor->kunjungan_ke = $prospekAO != null ? $prospekAO->kunjungan_ke + 1 : 1;
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
         $monitor->tgl_kunjungan = now();

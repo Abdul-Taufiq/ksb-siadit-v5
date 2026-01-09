@@ -26,12 +26,13 @@
                         <tr>
                             <td style="width: 30%">Tgl Pemeriksaan</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->tgl_pemeriksaan->translatedFormat('d F Y') }}</td>
+                            <td>{{ optional(data_get($depo, "$SCTab.tgl_pemeriksaan"))->translatedFormat('d F Y') }}
+                            </td>
                         </tr>
                         <tr>
                             <td>Penilai</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->penilai }}</td>
+                            <td>{{ data_get($depo, "$SCTab.penilai") }}</td>
                         </tr>
                     </table>
                 </div>
@@ -49,27 +50,27 @@
                         <tr>
                             <td style="width: 40%">Nomor Rekening</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->norek }}</td>
+                            <td>{{ data_get($depo, "$SCTab.norek") }}</td>
                         </tr>
                         <tr>
                             <td>Nama Pemilik</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->nama_pemilik }}</td>
+                            <td>{{ data_get($depo, "$SCTab.nama_pemilik") }}</td>
                         </tr>
                         <tr>
                             <td>Alamat Pemilik</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->alamat_pemilik }}</td>
+                            <td>{{ data_get($depo, "$SCTab.alamat_pemilik") }}</td>
                         </tr>
                         <tr>
                             <td>Bank Penerbit</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->bank_penerbit }}</td>
+                            <td>{{ data_get($depo, "$SCTab.bank_penerbit") }}</td>
                         </tr>
                         <tr>
                             <td>Jenis Rekening</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->jns_rek }}</td>
+                            <td>{{ data_get($depo, "$SCTab.jns_rek") }}</td>
                         </tr>
                     </table>
                 </div>
@@ -78,22 +79,23 @@
                         <tr>
                             <td style="width: 40%">Saldo Tabungan</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ 'Rp' . number_format($depo->sc_tabungan->saldo_tabungan, 0, ',', '.') }}</td>
+                            <td>{{ 'Rp' . number_format(data_get($depo, "$SCTab.saldo_tabungan"), 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Saldo Yang Dijaminkan</td>
                             <td>:</td>
-                            <td>{{ 'Rp' . number_format($depo->sc_tabungan->saldo_dijaminkan, 0, ',', '.') }}</td>
+                            <td>{{ 'Rp' . number_format(data_get($depo, "$SCTab.saldo_dijaminkan"), 0, ',', '.') }}
+                            </td>
                         </tr>
                         <tr>
                             <td>Suku Bunga Tabungan</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->suku_bunga }}</td>
+                            <td>{{ data_get($depo, "$SCTab.suku_bunga") }}</td>
                         </tr>
                         <tr>
                             <td>Hubungan Dengan Debitur</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->hubungan_dgn_debitur }}</td>
+                            <td>{{ data_get($depo, "$SCTab.hubungan_dgn_debitur") }}</td>
                         </tr>
                     </table>
                 </div>
@@ -103,7 +105,7 @@
                         <tr>
                             <td style="width: 20%">Keterangan Lainnya</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->keterangan_lainnya }}</td>
+                            <td>{{ data_get($depo, "$SCTab.keterangan_lainnya") }}</td>
                         </tr>
                     </table>
                 </div>
@@ -122,23 +124,23 @@
                         <tr>
                             <td style="width: 20%">Tujuan Penilaian</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->tujuan_penilaian }}</td>
+                            <td>{{ data_get($depo, "$SCTab.tujuan_penilaian") }}</td>
                         </tr>
                         <tr>
                             <td>Nilai Pasar Agunan</td>
                             <td>:</td>
-                            <td>{{ 'Rp' . number_format($depo->sc_tabungan->nilai_pasar, 0, ',', '.') }}</td>
+                            <td>{{ 'Rp' . number_format(data_get($depo, "$SCTab.nilai_pasar"), 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Safety Margin</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->safety_margin }} % <b>Score:</b>
-                                {{ $depo->sc_tabungan->score }}</td>
+                            <td>{{ data_get($depo, "$SCTab.safety_margin") }} % <b>Score:</b>
+                                {{ data_get($depo, "$SCTab.score") }}</td>
                         </tr>
                         <tr>
                             <td>Nilai Pasar setelah SM</td>
                             <td>:</td>
-                            <td>{{ 'Rp' . number_format($depo->sc_tabungan->nilai_pasar_setelah_sm, 0, ',', '.') }}
+                            <td>{{ 'Rp' . number_format(data_get($depo, "$SCTab.nilai_pasar_setelah_sm"), 0, ',', '.') }}
                             </td>
                         </tr>
                     </table>
@@ -160,17 +162,17 @@
                         <tr>
                             <td style="width: 30%">Marketability</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->market }}</td>
+                            <td>{{ data_get($depo, "$SCTab.market") }}</td>
                         </tr>
                         <tr>
                             <td>Pengikatan Agunan</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->jns_pengikatan }}</td>
+                            <td>{{ data_get($depo, "$SCTab.jns_pengikatan") }}</td>
                         </tr>
                         <tr>
                             <td>Lain-lain</td>
                             <td>:</td>
-                            <td>{!! $depo->sc_tabungan->lainnya !!}</td>
+                            <td>{!! data_get($depo, "$SCTab.lainnya") !!}</td>
                         </tr>
                     </table>
                 </div>
@@ -179,12 +181,12 @@
                         <tr>
                             <td style="width: 30%">Permasalahan</td>
                             <td style="width: 1%">:</td>
-                            <td>{{ $depo->sc_tabungan->permasalahan }}</td>
+                            <td>{{ data_get($depo, "$SCTab.permasalahan") }}</td>
                         </tr>
                         <tr>
                             <td>Penguasaan</td>
                             <td>:</td>
-                            <td>{{ $depo->sc_tabungan->penguasaan }}</td>
+                            <td>{{ data_get($depo, "$SCTab.penguasaan") }}</td>
                         </tr>
                     </table>
                 </div>

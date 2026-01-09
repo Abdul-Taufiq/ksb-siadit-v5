@@ -4,6 +4,7 @@ namespace App\Models\MasterAgunan;
 
 use App\Models\MasterKredit\Kredit;
 use App\Models\MasterMUK\SC_Kendaraan;
+use App\Models\MasterMUK\SC_Kendaraan_Vanalis;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,5 +32,10 @@ class JamKenda extends Model
     public function sc_kenda_agunan(): BelongsTo
     {
         return $this->belongsTo(SC_Kendaraan::class, 'id_jaminan_kendaraan', 'id_jaminan_kendaraan');
+    }
+
+    public function sc_kenda_agunan_vanalis(): BelongsTo
+    {
+        return $this->belongsTo(SC_Kendaraan_Vanalis::class, 'id_jaminan_kendaraan', 'id_jaminan_kendaraan');
     }
 }

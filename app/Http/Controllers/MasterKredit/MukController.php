@@ -18,6 +18,7 @@ use App\Services\MasterKredit\Debitur\JaminanService;
 use App\Services\MasterKredit\Muk\{MukService, MukServiceEdit};
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Mpdf\Mpdf;
 use Riskihajar\Terbilang\Facades\Terbilang;
@@ -194,6 +195,49 @@ class MukController extends Controller
             $metode = "Edit";
         }
 
+        if (Auth::user()->sub_jabatan == 'Staf Analis Area') {
+            $vcab = 'sc_tanah_agunan';
+            $vanalis = 'sc_tanah_agunan_vanalis';
+            $vcabScoring = 'sc_tanah_scoring';
+            $vanalisScoring = 'sc_tanah_scoring_vanalis';
+            $vcabPerhitungan = 'sc_tanah_perhitungan';
+            $vanalisPerhitungan = 'sc_tanah_perhitungan_vanalis';
+            $vanalisRekap1 = 'sc_tanah_rekap_1_vanalis';
+            $vanalisRekap2 = 'sc_tanah_rekap_2_vanalis';
+            $vcabRekap1 = 'sc_tanah_rekap_1';
+            $vcabRekap2 = 'sc_tanah_rekap_2';
+            // kenda
+            $vanalisSCKenda = 'sc_kenda_agunan_vanalis';
+            $vcabSCKenda = 'sc_kenda_agunan';
+            // depo
+            $vanalisDepo = 'sc_depo_vanalis';
+            $vcabDepo = 'sc_depo';
+            // tabungan
+            $vanalisTab = 'sc_tabungan_vanalis';
+            $vcabTab = 'sc_tabungan';
+        } else {
+            $vcab = 'sc_tanah_agunan';
+            $vanalis = '';
+            $vcabScoring = 'sc_tanah_scoring';
+            $vanalisScoring = '';
+            $vcabPerhitungan = 'sc_tanah_perhitungan';
+            $vanalisPerhitungan = '';
+            $vanalisRekap1 = '';
+            $vanalisRekap2 = '';
+            $vcabRekap1 = 'sc_tanah_rekap_1';
+            $vcabRekap2 = 'sc_tanah_rekap_2';
+            // kenda
+            $vanalisSCKenda = '';
+            $vcabSCKenda = 'sc_kenda_agunan';
+            // depo
+            $vanalisDepo = '';
+            $vcabDepo = 'sc_depo';
+            // tabungan
+            $vanalisTab = '';
+            $vcabTab = 'sc_tabungan';
+        }
+
+
         return view('page.master-kredit.muk.muk-create-part-empat', [
             'title' => $title,
             'muk' => $muk,
@@ -205,6 +249,26 @@ class MukController extends Controller
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,
             'penjamin' => $penjamin,
+            'vcab' => $vcab,
+            'vanalis' => $vanalis,
+            'vcabScoring' => $vcabScoring,
+            'vanalisScoring' => $vanalisScoring,
+            'vcabPerhitungan' => $vcabPerhitungan,
+            'vanalisPerhitungan' => $vanalisPerhitungan,
+            'vcabRekap1' => $vcabRekap1,
+            'vanalisRekap1' => $vanalisRekap1,
+            'vcabRekap2' => $vcabRekap2,
+            'vanalisRekap2' => $vanalisRekap2,
+            // kenda
+            'vcabSCKenda' => $vcabSCKenda,
+            'vanalisSCKenda' => $vanalisSCKenda,
+            // depo
+            'vcabDepo' => $vcabDepo,
+            'vanalisDepo' => $vanalisDepo,
+            // tabungan
+            'vcabTab' => $vcabTab,
+            'vanalisTab' => $vanalisTab,
+
             'pikar' => $pikarEks,
             'metode' => $metode,
             'field' => null
@@ -261,8 +325,37 @@ class MukController extends Controller
     }
 
 
-    public function showScoring($idMuk)
+    public function showScoring(Request $request, $idMuk)
     {
+        $fullUrl = $request->fullUrl(); // ambil full URL
+        // atau $request->url(); untuk URL tanpa query string
+
+        if (strpos($fullUrl, 'anar') !== false) {
+            $SCAgunan = 'sc_tanah_agunan_vanalis';
+            $SCScoring = 'sc_tanah_scoring_vanalis';
+            $SCPerhitungan = 'sc_tanah_perhitungan_vanalis';
+            $SCRekap1 = 'sc_tanah_rekap_1_vanalis';
+            $SCRekap2 = 'sc_tanah_rekap_2_vanalis';
+            // kenda
+            $SCKenda = 'sc_kenda_agunan_vanalis';
+            // depo
+            $SCDepo = 'sc_depo_vanalis';
+            // tabungan
+            $SCTab = 'sc_tabungan_vanalis';
+            $title = 'Versi Analis Area';
+        } else {
+            $SCAgunan = 'sc_tanah_agunan';
+            $SCScoring = 'sc_tanah_scoring';
+            $SCPerhitungan = 'sc_tanah_perhitungan';
+            $SCRekap1 = 'sc_tanah_rekap_1';
+            $SCRekap2 = 'sc_tanah_rekap_2';
+            $SCKenda = 'sc_kenda_agunan';
+            $SCDepo = 'sc_depo';
+            $SCTab = 'sc_tabungan';
+            $title = 'Versi Cabang';
+            // dd("URL tidak mengandung 'anar'");
+        }
+
         $ids = Crypt::decrypt($idMuk);
         $muk = Muk::find($ids);
 
@@ -271,11 +364,19 @@ class MukController extends Controller
         $jam_depo = JamDeposito::where('id_kredit', $muk->kredit->id_kredit)->get();
 
         return view('page.master-kredit.muk.show-scoring.sc-show',  [
-            'title' => 'Show Scoring Agunan',
+            'title' => 'Scoring Agunan ' . $title,
             'muk' => $muk,
             'jam_tanah' => $jam_tanah,
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,
+            'SCAgunan' => $SCAgunan,
+            'SCScoring' => $SCScoring,
+            'SCPerhitungan' => $SCPerhitungan,
+            'SCRekap1' => $SCRekap1,
+            'SCRekap2' => $SCRekap2,
+            'SCKenda' => $SCKenda,
+            'SCDepo' => $SCDepo,
+            'SCTab' => $SCTab,
         ]);
     }
 
@@ -318,12 +419,41 @@ class MukController extends Controller
 
 
     // print MUK Scoring
-    public function printScoring($agunan, $idJaminan, $idMuk)
+    public function printScoring(Request $request, $agunan, $idJaminan, $idMuk)
     {
         $id_muk = base64_decode($idMuk);
         $agunan = base64_decode($agunan);
         $idJaminan = base64_decode($idJaminan);
         $muk = Muk::find($id_muk);
+
+        $fullUrl = $request->fullUrl(); // ambil full URL
+        // atau $request->url(); untuk URL tanpa query string
+
+        if (strpos($fullUrl, 'anar') !== false) {
+            $SCAgunan = 'sc_tanah_agunan_vanalis';
+            $SCScoring = 'sc_tanah_scoring_vanalis';
+            $SCPerhitungan = 'sc_tanah_perhitungan_vanalis';
+            $SCRekap1 = 'sc_tanah_rekap_1_vanalis';
+            $SCRekap2 = 'sc_tanah_rekap_2_vanalis';
+            // kenda
+            $SCKenda = 'sc_kenda_agunan_vanalis';
+            // depo
+            $SCDepo = 'sc_depo_vanalis';
+            // tabungan
+            $SCTab = 'sc_tabungan_vanalis';
+            $title = 'Versi Analis Area';
+        } else {
+            $SCAgunan = 'sc_tanah_agunan';
+            $SCScoring = 'sc_tanah_scoring';
+            $SCPerhitungan = 'sc_tanah_perhitungan';
+            $SCRekap1 = 'sc_tanah_rekap_1';
+            $SCRekap2 = 'sc_tanah_rekap_2';
+            $SCKenda = 'sc_kenda_agunan';
+            $SCDepo = 'sc_depo';
+            $SCTab = 'sc_tabungan';
+            $title = 'Versi Cabang';
+            // dd("URL tidak mengandung 'anar'");
+        }
 
         $jam_tanah = JamTanah::where('id_kredit', $muk->kredit->id_kredit)
             ->where('id_jaminan_pertanahan', $idJaminan)
@@ -338,12 +468,20 @@ class MukController extends Controller
         $pdf = Pdf::loadView(
             'page.master-kredit.muk.show-scoring.print-scoring.print-sc-tanah',
             [
-                'title' => 'Print Scoring Agunan '  . $muk->no_muk,
+                'title' => 'Print Scoring Agunan '  . $muk->no_muk . ' - ' . $title,
                 'tanah' => $jam_tanah,
                 'muk' => $muk,
                 'depo' => $jam_depo,
                 'kenda' => $jam_kenda,
-                'tipe_agunan' => $agunan
+                'tipe_agunan' => $agunan,
+                'SCAgunan' => $SCAgunan,
+                'SCScoring' => $SCScoring,
+                'SCPerhitungan' => $SCPerhitungan,
+                'SCRekap1' => $SCRekap1,
+                'SCRekap2' => $SCRekap2,
+                'SCKenda' => $SCKenda,
+                'SCDepo' => $SCDepo,
+                'SCTab' => $SCTab,
             ]
         );
 

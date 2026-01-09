@@ -209,7 +209,7 @@
                     }
                 @endphp
                 <span class="sidebar-user__title">{{ shortenName(Auth::user()->nama) }}</span>
-                <span class="sidebar-user__subtitle">{{ Auth::user()->jabatan }}</span>
+                <span class="sidebar-user__subtitle">{{ Auth::user()->sub_jabatan }}</span>
             </div>
         </a>
     </div>

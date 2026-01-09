@@ -3,8 +3,16 @@
 </div>
 
 <div class="row" id="head_perhitungan_1">
-    @if ($tanah->sc_tanah_perhitungan->count() > 0)
-        @foreach ($tanah->sc_tanah_perhitungan as $item)
+    @php
+        // Ambil data sekali saja agar lebih efisien
+        if ($tanah->sc_tanah_perhitungan_vanalis->count() > 0) {
+            $dataPerhitungan = data_get($tanah, $vanalisPerhitungan);
+        } else {
+            $dataPerhitungan = data_get($tanah, $vcabPerhitungan);
+        }
+    @endphp
+    @if ($dataPerhitungan->count() > 0)
+        @foreach ($dataPerhitungan as $item)
             <input type="hidden" name="id_sc_perhitungan_{{ $loop->iteration }}"
                 value="{{ base64_encode($item->id_sc_perhitungan) }}">
 
@@ -429,7 +437,7 @@
 
 {{-- Rekap Checking agunan --}}
 <input type="hidden" name="id_sc_rekap" id="id_sc_rekap"
-    value="{{ base64_encode($tanah->sc_tanah_rekap_1?->id_sc_rekap_1 ?? $tanah->sc_tanah_rekap_2?->id_sc_rekap_2) }}">
+    value="{{ base64_encode(data_get($tanah, "$vanalisRekap1.id_sc_rekap_1") ?? (data_get($tanah, "$vanalisRekap2.id_sc_rekap_2") ?? (data_get($tanah, "$vcabRekap1.id_sc_rekap_1") ?? data_get($tanah, "$vcabRekap2.id_sc_rekap_2")))) }}">
 <div class="row mt-4">
     <div class="col-md-6">
         <div class="form-group">
@@ -438,7 +446,7 @@
                 <span class="input-group-text">Rp</span>
                 <input type="text" name="nilai_njop_{{ $loop->iteration }}"
                     id="nilai_njop_{{ $loop->iteration }}" class="form-control form-control-sm setRp" required
-                    value="{{ number_format($tanah->sc_tanah_rekap_1?->nilai_njop ?? $tanah->sc_tanah_rekap_2?->nilai_njop, 0, ',', '.') }}">
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.nilai_njop") ?? (data_get($tanah, "$vanalisRekap2.nilai_njop") ?? (data_get($tanah, "$vcabRekap1.nilai_njop") ?? data_get($tanah, "$vcabRekap2.nilai_njop"))), 0, ',', '.') }}">
             </div>
         </div>
     </div>
@@ -447,7 +455,7 @@
             <label class="notbold" for="pbb_tahun_{{ $loop->iteration }}">Berdasarkan PBB Tahun</label>
             <input type="number" name="pbb_tahun_{{ $loop->iteration }}" id="pbb_tahun_{{ $loop->iteration }}"
                 class="form-control form-control-sm" required min="0"
-                value="{{ $tanah->sc_tanah_rekap_1?->pbb_tahun ?? $tanah->sc_tanah_rekap_2?->pbb_tahun }}">
+                value="{{ data_get($tanah, "$vanalisRekap1.pbb_tahun") ?? (data_get($tanah, "$vanalisRekap2.pbb_tahun") ?? (data_get($tanah, "$vcabRekap1.pbb_tahun") ?? data_get($tanah, "$vcabRekap2.pbb_tahun"))) }}">
         </div>
     </div>
 </div>
@@ -473,7 +481,7 @@
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_1_{{ $loop->iteration }}" class="form-control form-control-sm setRp" required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_1 ?? $tanah->sc_tanah_rekap_2?->tanah_1, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_1") ?? (data_get($tanah, "$vanalisRekap2.data_1") ?? (data_get($tanah, "$vcabRekap1.data_1") ?? data_get($tanah, "$vcabRekap2.data_1"))), 0, ',', '.') }}">
                         <span class="input-group-text">/M²</span>
                     </div>
                 </td>
@@ -484,7 +492,7 @@
                 <td>
                     <input type="text" class="form-control form-control-sm"
                         id="data_luas_1_{{ $loop->iteration }}" name="data_luas_1_{{ $loop->iteration }}" readonly
-                        value="{{ $tanah->sc_tanah_rekap_1?->data_luas_1 ?? $tanah->sc_tanah_rekap_2?->tanah_luas_1 }}">
+                        value="{{ data_get($tanah, "$vanalisRekap1.data_luas_1") ?? (data_get($tanah, "$vanalisRekap2.data_luas_1") ?? (data_get($tanah, "$vcabRekap1.data_luas_1") ?? (data_get($tanah, "$vcabRekap2.data_luas_1") ?? $tanah->luas))) }}">
                 </td>
                 <td>
                     <label class="notbold" for="data_total_1_{{ $loop->iteration }}">=</label>
@@ -497,7 +505,7 @@
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_total_1_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                             required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_total_1 ?? $tanah->sc_tanah_rekap_2?->tanah_total_1, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_total_1") ?? (data_get($tanah, "$vanalisRekap2.data_total_1") ?? (data_get($tanah, "$vcabRekap1.data_total_1") ?? data_get($tanah, "$vcabRekap2.data_total_1"))), 0, ',', '.') }}">
                     </div>
                 </td>
             </tr>
@@ -512,7 +520,7 @@
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_2_{{ $loop->iteration }}" class="form-control form-control-sm setRp" required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_2 ?? $tanah->sc_tanah_rekap_2?->tanah_2, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_2") ?? (data_get($tanah, "$vanalisRekap2.data_2") ?? (data_get($tanah, "$vcabRekap1.data_2") ?? data_get($tanah, "$vcabRekap2.data_2"))), 0, ',', '.') }}">
                         <span class="input-group-text">/M²</span>
                     </div>
                 </td>
@@ -523,7 +531,7 @@
                 <td>
                     <input type="text" class="form-control form-control-sm"
                         id="data_luas_2_{{ $loop->iteration }}" name="data_luas_2_{{ $loop->iteration }}" readonly
-                        value="{{ $tanah->sc_tanah_rekap_1?->data_luas_2 ?? $tanah->sc_tanah_rekap_2?->tanah_luas_2 }}">
+                        value="{{ data_get($tanah, "$vanalisRekap1.data_luas_2") ?? (data_get($tanah, "$vanalisRekap2.data_luas_2") ?? (data_get($tanah, "$vcabRekap1.data_luas_2") ?? (data_get($tanah, "$vcabRekap2.data_luas_2") ?? $tanah->luas))) }}">
                 </td>
                 <td>
                     <label class="notbold" for="data_total_2_{{ $loop->iteration }}">=</label>
@@ -536,7 +544,7 @@
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_total_2_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                             required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_total_2 ?? $tanah->sc_tanah_rekap_2?->tanah_total_2, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_total_2") ?? (data_get($tanah, "$vanalisRekap2.data_total_2") ?? (data_get($tanah, "$vcabRekap1.data_total_2") ?? data_get($tanah, "$vcabRekap2.data_total_2"))), 0, ',', '.') }}">
                     </div>
                 </td>
             </tr>
@@ -551,7 +559,7 @@
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_3_{{ $loop->iteration }}" class="form-control form-control-sm setRp" required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_3 ?? $tanah->sc_tanah_rekap_2?->tanah_3, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_3") ?? (data_get($tanah, "$vanalisRekap2.data_3") ?? (data_get($tanah, "$vcabRekap1.data_3") ?? data_get($tanah, "$vcabRekap2.data_3"))), 0, ',', '.') }}">
                         <span class="input-group-text">/M²</span>
                     </div>
                 </td>
@@ -562,7 +570,7 @@
                 <td>
                     <input type="text" class="form-control form-control-sm"
                         id="data_luas_3_{{ $loop->iteration }}" name="data_luas_3_{{ $loop->iteration }}" readonly
-                        value="{{ $tanah->sc_tanah_rekap_1?->data_luas_3 ?? $tanah->sc_tanah_rekap_2?->tanah_luas_3 }}">
+                        value="{{ data_get($tanah, "$vanalisRekap1.data_luas_3") ?? (data_get($tanah, "$vanalisRekap2.data_luas_3") ?? (data_get($tanah, "$vcabRekap1.data_luas_3") ?? (data_get($tanah, "$vcabRekap2.data_luas_3") ?? $tanah->luas))) }}">
                 </td>
                 <td>
                     <label class="notbold" for="data_total_3_{{ $loop->iteration }}">=</label>
@@ -575,7 +583,7 @@
                             data-bs-title="Jika ada Perubahan LUAS TANAH/LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                             id="data_total_3_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                             required
-                            value="{{ number_format($tanah->sc_tanah_rekap_1?->data_total_3 ?? $tanah->sc_tanah_rekap_2?->tanah_total_3, 0, ',', '.') }}">
+                            value="{{ number_format(data_get($tanah, "$vanalisRekap1.data_total_3") ?? (data_get($tanah, "$vanalisRekap2.data_total_3") ?? (data_get($tanah, "$vcabRekap1.data_total_3") ?? data_get($tanah, "$vcabRekap2.data_total_3"))), 0, ',', '.') }}">
                     </div>
                 </td>
             </tr>
@@ -599,7 +607,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_1_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                                 required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_1, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_1") ?? data_get($tanah, "$vcabRekap2.bangunan_1"), 0, ',', '.') }}">
                             <span class="input-group-text">/M²</span>
                         </div>
                     </td>
@@ -610,7 +618,7 @@
                         <input type="text" class="form-control form-control-sm"
                             id="bangunan_luas_1_{{ $loop->iteration }}"
                             name="bangunan_luas_1_{{ $loop->iteration }}" readonly
-                            value="{{ $tanah->sc_tanah_rekap_2?->bangunan_luas_1 }}">
+                            value="{{ data_get($tanah, "$vanalisRekap2.bangunan_luas_1") ?? data_get($tanah, "$vcabRekap2.bangunan_luas_1") }}">
                     </td>
                     <td>
                         <label class="notbold" for="bangunan_total_1_{{ $loop->iteration }}">=</label>
@@ -624,7 +632,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_total_1_{{ $loop->iteration }}"
                                 class="form-control form-control-sm setRp" required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_total_1, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_total_1") ?? data_get($tanah, "$vcabRekap2.bangunan_total_1"), 0, ',', '.') }}">
                         </div>
                     </td>
                 </tr>
@@ -640,7 +648,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_2_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                                 required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_2, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_2") ?? data_get($tanah, "$vcabRekap2.bangunan_2"), 0, ',', '.') }}">
                             <span class="input-group-text">/M²</span>
                         </div>
                     </td>
@@ -651,7 +659,7 @@
                         <input type="text" class="form-control form-control-sm"
                             id="bangunan_luas_2_{{ $loop->iteration }}"
                             name="bangunan_luas_2_{{ $loop->iteration }}" readonly
-                            value="{{ $tanah->sc_tanah_rekap_2?->bangunan_luas_2 }}">
+                            value="{{ data_get($tanah, "$vanalisRekap2.bangunan_luas_2") ?? data_get($tanah, "$vcabRekap2.bangunan_luas_2") }}">
                     </td>
                     <td>
                         <label class="notbold" for="bangunan_total_2_{{ $loop->iteration }}">=</label>
@@ -665,7 +673,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_total_2_{{ $loop->iteration }}"
                                 class="form-control form-control-sm setRp" required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_total_2, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_total_2") ?? data_get($tanah, "$vcabRekap2.bangunan_total_2"), 0, ',', '.') }}">
                         </div>
                     </td>
                 </tr>
@@ -681,7 +689,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_3_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                                 required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_3, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_3") ?? data_get($tanah, "$vcabRekap2.bangunan_3"), 0, ',', '.') }}">
                             <span class="input-group-text">/M²</span>
                         </div>
                     </td>
@@ -692,7 +700,7 @@
                         <input type="text" class="form-control form-control-sm"
                             id="bangunan_luas_3_{{ $loop->iteration }}"
                             name="bangunan_luas_3_{{ $loop->iteration }}" readonly
-                            value="{{ $tanah->sc_tanah_rekap_2?->bangunan_luas_3 }}">
+                            value="{{ data_get($tanah, "$vanalisRekap2.bangunan_luas_3") ?? data_get($tanah, "$vcabRekap2.bangunan_luas_3") }}">
                     </td>
                     <td>
                         <label class="notbold" for="bangunan_total_3_{{ $loop->iteration }}">=</label>
@@ -706,7 +714,7 @@
                                 data-bs-title="Jika ada Perubahan LUAS BANGUNAN FISIK Mohon untuk update nilai ini agar Sinkron"
                                 id="bangunan_total_3_{{ $loop->iteration }}"
                                 class="form-control form-control-sm setRp" required
-                                value="{{ number_format($tanah->sc_tanah_rekap_2?->bangunan_total_3, 0, ',', '.') }}">
+                                value="{{ number_format(data_get($tanah, "$vanalisRekap2.bangunan_total_3") ?? data_get($tanah, "$vcabRekap2.bangunan_total_3"), 0, ',', '.') }}">
                         </div>
                     </td>
                 </tr>
@@ -738,7 +746,8 @@
                     id="nilai_pasar_{{ $loop->iteration }}" class="form-control form-control-sm setRp" required
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                     data-bs-title="Jika ada Perubahan SCORING mohon untuk update input ini agar Sinkron"
-                    value="{{ number_format($tanah->sc_tanah_rekap_1?->nilai_pasar ?? $tanah->sc_tanah_rekap_2?->rekom_pasar_tanah, 0, ',', '.') }}">
+                    value="{{ number_format($tanah->sc_tanah_rekap_1?->nilai_pasar ?? $tanah->sc_tanah_rekap_2?->rekom_pasar_tanah, 0, ',', '.') }}"
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.nilai_pasar") ?? (data_get($tanah, "$vanalisRekap2.nilai_pasar") ?? (data_get($tanah, "$vcabRekap1.nilai_pasar") ?? data_get($tanah, "$vcabRekap2.nilai_pasar"))), 0, ',', '.') }}">
             </div>
         </div>
     </div>
@@ -748,7 +757,7 @@
             <div class="input-group input-group-sm">
                 <input type="text" name="safety_margin_{{ $loop->iteration }}"
                     id="safety_margin_{{ $loop->iteration }}" class="form-control form-control-sm" readonly
-                    value="{{ number_format($tanah->sc_tanah_rekap_1?->safety_margin ?? $tanah->sc_tanah_rekap_2?->margin_tanah, 0, ',', '.') }}">
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.safety_margin") ?? (data_get($tanah, "$vanalisRekap2.safety_margin") ?? (data_get($tanah, "$vcabRekap1.safety_margin") ?? data_get($tanah, "$vcabRekap2.safety_margin"))), 0, ',', '.') }}">
                 <span class="input-group-text">%</span>
             </div>
         </div>
@@ -760,7 +769,7 @@
                 <span class="input-group-text">Rp</span>
                 <input type="text" name="nilai_agunan_{{ $loop->iteration }}"
                     id="nilai_agunan_{{ $loop->iteration }}" class="form-control form-control-sm setRp" readonly
-                    value="{{ number_format($tanah->sc_tanah_rekap_1?->nilai_agunan ?? $tanah->sc_tanah_rekap_2?->rekom_agunan_tanah, 0, ',', '.') }}">
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.nilai_agunan") ?? (data_get($tanah, "$vanalisRekap2.nilai_agunan") ?? (data_get($tanah, "$vcabRekap1.nilai_agunan") ?? data_get($tanah, "$vcabRekap2.nilai_agunan"))), 0, ',', '.') }}">
             </div>
         </div>
     </div>
@@ -781,7 +790,7 @@
                         required data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-custom-class="custom-tooltip"
                         data-bs-title="Jika ada Perubahan SCORING mohon untuk update input ini agar Sinkron"
-                        value="{{ number_format($tanah->sc_tanah_rekap_2?->rekom_pasar_bangunan, 0, ',', '.') }}">
+                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.rekom_pasar_bangunan") ?? data_get($tanah, "$vcabRekap2.rekom_pasar_bangunan"), 0, ',', '.') }}">
                 </div>
             </div>
         </div>
@@ -791,7 +800,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" name="margin_bangunan_{{ $loop->iteration }}"
                         id="margin_bangunan_{{ $loop->iteration }}" class="form-control form-control-sm" readonly
-                        value="{{ number_format($tanah->sc_tanah_rekap_2?->margin_bangunan, 0, ',', '.') }}">
+                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.margin_bangunan") ?? data_get($tanah, "$vcabRekap2.margin_bangunan"), 0, ',', '.') }}">
                     <span class="input-group-text">%</span>
                 </div>
             </div>
@@ -804,7 +813,8 @@
                     <span class="input-group-text">Rp</span>
                     <input type="text" name="rekom_agunan_bangunan_{{ $loop->iteration }}"
                         id="rekom_agunan_bangunan_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
-                        readonly value="{{ number_format($tanah->sc_tanah_rekap_2?->rekom_agunan_bangunan) }}">
+                        readonly
+                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.rekom_agunan_bangunan") ?? data_get($tanah, "$vcabRekap2.rekom_agunan_bangunan"), 0, ',', '.') }}">
                 </div>
             </div>
         </div>
@@ -815,7 +825,7 @@
                     <span class="input-group-text">Rp</span>
                     <input type="text" name="rekom_total_{{ $loop->iteration }}"
                         id="rekom_total_{{ $loop->iteration }}" class="form-control form-control-sm setRp" readonly
-                        value="{{ number_format($tanah->sc_tanah_rekap_2?->rekom_total) }}">
+                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.rekom_total") ?? data_get($tanah, "$vcabRekap2.rekom_total"), 0, ',', '.') }}">
                 </div>
             </div>
         </div>

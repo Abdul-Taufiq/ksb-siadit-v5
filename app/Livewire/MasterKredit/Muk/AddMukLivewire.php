@@ -24,7 +24,6 @@ class AddMukLivewire extends Component
         $kredit = Kredit::find($this->id);
         $debitur = Debitur::find($kredit->id_debitur);
 
-        dd($kredit);
 
         // untuk mengecualikan error
         /** @disregard P1013 Undefined method */

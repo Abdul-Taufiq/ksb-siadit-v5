@@ -4,7 +4,9 @@ namespace App\Models\MasterAgunan;
 
 use App\Models\MasterKredit\Kredit;
 use App\Models\MasterMUK\SC_Deposito;
+use App\Models\MasterMUK\SC_Deposito_Vanalis;
 use App\Models\MasterMUK\SC_Tabungan;
+use App\Models\MasterMUK\SC_Tabungan_Vanalis;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,5 +35,15 @@ class JamDeposito extends Model
     public function sc_tabungan(): BelongsTo
     {
         return $this->belongsTo(SC_Tabungan::class, 'id_jaminan_deposito', 'id_jaminan_deposito');
+    }
+
+    public function sc_depo_vanalis(): BelongsTo
+    {
+        return $this->belongsTo(SC_Deposito_Vanalis::class, 'id_jaminan_deposito', 'id_jaminan_deposito');
+    }
+
+    public function sc_tabungan_vanalis(): BelongsTo
+    {
+        return $this->belongsTo(SC_Tabungan_Vanalis::class, 'id_jaminan_deposito', 'id_jaminan_deposito');
     }
 }

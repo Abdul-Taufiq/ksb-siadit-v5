@@ -99,14 +99,14 @@
         </strong>
         <hr>
     </div>
-    <div class="col-md-6 mb-4">
+    {{-- <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="kunjungan_ke{{ $id_field }}">Follow Up/Kunjungan Ke :</label>
             <input type="number" name="kunjungan_ke{{ $id_field }}" id="kunjungan_ke{{ $id_field }}" required
                 class="form-control form-control-sm is-invalid" placeholder="Hanya angka 1-9999"
                 value="{{ $monitoring != null ? $monitoring->kunjungan_ke : null }}" min="1" max="9999">
         </div>
-    </div>
+    </div> --}}
     <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="klasifikasi{{ $id_field }}">Klasifikasi :</label>

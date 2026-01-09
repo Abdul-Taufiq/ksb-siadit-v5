@@ -46,10 +46,15 @@ class HomeController extends Controller
         }
 
         $spk = Kredit::whereIn('id_cabang', $id_cabang)->get();
+        $spkSlik = Kredit::whereIn('id_cabang', $id_cabang)
+            ->where('status_akhir', 'DITOLAK')
+            ->where('catatan_ao', 'like', '%slik jelek%')
+            ->get();
 
         return view('page.home.home', [
             'title' => 'Dashboard',
             'spk' => $spk,
+            'spkSlik' => $spkSlik,
             'kode' => $kode,
         ]);
     }

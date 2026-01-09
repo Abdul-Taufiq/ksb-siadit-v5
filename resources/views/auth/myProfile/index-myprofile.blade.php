@@ -91,7 +91,7 @@
                             <th>KC</th>
                             <td>:</td>
                             <td>
-                                {{ $user->cabang->cabang }}
+                                {{ $cabang->cabang }}
                             </td>
                         </tr>
                         <tr>

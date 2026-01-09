@@ -3,14 +3,15 @@
         <label for="dokumen_kepemilikan_{{ $loop->iteration }}">Dokumen Kepemilikan</label>
         <input type="text" name="dokumen_kepemilikan_{{ $loop->iteration }}"
             id="dokumen_kepemilikan_{{ $loop->iteration }}" class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->dokumen_kepemilikan ?? 'BPKB' }}">
+            value="{{ data_get($kenda, "$vanalisSCKenda.dokumen_kepemilikan") ?? (data_get($kenda, "$vcabSCKenda.dokumen_kepemilikan") ?? 'BPKB') }}">
     </div>
 </div>
 <div class="col-md-4 mb-3">
     <div class="form-group">
         <label for="no_dokumen_{{ $loop->iteration }}">Nomor</label>
         <input type="text" name="no_dokumen_{{ $loop->iteration }}" id="no_dokumen_{{ $loop->iteration }}"
-            class="form-control form-control-sm" value="{{ $kenda->sc_kenda_agunan?->no_dokumen ?? $kenda->no_bpkb }}">
+            class="form-control form-control-sm"
+            value="{{ data_get($kenda, "$vanalisSCKenda.no_dokumen") ?? (data_get($kenda, "$vcabSCKenda.no_dokumen") ?? $kenda->no_bpkb) }}">
     </div>
 </div>
 <div class="col-md-4 mb-3">
@@ -18,7 +19,7 @@
         <label for="tgl_dokumen_{{ $loop->iteration }}">Tanggal</label>
         <input type="date" name="tgl_dokumen_{{ $loop->iteration }}" id="tgl_dokumen_{{ $loop->iteration }}"
             class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->tgl_dokumen?->format('Y-m-d') ?? $kenda->tgl_bpkb }}">
+            value="{{ optional(data_get($kenda, "$vanalisSCKenda.tgl_dokumen"))->format('Y-m-d') ?? (optional(data_get($kenda, "$vcabSCKenda.tgl_dokumen"))->format('Y-m-d') ?? $kenda->tgl_bpkb->format('Y-m-d')) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
@@ -26,7 +27,7 @@
         <label for="dokumen_pembelian_{{ $loop->iteration }}">Dokumen Pembelian</label>
         <input type="text" name="dokumen_pembelian_{{ $loop->iteration }}"
             id="dokumen_pembelian_{{ $loop->iteration }}" class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->dokumen_pembelian }}">
+            value="{{ data_get($kenda, "$vanalisSCKenda.dokumen_pembelian") ?? (data_get($kenda, "$vcabSCKenda.dokumen_pembelian") ?? $kenda->sc_kenda_agunan?->dokumen_pembelian) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
@@ -34,21 +35,23 @@
         <label for="atas_nama_kenda_{{ $loop->iteration }}">Atas Nama</label>
         <input type="text" name="atas_nama_kenda_{{ $loop->iteration }}"
             id="atas_nama_kenda_{{ $loop->iteration }}" class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->atas_nama ?? $kenda->atas_nama }}">
+            value="{{ data_get($kenda, "$vanalisSCKenda.atas_nama") ?? (data_get($kenda, "$vcabSCKenda.atas_nama") ?? $kenda->atas_nama) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
     <div class="form-group">
         <label for="asuransi_{{ $loop->iteration }}">Asuransi</label>
         <input type="text" name="asuransi_{{ $loop->iteration }}" id="asuransi_{{ $loop->iteration }}"
-            class="form-control form-control-sm" value="{{ $kenda->sc_kenda_agunan?->asuransi }}">
+            class="form-control form-control-sm"
+            value="{{ data_get($kenda, "$vanalisSCKenda.asuransi") ?? (data_get($kenda, "$vcabSCKenda.asuransi") ?? $kenda->sc_kenda_agunan?->asuransi) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
     <div class="form-group">
         <label for="jns_penutupan_{{ $loop->iteration }}">Jenis Penutupan</label>
         <input type="text" name="jns_penutupan_{{ $loop->iteration }}" id="jns_penutupan_{{ $loop->iteration }}"
-            class="form-control form-control-sm" value="{{ $kenda->sc_kenda_agunan?->jns_penutupan }}">
+            class="form-control form-control-sm"
+            value="{{ data_get($kenda, "$vanalisSCKenda.jns_penutupan") ?? (data_get($kenda, "$vcabSCKenda.jns_penutupan") ?? $kenda->sc_kenda_agunan?->jns_penutupan) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
@@ -56,7 +59,7 @@
         <label for="nilai_pertanggungan_{{ $loop->iteration }}">Nilai Pertanggungan</label>
         <input type="text" name="nilai_pertanggungan_{{ $loop->iteration }}"
             id="nilai_pertanggungan_{{ $loop->iteration }}" class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->nilai_pertanggungan }}">
+            value="{{ data_get($kenda, "$vanalisSCKenda.nilai_pertanggungan") ?? (data_get($kenda, "$vcabSCKenda.nilai_pertanggungan") ?? $kenda->sc_kenda_agunan?->nilai_pertanggungan) }}">
     </div>
 </div>
 <div class="col-md-6 mb-3">
@@ -64,6 +67,6 @@
         <label for="perusahaan_asuransi_{{ $loop->iteration }}">Perusahaan Asuransi</label>
         <input type="text" name="perusahaan_asuransi_{{ $loop->iteration }}"
             id="perusahaan_asuransi_{{ $loop->iteration }}" class="form-control form-control-sm"
-            value="{{ $kenda->sc_kenda_agunan?->perusahaan_asuransi }}">
+            value="{{ data_get($kenda, "$vanalisSCKenda.perusahaan_asuransi") ?? (data_get($kenda, "$vcabSCKenda.perusahaan_asuransi") ?? $kenda->sc_kenda_agunan?->perusahaan_asuransi) }}">
     </div>
 </div>

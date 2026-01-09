@@ -12,14 +12,15 @@
     <div class="form-group">
         <label for="tgl_penilaian_{{ $loop->iteration }}">Tgl Penilaian</label>
         <input type="date" class="form-control form-control-sm" name="tgl_penilaian_{{ $loop->iteration }}"
-            id="tgl_penilaian_{{ $loop->iteration }}" required value="{{ now()->format('Y-m-d') }}">
+            id="tgl_penilaian_{{ $loop->iteration }}" required
+            value="{{ optional(data_get($tanah, "$vanalis.tgl_penilaian"))->format('Y-m-d') ?? (optional(data_get($tanah, "$vcab.tgl_penilaian"))->format('Y-m-d') ?? now()->format('Y-m-d')) }}">
     </div>
 </div>
 <div class="col-md-8 mb-4">
     <div class="form-group">
         <label for="lokasi_{{ $loop->iteration }}">Lokasi Agunan</label>
         <textarea name="lokasi_{{ $loop->iteration }}" id="lokasi_{{ $loop->iteration }}" cols="25" rows="3"
-            class="form-control" required>{{ $tanah->sc_tanah_agunan?->lokasi }}</textarea>
+            class="form-control" required>{{ data_get($tanah, "$vanalis.lokasi") ?? data_get($tanah, "$vcab.lokasi") }}</textarea>
     </div>
 </div>
 <div class="col-md-4 mb-4">
@@ -27,14 +28,14 @@
         <label for="penilai_{{ $loop->iteration }}">Penilai</label>
         <input type="text" class="form-control form-control-sm" name="penilai_{{ $loop->iteration }}"
             id="penilai_{{ $loop->iteration }}" required
-            value="{{ $tanah->sc_tanah_agunan?->penilai ?? auth()->user()->nama }}">
+            value="{{ data_get($tanah, "$vanalis.penilai") ?? (data_get($tanah, "$vcab.penilai") ?? auth()->user()->nama) }}">
     </div>
     <div class="form-group mt-2">
         <label for="luas_tanah_{{ $loop->iteration }}">Luas Tanah</label>
         <div class="input-group input-group-sm">
             <input type="number" class="form-control form-control-sm" name="luas_tanah_{{ $loop->iteration }}"
                 id="luas_tanah_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->luas_tanah }}">
+                value="{{ data_get($tanah, "$vanalis.luas_tanah") ?? data_get($tanah, "$vcab.luas_tanah") }}">
             <span class="input-group-text">M²</span>
         </div>
     </div>
@@ -43,28 +44,32 @@
     <div class="form-group">
         <label for="batas_utara_{{ $loop->iteration }}">Batas Utara</label>
         <input type="text" class="form-control form-control-sm" name="batas_utara_{{ $loop->iteration }}"
-            id="batas_utara_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->batas_utara }}">
+            id="batas_utara_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.batas_utara") ?? data_get($tanah, "$vcab.batas_utara") }}">
     </div>
 </div>
 <div class="col-md-3 mb-4">
     <div class="form-group">
         <label for="batas_selatan_{{ $loop->iteration }}">Selatan</label>
         <input type="text" class="form-control form-control-sm" name="batas_selatan_{{ $loop->iteration }}"
-            id="batas_selatan_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->batas_selatan }}">
+            id="batas_selatan_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.batas_selatan") ?? data_get($tanah, "$vcab.batas_selatan") }}">
     </div>
 </div>
 <div class="col-md-3 mb-4">
     <div class="form-group">
         <label for="batas_timur_{{ $loop->iteration }}">Timur</label>
         <input type="text" class="form-control form-control-sm" name="batas_timur_{{ $loop->iteration }}"
-            id="batas_timur_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->batas_timur }}">
+            id="batas_timur_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.batas_timur") ?? data_get($tanah, "$vcab.batas_timur") }}">
     </div>
 </div>
 <div class="col-md-3 mb-4">
     <div class="form-group">
         <label for="batas_barat_{{ $loop->iteration }}">Barat</label>
         <input type="text" class="form-control form-control-sm" name="batas_barat_{{ $loop->iteration }}"
-            id="batas_barat_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->batas_barat }}">
+            id="batas_barat_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.batas_barat") ?? data_get($tanah, "$vcab.batas_barat") }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
@@ -80,7 +85,7 @@
         <label for="nomor_{{ $loop->iteration }}">Nomor</label>
         <input type="text" class="form-control form-control-sm" name="nomor_{{ $loop->iteration }}"
             id="nomor_{{ $loop->iteration }}" required
-            value="{{ $tanah->sc_tanah_agunan?->nomor ?? $tanah->no_shm_shgb }}">
+            value="{{ data_get($tanah, "$vanalis.nomor") ?? (data_get($tanah, "$vcab.nomor") ?? $tanah->no_shm_shgb) }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
@@ -88,7 +93,7 @@
         <label for="atas_nama_{{ $loop->iteration }}">Atas Nama</label>
         <input type="text" class="form-control form-control-sm" name="atas_nama_{{ $loop->iteration }}"
             id="atas_nama_{{ $loop->iteration }}" required
-            value="{{ $tanah->sc_tanah_agunan?->atas_nama ?? $tanah->atas_nama }}">
+            value="{{ data_get($tanah, "$vanalis.atas_nama") ?? (data_get($tanah, "$vcab.atas_nama") ?? $tanah->atas_nama) }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
@@ -102,8 +107,8 @@
         </div>
         <input type="date" name="tgl_berakhir_sertif_{{ $loop->iteration }}"
             id="tgl_berakhir_sertif_{{ $loop->iteration }}" class="form-control form-control-sm"
-            {{ $tanah->sc_tanah_agunan?->hak_kepemilikan !== 'SHM' ? 'required' : null }}
-            value="{{ $tanah->sc_tanah_agunan?->tgl_berakhir_sertif?->format('Y-m-d') }}">
+            {{ data_get($tanah, "$vanalis.hak_kepemilikan") !== 'SHM' || data_get($tanah, "$vcab.hak_kepemilikan") !== 'SHM' ? 'required' : null }}
+            value="{{ data_get($tanah, "$vanalis.tgl_berakhir_sertif") ?? data_get($tanah, "$vcab.tgl_berakhir_sertif")?->format('Y-m-d') }}">
         <i id="tgl_sertif_danger_{{ $loop->iteration }}" class="text-danger d-none" style="font-weight: bold">Tidak
             Perlu Jika Hak Kepemilikan SHM,
             silahkan ubah dulu!</i>
@@ -120,14 +125,16 @@
             </label>
         </div>
         <input type="text" class="form-control form-control-sm" name="edisi_{{ $loop->iteration }}"
-            id="edisi_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->edisi }}">
+            id="edisi_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.edisi") ?? data_get($tanah, "$vcab.edisi") }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
     <div class="form-group">
         <label for="no_gs_{{ $loop->iteration }}">No. GS</label>
         <input type="text" class="form-control form-control-sm" name="no_gs_{{ $loop->iteration }}"
-            id="no_gs_{{ $loop->iteration }}" required value="{{ $tanah->sc_tanah_agunan?->no_gs }}">
+            id="no_gs_{{ $loop->iteration }}" required
+            value="{{ data_get($tanah, "$vanalis.no_gs") ?? data_get($tanah, "$vcab.no_gs") }}">
     </div>
 </div>
 
@@ -139,7 +146,8 @@
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="luas_bangunan_{{ $loop->iteration }}" id="luas_bangunan_{{ $loop->iteration }}" required
-                    min="0" value="{{ $tanah->sc_tanah_agunan?->luas_bangunan }}">
+                    min="0"
+                    value="{{ data_get($tanah, "$vanalis.luas_bangunan") ?? data_get($tanah, "$vcab.luas_bangunan") }}">
                 <span class="input-group-text">M²</span>
             </div>
         </div>
@@ -151,7 +159,7 @@
                 <input type="number" class="form-control form-control-sm"
                     name="luas_bangunan_fisik_{{ $loop->iteration }}"
                     id="luas_bangunan_fisik_{{ $loop->iteration }}" required min="0"
-                    value="{{ $tanah->sc_tanah_agunan?->luas_bangunan_fisik }}">
+                    value="{{ data_get($tanah, "$vanalis.luas_bangunan_fisik") ?? data_get($tanah, "$vcab.luas_bangunan_fisik") }}">
                 <span class="input-group-text">M²</span>
             </div>
         </div>
@@ -162,7 +170,8 @@
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="beda_luas_bangunan_{{ $loop->iteration }}" id="beda_luas_bangunan_{{ $loop->iteration }}"
-                    required min="0" value="{{ $tanah->sc_tanah_agunan?->beda_luas_bangunan }}">
+                    required min="0"
+                    value="{{ data_get($tanah, "$vanalis.beda_luas_bangunan") ?? data_get($tanah, "$vcab.beda_luas_bangunan") }}">
                 <span class="input-group-text">M²</span>
             </div>
         </div>
@@ -172,7 +181,7 @@
             <label for="thn_pembangunan_{{ $loop->iteration }}">Tahun Pembangunan</label>
             <input type="number" class="form-control form-control-sm" name="thn_pembangunan_{{ $loop->iteration }}"
                 id="thn_pembangunan_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->thn_pembangunan }}">
+                value="{{ data_get($tanah, "$vanalis.thn_pembangunan") ?? data_get($tanah, "$vcab.thn_pembangunan") }}">
         </div>
     </div>
     <div class="col-md-4 mb-4">
@@ -180,7 +189,7 @@
             <label for="thn_renov_akhir_{{ $loop->iteration }}">Tahun Renovasi Terakhir</label>
             <input type="number" class="form-control form-control-sm" name="thn_renov_akhir_{{ $loop->iteration }}"
                 id="thn_renov_akhir_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->thn_renov_akhir }}">
+                value="{{ data_get($tanah, "$vanalis.thn_renov_akhir") ?? data_get($tanah, "$vcab.thn_renov_akhir") }}">
         </div>
     </div>
     <div class="col-md-4 mb-4">
@@ -189,7 +198,8 @@
             <div class="input-group input-group-sm">
                 <input type="number" class="form-control form-control-sm"
                     name="umur_efektif_{{ $loop->iteration }}" id="umur_efektif_{{ $loop->iteration }}" required
-                    min="0" value="{{ $tanah->sc_tanah_agunan?->umur_efektif }}">
+                    min="0"
+                    value="{{ data_get($tanah, "$vanalis.umur_efektif") ?? data_get($tanah, "$vcab.umur_efektif") }}">
                 <span class="input-group-text">Tahun</span>
             </div>
         </div>
@@ -203,7 +213,7 @@
                 <input type="text" class="form-control form-control-sm"
                     name="penggunaan_bangunan_{{ $loop->iteration }}"
                     id="penggunaan_bangunan_{{ $loop->iteration }}" required min="0"
-                    value="{{ $tanah->sc_tanah_agunan?->penggunaan_bangunan }}">
+                    value="{{ data_get($tanah, "$vanalis.penggunaan_bangunan") ?? data_get($tanah, "$vcab.penggunaan_bangunan") }}">
             </div>
         </div>
     @endif
@@ -214,9 +224,12 @@
             <select name="kamar_tidur_{{ $loop->iteration }}" id="kamar_tidur_{{ $loop->iteration }}"
                 class="form-select form-select-sm" required>
                 <option disabled selected>-Pilih-</option>
-                <option {{ $tanah->sc_tanah_agunan?->kamar_tidur == 'Ada' ? 'selected' : '' }} value="Ada">Ada
+                <option
+                    {{ (data_get($tanah, "$vanalis.kamar_tidur") ?? data_get($tanah, "$vcab.kamar_tidur")) == 'Ada' ? 'selected' : '' }}
+                    value="Ada">Ada
                 </option>
-                <option {{ $tanah->sc_tanah_agunan?->kamar_tidur == 'Tidak Ada' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.kamar_tidur") ?? data_get($tanah, "$vcab.kamar_tidur")) == 'Tidak Ada' ? 'selected' : '' }}
                     value="Tidak Ada">Tidak Ada</option>
             </select>
         </div>
@@ -229,7 +242,7 @@
             </label>
             <input type="number" class="form-control form-control-sm" name="jumlah_kt_{{ $loop->iteration }}"
                 id="jumlah_kt_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->jumlah_kt }}">
+                value="{{ data_get($tanah, "$vanalis.jumlah_kt") ?? data_get($tanah, "$vcab.jumlah_kt") }}">
         </div>
     </div>
     <div class="col-md-2 mb-4">
@@ -238,9 +251,12 @@
             <select name="kamar_mandi_{{ $loop->iteration }}" id="kamar_mandi_{{ $loop->iteration }}"
                 class="form-select form-select-sm" required>
                 <option disabled selected>-Pilih-</option>
-                <option {{ $tanah->sc_tanah_agunan?->kamar_mandi == 'Ada' ? 'selected' : '' }} value="Ada">Ada
+                <option
+                    {{ (data_get($tanah, "$vanalis.kamar_mandi") ?? data_get($tanah, "$vcab.kamar_mandi")) == 'Ada' ? 'selected' : '' }}
+                    value="Ada">Ada
                 </option>
-                <option {{ $tanah->sc_tanah_agunan?->kamar_mandi == 'Tidak Ada' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.kamar_mandi") ?? data_get($tanah, "$vcab.kamar_mandi")) == 'Tidak Ada' ? 'selected' : '' }}
                     value="Tidak Ada">Tidak Ada</option>
             </select>
         </div>
@@ -253,7 +269,7 @@
             </label>
             <input type="number" class="form-control form-control-sm" name="jumlah_km_{{ $loop->iteration }}"
                 id="jumlah_km_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->jumlah_km }}">
+                value="{{ data_get($tanah, "$vanalis.jumlah_km") ?? data_get($tanah, "$vcab.jumlah_km") }}">
         </div>
     </div>
     <div class="col-md-4 mb-4">
@@ -261,7 +277,7 @@
             <label for="jumlah_lantai_{{ $loop->iteration }}">Jumlah Lantai</label>
             <input type="number" class="form-control form-control-sm" name="jumlah_lantai_{{ $loop->iteration }}"
                 id="jumlah_lantai_{{ $loop->iteration }}" required min="0"
-                value="{{ $tanah->sc_tanah_agunan?->jumlah_lantai }}">
+                value="{{ data_get($tanah, "$vanalis.jumlah_lantai") ?? data_get($tanah, "$vcab.jumlah_lantai") }}">
         </div>
     </div>
     <div class="col-md-2 mb-4">
@@ -270,16 +286,23 @@
             <select name="jaringan_listrik_{{ $loop->iteration }}" id="jaringan_listrik_{{ $loop->iteration }}"
                 class="form-select form-select-sm" required>
                 <option disabled selected>-Pilih-</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '450VA' ? 'selected' : '' }} value="450VA">
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik")) == '450VA' ? 'selected' : '' }}
+                    value="450VA">
                     450VA</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '900VA' ? 'selected' : '' }} value="900VA">
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik")) == '900VA' ? 'selected' : '' }}
+                    value="900VA">
                     900VA</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '1300VA' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik")) == '1300VA' ? 'selected' : '' }}
                     value="1300VA">
                     1300VA</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == '2200VA' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik")) == '2200VA' ? 'selected' : '' }}
                     value="2200VA">2200VA</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_listrik == 'Lainnya' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik")) == 'Lainnya' ? 'selected' : '' }}
                     value="Lainnya">Lainnya</option>
             </select>
         </div>
@@ -302,13 +325,17 @@
             <select name="jaringan_air_bersih_{{ $loop->iteration }}"
                 id="jaringan_air_bersih_{{ $loop->iteration }}" class="form-select form-select-sm" required>
                 <option disabled selected>-Pilih-</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_air_bersih == 'Sumur Biasa ' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_air_bersih") ?? data_get($tanah, "$vcab.jaringan_air_bersih")) == 'Sumur Biasa ' ? 'selected' : '' }}
                     value="Sumur Biasa">Sumur Biasa</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_air_bersih == 'Sumur Bor' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_air_bersih") ?? data_get($tanah, "$vcab.jaringan_air_bersih")) == 'Sumur Bor' ? 'selected' : '' }}
                     value="Sumur Bor">Sumur Bor</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_air_bersih == 'Sumur Pompa' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_air_bersih") ?? data_get($tanah, "$vcab.jaringan_air_bersih")) == 'Sumur Pompa' ? 'selected' : '' }}
                     value="Sumur Pompa">Sumur Pompa</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_air_bersih == 'PDAM' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_air_bersih") ?? data_get($tanah, "$vcab.jaringan_air_bersih")) == 'PDAM' ? 'selected' : '' }}
                     value="PDAM">PDAM</option>
             </select>
         </div>
@@ -319,9 +346,12 @@
             <select name="jaringan_telepon_{{ $loop->iteration }}" id="jaringan_telepon_{{ $loop->iteration }}"
                 class="form-select form-select-sm" required>
                 <option disabled selected>-Pilih-</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_telepon == 'Ada' ? 'selected' : '' }} value="Ada">
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_telepon") ?? data_get($tanah, "$vcab.jaringan_telepon")) == 'Ada' ? 'selected' : '' }}
+                    value="Ada">
                     Ada</option>
-                <option {{ $tanah->sc_tanah_agunan?->jaringan_telepon == 'Tidak Ada' ? 'selected' : '' }}
+                <option
+                    {{ (data_get($tanah, "$vanalis.jaringan_telepon") ?? data_get($tanah, "$vcab.jaringan_telepon")) == 'Tidak Ada' ? 'selected' : '' }}
                     value="Tidak Ada">Tidak Ada</option>
             </select>
         </div>

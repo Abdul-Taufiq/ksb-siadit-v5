@@ -84,7 +84,19 @@
                                         <td>{{ $item->no_spk }}</td>
                                         <td>{{ $item->debitur->nama_debitur }}</td>
                                         <td>{{ $item->tgl_pengajuan?->translatedFormat('d F Y') }}</td>
-                                        <td>{{ $item->status_akhir }}</td>
+                                        <td>
+                                            {{ $item->status_akhir }}
+                                            @if ($item->status_akhir == 'DITOLAK')
+                                                @if ($item->catatan_pincab != null)
+                                                    <br>
+                                                    <small><i>(Alasan: {!! $item->catatan_pincab !!})</i></small>
+                                                @else
+                                                    <br>
+                                                    <small><i>(Alasan: {!! $item->catatan_ao !!})</i></small>
+                                                @endif
+                                            @endif
+
+                                        </td>
                                         <td>{{ 'Rp' . number_format($item->jumlah_pengajuan, 0, ',', '.') }}</td>
                                         <td>
                                             {{ $item->jumlah_disetujui ? 'Rp' . number_format($item->jumlah_disetujui, 0, ',', '.') : '-' }}

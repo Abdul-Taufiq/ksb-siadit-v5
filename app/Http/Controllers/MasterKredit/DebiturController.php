@@ -75,15 +75,27 @@ class DebiturController extends Controller
         $kredit = Kredit::with(['debitur', 'cabang', 'penjamin', 'jamtanah', 'jamkenda', 'jamdeposito', 'pikareks', 'persetujuan'])
             ->where('id_kredit', $ids)
             ->first();
+
+        $tigaBulan = now()->subMonths(3)->startOfMonth()->format('Y-m-d');
+        $prospekAO = MonitoringAo::where('no_hp_cadeb', $kredit->debitur->no_telp)
+            ->where('id_cabang', $kredit->id_cabang)
+            ->where('nama_ao', $kredit->petugas_penerima)
+            // ->where('status', 'Create SPK')
+            ->whereBetween('tgl_kunjungan', [$tigaBulan, now()])
+            ->orderByDesc('kunjungan_ke')
+            ->get();
         // $penjamins = Penjamin::where('id_kredit', $id_kredit)->get();
         // $jam_tanah = JamTanah::where('id_kredit', $id_kredit)->get();
         // $jam_kenda = JamKenda::where('id_kredit', $id_kredit)->get();
         // $jam_depo = JamDeposito::where('id_kredit', $id_kredit)->get();
 
+        // dd($prospekAO->first()->kunjungan_ke);
+        // dd($prospekAO);
 
         return view('page.master-kredit.debitur.debitur-show', [
             'title' => 'Detail SPK',
             'kredit' => $kredit,
+            'prospekAO' => $prospekAO,
         ]);
     }
 
@@ -112,6 +124,14 @@ class DebiturController extends Controller
         // untuk create exist
         if ($request->metode == 'create') {
             $debitur = $this->debiturService->createDebitur($request->all());
+
+            // monitoring AO 
+            $monitoring = MonitoringAo::where('no_hp_cadeb', $request->no_telp)->orderByDesc('id')->first();
+            if ($monitoring) {
+                $monitoring->update([
+                    'status' => 'Create SPK',
+                ]);
+            }
 
             // Log Aktivitas
             LogActivity::AddLog("(+) Data Debitur | NIK: {$debitur->nik} | Nama: {$debitur->nama_debitur}");

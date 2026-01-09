@@ -269,7 +269,7 @@ class AddendumLivewire extends Component
             ->where('status_analis', '!=', 'Dikembalikan')
             ->where('status_legal', '=', null)
             ->where('kategori_spk', '!=', 'SPK')
-            ->orderBy('no_spk', 'desc')
+            ->orderBy('id_kredit', 'desc')
             ->get();
 
         $pkpmk = $this->add_services->index($this->all());

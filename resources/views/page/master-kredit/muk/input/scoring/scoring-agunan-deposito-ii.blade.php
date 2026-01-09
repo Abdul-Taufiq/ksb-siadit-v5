@@ -3,7 +3,7 @@
         <label class="notbold" for="depo_tujuan_penilaian_{{ $loop->iteration }}">Tujuan Penilaian</label>
         <input type="text" name="depo_tujuan_penilaian_{{ $loop->iteration }}"
             id="depo_tujuan_penilaian_{{ $loop->iteration }}" class="form-control form-control-sm" required
-            value="{{ $depo->sc_tabungan?->tujuan_penilaian ?? $depo->sc_depo?->tujuan_penilaian }}">
+            value="{{ data_get($depo, "$vanalisTab.tujuan_penilaian") ?? (data_get($depo, "$vanalisDepo.tujuan_penilaian") ?? (data_get($depo, "$vcabTab.tujuan_penilaian") ?? data_get($depo, "$vcabDepo.tujuan_penilaian"))) }}">
     </div>
 </div>
 
@@ -20,7 +20,7 @@
                         id="depo_nilai_pasar_agunan_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                         required data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                         data-bs-title="Jika ada perubahan SAFETY MARGIN (SM) Mohon untuk update nilai dibawah ini agar Sinkron"
-                        value="{{ number_format($depo->sc_tabungan?->nilai_pasar ?? $depo->sc_depo?->nilai_pasar_agunan, 0, ',', '.') }}">
+                        value="{{ number_format(data_get($tanah, "$vanalisTab.nilai_pasar") ?? (data_get($tanah, "$vanalisDepo.nilai_pasar_agunan") ?? (data_get($tanah, "$vcabTab.nilai_pasar") ?? data_get($tanah, "$vcabDepo.nilai_pasar_agunan"))), 0, ',', '.') }}">
                 </div>
             </td>
         </tr>
@@ -32,7 +32,7 @@
                 <div class="input-group input-group-sm">
                     <input type="number" name="depo_safety_margin_{{ $loop->iteration }}"
                         id="depo_safety_margin_{{ $loop->iteration }}" class="form-control form-control-sm" required
-                        value="{{ $depo->sc_tabungan?->safety_margin ?? ($depo->sc_depo?->safety_margin ?? '10') }}"
+                        value="{{ data_get($depo, "$vanalisTab.safety_margin") ?? (data_get($depo, "$vanalisDepo.safety_margin") ?? (data_get($depo, "$vcabTab.safety_margin") ?? data_get($depo, "$vcabDepo.safety_margin"))) }}"
                         min="0">
                     <span class="input-group-text">%</span>
                 </div>
@@ -43,7 +43,7 @@
             <td>
                 <input type="number" name="depo_score_{{ $loop->iteration }}" id="depo_score_{{ $loop->iteration }}"
                     class="form-control form-control-sm" required min="0"
-                    value="{{ $depo->sc_tabungan?->score ?? $depo->sc_depo?->score }}">
+                    value="{{ data_get($depo, "$vanalisTab.score") ?? (data_get($depo, "$vanalisDepo.score") ?? (data_get($depo, "$vcabTab.score") ?? data_get($depo, "$vcabDepo.score"))) }}">
             </td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
                     <input type="text" name="depo_nilai_pasar_setelah_sm_{{ $loop->iteration }}"
                         id="depo_nilai_pasar_setelah_sm_{{ $loop->iteration }}"
                         class="form-control form-control-sm setRp" required readonly
-                        value="{{ number_format($depo->sc_tabungan?->nilai_pasar_setelah_sm ?? $depo->sc_depo?->nilai_pasar_setelah_sm, 0, ',', '.') }}">
+                        value="{{ number_format(data_get($depo, "$vanalisTab.nilai_pasar_setelah_sm") ?? (data_get($depo, "$vanalisDepo.nilai_pasar_setelah_sm") ?? (data_get($depo, "$vcabTab.nilai_pasar_setelah_sm") ?? data_get($depo, "$vcabDepo.nilai_pasar_setelah_sm"))), 0, ',', '.') }}">
                 </div>
             </td>
         </tr>

@@ -135,6 +135,14 @@
                             <th>Status Akhir</th>
                             <td>: {{ $kredit->status_akhir }}</td>
                         </tr>
+                        <tr>
+                            <th>Prospek Kunjungan Ke</th>
+                            <td>:
+                                <a href="#prospek_ao">{{ $prospekAO?->first()->kunjungan_ke ?? '-' }}
+                                    <i style="color: cadetblue">(klik untuk lihat detail)</i>
+                                </a>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
@@ -1157,6 +1165,106 @@
                     </div>
                 @endif
             @endif
+        </div>
+    </div>
+</div>
+
+
+<br>
+
+{{-- Prospek AO --}}
+<div class="card" id="prospek_ao">
+    <div class="card-header">
+        <div class="head-judul">F. PROSPEK AO</div>
+    </div>
+    <div class="card-body" style="margin-top: -20px;">
+        <div class="row m-2">
+            {{-- <penjamin> --}}
+            @if ($prospekAO->isEmpty())
+                <h6 style="color: red">TIDAK ADA DATA</h6>
+            @else
+                <div class="table-responsive table-responsive-md" id="table-container">
+                    <table class="table table-striped table-hover table-sm" id="exportTable">
+                        <thead class="table-primary">
+                            <tr>
+                                <th rowspan="2" style="vertical-align: middle">No</th>
+                                <th rowspan="2" style="vertical-align: middle">Cabang</th>
+                                <th rowspan="2" style="vertical-align: middle">Tgl Kunjungan</th>
+                                <th rowspan="2" style="vertical-align: middle">Nama AO</th>
+                                <th rowspan="2" style="vertical-align: middle">Nama Cadeb</th>
+                                <th rowspan="2" style="vertical-align: middle">No HP Cadeb</th>
+                                <th colspan="4" style="text-align: center">Alamat Domisili/Usaha</th>
+                                <th rowspan="2" style="vertical-align: middle">Usaha</th>
+                                <th rowspan="2" style="vertical-align: middle">Potensi Plafond</th>
+                                <th rowspan="2" style="vertical-align: middle">Kunjungan Ke-</th>
+                                <th rowspan="2" style="vertical-align: middle">Keterangan</th>
+                                <th rowspan="2" style="vertical-align: middle">Klasifikasi</th>
+                            </tr>
+                            <tr>
+                                <th>Dusun</th>
+                                <th>Desa</th>
+                                <th>Kecamatan</th>
+                                <th>Kab/Kota</th>
+                            </tr>
+                        </thead>
+                        <tbody style="vertical-align: middle">
+                            @if ($prospekAO->isNotEmpty())
+                                @foreach ($prospekAO as $data => $item)
+                                    <tr wire:key='{{ sha1($item->id) }}'>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td style="min-width: 100px;">{{ $item->cabang->cabang }}</td>
+                                        <td style="min-width: 100px;">
+                                            {{ $item->tgl_kunjungan?->format('d-m-Y') ?? '-' }}
+                                        </td>
+                                        <td style="min-width: 150px;">{{ $item->nama_ao }}</td>
+                                        <td style="min-width: 150px;">{{ $item->nama_cadeb }}</td>
+
+                                        @php
+                                            $shortenHp = function ($name, $maxLength = 5) {
+                                                return strlen($name) > $maxLength
+                                                    ? substr($name, 0, $maxLength) . 'xxxxxxx'
+                                                    : $name;
+                                            };
+                                        @endphp
+
+                                        {{-- VERSI PAKE SCRIPT --}}
+                                        {{-- <td style="min-width: 150px;" id="no_hp{{ $item->id }}"
+                                            data-full="{{ $item->no_hp_cadeb }}"
+                                            data-short="{{ $shortenHp($item->no_hp_cadeb) }}"
+                                            onmouseover="onHover(this)" onmouseout="onHoverOut(this)">
+                                            {{ $shortenHp($item->no_hp_cadeb) }}
+                                        </td> --}}
+
+                                        <td style="min-width: 150px;" data-full="{{ $item->no_hp_cadeb }}"
+                                            data-short="{{ $shortenHp($item->no_hp_cadeb) }}"
+                                            onmouseover="this.textContent=this.dataset.full"
+                                            onmouseout="this.textContent=this.dataset.short">
+                                            {{ $shortenHp($item->no_hp_cadeb) }}
+                                        </td>
+
+                                        <td style="min-width: 100px;">{{ $item->dusun }}</td>
+                                        <td style="min-width: 100px;">{{ $item->desa }}</td>
+                                        <td style="min-width: 100px;">{{ $item->kecamatan }}</td>
+                                        <td style="min-width: 100px;">{{ $item->kabupaten }}</td>
+                                        <td style="min-width: 150px;">{{ $item->usaha }}</td>
+                                        <td style="min-width: 150px;">
+                                            {{ $item->potensi_plafond == 0 || $item->potensi_plafond == null ? '-' : 'Rp' . number_format($item->potensi_plafond, 0, ',', '.') }}
+                                        </td>
+                                        <td style="min-width: 50px;">{{ $item->kunjungan_ke }}</td>
+                                        <td class="text" style="min-width: 350px;">{!! $item->keterangan !!}</td>
+                                        <td>{{ $item->klasifikasi }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="15" class="text-center"><i>Tidak Ada Data</i></td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+            {{-- </penjamin> --}}
         </div>
     </div>
 </div>

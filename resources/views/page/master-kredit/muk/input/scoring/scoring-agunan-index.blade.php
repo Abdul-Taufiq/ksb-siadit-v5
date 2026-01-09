@@ -20,8 +20,13 @@
             <input type="hidden" name="id_jaminan_pertanahan_{{ $loop->iteration }}"
                 value="{{ base64_encode($tanah->id_jaminan_pertanahan) }}">
             {{-- id --}}
-            <input type="hidden" name="id_sc_agunan_{{ $loop->iteration }}"
-                value="{{ base64_encode($tanah->sc_tanah_agunan?->id_sc_agunan) }}">
+            @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                <input type="hidden" name="id_sc_agunan_{{ $loop->iteration }}"
+                    value="{{ base64_encode($tanah->sc_tanah_agunan_vanalis?->id_sc_agunan) }}">
+            @else
+                <input type="hidden" name="id_sc_agunan_{{ $loop->iteration }}"
+                    value="{{ base64_encode($tanah->sc_tanah_agunan?->id_sc_agunan) }}">
+            @endif
 
             @include('page.master-kredit.muk.input.scoring.scoring-agunan-tanah-core')
         </div>
@@ -33,8 +38,13 @@
             </div>
 
             {{-- id --}}
-            <input type="hidden" name="id_sc_scoring_{{ $loop->iteration }}"
-                value="{{ base64_encode($tanah->sc_tanah_scoring?->id_sc_scoring) }}">
+            @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                <input type="hidden" name="id_sc_scoring_{{ $loop->iteration }}"
+                    value="{{ base64_encode($tanah->sc_tanah_scoring_vanalis?->id_sc_scoring) }}">
+            @else
+                <input type="hidden" name="id_sc_scoring_{{ $loop->iteration }}"
+                    value="{{ base64_encode($tanah->sc_tanah_scoring?->id_sc_scoring) }}">
+            @endif
 
             @include('page.master-kredit.muk.input.scoring.scoring-agunan-tanah-skor')
         </div>
@@ -85,8 +95,13 @@
             <input type="hidden" name="id_jaminan_kendaraan_{{ $loop->iteration }}"
                 value="{{ base64_encode($kenda->id_jaminan_kendaraan) }}">
             {{-- id --}}
-            <input type="hidden" name="id_sc_kendaraan_{{ $loop->iteration }}"
-                value="{{ base64_encode($kenda->sc_kenda_agunan?->id_sc_kendaraan) }}">
+            @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                <input type="hidden" name="id_sc_kendaraan_{{ $loop->iteration }}"
+                    value="{{ base64_encode($kenda->sc_kenda_agunan_vanalis?->id_sc_kendaraan) }}">
+            @else
+                <input type="hidden" name="id_sc_kendaraan_{{ $loop->iteration }}"
+                    value="{{ base64_encode($kenda->sc_kenda_agunan?->id_sc_kendaraan) }}">
+            @endif
 
             @include('page.master-kredit.muk.input.scoring.scoring-agunan-kendaraan')
         </div>
@@ -146,8 +161,13 @@
             <input type="hidden" name="id_jaminan_deposito_{{ $loop->iteration }}"
                 value="{{ base64_encode($depo->id_jaminan_deposito) }}">
             {{-- id --}}
-            <input type="hidden" name="id_sc_depo_tab_{{ $loop->iteration }}"
-                value="{{ base64_encode($depo->sc_depo?->id_sc_deposito ?? $depo->sc_tabungan?->id_sc_tabungan) }}">
+            @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                <input type="hidden" name="id_sc_depo_tab_{{ $loop->iteration }}"
+                    value="{{ base64_encode($depo->sc_depo_vanalis?->id_sc_deposito ?? $depo->sc_tabungan_vanalis?->id_sc_tabungan) }}">
+            @else
+                <input type="hidden" name="id_sc_depo_tab_{{ $loop->iteration }}"
+                    value="{{ base64_encode($depo->sc_depo?->id_sc_deposito ?? $depo->sc_tabungan?->id_sc_tabungan) }}">
+            @endif
 
             @if ($depo->jns_jaminan == 'Tabungan')
                 @include('page.master-kredit.muk.input.scoring.scoring-agunan-tabungan')

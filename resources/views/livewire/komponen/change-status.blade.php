@@ -34,6 +34,38 @@
             <span class="badge text-bg-secondary" style="font-size: 11px;" title="Tidak Diperlukan">
                 <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
             </span>
+        @elseif (Auth::user()->sub_jabatan == 'Staf Analis Area')
+            @if (
+                $kredit->status_ao != null &&
+                    $kredit->status_ao == 'Approve' &&
+                    $kredit->status_analis == null &&
+                    $kredit->nama_analis == Auth::user()->nama)
+                @include('livewire.komponen.button-modal')
+            @else
+                @if ($kredit->status_analis == 'Approve')
+                    <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">
+                        <i class="fa-solid fa-check"></i> Approved
+                    </span>
+                @elseif ($kredit->status_analis == 'Reject')
+                    <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
+                        <i class="fa-solid fa-xmark"></i> Rejected
+                    </span>
+                @elseif ($kredit->status_analis == 'Cencel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
+                        <i class="fa-solid fa-xmark"></i> Cencel
+                    </span>
+                @else
+                    @if ($kredit->status_ao == 'Reject')
+                        <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
+                            <i class="fa-solid fa-xmark"></i> RejectedAO
+                        </span>
+                    @else
+                        <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
+                            <i class="fa-solid fa-circle-exclamation"></i> NotYet
+                        </span>
+                    @endif
+                @endif
+            @endif
         @else
             @if (
                 $kredit->status_ao != null &&
@@ -159,8 +191,8 @@
             @else
                 <div class="btn-group dropend">
                     <button type="button" class="btn btn-secondary dropdown-toggle"
-                        style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                        style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Status
                     </button>
                     <ul class="dropdown-menu">
@@ -237,9 +269,7 @@
                             </div>
                         </div>
                     @endif --}}
-                    @if (
-                        ($putusan == 'Cabang' && Auth::user()->jabatan == 'Pimpinan Cabang') ||
-                            ($putusan != 'Cabang' && Auth::user()->jabatan == 'Analis Cabang'))
+                    @if ($putusan == 'Cabang' && Auth::user()->jabatan == 'Pimpinan Cabang')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-2">

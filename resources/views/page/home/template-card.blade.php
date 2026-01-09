@@ -77,8 +77,10 @@
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
                             {{ number_format($spk->where('id_cabang', $id_cbg)->where('status_akhir', 'DITOLAK')->count(), 0, ',', '.') }}
+                            &nbsp; | &nbsp;
+                            {{ $spkSlik->count() }}
                         </p>
-                        <p class="stat-cards-info__title" style="font-size: 12px;">DITOLAK</p>
+                        <p class="stat-cards-info__title" style="font-size: 12px;">DITOLAK | DITOLAK SLIK</p>
                     </div>
                 </article>
             </div>

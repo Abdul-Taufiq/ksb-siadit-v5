@@ -46,6 +46,15 @@ class AddendumController extends Controller
         $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $pikarEks = PikarEks::where('id_kredit', $kredit->id_kredit)->first();
 
+        $tigaBulan = now()->subMonths(3)->startOfMonth()->format('Y-m-d');
+        $prospekAO = MonitoringAo::where('no_hp_cadeb', $kredit->debitur->no_telp)
+            ->where('id_cabang', $kredit->id_cabang)
+            ->where('nama_ao', $kredit->petugas_penerima)
+            // ->where('status', 'Create SPK')
+            ->whereBetween('tgl_kunjungan', [$tigaBulan, now()])
+            ->orderByDesc('kunjungan_ke')
+            ->get();
+
         return view('page.master-perjanjian-kredit.addendum.create', [
             'title' => 'Create Perjanjian Kredit',
             'kredit' => $kredit,
@@ -56,7 +65,8 @@ class AddendumController extends Controller
             'jam_depo' => $jam_depo,
             'pikar' => $pikarEks,
             'pkpmk' => $pkpmk,
-            'metode' => null
+            'metode' => null,
+            'prospekAO' => $prospekAO,
         ]);
     }
 
@@ -74,6 +84,15 @@ class AddendumController extends Controller
         $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $pikarEks = PikarEks::where('id_kredit', $kredit->id_kredit)->first();
 
+        $tigaBulan = now()->subMonths(3)->startOfMonth()->format('Y-m-d');
+        $prospekAO = MonitoringAo::where('no_hp_cadeb', $kredit->debitur->no_telp)
+            ->where('id_cabang', $kredit->id_cabang)
+            ->where('nama_ao', $kredit->petugas_penerima)
+            // ->where('status', 'Create SPK')
+            ->whereBetween('tgl_kunjungan', [$tigaBulan, now()])
+            ->orderByDesc('kunjungan_ke')
+            ->get();
+
         return view('page.master-perjanjian-kredit.addendum.create', [
             'title' => 'Edit Perjanjian Kredit',
             'kredit' => $kredit,
@@ -84,7 +103,8 @@ class AddendumController extends Controller
             'jam_depo' => $jam_depo,
             'pikar' => $pikarEks,
             'pkpmk' => $pkpmk,
-            'metode' => 'Edit'
+            'metode' => 'Edit',
+            'prospekAO' => $prospekAO,
         ]);
     }
 

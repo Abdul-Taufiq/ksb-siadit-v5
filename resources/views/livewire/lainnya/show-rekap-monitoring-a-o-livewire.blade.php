@@ -213,11 +213,18 @@
                                             };
                                         @endphp
 
-                                        <td style="min-width: 150px;" id="no_hp{{ $item->id }}"
+                                        {{-- <td style="min-width: 150px;" id="no_hp{{ $item->id }}"
                                             data-full="{{ $item->no_hp_cadeb }}"
                                             data-short="{{ $shortenHp($item->no_hp_cadeb) }}">
                                             {{ $shortenHp($item->no_hp_cadeb) }}
+                                        </td> --}}
+                                        <td style="min-width: 150px;" data-full="{{ $item->no_hp_cadeb }}"
+                                            data-short="{{ $shortenHp($item->no_hp_cadeb) }}"
+                                            onmouseover="this.textContent=this.dataset.full"
+                                            onmouseout="this.textContent=this.dataset.short">
+                                            {{ $shortenHp($item->no_hp_cadeb) }}
                                         </td>
+
                                         <td style="min-width: 100px;">{{ $item->dusun }}</td>
                                         <td style="min-width: 100px;">{{ $item->desa }}</td>
                                         <td style="min-width: 100px;">{{ $item->kecamatan }}</td>

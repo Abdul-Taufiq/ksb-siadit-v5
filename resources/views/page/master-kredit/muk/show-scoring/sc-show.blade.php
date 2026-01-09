@@ -10,10 +10,18 @@
                 <div class="card-body w-100">
                     <div class="row ">
                         <div class="d-flex justify-content-between">
-                            <div class="col-12 col-md-3 mb-sm-1" style="opacity: 0.2">
-                                {{-- <a href="#" class="btn btn-info text-white btn-sm w-100 w-md-auto" disabled>
-                                    <i class="fa-solid fa-download"></i> Print SPK
-                                </a> --}}
+                            <div class="col-12 col-md-3 mb-sm-1">
+                                @if (Str::contains(request()->path(), 'anar'))
+                                    <a href="{{ route('show.scoring', encrypt($muk->id_muk)) }}"
+                                        class="btn btn-secondary text-white btn-sm w-100 w-md-auto">
+                                        <i class="fa-solid fa-arrow-right"></i> Show Scoring Versi Cabang
+                                    </a>
+                                @else
+                                    <a href="{{ route('show.scoring.anar', encrypt($muk->id_muk)) }}"
+                                        class="btn btn-secondary text-white btn-sm w-100 w-md-auto">
+                                        <i class="fa-solid fa-arrow-right"></i> Show Scoring Versi Analis Area
+                                    </a>
+                                @endif
                             </div>
                             <div class="col-12 col-md-3 text-end">
                                 <a href="{{ url()->previous() }}"
@@ -53,6 +61,7 @@
                             <div class="col-4 col-md-2  d-flex justify-content-center">
                                 <a data-id_muk="{{ base64_encode($muk->id_muk) }}"
                                     data-agunan="{{ base64_encode('Tanah') }}"
+                                    data-versi="{{ Str::contains(request()->path(), 'anar') ? 'vAnalis' : 'vCab' }}"
                                     data-id_jaminan="{{ base64_encode($tanah->id_jaminan_pertanahan) }}"
                                     class="btn btn-info text-white btn-sm w-100 w-md-auto btnSCR">
                                     <i class="fa-solid fa-download"></i> Print Scoring Agunan
@@ -75,6 +84,7 @@
                             <div class="col-4 col-md-2  d-flex justify-content-center">
                                 <a data-id_muk="{{ base64_encode($muk->id_muk) }}"
                                     data-agunan="{{ base64_encode('Kendaraan') }}"
+                                    data-versi="{{ Str::contains(request()->path(), 'anar') ? 'vAnalis' : 'vCab' }}"
                                     data-id_jaminan="{{ base64_encode($kenda->id_jaminan_kendaraan) }}"
                                     class="btn btn-info text-white btn-sm w-100 w-md-auto btnSCR">
                                     <i class="fa-solid fa-download"></i> Print Scoring Agunan
@@ -98,6 +108,7 @@
                                 <div class="col-4 col-md-2  d-flex justify-content-center">
                                     <a data-id_muk="{{ base64_encode($muk->id_muk) }}"
                                         data-agunan="{{ base64_encode('Deposito') }}"
+                                        data-versi="{{ Str::contains(request()->path(), 'anar') ? 'vAnalis' : 'vCab' }}"
                                         data-id_jaminan="{{ base64_encode($depo->id_jaminan_deposito) }}"
                                         class="btn btn-info text-white btn-sm w-100 w-md-auto btnSCR">
                                         <i class="fa-solid fa-download"></i> Print Scoring Agunan
@@ -128,6 +139,7 @@
             var id_muk = $(this).data('id_muk');
             var id_jaminan = $(this).data('id_jaminan');
             var agunan = $(this).data('agunan');
+            var versi = $(this).data('versi');
 
             Swal.fire({
                 title: 'Konfirmasi Cetak Scoring?',
@@ -141,8 +153,16 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // window.location.href = '/print-perjanjian-kredit-pk/' + id;
-                    window.open('/muk/print-muk-scoring/' + agunan + '/' + id_jaminan + '/' + id_muk,
-                        '_blank');
+                    if (versi == 'vAnalis') {
+                        window.open('/muk/print-muk-scoring/anar/' + agunan + '/' + id_jaminan + '/' +
+                            id_muk,
+                            '_blank');
+
+                    } else {
+                        window.open('/muk/print-muk-scoring/' + agunan + '/' + id_jaminan + '/' + id_muk,
+                            '_blank');
+
+                    }
                 }
             });
         });

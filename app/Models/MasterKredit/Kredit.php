@@ -104,7 +104,9 @@ class Kredit extends Model
     {
         return $query->where(function ($query) use ($search) {
             $query->where('no_spk', 'like', "%{$search}%")
-                ->orWhere('petugas_penerima', 'like', "%{$search}%");
+                ->orWhere('petugas_penerima', 'like', "%{$search}%")
+                ->orWhere('status_akhir', 'like', "%{$search}%")
+                ->orWhere('catatan_ao', 'like', "%{$search}%");
         });
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cabang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,9 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $user = $request->user(); // Sama dengan auth()->user()
+        $cabang = Cabang::where('id_cabang', $user->id_cabang)->firstOrFail();
 
-        return view('auth.myProfile.index-myprofile', compact('user'), [
+        return view('auth.myProfile.index-myprofile', compact('user', 'cabang'), [
             'title' => 'Profile',
         ]);
     }
