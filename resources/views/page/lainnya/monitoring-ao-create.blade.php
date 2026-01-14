@@ -129,6 +129,33 @@
         });
     </script>
 
+    {{-- fungsi minimal input no HP --}}
+    <script>
+        let noHp = document.getElementById('no_hp_cadeb');
+        noHp.addEventListener('blur', function() {
+            let valHp = noHp.value;
+            if (!valHp.startsWith('08') && !valHp.startsWith('628')) {
+                alert(
+                    'Nomor HP harus diawali dengan angka 08(diikuti nomor selanjutnya) atau 628(diikuti nomor selanjutnya)'
+                )
+            }
+            if (valHp.length < 9) {
+                alert('Nomor Hp Minimal 9 digit!')
+            }
+
+
+            // alternatif
+            // ^08 = harus mulai dengan 08, \d{6,} = minimal 6 digit setelahnya
+            // const regex = /^08\d{6,}$/;
+
+            // if (!regex.test(valHp)) {
+            //     alert('Nomor HP harus diawali 08 dan minimal 8 digit!');
+            // }
+
+
+        })
+    </script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

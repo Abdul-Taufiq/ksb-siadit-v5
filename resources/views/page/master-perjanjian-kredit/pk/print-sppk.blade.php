@@ -385,6 +385,42 @@
         @endif
 
         @if ($jam_tanah->isNotEmpty())
+            @foreach ($jam_depo as $depo)
+                <div style="margin-left: 0px;">
+                    {{-- membuat urutan --}}
+                    {{ $counter }}. &nbsp;
+                    @php $counter++; @endphp Tabungan Deposito
+                </div>
+                <table style="width: 95%; margin-left: 20px;">
+                    <tr>
+                        <td style="width: 1%">•</td>
+                        <td style="width: 25%">Atas Nama</td>
+                        <td style="width: 1%;">:</td>
+                        <td>
+                            {{ $depo->atas_nama }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 1%">•</td>
+                        <td style="width: 25%">Rekening</td>
+                        <td style="width: 1%;">:</td>
+                        <td>
+                            {{ $depo->no_rek }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 1%">•</td>
+                        <td style="width: 25%">Nominal Deposito</td>
+                        <td style="width: 1%;">:</td>
+                        <td>
+                            {{ number_format($depo->nominal, 0, ',', '.') }}
+                        </td>
+                    </tr>
+                </table>
+            @endforeach
+        @endif
+
+        @if ($jam_tanah->isNotEmpty())
             @foreach ($jam_tanah as $tanah)
                 <div class="premis-jaminan">
                     {{ $counter }}.

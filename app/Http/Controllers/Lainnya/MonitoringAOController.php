@@ -33,7 +33,7 @@ class MonitoringAOController extends Controller
             'title' => 'Create Prospek AO',
             'monitoring' => $monitoring,
             'metode' => 'edit',
-            'id_field' => '_edit',
+            'id_field' => '',
         ]);
     }
 
@@ -87,17 +87,17 @@ class MonitoringAOController extends Controller
         $monitor = MonitoringAo::findOrFail($ids);
         // $monitor->id_cabang = Auth::user()->id_cabang;
         // $monitor->nama_ao = Auth::user()->nama;
-        $monitor->no_hp_cadeb = $request->input('no_hp_cadeb_edit');
-        $monitor->nama_cadeb = $request->input('nama_cadeb_edit');
-        $monitor->usaha = $request->input('usaha_edit');
-        $monitor->dusun = $request->input('dusun_edit');
-        $monitor->desa = $request->input('desa_edit');
-        $monitor->kecamatan = $request->input('kecamatan_edit');
-        $monitor->kabupaten = $request->input('kabupaten_edit');
-        $monitor->klasifikasi = $request->input('klasifikasi_edit');
-        $monitor->kunjungan_ke = $request->input('kunjungan_ke_edit');
-        $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond_edit'));
-        $monitor->keterangan = $request->input('keterangan_edit');
+        $monitor->no_hp_cadeb = $request->input('no_hp_cadeb');
+        $monitor->nama_cadeb = $request->input('nama_cadeb');
+        $monitor->usaha = $request->input('usaha');
+        $monitor->dusun = $request->input('dusun');
+        $monitor->desa = $request->input('desa');
+        $monitor->kecamatan = $request->input('kecamatan');
+        $monitor->kabupaten = $request->input('kabupaten');
+        $monitor->klasifikasi = $request->input('klasifikasi');
+        $monitor->kunjungan_ke = $request->input('kunjungan_ke');
+        $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
+        $monitor->keterangan = $request->input('keterangan');
         // $monitor->tgl_kunjungan = now();
         $monitor->save();
 
