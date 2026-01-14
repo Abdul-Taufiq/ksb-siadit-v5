@@ -49,7 +49,7 @@
                                 </div>
                                 <br>
                                 <button type="button" id="simpan" class="btn btn-primary" style="letter-spacing: 2px;">
-                                    <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> & Lanjutkan</button>
+                                    <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b></button>
                             </div>
                             <div class="card card-outline card-danger mb-0"></div>
                         </div>
@@ -132,17 +132,29 @@
     {{-- fungsi minimal input no HP --}}
     <script>
         let noHp = document.getElementById('no_hp_cadeb');
+        let buttonSave = document.getElementById('simpan');
         noHp.addEventListener('blur', function() {
-            let valHp = noHp.value;
+            let valHp = noHp.value.trim();
+            let valid = true;
+
+            // cek prefix
             if (!valHp.startsWith('08') && !valHp.startsWith('628')) {
-                alert(
-                    'Nomor HP harus diawali dengan angka 08(diikuti nomor selanjutnya) atau 628(diikuti nomor selanjutnya)'
-                )
-            }
-            if (valHp.length < 9) {
-                alert('Nomor Hp Minimal 9 digit!')
+                alert('Nomor HP harus diawali dengan 08 atau 628!');
+                valid = false;
             }
 
+            // cek panjang minimal
+            if (valHp.length < 9) {
+                alert('Nomor HP minimal 9 digit!');
+                valid = false;
+            }
+
+            // atur tombol sesuai hasil validasi
+            if (!valid) {
+                buttonSave.setAttribute('disabled', 'true');
+            } else {
+                buttonSave.removeAttribute('disabled');
+            }
 
             // alternatif
             // ^08 = harus mulai dengan 08, \d{6,} = minimal 6 digit setelahnya
@@ -151,7 +163,6 @@
             // if (!regex.test(valHp)) {
             //     alert('Nomor HP harus diawali 08 dan minimal 8 digit!');
             // }
-
 
         })
     </script>
