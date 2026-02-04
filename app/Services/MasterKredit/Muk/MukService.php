@@ -409,7 +409,7 @@ class MukService
             // 'jns_penyimpangan' => $data['jns_penyimpangan'],
             'ketentuan_berlaku' => $data['ketentuan_berlaku'],
             'penyimpangan_diajukan' => $data['penyimpangan_diajukan'],
-            // 'pertimbangan' => $data['pertimbangan'],
+            'pertimbangan' => $data['pertimbangan'],
         ]);
         //     }
         // }

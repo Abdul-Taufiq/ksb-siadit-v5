@@ -70,8 +70,8 @@ class MonitoringAOController extends Controller
         $monitor->kecamatan = $request->input('kecamatan');
         $monitor->kabupaten = $request->input('kabupaten');
         $monitor->klasifikasi = $request->input('klasifikasi');
-        // $monitor->kunjungan_ke = $request->input('kunjungan_ke');
-        $monitor->kunjungan_ke = $prospekAO != null ? $prospekAO->kunjungan_ke + 1 : 1;
+        $monitor->kunjungan_ke = $request->input('kunjungan_ke');
+        // $monitor->kunjungan_ke = $prospekAO != null ? $prospekAO->kunjungan_ke + 1 : 1;
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
         $monitor->tgl_kunjungan = now();
@@ -85,8 +85,6 @@ class MonitoringAOController extends Controller
     {
         $ids = Crypt::decrypt($id);
         $monitor = MonitoringAo::findOrFail($ids);
-        // $monitor->id_cabang = Auth::user()->id_cabang;
-        // $monitor->nama_ao = Auth::user()->nama;
         $monitor->no_hp_cadeb = $request->input('no_hp_cadeb');
         $monitor->nama_cadeb = $request->input('nama_cadeb');
         $monitor->usaha = $request->input('usaha');
@@ -98,7 +96,6 @@ class MonitoringAOController extends Controller
         $monitor->kunjungan_ke = $request->input('kunjungan_ke');
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
-        // $monitor->tgl_kunjungan = now();
         $monitor->save();
 
         return redirect(route('monitoring.ao.index'))->with('AlertSuccess', 'Data Monitoring AO berhasil disimpan.');

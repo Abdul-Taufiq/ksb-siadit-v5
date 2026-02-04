@@ -78,7 +78,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">I. PERMOHONAN NASABAH</div>
                     </div>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">II. DATA PEMOHON</div>
                     </div>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">III. DATA HASIL SLIK</div>
                     </div>
@@ -111,7 +111,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">IV. DATA KEUANGAN</div>
                     </div>
@@ -122,7 +122,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">V. WORKING INVESTMENT/KECUKUPAN MODAL KERJA</div>
                     </div>
@@ -133,7 +133,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">VI. DATA MANAGEMENT</div>
                     </div>
@@ -144,7 +144,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">VII. ANALISA INDUSTRI</div>
                     </div>
@@ -155,7 +155,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">VIII. DATA AGUNAN</div>
                     </div>
@@ -166,7 +166,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">IX. PENYIMPANGAN/DEVIASI</div>
                     </div>
@@ -177,7 +177,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">X. USULAN/REKOMENDASI</div>
                     </div>
@@ -188,7 +188,7 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between">
                         <div class="head-judul">XI. PUTUSAN</div>
                     </div>

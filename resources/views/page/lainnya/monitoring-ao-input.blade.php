@@ -18,7 +18,7 @@
         <div class="form-group">
             <label for="no_hp_cadeb{{ $id_field }}">No HP Calon Debitur :</label>
             <input type="text" name="no_hp_cadeb{{ $id_field }}" id="no_hp_cadeb{{ $id_field }}" required
-                class="form-control form-control-sm is-invalid nomor" placeholder="No HP" maxlength="16" minlength="16"
+                class="form-control form-control-sm is-invalid nomor" placeholder="No HP" maxlength="20" minlength="8"
                 value="{{ $monitoring != null ? $monitoring->no_hp_cadeb : null }}">
         </div>
     </div>
@@ -99,14 +99,6 @@
         </strong>
         <hr>
     </div>
-    {{-- <div class="col-md-6 mb-4">
-        <div class="form-group">
-            <label for="kunjungan_ke{{ $id_field }}">Follow Up/Kunjungan Ke :</label>
-            <input type="number" name="kunjungan_ke{{ $id_field }}" id="kunjungan_ke{{ $id_field }}" required
-                class="form-control form-control-sm is-invalid" placeholder="Hanya angka 1-9999"
-                value="{{ $monitoring != null ? $monitoring->kunjungan_ke : null }}" min="1" max="9999">
-        </div>
-    </div> --}}
     <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="kunjungan_ke{{ $id_field }}">Follow Up/Kunjungan Ke :</label>
@@ -115,6 +107,14 @@
                 value="{{ $monitoring != null ? $monitoring->kunjungan_ke : null }}" min="1" max="9999">
         </div>
     </div>
+    {{-- <div class="col-md-6 mb-4">
+        <div class="form-group">
+            <label for="kunjungan_ke{{ $id_field }}">Follow Up/Kunjungan Ke :</label>
+            <input type="number" name="kunjungan_ke{{ $id_field }}" id="kunjungan_ke{{ $id_field }}" required
+                class="form-control form-control-sm is-invalid" placeholder="Hanya angka 1-9999"
+                value="{{ $monitoring != null ? $monitoring->kunjungan_ke : null }}" min="1" max="9999">
+        </div>
+    </div> --}}
     <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="klasifikasi{{ $id_field }}">Klasifikasi :</label>

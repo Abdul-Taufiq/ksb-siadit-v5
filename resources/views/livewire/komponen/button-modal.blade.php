@@ -14,7 +14,7 @@
             <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
                 wire:click='ShowModal("Reject", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>Reject</button>
         </li>
-        @if (Auth::user()->jabatan == 'AO')
+        @if (Auth::user()->jabatan == 'AO' || Auth::user()->jabatan == 'Pimpinan Cabang')
             <li>
                 <button type="button" class="dropdown-item"
                     onclick="if(confirm('Yakin Reject Data Berdasarkan SLIK? \n Biasanya digunakan saat SLIK jelek!')) 

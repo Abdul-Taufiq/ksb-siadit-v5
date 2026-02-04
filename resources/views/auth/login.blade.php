@@ -17,8 +17,8 @@
             <center>
                 <img src="{{ asset('images/logo ksb.png') }}" alt="logo"
                     style="max-width: 75%; padding-bottom: 10px;">
-                <p class="sign-up__subtitle mb-0" style="font-size: 15px;">Sign in to continue Open <b>Aplikasi
-                        SIADIT</b></p>
+                <p class="sign-up__subtitle mb-0" style="font-size: 15px;">Sign in to continue open <b>
+                        SIADIT Apps</b></p>
             </center>
             <hr>
 

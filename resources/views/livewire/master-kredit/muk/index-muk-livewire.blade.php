@@ -113,6 +113,22 @@
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             {{-- aksi edit --}}
+                                            @php
+                                                $pkpmkPrinted = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
+                                                $addendumPrinted = $item->kredit->addendum?->tgl_print_addendum;
+                                                if ($pkpmkPrinted != null) {
+                                                    $pkPrint = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
+                                                } else {
+                                                    $pkPrint = null;
+                                                }
+
+                                                if ($addendumPrinted != null) {
+                                                    $addPrint = $item->kredit->addendum?->tgl_print_addendum;
+                                                } else {
+                                                    $addPrint = null;
+                                                }
+                                            @endphp
+
                                             @if (Auth::user()->sub_jabatan == 'Staf Analis Area' || Auth::user()->jabatan == 'Analis Cabang')
                                                 @if ($item->status_pincab != null && $item->status_kakom != null)
                                                     <a href="#"
@@ -123,11 +139,19 @@
                                                 @else
                                                     @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
                                                         @if ($item->kredit->nama_analis == null || $item->kredit->nama_analis == Auth::user()->nama)
-                                                            <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                                class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                                title="Edit">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
+                                                            @if ($pkPrint != null || $addPrint != null)
+                                                                <a href="#"
+                                                                    class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                                    title="Edit">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            @else
+                                                                <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                                    class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                                    title="Edit">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            @endif
                                                         @else
                                                             <a href="#"
                                                                 class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
@@ -136,11 +160,19 @@
                                                             </a>
                                                         @endif
                                                     @else
-                                                        <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                            class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                            title="Edit">
-                                                            <i class="fa fa-edit"></i>
-                                                        </a>
+                                                        @if ($pkPrint != null || $addPrint != null)
+                                                            <a href="#"
+                                                                class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                                title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                                class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                                title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @else

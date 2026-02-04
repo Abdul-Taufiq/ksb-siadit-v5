@@ -136,6 +136,7 @@
             </h6>
             <hr>
         </div>
+
         <div class="col-md-6">
             <table class="table table-sm table-striped w-100">
                 <tr>
@@ -177,6 +178,36 @@
     </div>
 
     <div class="row" style="margin-left: 5px;" id="head_kendaraan_{{ $counter }}">
+        <div class="col-md-6 mb-4">
+            <div class="form-group">
+                <label for="kategori_pengikatan_fidusia_{{ $counter }}">Kategori
+                    Pengikatan</label>
+                <select class="form-select" name="kategori_pengikatan_fidusia_{{ $counter }}"
+                    id="kategori_pengikatan_fidusia_{{ $counter }}" required>
+                    <option disabled selected>
+                        - Pilih Kategori -
+                    </option>
+                    <option
+                        {{ $kenda->kategori_pengikatan == 'Sudah SJF (Sertifikat Jaminan Fidusia)' ? 'selected' : '' }}
+                        value="Sudah SJF (Sertifikat Jaminan Fidusia)">
+                        Sudah SJF (Sertifikat Jaminan Fidusia)
+                    </option>
+                    <option {{ $kenda->kategori_pengikatan == 'Belum' ? 'selected' : '' }} value="Belum">Belum
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4" id="head_no_akta_perikatan_fidusia_{{ $counter }}">
+            <div class="form-group">
+                <label for="no_akta_perikatan_fidusia_{{ $counter }}">Nomor
+                    Akta Perikatan : </label>
+                <input class="form-control" name="no_akta_perikatan_fidusia_{{ $counter }}"
+                    id="no_akta_perikatan_fidusia_{{ $counter }}" required placeholder="Nomor Akta"
+                    value="{{ $kenda->no_akta_perikatan }}">
+            </div>
+        </div>
+
         <div class="col-md-6 mb-4">
             <div class="form-group">
                 <label for="jns_fidusia_{{ $counter }}">Jenis Perikatan Fidusia</label>

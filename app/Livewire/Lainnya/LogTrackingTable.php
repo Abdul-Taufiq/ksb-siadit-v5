@@ -18,14 +18,14 @@ class LogTrackingTable extends Component
 
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $tgl_awal,  $tgl_akhir;
 
     // #[Url(history: true)]
     public $sortBy = 'created_at';
     // #[Url(history: true)]
     public $sortDir = 'desc';
     public $kc = true, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
-    public $tgl_awal;
-    public $tgl_akhir;
     public $modal_title, $srcIframe;
 
 

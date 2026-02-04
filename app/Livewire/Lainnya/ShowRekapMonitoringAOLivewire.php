@@ -9,7 +9,6 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -21,12 +20,14 @@ class ShowRekapMonitoringAOLivewire extends Component
 
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $tgl_awal,  $tgl_akhir;
 
     // #[Url(history: true)]
     public $sortBy = 'created_at';
     // #[Url(history: true)]
     public $sortDir = 'desc';
-    public $kc = false, $id_cabang, $nama, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = false, $id_cabang, $nama, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
 
     // listener
     protected $listeners = ['refreshTable' => '$refresh', 'tableUpdated'];

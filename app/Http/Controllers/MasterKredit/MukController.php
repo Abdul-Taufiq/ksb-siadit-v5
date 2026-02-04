@@ -63,13 +63,15 @@ class MukController extends Controller
         $debitur = Debitur::find($kredit->id_debitur);
         $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
+        $mukID = base64_encode($muk->id_muk);
+
         return view('page.master-kredit.muk.muk-edit', [
             'title' => 'Edit Data MUK',
             'debitur' => $debitur,
             'kredit' => $kredit,
             'penjamin' => $penjamin,
             'muk' => $muk,
-            'metode' => 'edit',
+            'metode' => $mukID,
             'field' => null
         ]);
     }
@@ -98,6 +100,11 @@ class MukController extends Controller
         $debitur = Debitur::where('id_debitur', $kredit->id_debitur)->first();
         $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->get();
 
+        $mukID = null;
+        if ($muk) {
+            $mukID = base64_encode($muk->id_muk);
+        }
+
         return view('page.master-kredit.muk.muk-create-part-dua', [
             'title' => empty($muk->data) ? 'Add Data MUK' : 'Edit Data MUK',
             'id_muk' => $idMuk,
@@ -106,7 +113,7 @@ class MukController extends Controller
             'debitur' => $debitur,
             'kredit' => $kredit,
             'penjamin' => $penjamin,
-            'metode' => null,
+            'metode' => $mukID,
             'field' => null
         ]);
     }
@@ -139,6 +146,11 @@ class MukController extends Controller
         $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $pikarEks = PikarEks::where('id_kredit', $kredit->id_kredit)->first();
 
+        $mukID = null;
+        if ($muk) {
+            $mukID = base64_encode($muk->id_muk);
+        }
+
         if ($muk->sc_depo->isEmpty() && $muk->sc_kenda->isEmpty() && $muk->sc_tabungan->isEmpty() && $muk->sc_tanah_agunan->isEmpty()) {
             $title = "Add Data MUK";
         } else {
@@ -157,7 +169,7 @@ class MukController extends Controller
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,
             'pikar' => $pikarEks,
-            'metode' => null,
+            'metode' => $mukID,
             'muk' => $muk,
             'field' => null
         ]);

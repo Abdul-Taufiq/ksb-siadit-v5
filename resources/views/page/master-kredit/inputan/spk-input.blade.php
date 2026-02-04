@@ -88,9 +88,9 @@
                     Mengubah Jaminan (Mengurangi)
                 </option>
                 <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan (Mengubah)') ? 'selected' : null }}
-                    value="Mengubah Jaminan (Mengubah)">
-                    Mengubah Jaminan (Mengubah)
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan (Mengganti)') ? 'selected' : null }}
+                    value="Mengubah Jaminan (Mengganti)">
+                    Mengubah Jaminan (Mengganti)
                 </option>
             </select>
         </div>

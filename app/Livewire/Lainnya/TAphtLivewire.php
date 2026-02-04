@@ -19,9 +19,11 @@ class TAphtLivewire extends Component
     public $perPage = 10;
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $tgl_awal,  $tgl_akhir;
     // For filter
     public $sortBy = 'created_at', $sortDir = 'desc';
-    public $kc = false, $id_cabang = 99, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = false, $id_cabang = 99, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
     public $modal_title, $metode, $id_table;
     public $nomor, $sertifikat, $jns_perikatan, $progress, $inp_tgl_awal, $inp_tgl_akhir, $keterangan, $status_akhir, $data = [];

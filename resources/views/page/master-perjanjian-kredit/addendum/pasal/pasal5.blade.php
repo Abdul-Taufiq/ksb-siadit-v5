@@ -245,13 +245,12 @@
                             tentang Penerbitan Dokumen Elektronik Dalam Kegiatan Pendaftaran Tanah
                         @endif
 
-                        Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
-                        @if ($tanah->jns_perikatan == 'APHT')
-                            dengan {{ $tanah->jns_perikatan }} dengan pembebanan hak tanggungan
-                            peringkat
-                            {{ $tanah->no_peringkat_perikatan }}.
+                        @if ($tanah->kategori_pengikatan == 'Sudah dibebani HT')
+                            Dengan ini menyerahkan kepada <b>BANK</b>, yang telah dibebani Sertifikat Hak Tanggungan
+                            Nomor {{ $tanah->no_akta_perikatan }} dengan pembebanan hak tanggungan
+                            peringkat {{ $tanah->no_peringkat_perikatan }}.
                         @else
-                            dengan {{ $tanah->jns_perikatan }}.
+                            Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
                         @endif
                     </div>
                 @endforeach
@@ -382,15 +381,21 @@
                     </ul>
 
                     <div class="premis-jaminan">
-                        Yang akan dibebani dengan
-                        @if ($kenda->jns_fidusia == 'Bawah Tangan')
-                            Perjanjian Bawah Tangan tanggal
-                            {{ $kenda->tgl_akta_fidusia->translatedFormat('d F Y') }},
+
+                        @if ($kenda->kategori_pengikatan == 'Sudah SJF (Sertifikat Jaminan Fidusia)')
+                            Yang telah dibebani dengan Sertifikat Jaminan Fidusia Nomor {{ $kenda->no_akta_perikatan }}
+                            @if ($kenda->jns_fidusia == 'Bawah Tangan')
+                                Perjanjian Bawah Tangan tanggal
+                                {{ $kenda->tgl_akta_fidusia->translatedFormat('d F Y') }},
+                            @else
+                                {{-- Nomor {{ $kenda->no_akta_fidusia }}, tanggal
+                            {{ $kenda->tgl_akta_fidusia->translatedFormat('d F Y') }}, --}}
+                            @endif
                         @else
-                            Akta Jaminan Fidusia,
-                            {{-- Nomor {{ $kenda->no_akta_fidusia }}, tanggal
-                                {{ $kenda->tgl_akta_fidusia->translatedFormat('d F Y') }}, --}}
+                            Yang akan dibebani dengan Akta Jaminan Fidusia.
                         @endif
+
+                        <br>
                         Kendaraan tersebut adalah benar-benar milik <b>DEBITUR</b>. Tanpa persetujuan
                         tertulis dari
                         <b>BANK</b>, selama kredit belum lunas <b>DEBITUR</b> tidak diperkenankan untuk

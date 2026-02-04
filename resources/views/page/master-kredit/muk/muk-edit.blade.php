@@ -129,6 +129,13 @@
                                         </strong>
                                     </div>
 
+                                    @if ($metode != null)
+                                        <a href="{{ route('muk.add.partdua', $metode) }}"
+                                            class="btn btn-warning text-white">
+                                            <i class="fa-solid fa-arrow-right-long"></i> Lanjutkan Tanpa Simpan
+                                        </a>
+                                    @endif
+
                                     <div>
                                         <button type="button" id="simpan" class="btn btn-info"
                                             style="letter-spacing: 2px;" onClick="window.print();return false">

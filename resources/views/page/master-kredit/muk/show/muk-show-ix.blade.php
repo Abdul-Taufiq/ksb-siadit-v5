@@ -32,7 +32,7 @@
     Kami mengajukan penyimpangan atas Debitur sebagai berikut
 </p>
 
-<table class="table table-bordered w-100">
+{{-- <table class="table table-bordered w-100">
     <tr>
         <th class="table-active" style="width: 3%">#</th>
         <th class="table-active" style="width: 18%">Nama</th>
@@ -52,7 +52,6 @@
         <td>{{ $muk->kredit->jkw }} Bulan</td>
         <td>{{ $muk->jns_kredit_muk }}</td>
         <td>
-            {{-- Jam Tanah --}}
             <table class="table table-sm w-100 table-borderless">
                 <thead>
                     <tr>
@@ -76,7 +75,6 @@
                         </tr>
                     @endforeach
 
-                    {{-- jam Kenda --}}
                     @foreach ($jamKenda as $kenda)
                         <tr>
                             <td>
@@ -88,7 +86,6 @@
                         </tr>
                     @endforeach
 
-                    {{-- jam Depo --}}
                     @foreach ($jamDepo as $depo)
                         <tr>
                             <td>
@@ -103,7 +100,7 @@
             </table>
         </td>
     </tr>
-</table>
+</table> --}}
 
 <div class="mb-2">
     <strong>Ketentuan Yang Berlaku</strong>
@@ -126,7 +123,7 @@
     </div>
 </div>
 
-<div class="mb-2">
+{{-- <div class="mb-2">
     <table class="table table-bordered table-sm w-100">
         <tr>
             <th colspan="2" class="table-active">Kantor Cabang</th>
@@ -147,7 +144,7 @@
         </tr>
     </table>
 
-    {{-- area --}}
+
     <table class="table table-bordered table-sm w-100">
         <tr>
             <th colspan="2" class="table-active">Area</th>
@@ -168,7 +165,6 @@
         </tr>
     </table>
 
-    {{-- Pusat --}}
     <table class="table table-bordered table-sm w-100">
         <tr>
             <th colspan="4" class="table-active">Komite Kredit Kantor Pusat</th>
@@ -190,7 +186,7 @@
             </td>
             <td style="text-align: center; width: 25%">
                 <strong>
-                    {{-- Kabid Komersial --}}
+
                 </strong>
             </td>
             <td style="text-align: center; width: 25%">
@@ -199,4 +195,4 @@
         </tr>
     </table>
 
-</div>
+</div> --}}

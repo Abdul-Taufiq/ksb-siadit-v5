@@ -93,8 +93,24 @@
                                     </div>
                                 </div>
                                 <br>
-                                <button type="button" id="simpan" class="btn btn-primary" style="letter-spacing: 2px;">
-                                    <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> & Lanjutkan</button>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" id="simpan" class="btn btn-primary"
+                                            style="letter-spacing: 2px;">
+                                            <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> &
+                                            Lanjutkan</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if ($metode != null)
+                                            <a href="{{ route('muk.add.parttiga', $metode) }}"
+                                                class="btn btn-warning text-white">
+                                                <i class="fa-solid fa-arrow-right-long"></i> Lanjutkan Tanpa Simpan
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="card card-outline card-danger mb-0"></div>
                         </div>

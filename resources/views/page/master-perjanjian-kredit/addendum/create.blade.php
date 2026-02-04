@@ -221,8 +221,25 @@
                     tgl_akta.classList.add("d-none");
                     $(no_akta).prop("required", false);
                     $(tgl_akta).prop("required", false);
-                    document.getElementById(`no_akta_perikatan_${counter}`).setAttribute("required", false)
-                    document.getElementById(`tgl_akta_perikatan_${counter}`).setAttribute("required", false)
+                    document.getElementById(`no_akta_perikatan_${counter}`).removeAttribute("required")
+                    document.getElementById(`tgl_akta_perikatan_${counter}`).removeAttribute("required")
+                }
+            });
+
+
+            $(`#kategori_pengikatan_fidusia_${counter}`).on("change", function() {
+                let select = $(this).val();
+                let no_aktaX = document.getElementById(
+                    `head_no_akta_perikatan_fidusia_${counter}`
+                );
+
+                if (select == "Sudah SJF (Sertifikat Jaminan Fidusia)") {
+                    no_aktaX.classList.remove("d-none");
+                    document.getElementById(`no_akta_perikatan_fidusia_${counter}`).setAttribute("required",
+                        true)
+                } else {
+                    no_aktaX.classList.add("d-none");
+                    document.getElementById(`no_akta_perikatan_fidusia_${counter}`).removeAttribute("required")
                 }
             });
         }

@@ -335,7 +335,7 @@
         @break
 
         {{-- nonrestruc --}}
-        @case('Mengubah Jaminan (Mengubah)')
+        @case('Mengubah Jaminan (Mengganti)')
         @case('Mengubah Jaminan (Mengurangi)')
 
         @case('Mengubah Jaminan (Menambah)')

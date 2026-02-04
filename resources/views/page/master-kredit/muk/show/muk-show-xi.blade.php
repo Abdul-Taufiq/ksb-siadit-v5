@@ -37,7 +37,7 @@
                 <td style="vertical-align: top;">{!! $muk->putusan?->catatan_kakom !!}</td>
             </tr>
             <tr>
-                <td>3. Analis Kredit Cabang</td>
+                <td>3. Analis Kredit</td>
                 <td style="text-align: center">
                     {{ !empty($muk->putusan->rekom_analis_cabang) ? $muk->putusan->rekom_analis_cabang : 'Belum Ada data' }}
                 </td>
@@ -65,7 +65,10 @@
     </table>
 
     {{-- area --}}
-    @if ($muk->kredit->persetujuan->putusan == 'Area' || $muk->kredit->persetujuan->putusan == 'Pusat')
+    @if (
+        $muk->deviasi?->perihal != '-' ||
+            $muk->kredit->persetujuan->putusan == 'Area' ||
+            $muk->kredit->persetujuan->putusan == 'Pusat')
         <table class="table table-bordered table-sm w-100">
             <thead>
                 <tr>
@@ -132,7 +135,7 @@
     @endif
 
     {{-- Pusat --}}
-    @if ($muk->kredit->persetujuan->putusan == 'Pusat')
+    @if ($muk->deviasi?->perihal != '-' || $muk->kredit->persetujuan->putusan == 'Pusat')
         <table class="table table-bordered table-sm w-100">
             <thead>
                 <tr>

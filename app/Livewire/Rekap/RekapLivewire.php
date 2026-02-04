@@ -4,6 +4,7 @@ namespace App\Livewire\Rekap;
 
 use App\Traits\RekapTraits;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -12,8 +13,11 @@ class RekapLivewire extends Component
 {
     use WithPagination, WithoutUrlPagination, RekapTraits;
     // for filter
-    public $sortBy = 'created_at', $sortDir = 'desc', $search = '', $perPage = 10;
-    public $kc = false, $id_cabang, $tgl_awal,  $tgl_akhir, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $tgl_awal,  $tgl_akhir, $search = '';
+
+    public $sortBy = 'created_at', $sortDir = 'desc', $perPage = 10;
+    public $kc = false, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
     // public $modal_title, $spk = [], $status, $catatan, $keterangan_kaops = 0, $id;
 

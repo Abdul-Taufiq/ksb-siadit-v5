@@ -250,9 +250,9 @@ class AddendumController extends Controller
                 'isPhpEnabled' => true,
             ]);
 
-        $safeName = preg_replace('/[\/\\\\]/', '_', $pkpmk->no_pkpmk);
+        $safeName = preg_replace('/[\/\\\\]/', '_', $pkpmk->no_addendum);
 
-        return $pdf->stream($judul . ' An.' . $pkpmk->debitur->nama_debitur . ' No. ' . $safeName . '.pdf');
+        return $pdf->stream($judul . ' An.' . $pkpmk->debitur->nama_debitur . ' No. ' . $safeName . ' - ' . $pkpmk->kredit->kategori_spk . ' (' . $pkpmk->kredit->detail_kategori_spk . ')' . '.pdf');
     }
 
     // print SPA

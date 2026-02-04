@@ -16,13 +16,15 @@ class DebiturTable extends Component
 {
     use WithPagination, WithoutUrlPagination, DebiturTraits;
 
-    // #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
+    #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
+    public $tgl_awal,  $tgl_akhir;
     // #[Url(history: true)]
     public $sortBy = 'created_at';
     // #[Url(history: true)]
     public $sortDir = 'desc';
-    public $tgl_awal, $tgl_akhir, $perPage = 10;
+    public $perPage = 10;
     public $kc = true, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     public $modal_title, $status, $catatan, $id_kredit, $rekomendasi = '0', $putusan = '';
     public $analis_area_selected = null;
@@ -185,23 +187,45 @@ class DebiturTable extends Component
     {
         $this->id_kredit = base64_decode($id);
         $kredit = Kredit::find($this->id_kredit);
-        $kredit->status_ao = 'Reject';
-        $kredit->status_kredit = 'AO Reject SLIK';
-        $kredit->status_akhir = 'DITOLAK';
-        $kredit->catatan_ao = 'SLIK JELEK <br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
-        $kredit->save();
 
-        // tracking lama
-        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-            ->where('jabatan', 'AO')
-            ->orderByDesc('id_tracking')
-            ->first();
-        $tracking->update([
-            'nama' => Auth::user()->nama,
-            'status' => 'Reject SLIK',
-            'tgl_status' => now(),
-            'status_spk' => 'REJECT SLIK',
-        ]);
+        if (Auth::user()->jabatan == 'AO') {
+            $kredit->status_ao = 'Reject';
+            $kredit->status_kredit = 'AO Reject SLIK';
+            $kredit->status_akhir = 'DITOLAK';
+            $kredit->catatan_ao = 'SLIK JELEK <br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
+            $kredit->save();
+
+            // tracking lama
+            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                ->where('jabatan', 'AO')
+                ->orderByDesc('id_tracking')
+                ->first();
+            $tracking->update([
+                'nama' => Auth::user()->nama,
+                'status' => 'Reject SLIK',
+                'tgl_status' => now(),
+                'status_spk' => 'REJECT SLIK',
+            ]);
+        } else {
+            $kredit->status_pincab = 'Reject';
+            $kredit->status_kredit = 'Pincab Reject SLIK';
+            $kredit->status_akhir = 'DITOLAK';
+            $kredit->catatan_pincab = 'SLIK JELEK <br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
+            $kredit->save();
+
+            // tracking lama
+            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                ->where('jabatan', 'Pimpinan Cabang')
+                ->orderByDesc('id_tracking')
+                ->first();
+            $tracking->update([
+                'nama' => Auth::user()->nama,
+                'status' => 'Reject SLIK',
+                'tgl_status' => now(),
+                'status_spk' => 'REJECT SLIK',
+            ]);
+        }
+
 
         $this->dispatch('AlertSuccess', [
             'message' => 'Data SPK ' . $no_spk . ' Berhasil di Reject SLIK.',

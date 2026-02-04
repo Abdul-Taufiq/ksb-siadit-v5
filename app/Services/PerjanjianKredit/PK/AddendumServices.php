@@ -195,6 +195,8 @@ class AddendumServices
                 $jaminan_kenda = JamKenda::find(base64_decode($data['id_kenda_' . $i]));
                 $jaminan_kenda->jns_fidusia = $data['jns_fidusia_' . $i];
                 $jaminan_kenda->tgl_akta_fidusia = $data['tgl_akta_fidusia_' . $i];
+                $jaminan_tanah->kategori_pengikatan = $data['kategori_pengikatan_fidusia_' . $i];
+                $jaminan_tanah->no_akta_perikatan = $data['no_akta_perikatan_fidusia_' . $i];
                 $jaminan_kenda->save();
             }
         }

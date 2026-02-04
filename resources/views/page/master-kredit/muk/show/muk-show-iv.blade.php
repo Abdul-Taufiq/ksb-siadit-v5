@@ -318,15 +318,17 @@
             </tr>
             <tr>
                 <td>
-                    <strong>IDIR</strong> <span style="font-size: 10px;">(kewajiban bunga)</span>
+                    <strong>IDIR</strong>
                 </td>
                 <td>:</td>
                 <td>
                     @if ($muk->jns_kredit_muk == 'Berjangka')
-                        {{ 'Rp' . number_format($muk->keuanganBjk->bjk_idir, 0, ',', '.') }}
+                        {{ number_format($muk->keuanganBjk?->bjk_idir ?? 0, 2, ',', '.') }}
                     @else
-                        {{ 'Rp' . number_format($muk->keuangan->idir, 0, ',', '.') }}
+                        {{-- {{ number_format($muk->keuangan->idir, 0, 2, ',', '.') }} --}}
+                        {{ number_format($muk?->keuangan?->idir ?? 0, 2, ',', '.') }}
                     @endif
+                    %
                 </td>
             </tr>
         </table>
