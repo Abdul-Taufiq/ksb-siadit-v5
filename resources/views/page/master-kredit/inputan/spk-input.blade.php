@@ -57,27 +57,31 @@
             <select name="detail_kategori_spk_non{{ $id_field }}" id="detail_kategori_spk_non{{ $id_field }}"
                 class="form-select">
                 <option disabled selected>- Pilih Detail Kategori SPK -</option>
-                <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Menambah Plafond Kredit (Tanpa Menambah Jaminan)') ? 'selected' : null }}
-                    value="Menambah Plafond Kredit (Tanpa Menambah Jaminan)">
-                    Menambah Plafond Kredit (Tanpa Menambah Jaminan)
+                <option {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Top-Up') ? 'selected' : null }}
+                    value="Top-Up">
+                    Top-Up
                 </option>
                 <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Menambah Plafond Kredit (Dengan Menambah Jaminan)') ? 'selected' : null }}
-                    value="Menambah Plafond Kredit (Dengan Menambah Jaminan)">
-                    Menambah Plafond Kredit (Dengan Menambah Jaminan)
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Menambah plafond kredit') ? 'selected' : null }}
+                    value="Menambah plafond kredit">
+                    Menambah plafond kredit
                 </option>
+                {{-- <option
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Menambah plafond kredit dengan menambah jaminan') ? 'selected' : null }}
+                    value="Menambah plafond kredit dengan menambah jaminan">
+                    Menambah plafond kredit dengan menambah jaminan
+                </option> --}}
+                {{-- <option
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengurangi plafond kredit dengan tanpa mengurangi jaminan') ? 'selected' : null }}
+                    value="Mengurangi plafond kredit dengan tanpa mengurangi jaminan">
+                    Mengurangi plafond kredit dengan tanpa mengurangi jaminan
+                </option> --}}
                 <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)') ? 'selected' : null }}
-                    value="Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)">
-                    Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengurangi plafond kredit') ? 'selected' : null }}
+                    value="Mengurangi plafond kredit">
+                    Mengurangi plafond kredit
                 </option>
-                <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)') ? 'selected' : null }}
-                    value="Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)">
-                    Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)
-                </option>
-                <option
+                {{-- <option
                     {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan (Menambah)') ? 'selected' : null }}
                     value="Mengubah Jaminan (Menambah)">
                     Mengubah Jaminan (Menambah)
@@ -86,11 +90,11 @@
                     {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan (Mengurangi)') ? 'selected' : null }}
                     value="Mengubah Jaminan (Mengurangi)">
                     Mengubah Jaminan (Mengurangi)
-                </option>
+                </option> --}}
                 <option
-                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan (Mengganti)') ? 'selected' : null }}
-                    value="Mengubah Jaminan (Mengganti)">
-                    Mengubah Jaminan (Mengganti)
+                    {{ ($kredit == null ? null : $kredit->jns_kategori_spk == 'Mengubah Jaminan') ? 'selected' : null }}
+                    value="Mengubah Jaminan">
+                    Mengubah Jaminan
                 </option>
             </select>
         </div>

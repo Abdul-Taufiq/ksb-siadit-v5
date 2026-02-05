@@ -36,7 +36,7 @@ class RekapController extends Controller
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI (TIDAK DIAMBIL)" THEN 1 ELSE 0 END) as jumlah_tidak_diambil')
             )
                 ->whereBetween('created_at', [$awal, $akhir])
-                ->whereIn('id_cabang', [4, 5, 6, 8, 11])
+                ->whereIn('id_cabang', [4, 5, 6, 7, 8, 9])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
 
@@ -60,7 +60,7 @@ class RekapController extends Controller
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI (TIDAK DIAMBIL)" THEN 1 ELSE 0 END) as jumlah_tidak_diambil')
             )
                 ->whereBetween('created_at', [$awal, $akhir])
-                ->whereIn('id_cabang', [1, 2, 7, 9])
+                ->whereIn('id_cabang', [1, 2, 3, 10, 11])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
 

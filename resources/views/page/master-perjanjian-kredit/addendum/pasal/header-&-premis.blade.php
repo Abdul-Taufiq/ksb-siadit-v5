@@ -289,9 +289,15 @@
     {{ $pkpmk->kredit->tgl_pengajuan->translatedFormat('d F Y') }} bermaksud untuk
 
     @if ($pkpmk->kredit->kategori_spk == 'Restruck')
-        melakukan "RESTRUKTURISASI KREDIT" yaitu {{ Str::lower($pkpmk->kredit->detail_kategori_spk) }}.
+        @if (
+            $pkpmk->kredit->jns_kategori_spk == 'Perubahan Fasilitas Kredit' ||
+                $pkpmk->kredit->jns_kategori_spk == 'Restructuring')
+            melakukan <b>RESTRUKTURISASI</b>.
+        @else
+            melakukan <b><i>{{ $pkpmk->kredit->jns_kategori_spk }}</i></b>.
+        @endif
     @else
-        {{ strtolower($pkpmk->kredit->detail_kategori_spk) }}.
+        <b>{{ $pkpmk->kredit->detail_kategori_spk }}</b>.
     @endif
 
     <br>

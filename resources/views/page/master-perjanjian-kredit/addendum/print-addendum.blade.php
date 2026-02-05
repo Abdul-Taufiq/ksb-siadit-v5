@@ -121,6 +121,7 @@
             float: left;
             width: 5%;
             margin-left: 2px;
+            margin-bottom: 5mm;
         }
 
         .desk {
@@ -158,12 +159,24 @@
                     @include('page.master-perjanjian-kredit.addendum.pasal.pasal4')
                 </div>
             </div>
+
+            <div class="mb-4">
+                Ketentuan lain yang tidak di ubah dalam Perubahan Perjanjian Kredit ini, tetap berlaku dan mempunyai
+                kekuatan hukum yang mengikat terhadap <b>BANK</b> dan <b>DEBITUR</b>. <br> <br>
+
+                Mengenai perjanjian ini dan segala akibat-akibat serta pelaksanaan para pihak memilih tempat kediaman
+                hukum yang umum dikantor Panitera Pengadilan Negeri {{ ucfirst($pkpmk->cabang->pn) }} di
+                {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
+                pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
+                tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
+                Pemerintah yang berada dalam wilayah Republik Indonesia. <br> <br>
+
+                Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
+                ketentuan Otoritas Jasa Keuangan.
+            </div>
         @break
 
         @case('Recondition')
-        @case('Menambah Plafond Kredit (Tanpa Menambah Jaminan)')
-
-        @case('Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)')
             <div class="headlist">
                 <div class="listArgumen">1.</div>
                 <div class="desk">
@@ -192,12 +205,28 @@
                     @include('page.master-perjanjian-kredit.addendum.pasal.pasal4')
                 </div>
             </div>
+
+            <div class="mb-4">
+                Ketentuan lain yang tidak di ubah dalam Perubahan Perjanjian Kredit ini, tetap berlaku dan mempunyai
+                kekuatan hukum yang mengikat terhadap <b>BANK</b> dan <b>DEBITUR</b>. <br> <br>
+
+                Mengenai perjanjian ini dan segala akibat-akibat serta pelaksanaan para pihak memilih tempat kediaman
+                hukum yang umum dikantor Panitera Pengadilan Negeri {{ ucfirst($pkpmk->cabang->pn) }} di
+                {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
+                pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
+                tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
+                Pemerintah yang berada dalam wilayah Republik Indonesia. <br> <br>
+
+                Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
+                ketentuan Otoritas Jasa Keuangan.
+            </div>
         @break
 
         @case('Restructuring')
-        @case('Menambah Plafond Kredit (Dengan Menambah Jaminan)')
+        @case('Top-Up')
 
-        @case('Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)')
+        @case('Menambah plafond kredit')
+        @case('Mengurangi plafond kredit')
             <div class="headlist">
                 <div class="listArgumen">1.</div>
                 <div class="desk">
@@ -233,19 +262,30 @@
                     @include('page.master-perjanjian-kredit.addendum.pasal.pasal5')
                 </div>
             </div>
+
+            <div class="mb-4">
+                Ketentuan lain yang tidak di ubah dalam Perubahan Perjanjian Kredit ini, tetap berlaku dan mempunyai
+                kekuatan hukum yang mengikat terhadap <b>BANK</b> dan <b>DEBITUR</b>. <br> <br>
+
+                Mengenai perjanjian ini dan segala akibat-akibat serta pelaksanaan para pihak memilih tempat kediaman
+                hukum yang umum dikantor Panitera Pengadilan Negeri {{ ucfirst($pkpmk->cabang->pn) }} di
+                {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
+                pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
+                tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
+                Pemerintah yang berada dalam wilayah Republik Indonesia. <br> <br>
+
+                Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
+                ketentuan Otoritas Jasa Keuangan.
+            </div>
         @break
 
         @case('Perubahan Fasilitas Kredit')
-            @include('page.master-perjanjian-kredit.addendum.pasal.header-&-premis')
-            <i class="text-danger">This Page Preview</i>
+            {{-- @include('page.master-perjanjian-kredit.addendum.pasal.header-&-premis') --}}
             @include('page.master-perjanjian-kredit.pk.pasal.pasal-I-sd-pasal-IV')
-            <i class="text-danger">This Page Preview</i>
             @include('page.master-perjanjian-kredit.pk.pasal.pasal-V')
-            <i class="text-danger">This Page Preview</i>
             @include('page.master-perjanjian-kredit.pk.pasal.pasal-VI-sd-pasal-X')
-            <i class="text-danger">This Page Preview</i>
             {{-- pasal 11 --}}
-            <div class="mb-4">
+            <div class="mb-1">
                 <div class="header">
                     <h3>PASAL 11</h3>
                     <h3>KETENTUAN BANK</h3>
@@ -258,7 +298,7 @@
 
 
             {{-- pasal 12 --}}
-            <div class="mb-4">
+            <div class="mb-1">
                 <div class="header">
                     <h3>PASAL 12</h3>
                     <h3>AHLI WARIS/PENANGGUNG</h3>
@@ -274,7 +314,7 @@
 
 
             {{-- pasal 13 --}}
-            <div class="mb-4">
+            <div class="mb-1">
                 <div class="header">
                     <h3>PASAL 13</h3>
                     <h3>PENGALIHAN PIUTANG (CASSIE)</h3>
@@ -287,7 +327,7 @@
 
 
             {{-- pasal 14 --}}
-            <div class="mb-4">
+            <div class="mb-1">
                 <div class="header">
                     <h3>PASAL 14</h3>
                     <h3>PEMBERIAN MASA JEDA</h3>
@@ -317,7 +357,7 @@
 
 
             {{-- pasal 15 --}}
-            <div class="mb-4">
+            <div class="mb-1">
                 <div class="header">
                     <h3>PASAL 15</h3>
                     <h3>DOMISILI</h3>
@@ -328,23 +368,33 @@
                 {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
                 pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
                 tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
-                Pemerintah yang berada dalam wilayah Republik Indonesia.
+                Pemerintah yang berada dalam wilayah Republik Indonesia. <br><br>
+
+                Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
+                ketentuan Otoritas Jasa Keuangan.
             </div>
             {{-- end pasal 15 --}}
-            <i class="text-danger">This Page Preview</i>
         @break
 
         {{-- nonrestruc --}}
-        @case('Mengubah Jaminan (Mengganti)')
-        @case('Mengubah Jaminan (Mengurangi)')
-
-        @case('Mengubah Jaminan (Menambah)')
+        @case('Mengubah Jaminan')
+            {{-- @case('Mengubah Jaminan (Mengurangi)') --}}
+            {{-- @case('Mengubah Jaminan (Menambah)') --}}
             <div class="headlist">
                 <div class="listArgumen">1.</div>
                 <div class="desk">
                     Pasal 5 diubah sehingga menjadi sebagai berikut :
                     @include('page.master-perjanjian-kredit.addendum.pasal.pasal5')
                 </div>
+            </div>
+
+            <div class="mb-4">
+                Mengenai perjanjian ini dan segala akibat-akibat serta pelaksanaan para pihak memilih tempat kediaman
+                hukum yang umum dikantor Panitera Pengadilan Negeri {{ ucfirst($pkpmk->cabang->pn) }} di
+                {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
+                pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
+                tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
+                Pemerintah yang berada dalam wilayah Republik Indonesia.
             </div>
         @break
     @endswitch
@@ -354,7 +404,7 @@
     <div style="page-break-inside: avoid">
         <div style="text-align: center;">
             {{ ucfirst(strtolower($pkpmk->cabang->alamat)) }},
-            {{ $pkpmk->tgl_pkpmk?->translatedFormat('d F Y') ?? '-' }}
+            {{ $pkpmk->tgl_addendum?->translatedFormat('d F Y') ?? '-' }}
         </div>
         <table style="width: 100%; text-align: center">
             <tr>

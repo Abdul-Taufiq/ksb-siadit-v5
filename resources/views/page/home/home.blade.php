@@ -50,6 +50,22 @@
 
             {{-- PUSAT --}}
             @if ($kode == 'PUSAT')
+                @include('page.home.template-card', [
+                    'nomor' => '#. INFO SPK ALL CABANG',
+                    'id_cbg' => $id_cabang,
+                ])
+
+                @include('page.home.template-card', [
+                    'nomor' => '#. INFO SPK ALL CABANG AREA 1',
+                    'id_cbg' => $area1,
+                ])
+
+                @include('page.home.template-card', [
+                    'nomor' => '#. INFO SPK ALL CABANG AREA 2',
+                    'id_cbg' => $area2,
+                ])
+
+
                 @include('page.home.template-card', ['nomor' => '1. INFO SPK KPO', 'id_cbg' => 1])
                 @include('page.home.template-card', [
                     'nomor' => '2. INFO SPK KC TEMANGGUNG',
@@ -62,7 +78,10 @@
                 @include('page.home.template-card', ['nomor' => '7. INFO SPK KC SUKOREJO', 'id_cbg' => 7])
                 @include('page.home.template-card', ['nomor' => '8. INFO SPK KC WELERI', 'id_cbg' => 8])
                 @include('page.home.template-card', ['nomor' => '9. INFO SPK KC DELANGGU', 'id_cbg' => 9])
-                @include('page.home.template-card', ['nomor' => '10. INFO SPK KC GOMBONG', 'id_cbg' => 10])
+                @include('page.home.template-card', [
+                    'nomor' => '10. INFO SPK KC GOMBONG',
+                    'id_cbg' => 10,
+                ])
                 @include('page.home.template-card', [
                     'nomor' => '11. INFO SPK KC SOKARAJA',
                     'id_cbg' => 11,
@@ -70,6 +89,10 @@
 
                 {{-- AREA 1 --}}
             @elseif ($kode == 'AREA 1')
+                @include('page.home.template-card', [
+                    'nomor' => '0. INFO SPK ALL CABANG AREA 1',
+                    'id_cbg' => $id_cabang,
+                ])
                 @include('page.home.template-card', ['nomor' => '1. INFO SPK KPO', 'id_cbg' => 1])
                 @include('page.home.template-card', [
                     'nomor' => '2. INFO SPK KC TEMANGGUNG',
@@ -88,6 +111,10 @@
 
                 {{-- AREA 2 --}}
             @elseif ($kode == 'AREA 2')
+                @include('page.home.template-card', [
+                    'nomor' => '0. INFO SPK ALL CABANG AREA 2',
+                    'id_cbg' => $id_cabang,
+                ])
                 @include('page.home.template-card', ['nomor' => '1. INFO SPK KC AMBARAWA', 'id_cbg' => 4])
                 @include('page.home.template-card', ['nomor' => '2. INFO SPK KC SEMARANG', 'id_cbg' => 5])
                 @include('page.home.template-card', ['nomor' => '3. INFO SPK KC MRANGGEN', 'id_cbg' => 6])
