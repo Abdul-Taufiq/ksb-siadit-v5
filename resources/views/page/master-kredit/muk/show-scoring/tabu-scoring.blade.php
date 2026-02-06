@@ -3,7 +3,7 @@
         KREDIT/06/PATab/Vr.3.2025
     </p>
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">PENILAIAN AGUNAN
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">PENILAIAN AGUNAN
             {{ strtoupper($depo->jns_jaminan) }}</div>
         <div class="card-body">
             <div class="row">
@@ -42,7 +42,7 @@
 
     {{-- Scoring --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">I. PENELITIAN FISIK</div>
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">I. PENELITIAN FISIK</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -115,7 +115,7 @@
 
     {{-- II --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">II. PERHITUNGAN NILAI PASAR
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">II. PERHITUNGAN NILAI PASAR
             SETELAH SAFETY MARGIN</div>
         <div class="card-body">
             <div class="row">
@@ -152,7 +152,7 @@
     {{-- III --}}
     {{-- kesimpulan --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
             IV. KESIMPULAN
         </div>
         <div class="card-body">

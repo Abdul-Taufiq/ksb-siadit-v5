@@ -198,7 +198,7 @@ class IndexMukLivewire extends Component
         }
 
         if ($this->jkw_cek == true) {
-            $kredit->jkw = $kredit->jkw;
+            $kredit->jkw = $kredit->jkw_muk;
         } else {
             $kredit->jkw = $this->normalizeNumber($this->jkw);
         }

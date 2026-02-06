@@ -1,14 +1,15 @@
 <div style="margin-left: 5px;" class="row">
     <input type="hidden" name="id_pkpmk" id="id_pkpmk"
-        value="{{ $kredit->pkpmk->isNotEmpty() ? base64_encode($kredit->pkpmk?->id_pkpmk) : '' }}" readonly>
+        value="{{ base64_encode($kredit->pkpmk->first()->id_pkpmk) ?? '' }}" readonly>
 
+    {{-- Khusus addendum --}}
     @if ($kredit->kategori_spk != 'SPK')
         <input type="hidden" name="id_addendum" id="id_addendum"
             value="{{ base64_encode($kredit->addendum?->id_addendum) }}" readonly>
 
         <div class="col-md-12 mb-3">
             <div class="form-group">
-                <label for="id_pkpmk">Penalti pelunasan :</label>
+                <label for="id_pkpmk">Pilih Perjanjian Kredit :</label>
                 <select name="id_pkpmk" id="id_pkpmk" class="form-control select2" required>
                     <option disabled selected>- Pilih PK -</option>
                     @foreach ($pkpmk as $item)
@@ -62,8 +63,7 @@
             </div>
         </div>
     @endif
-
-
+    {{-- End Khusus addendum --}}
 
 
     <div class="col-md-6 mb-3">

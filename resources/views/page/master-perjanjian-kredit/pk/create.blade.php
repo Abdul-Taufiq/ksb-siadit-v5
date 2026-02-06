@@ -58,12 +58,12 @@
 
                         <div class="card mb-2">
                             <div class="card-header bg-primary text-white">
-                                <div class="d-flex justify-content-between" onclick="hideForm2()">
+                                <div class="d-flex justify-content-between" onclick="hideForm3()">
                                     <div class="head-judul">2. DATA LAINNYA</div>
-                                    <i class="fa fa-eye" aria-hidden="true" id="show2"></i>
+                                    <i class="fa fa-eye" aria-hidden="true" id="show3"></i>
                                 </div>
                             </div>
-                            <div class="card-body" id="konten2">
+                            <div class="card-body" id="konten3">
                                 @include('page.master-perjanjian-kredit.pk.data-lainnya')
                             </div>
                         </div>

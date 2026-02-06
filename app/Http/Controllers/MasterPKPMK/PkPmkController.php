@@ -49,11 +49,13 @@ class PkPmkController extends Controller
             ->orderByDesc('kunjungan_ke')
             ->get();
 
+        dd($kredit->persetujuan);
+
         return view('page.master-perjanjian-kredit.pk.create', [
             'title' => 'Create Perjanjian Kredit',
             'kredit' => $kredit,
             'debitur' => $debitur,
-            'id_muk' => $muk->id_muk,
+            'id_muk' => $muk->id_muk ?? null,
             'jam_tanah' => $jam_tanah,
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,
@@ -88,7 +90,7 @@ class PkPmkController extends Controller
             'title' => 'Edit Perjanjian Kredit',
             'kredit' => $kredit,
             'debitur' => $debitur,
-            'id_muk' => $muk->id_muk,
+            'id_muk' => $muk->id_muk ?? null,
             'jam_tanah' => $jam_tanah,
             'jam_kenda' => $jam_kenda,
             'jam_depo' => $jam_depo,

@@ -3,7 +3,7 @@
         KREDIT/07/PAMKB/Vr.3.2025
     </p>
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">PENILAIAN AGUNAN MESIN /
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">PENILAIAN AGUNAN MESIN /
             KENDARAAN BERMOTOR</div>
         <div class="card-body">
             <div class="row">
@@ -42,7 +42,7 @@
 
     {{-- Scoring --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">I. PENELITIAN FISIK</div>
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">I. PENELITIAN FISIK</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
@@ -118,7 +118,7 @@
 
     {{-- penelitian yuridis --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
             II. PENELITIAN YURIDIS
         </div>
         <div class="card-body">
@@ -180,7 +180,7 @@
 
     {{-- Perhitungan --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
             III. PERHITUNGAN NILAI PASAR SETELAH SAFETY MARGIN
         </div>
         <div class="card-body">
@@ -248,7 +248,7 @@
 
     {{-- kesimpulan --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
             IV. KESIMPULAN
         </div>
         <div class="card-body">

@@ -54,7 +54,7 @@
             {{-- agunan tanah --}}
             @foreach ($jam_tanah as $tanah)
                 <div class="card mb-2">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-success text-white">
                         <div class="d-flex justify-content-between">
                             <div class="head-judul">SCORING AGUNAN {{ strtoupper($tanah->detail_kategori_jaminan) }}</div>
 

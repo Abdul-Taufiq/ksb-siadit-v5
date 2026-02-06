@@ -9,6 +9,7 @@ use App\Models\MasterKredit\Persetujuan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\MasterPKPMK\PkPmk;
 
 class PkPmkAddendum extends Model
 {
@@ -75,7 +76,7 @@ class PkPmkAddendum extends Model
 
     public function pkpmk(): BelongsTo
     {
-        return $this->belongsTo(PKPmk::class, 'id_pkpmk', 'id_pkpmk');
+        return $this->belongsTo(PkPmk::class, 'id_pkpmk', 'id_pkpmk');
     }
 
     public function scopeSearch($query, $search)

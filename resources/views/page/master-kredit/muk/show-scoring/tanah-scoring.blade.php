@@ -9,7 +9,7 @@
         @endif
     </p>
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">PENILAIAN AGUNAN</div>
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">PENILAIAN AGUNAN</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-7">
@@ -173,7 +173,7 @@
 
     {{-- Scoring --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">I. SCORING</div>
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">I. SCORING</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -552,7 +552,7 @@
 
     {{-- Perhitungan Nilai Agunan --}}
     <div class="card mb-2">
-        <div class="card-header bg-success text-white head-judul" style="text-align: center">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
             II. PERHITUNGAN NILAI AGUNAN
         </div>
         <div class="card-body">
@@ -887,7 +887,7 @@
 
 {{-- Kesimpulan --}}
 <div class="card mb-2">
-    <div class="card-header bg-success text-white head-judul" style="text-align: center">
+    <div class="card-header bg-primary text-white head-judul" style="text-align: center">
         III. KESIMPULAN
     </div>
     <div class="card-body">
