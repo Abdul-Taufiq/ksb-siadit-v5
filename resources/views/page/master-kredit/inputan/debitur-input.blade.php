@@ -213,14 +213,14 @@
                 data-bs-title="Format:  <b>Jalan</b> ... <b>Nomor</b>... atau <b>Dusun</b> ..., <b>RT/RW</b> .../..., <b>Desa/Kelurahan</b> ..., <b>Kecamatan</b> ..., <b>Kabupaten/Kota</b> ...">{{ $debitur != null ? $debitur->alamat_rumah : null }}</textarea>
         </div>
     </div>
-    <div class="col-md-6 mb-4 d-none">
+    <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="rt_rw_rumah_opsi{{ $id_field }}">RT/RW :</label>
             <select name="rt_rw_rumah_opsi{{ $id_field }}" id="rt_rw_rumah_opsi{{ $id_field }}"
                 class="form-control is-invalid" required>
-                <option disabled>- Pilih Status Alamat Domisili -</option>
-                <option selected value="Sama">Sama Dengan KTP</option>
-                <option disabled value="Tidak">Tidak Sama Dengan KTP</option>
+                <option selected disabled>- Pilih Status Alamat Domisili -</option>
+                <option value="Sama">Sama Dengan KTP</option>
+                <option value="Tidak">Tidak Sama Dengan KTP</option>
             </select>
             <input type="text" name="rt_rw_rumah{{ $id_field }}" id="rt_rw_rumah{{ $id_field }}"
                 required

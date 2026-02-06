@@ -347,7 +347,7 @@
         <p style="font-size: 14px; font-weight: bold; color: rgb(248, 36, 36);">Data Penjamin</p>
     </div>
 
-    @if ($penjamin->count() > 0)
+    @if ($penjamin != null)
         @foreach ($penjamin as $data)
             <div class="col-md-12 mb-2">
                 <p style="font-size: 14px; font-weight: bold; color: rgb(248, 36, 36);">Penjamin
