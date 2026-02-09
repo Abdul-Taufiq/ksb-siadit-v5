@@ -49,7 +49,7 @@ class PkPmkController extends Controller
             ->orderByDesc('kunjungan_ke')
             ->get();
 
-        dd($kredit->persetujuan);
+        // dd($kredit->persetujuan);
 
         return view('page.master-perjanjian-kredit.pk.create', [
             'title' => 'Create Perjanjian Kredit',
