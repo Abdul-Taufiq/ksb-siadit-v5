@@ -1,6 +1,6 @@
 <div style="margin-left: 5px;" class="row">
     <input type="hidden" name="id_pkpmk" id="id_pkpmk"
-        value="{{ base64_encode($kredit->pkpmk->first()->id_pkpmk) ?? '' }}" readonly>
+        value="{{ $kredit->pkpmk == null ? base64_encode($kredit->pkpmk->first()->id_pkpmk) : '' }}" readonly>
 
     {{-- Khusus addendum --}}
     @if ($kredit->kategori_spk != 'SPK')
