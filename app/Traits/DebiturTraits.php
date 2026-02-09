@@ -395,6 +395,15 @@ trait DebiturTraits
                     $setting['putusan']['catatan'] => $this->catatan,
                 ]);
             }
+        } else if ($putusan === null) {
+            if ($this->status == 'Approve') {
+                MukPutusan::create([
+                    'id_kredit' => $kredit->id_kredit,
+                    $setting['putusan']['field_nama'] => $user->nama,
+                    $setting['putusan']['field_rekom'] => $this->rekomendasi,
+                    $setting['putusan']['catatan'] => $this->catatan,
+                ]);
+            }
         } else {
             $putusan->update([
                 'id_kredit' => $kredit->id_kredit,
