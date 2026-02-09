@@ -30,7 +30,8 @@
 
         body {
             font-family: Tahoma, sans-serif;
-            margin: 26mm 25mm 20mm 25mm;
+            margin: 26mm 25mm 40mm 25mm;
+            /* margin: 1.5cm 1.2cm 2.4cm 2.5cm; */
             font-size: 11pt;
             text-align: justify !important;
         }
@@ -832,7 +833,7 @@
                     <br><br><br>
                     @if ($pkpmk->debitur->status_pernikahan == 'Menikah')
                         ({{ $pkpmk->debitur->nama_debitur }})
-                        <br><br><br>
+                        <br><br><br><br>
                         ({{ $pkpmk->debitur->nama_pasangan }})
                     @else
                         ({{ $pkpmk->debitur->nama_debitur }})
@@ -842,6 +843,31 @@
         </table>
     </div>
 
+
+
+    <script type="text/php">
+        if (isset($pdf)) {
+            $font = $fontMetrics->get_font("tahoma", "normal");
+            $size = 9;
+            $color = array(0,0,0);
+
+            // buat garis horizontal (x1, y1, x2, y2)
+            $pdf->page_line(70, 735, 558, 735, $color, 0.2); 
+            // angka terakhir (0.5) = ketebalan garis
+
+            // nomor halaman
+            $pdf->page_text(470, 735, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", $fontMetrics->get_font("tahoma","bold"), 10, array(0,0,0));
+
+            // baris 1
+            $pdf->page_text(70, 750, "Nasabah dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing melalui", $font, $size, $color);
+            // baris 2
+            $pdf->page_text(70, 760, "Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui:", $font, $size, $color);
+            // baris 3
+            $pdf->page_text(70, 770, "Whatsapp : 0812 71111 280     |     Instagram : @bprkusumasumbing", $font, $size, $color);
+            // baris 4
+            $pdf->page_text(70, 780, "Website : https://web.bprkusumasumbing.com/pengaduan-konsumen", $font, $size, $color);
+        }
+    </script>
 
     {{-- <script type="text/php">
         if (isset($pdf)) {
