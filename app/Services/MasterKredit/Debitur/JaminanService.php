@@ -154,7 +154,7 @@ class JaminanService
                                     $tanah->no_shm_shgb = $data['no_shm_shgb_' . $i];
                                     $tanah->atas_nama = $data['atas_nama_' . $i];
 
-                                    if ($jabatan == 'Analis Cabang') {
+                                    if ($jabatan == 'Analis Cabang' || $jabatan == 'Legal') {
                                         if ($data['type_sertifikat_' . $i] == 'Sertifikat-El') {
                                             $tanah->tgl_sertifikat = null;
                                             $tanah->tgl_surat_ukur = null;
@@ -193,7 +193,7 @@ class JaminanService
                                     $tanah->no_shm_shgb = $data['no_shm_shgb_' . $i];
                                     $tanah->atas_nama = $data['atas_nama_' . $i];
 
-                                    if ($jabatan == 'Analis Cabang') {
+                                    if ($jabatan == 'Analis Cabang'  || $jabatan == 'Legal') {
                                         if ($data['type_sertifikat_' . $i] == 'Sertifikat-El') {
                                             $tanah->tgl_sertifikat = null;
                                             $tanah->tgl_surat_ukur = null;
@@ -233,7 +233,7 @@ class JaminanService
                                     $kenda->merk = $data['merk_' . $i];
                                     $kenda->nopol = $data['nopol_' . $i];
 
-                                    if ($jabatan == 'Analis Cabang') {
+                                    if ($jabatan == 'Analis Cabang' || $jabatan == 'Legal') {
                                         $kenda->type = $data['type_' . $i];
                                         $kenda->warna = $data['warna_' . $i];
                                         $kenda->no_rangka = $data['no_rangka_' . $i];
@@ -264,7 +264,7 @@ class JaminanService
                                     $kenda->merk = $data['merk_' . $i];
                                     $kenda->nopol = $data['nopol_' . $i];
 
-                                    if ($jabatan == 'Analis Cabang') {
+                                    if ($jabatan == 'Analis Cabang'  || $jabatan == 'Legal') {
                                         $kenda->type = $data['type_' . $i];
                                         $kenda->warna = $data['warna_' . $i];
                                         $kenda->no_rangka = $data['no_rangka_' . $i];

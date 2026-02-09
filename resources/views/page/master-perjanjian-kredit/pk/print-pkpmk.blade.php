@@ -30,7 +30,7 @@
 
         body {
             font-family: Tahoma, sans-serif;
-            margin: 1.5cm 1.2cm 1.5cm 2.5cm;
+            margin: 1.5cm 1.2cm 2.4cm 2.5cm;
             font-size: 11pt;
             text-align: justify !important;
             line-height: 12pt;
@@ -142,18 +142,27 @@
 
     <script type="text/php">
         if (isset($pdf)) {
-                $x = 480;
-                $y = 810;
-                $text = "Halaman {PAGE_NUM} dari {PAGE_COUNT}";
-                $font = $fontMetrics->get_font("tahoma", "bold");
-                $size = 10;
-                $color = array(0,0,0);
-                $word_space = 0.0;  //  default
-                $char_space = 0.0;  //  default
-                $angle = 0.0;   //  default
-                $pdf->page_text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
-            }
-        </script>
+            $font = $fontMetrics->get_font("tahoma", "normal");
+            $size = 9;
+            $color = array(0,0,0);
+
+            // buat garis horizontal (x1, y1, x2, y2)
+            $pdf->page_line(70, 770, 558, 770, $color, 0.2); 
+            // angka terakhir (0.5) = ketebalan garis
+
+            // nomor halaman
+            $pdf->page_text(470, 770, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", $fontMetrics->get_font("tahoma","bold"), 10, array(0,0,0));
+
+            // baris 1
+            $pdf->page_text(70, 785, "Nasabah dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing melalui", $font, $size, $color);
+            // baris 2
+            $pdf->page_text(70, 795, "Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui:", $font, $size, $color);
+            // baris 3
+            $pdf->page_text(70, 805, "Telepon : 0293 – 596362, 596390     |     Whatsapp : 0812 71111 280     |     Instagram : @bprkusumasumbing", $font, $size, $color);
+            // baris 4
+            $pdf->page_text(70, 815, "Website : https://web.bprkusumasumbing.com/pengaduan-konsumen", $font, $size, $color);
+        }
+    </script>
 
 </body>
 

@@ -1,4 +1,4 @@
-<div class="bg-success mb-2 p-2 text-white">
+<div class="bg-primary mb-2 p-2 text-white">
     <h6 class="mx-2" style="font-size: 12px">CABANG</h6>
 </div>
 
@@ -32,7 +32,7 @@
 
 {{-- area --}}
 @if ($muk->kredit->persetujuan->putusan == 'Area' || $muk->kredit->persetujuan->putusan == 'Pusat')
-    <div class="bg-success mb-2 p-2 text-white">
+    <div class="bg-primary mb-2 p-2 text-white">
         <h6 class="mx-2" style="font-size: 12px">AREA</h6>
     </div>
     <table class="table table-sm w-100 table-borderless">
@@ -67,7 +67,7 @@
 
 {{-- pusat --}}
 @if ($muk->kredit->persetujuan->putusan == 'Pusat')
-    <div class="bg-success mb-2 p-2 text-white">
+    <div class="bg-primary mb-2 p-2 text-white">
         <h6 class="mx-2" style="font-size: 12px">KANTOR PUSAT</h6>
     </div>
     <table class="table table-sm w-100 table-borderless">
