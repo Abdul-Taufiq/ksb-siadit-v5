@@ -613,7 +613,7 @@ class MukServiceEdit
                         $pen->no_gs = $data['no_gs_' . $i];
 
                         // untuk Ruko dan Bangunan
-                        if (!empty($data['luas_bangunan_' . $i])) {
+                        if (!empty($data['thn_pembangunan_' . $i])) {
                             $pen->luas_bangunan = $data['luas_bangunan_' . $i];
                             $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
                             $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];
