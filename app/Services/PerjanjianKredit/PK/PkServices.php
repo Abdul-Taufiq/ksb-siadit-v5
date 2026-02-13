@@ -624,7 +624,7 @@ class PkServices
             $kredit = Kredit::find($pkpmk->id_kredit);
 
             $pkpmk->update([
-                'tgl_print_tpbj' => now()
+                'tgl_print_sp_asuransi' => now()
             ]);
             $no_pk = 'PK-PMK ' . $pkpmk->no_pkpmk;
         } else {
@@ -632,7 +632,7 @@ class PkServices
             $kredit = Kredit::find($pkpmk->id_kredit);
 
             $pkpmk->update([
-                'tgl_print_tpbj' => now()
+                'tgl_print_sp_asuransi' => now()
             ]);
             $no_pk = 'Addendum ' . $pkpmk->no_addendum;
         }

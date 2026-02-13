@@ -217,15 +217,8 @@ trait DebiturTraits
                     ]);
                 }
             }
-        } else {
-            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
-        }
 
-        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
-        $kredit->save();
-
-        // jika status kakom kosong maka save ini
-        if ($jabatan == 'Pimpinan Cabang') {
+            // JIKA STATUS KAKOM KOSONG
             $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
                 ->where('jabatan', 'Kasi Komersial')
                 ->whereNull('nama')
@@ -252,7 +245,12 @@ trait DebiturTraits
                     'status_spk' => 'Proses',
                 ]);
             }
+        } else {
+            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
         }
+
+        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
+        $kredit->save();
 
         // tracking lama
         $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
@@ -386,7 +384,7 @@ trait DebiturTraits
         }
 
         // update putusan untuk MUK
-        if ($jabatan === 'AO' && $putusan === null) {
+        if ($jabatan === 'AO') {
             if ($this->status == 'Approve') {
                 MukPutusan::create([
                     'id_kredit' => $kredit->id_kredit,

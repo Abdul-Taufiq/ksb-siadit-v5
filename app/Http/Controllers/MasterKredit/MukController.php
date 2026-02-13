@@ -79,7 +79,8 @@ class MukController extends Controller
 
     public function storeMuk(Request $request)
     {
-        if ($request->metode == null) {
+        $muk = Muk::where('id_kredit', base64_decode($request->id_kredit))->first();
+        if ($request->metode == null || $muk == null) {
             $muk = $this->mukService->storePartSatu($request->all());
         } else {
             $mukE = $this->mukServiceEdit->editPartSatu($request->all());

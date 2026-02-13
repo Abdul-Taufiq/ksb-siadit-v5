@@ -593,11 +593,9 @@
         @endif
         {{-- End data Debitur --}}
 
-
-
         {{-- Data Penjamin --}}
-        @if (!empty($kredit->debitur->kpenjamin))
-            @foreach ($penjamin as $penjamins)
+        @if (!empty($kredit->penjamin))
+            @foreach ($kredit->penjamin as $penjamins)
                 <div class="container">
                     <h3 style="margin-left: 10px"> Lampiran SE No. 004/SE-DIR/OPS/IX/2015 </h3>
                     <br>

@@ -54,7 +54,8 @@
                         <tr>
                             <th>Jumlah Pengajuan</th>
                             <td>:
-                                Rp {{ number_format($kredit->jumlah_pengajuan, 0, ',', '.') }}
+                                Rp {{ number_format($kredit->jumlah_pengajuan, 0, ',', '.') }} &nbsp; | &nbsp;
+                                {{ $kredit->persetujuan?->putusan ?? 'belum ada data' }}
                                 {{-- {{ $kredit->jumlah_pengajuan }} --}}
                             </td>
                         </tr>

@@ -219,8 +219,12 @@
             <select name="rt_rw_rumah_opsi{{ $id_field }}" id="rt_rw_rumah_opsi{{ $id_field }}"
                 class="form-control is-invalid" required>
                 <option selected disabled>- Pilih Status Alamat Domisili -</option>
-                <option value="Sama">Sama Dengan KTP</option>
-                <option value="Tidak">Tidak Sama Dengan KTP</option>
+                <option
+                    {{ ($debitur == null ? null : $debitur->rt_rw_ktp == $debitur->rt_rw_rumah) ? 'selected' : null }}
+                    value="Sama">Sama Dengan KTP</option>
+                <option
+                    {{ ($debitur == null ? null : $debitur->rt_rw_ktp != $debitur->rt_rw_rumah) ? 'selected' : null }}
+                    value="Tidak">Tidak Sama Dengan KTP</option>
             </select>
             <input type="text" name="rt_rw_rumah{{ $id_field }}" id="rt_rw_rumah{{ $id_field }}"
                 required

@@ -227,7 +227,7 @@
         <div style="text-align: left;">
             {{-- {{ ucfirst($alamat) }}, --}}
             {{ $kredit->cabang->alamat }},
-            {{ $kredit->kategori_spk == 'SPK' ? $pkpmk->tgl_print_sp_agunan->translatedFormat('d F Y') : $pkpmk->tgl_print_sp_agunan->translatedFormat('d F Y') }}
+            {{ $pkpmk->tgl_print_sp_asuransi->translatedFormat('d F Y') }}
         </div>
         <br>
         <br>
