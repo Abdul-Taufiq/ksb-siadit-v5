@@ -276,8 +276,6 @@ class SPKService
                 $spk->asal_kredit = $data['asal_kredit_edit'];
                 $spk->petugas_referal = "-";
             }
-            $spk->status_kredit = "Baru Ditambahkan";
-            $spk->status_akhir = "PROSES";
             $spk->kategori_spk = $data['kategori_spk_edit'];
             $spk->save();
         }

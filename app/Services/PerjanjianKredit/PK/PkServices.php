@@ -148,7 +148,7 @@ class PkServices
             'biaya_lainnya' => $this->normalizeNumber($data['biaya_lainnya']),
             'biaya_asuransi_kebakaran' => $this->normalizeNumber($data['biaya_asuransi_kebakaran']),
             'biaya_asuransi_kendaraan' => $this->normalizeNumber($data['biaya_asuransi_kendaraan']),
-            'jumlah_angsuran' => $kredit->persetujuan->jns_kredit == 'Berjangka' ? $this->normalizeNumber($data['jumlah_angsuran']) : $kredit->persetujuan->jumlah_angsuran,
+            'jumlah_angsuran' => $this->normalizeNumber($data['jumlah_angsuran']),
         ]);
 
         for ($i = 1; $i <= 50; $i++) {
