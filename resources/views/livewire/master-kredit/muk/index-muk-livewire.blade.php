@@ -297,9 +297,18 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             wire:click='HideModal'>Close</button>
-                        <button wire:ignore type="button" class="btn btn-primary" id="simpan"> <i
-                                class="fa-regular fa-floppy-disk"></i>
-                            Save</button>
+                        <button wire:loading.attr='disabled' wire:target='file_putusan' type="button"
+                            class="btn btn-primary" id="simpan">
+
+                            <span wire:loading.remove wire:target='file_putusan'>
+                                <i class="fa-regular fa-floppy-disk"></i> Save
+                            </span>
+
+                            <span wire:loading wire:target='file_putusan'>
+                                <i class="fa fa-spinner fa-spin"></i> Uploading...
+                            </span>
+
+                        </button>
                     </div>
                 </form>
             </div>
@@ -325,8 +334,10 @@
                     if (file.size > ukuranMaksimal) {
                         alert("Ukuran file lebih dari 2MB. Silakan pilih file yang lebih kecil.");
                         simpanButton.disabled = true;
+                        simpanButton.classList.add('d-none');
                     } else {
                         simpanButton.disabled = false;
+                        simpanButton.classList.remove('d-none');
                     }
                 } else {
                     simpanButton.disabled = true; // jika tidak ada file
