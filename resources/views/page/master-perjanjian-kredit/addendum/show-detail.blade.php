@@ -237,10 +237,6 @@
             @break
 
             @case('Recondition')
-            @case('Top-Up')
-
-            @case('Menambah Plafond Kredit (Tanpa Menambah Jaminan)')
-            @case('Mengurangi Plafond Kredit (Tanpa Mengurangi Jaminan)')
                 <div class="headlist">
                     <div class="listArgumen">1.</div>
                     <div class="desk">
@@ -288,9 +284,10 @@
             @break
 
             @case('Restructuring')
-            @case('Menambah Plafond Kredit (Dengan Menambah Jaminan)')
+            @case('Top-Up')
 
-            @case('Mengurangi Plafond Kredit (Dengan Mengurangi Jaminan)')
+            @case('Menambah plafond kredit')
+            @case('Mengurangi plafond kredit')
                 <div class="headlist">
                     <div class="listArgumen">1.</div>
                     <div class="desk">
@@ -350,7 +347,7 @@
                 @include('page.master-perjanjian-kredit.pk.pasal.pasal-V')
                 @include('page.master-perjanjian-kredit.pk.pasal.pasal-VI-sd-pasal-X')
                 {{-- pasal 11 --}}
-                <div class="mb-4">
+                <div class="mb-1">
                     <div class="header">
                         <h3>PASAL 11</h3>
                         <h3>KETENTUAN BANK</h3>
@@ -363,7 +360,7 @@
 
 
                 {{-- pasal 12 --}}
-                <div class="mb-4">
+                <div class="mb-1">
                     <div class="header">
                         <h3>PASAL 12</h3>
                         <h3>AHLI WARIS/PENANGGUNG</h3>
@@ -379,7 +376,7 @@
 
 
                 {{-- pasal 13 --}}
-                <div class="mb-4">
+                <div class="mb-1">
                     <div class="header">
                         <h3>PASAL 13</h3>
                         <h3>PENGALIHAN PIUTANG (CASSIE)</h3>
@@ -392,7 +389,7 @@
 
 
                 {{-- pasal 14 --}}
-                <div class="mb-4">
+                <div class="mb-1">
                     <div class="header">
                         <h3>PASAL 14</h3>
                         <h3>PEMBERIAN MASA JEDA</h3>
@@ -422,7 +419,7 @@
 
 
                 {{-- pasal 15 --}}
-                <div class="mb-4">
+                <div class="mb-1">
                     <div class="header">
                         <h3>PASAL 15</h3>
                         <h3>DOMISILI</h3>
@@ -444,9 +441,8 @@
 
             {{-- nonrestruc --}}
             @case('Mengubah Jaminan')
-                {{-- @case('Mengubah Jaminan (Mengurangi)')
-
-        @case('Mengubah Jaminan (Menambah)') --}}
+                {{-- @case('Mengubah Jaminan (Mengurangi)') --}}
+                {{-- @case('Mengubah Jaminan (Menambah)') --}}
                 <div class="headlist">
                     <div class="listArgumen">1.</div>
                     <div class="desk">
