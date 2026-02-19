@@ -251,6 +251,13 @@
                             peringkat {{ $tanah->no_peringkat_perikatan }}.
                         @else
                             Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
+                            @if ($tanah->jns_perikatan == 'APHT')
+                                dengan {{ $tanah->jns_perikatan }} dengan pembebanan hak tanggungan
+                                peringkat
+                                {{ $tanah->no_peringkat_perikatan }}.
+                            @else
+                                dengan {{ $tanah->jns_perikatan }}.
+                            @endif
                         @endif
                     </div>
                 @endforeach
