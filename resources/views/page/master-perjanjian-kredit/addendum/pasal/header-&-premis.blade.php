@@ -245,10 +245,10 @@
     Bahwa <b>BANK</b> dan <b>DEBITUR</b> telah melakukan Perjanjian Kredit
     @if ($pkpmk->jns_akta == 'Notariil')
         dengan Akta Notaris Nomor {{ $pkpmk->no_akta_notaris }} Tanggal
-        {{ $pkpmk->pkpmk->tgl_akta_notaris->translatedFormat('d F Y') }}
+        {{ $pkpmk->pkpmk->tgl_akta_notaris?->translatedFormat('d F Y') }}
     @else
         Nomor {{ $pkpmk->no_pkpmk }} tanggal
-        {{ $pkpmk->tgl_pkpmk->translatedFormat('d F Y') }}
+        {{ $pkpmk->tgl_pkpmk?->translatedFormat('d F Y') }}
         yang dibuat secara
         @if ($pkpmk->jns_pengikatan == 'Bawah Tangan/Legalisasi')
             dibawah tangan
