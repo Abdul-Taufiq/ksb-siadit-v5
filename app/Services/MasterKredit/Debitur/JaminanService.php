@@ -82,6 +82,7 @@ class JaminanService
                                 $deposito->no_rek = $data['no_rek_' . $i];
                                 $deposito->atas_nama = $data['atas_nama_deposito_' . $i];
                                 $deposito->nominal = $data['nominal_' . $i] != null ? str_replace(['Rp. ', '.'], '', $data['nominal_' . $i]) : null;
+                                $deposito->tgl_deposito = $data['jns_jaminan_deposito_' . $i] == 'Deposito' ? $data['tgl_deposito_' . $i] : null;
                                 $deposito->save();
                             }
                             break;
@@ -292,6 +293,7 @@ class JaminanService
                                     $deposito->no_rek = $data['no_rek_' . $i];
                                     $deposito->atas_nama = $data['atas_nama_deposito_' . $i];
                                     $deposito->nominal = $data['nominal_' . $i] != null ? str_replace(['Rp. ', '.'], '', $data['nominal_' . $i]) : null;
+                                    $deposito->tgl_deposito = $data['jns_jaminan_deposito_' . $i] == 'Deposito' ? $data['tgl_deposito_' . $i] : null;
                                     $deposito->save();
                                 } else {
                                     $deposito->delete();
@@ -305,6 +307,7 @@ class JaminanService
                                     $deposito->no_rek = $data['no_rek_' . $i];
                                     $deposito->atas_nama = $data['atas_nama_deposito_' . $i];
                                     $deposito->nominal = $data['nominal_' . $i] != null ? str_replace(['Rp. ', '.'], '', $data['nominal_' . $i]) : null;
+                                    $deposito->tgl_deposito = $data['jns_jaminan_deposito_' . $i] == 'Deposito' ? $data['tgl_deposito_' . $i] : null;
                                     $deposito->save();
                                 }
                             }

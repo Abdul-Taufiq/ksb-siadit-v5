@@ -554,6 +554,15 @@
                     value="Rp. {{ number_format($depo->nominal, 0, ',', '.') }}">
             </div>
         </div>
+
+        <div class="col-md-6 mb-4" id="head_tgl_deposito_{{ $counter }}">
+            <div class="form-group">
+                <label for="tgl_deposito_{{ $counter }}">Tanggal Deposito</label>
+                <input type="date" name="tgl_deposito_{{ $counter }}"
+                    id="tgl_deposito_{{ $counter }}" class="form-control is-invalid" required
+                    placeholder="Tanggal Deposit" value="{{ $depo->tgl_deposito }}">
+            </div>
+        </div>
     </div>
     @php $counter++; @endphp
 @endforeach

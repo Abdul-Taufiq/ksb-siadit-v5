@@ -125,4 +125,22 @@
 
     {{-- <script src="{{ asset('script/master-kredit/muk/summernote-area.js') }}"></script>
     <script src="{{ asset('script/master-kredit/muk/data-man-config.js') }}"></script> --}}
+
+
+    <script>
+        // Event delegation: lebih efisien daripada loop manual
+        $(document).on('change', '[id^="jns_jaminan_deposito_"]', function() {
+            const id = this.id.split('_').pop(); // ambil angka index dari ID
+            const val = $(this).val();
+
+            if (val === 'Deposito') {
+                $('#head_tgl_deposito_' + id).removeClass('d-none');
+                $('#tgl_deposito_' + id).attr('required', true);
+            } else {
+                $('#head_tgl_deposito_' + id).addClass('d-none');
+                $('#tgl_deposito_' + id).val('');
+                $('#tgl_deposito_' + id).removeAttr('required');
+            }
+        });
+    </script>
 @endsection

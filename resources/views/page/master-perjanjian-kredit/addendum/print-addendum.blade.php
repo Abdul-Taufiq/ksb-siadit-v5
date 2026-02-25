@@ -374,6 +374,8 @@
                 Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
                 ketentuan Otoritas Jasa Keuangan.
             </div>
+
+            <br><br>
             {{-- end pasal 15 --}}
         @break
 
@@ -395,12 +397,27 @@
                 {{ $pkpmk->cabang->alamat_pn }}, demikian dengan tidak mengurangi hak <b>BANK</b> untuk memohon
                 pelaksanaan/eksekusi dari perjanjian ini atau mengajukan
                 tuntutan hukum terhadap <b>DEBITUR</b> melalui Pengadilan-Pengadilan dan/atau Instansi maupun Lembaga
-                Pemerintah yang berada dalam wilayah Republik Indonesia.
+                Pemerintah yang berada dalam wilayah Republik Indonesia. <br><br>
+
+                Ketentuan ini telah disesuaikan dengan peraturan perundang- undangan yang berlaku, dan telah disesuaikan dengan
+                ketentuan Otoritas Jasa Keuangan.
             </div>
         @break
     @endswitch
 
+
+    <span>
+        <b>DEBITUR</b> dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing
+        melalui
+        Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui: <br>
+    </span>
+    <span style="font-size: 13px">
+        Telepon : 0293 – 596362, 596390 | Whatsapp : 0812 71111 280 | Instagram : @bprkusumasumbing<br>
+        Website : https://web.bprkusumasumbing.com/pengaduan-konsumen
+    </span>
+
     {{-- TTD --}}
+    <br>
     <br>
     <div style="page-break-inside: avoid">
         <div style="text-align: center;">
@@ -496,13 +513,13 @@
             $pdf->page_text(470, 770, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", $fontMetrics->get_font("tahoma","bold"), 10, array(0,0,0));
 
             // baris 1
-            $pdf->page_text(70, 785, "Nasabah dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing melalui", $font, $size, $color);
+            // $pdf->page_text(70, 785, "Nasabah dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing melalui", $font, $size, $color);
             // baris 2
-            $pdf->page_text(70, 795, "Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui:", $font, $size, $color);
+            // $pdf->page_text(70, 795, "Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui:", $font, $size, $color);
             // baris 3
-            $pdf->page_text(70, 805, "Telepon : 0293 – 596362, 596390     |     Whatsapp : 0812 71111 280     |     Instagram : @bprkusumasumbing", $font, $size, $color);
+            // $pdf->page_text(70, 805, "Telepon : 0293 – 596362, 596390     |     Whatsapp : 0812 71111 280     |     Instagram : @bprkusumasumbing", $font, $size, $color);
             // baris 4
-            $pdf->page_text(70, 815, "Website : https://web.bprkusumasumbing.com/pengaduan-konsumen", $font, $size, $color);
+            // $pdf->page_text(70, 815, "Website : https://web.bprkusumasumbing.com/pengaduan-konsumen", $font, $size, $color);
         }
     </script>
 

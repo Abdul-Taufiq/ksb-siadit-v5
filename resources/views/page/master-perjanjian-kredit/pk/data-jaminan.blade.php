@@ -72,6 +72,10 @@
                             value="Sudah dibebani HT">
                             Sudah dibebani HT
                         </option>
+                        <option {{ $tanah->kategori_pengikatan == 'Sudah ada SKMHT' ? 'selected' : '' }}
+                            value="Sudah ada SKMHT">
+                            Sudah ada SKMHT
+                        </option>
                         <option {{ $tanah->kategori_pengikatan == 'Belum' ? 'selected' : '' }} value="Belum">Belum
                         </option>
                     </select>
@@ -98,7 +102,7 @@
         @endif
 
 
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4" id="head_jns_perikatan_{{ $counter }}">
             <div class="form-group">
                 <label for="jns_perikatan_{{ $counter }}">Jenis Perikatan</label>
                 <select name="jns_perikatan_{{ $counter }}" id="jns_perikatan_{{ $counter }}"

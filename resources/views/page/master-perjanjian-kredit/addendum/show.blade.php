@@ -30,7 +30,7 @@
                                     <div class="row">
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsppk w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsppk w-100"
                                                 data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPPK</b>
@@ -56,7 +56,7 @@
                                 <div class="row">
                                     <div class="col-md-3 ">
                                         <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            class="btn btn-sm btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
                                             <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                             <b>PRINT SPPK</b>
                                         </button>
@@ -80,7 +80,7 @@
                                 <div class="row">
                                     <div class="col-md-3 ">
                                         <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            class="btn btn-sm btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
                                             <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                             <b>PRINT SPPK</b>
                                         </button>
@@ -93,7 +93,7 @@
                                         @if ($pkpmk->tgl_print_addendum === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
                                                     data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PK</b>
@@ -104,7 +104,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PK</b>
                                                 </button>
@@ -117,7 +117,7 @@
                                         @if ($pkpmk->tgl_print_addendum === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
                                                     data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PMK</b>
@@ -128,7 +128,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PMK</b>
                                                 </button>
@@ -144,7 +144,7 @@
                                         @if ($pkpmk->tgl_print_sp_agunan === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
                                                     data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPA</b>
@@ -155,7 +155,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPA</b>
                                                 </button>
@@ -169,7 +169,7 @@
                                         @if ($pkpmk->tgl_print_sp_bawah_tangan === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
                                                     data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPPJF</b>
@@ -182,7 +182,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPPJF</b>
                                                 </button>
@@ -195,7 +195,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPA</b>
                                             </button>
@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPPJF</b>
                                             </button>
@@ -220,7 +220,7 @@
                                     @if ($pkpmk->tgl_print_sp_asuransi === null && $pkpmk->kredit->persetujuan->asuransi != 'Ya')
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
                                                 data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPTMA</b>
@@ -231,7 +231,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPTMA</b>
                                             </button>
@@ -245,7 +245,7 @@
                                     @if ($pkpmk->tgl_print_tpbj === null)
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
                                                 data-id="{{ encrypt($pkpmk->id_addendum) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT TPBJ</b>
@@ -257,7 +257,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT TPBJ</b>
                                             </button>
@@ -302,7 +302,7 @@
                         <br>
                         @if ($pkpmk->tgl_print_sppk === null && $pkpmk->kredit->status_kaops == 'Approve')
                             <a href="{{ route('debitur.sos.edit.pas', base64_encode($pkpmk->kredit->id_kredit)) }}"
-                                class="btn btn-outline-warning">S.O.S (for update PAS)</a>
+                                class="btn btn-sm btn-outline-warning">S.O.S (for update PAS)</a>
                         @endif
                     </div>
                 </div>

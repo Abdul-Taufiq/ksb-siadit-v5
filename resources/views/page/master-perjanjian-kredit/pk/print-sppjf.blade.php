@@ -29,7 +29,7 @@
         }
 
         body {
-            font-family: Tahoma, sans-serif;
+            font-family: Tahoma;
             margin: 0.85cm 0.50cm 0.75cm 1.75cm;
             font-size: 11pt;
             text-align: justify !important;

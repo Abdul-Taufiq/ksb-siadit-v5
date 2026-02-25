@@ -87,7 +87,20 @@
 Ketentuan ini telah disesuaikan dengan peraturan perundang-undangan yang berlaku, dan telah disesuaikan
 dengan ketentuan Otoritas Jasa Keuangan. <br>
 
+<br>
+
+<span>
+    <b>DEBITUR</b> dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing
+    melalui
+    Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui: <br>
+</span>
+<span style="font-size: 13px">
+    Telepon : 0293 – 596362, 596390 | Whatsapp : 0812 71111 280 | Instagram : @bprkusumasumbing<br>
+    Website : https://web.bprkusumasumbing.com/pengaduan-konsumen
+</span>
+
 {{-- TTD --}}
+<br>
 <br>
 <div style="page-break-inside: avoid">
     <div style="text-align: center;">
@@ -106,7 +119,7 @@ dengan ketentuan Otoritas Jasa Keuangan. <br>
         <tr style="text-align: center;">
             <td style="width: 35%;   padding: 3px 0; text-align: center;">
                 <br><br><br><br>
-                @if ($pkpmk->jns_pinjaman == 'Kredit Pihak Terkait')
+                @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
                     (<b style="font-size: 13px;">EKO BAMBANG SETIYOSO</b>)
                 @else
                     (<b style="font-size: 13px;">{{ $pkpmk->nama_pincab }}</b>)

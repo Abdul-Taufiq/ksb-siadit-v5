@@ -17,7 +17,8 @@ class JamDeposito extends Model
     use HasFactory;
     protected $connection = 'mysql';
     protected $table = 'tb_kredit_jaminan_deposito';
-    protected $dates = ['tgl_berakhir'];
+    protected $dates = ['tgl_deposito'];
+    protected $casts = ['tgl_deposito' => 'datetime'];
     protected $primaryKey = 'id_jaminan_deposito';
     protected $guarded = ['id_jaminan_deposito'];
 

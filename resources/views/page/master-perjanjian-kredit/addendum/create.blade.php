@@ -208,21 +208,40 @@
                 let tgl_akta = document.getElementById(
                     `head_tgl_akta_perikatan_${counter}`
                 );
+                let jns_perikatan = document.getElementById(
+                    `head_jns_perikatan_${counter}`
+                );
+                let no_peringkat = document.getElementById(
+                    `head_no_peringkat_perikatan_${counter}`
+                );
 
                 if (select == "Sudah dibebani HT") {
                     no_akta.classList.remove("d-none");
                     tgl_akta.classList.remove("d-none");
-                    $(no_akta).prop("required", true);
-                    $(tgl_akta).prop("required", true);
                     document.getElementById(`no_akta_perikatan_${counter}`).setAttribute("required", true)
                     document.getElementById(`tgl_akta_perikatan_${counter}`).setAttribute("required", true)
+                    jns_perikatan.classList.remove("d-none");
+                    no_peringkat.classList.remove("d-none");
+                    document.getElementById(`jns_perikatan_${counter}`).setAttribute("required", true);
+                    document.getElementById(`no_peringkat_perikatan_${counter}`).setAttribute("required", true);
+                } else if (select == "Sudah ada SKMHT") {
+                    no_akta.classList.remove("d-none");
+                    tgl_akta.classList.remove("d-none");
+                    document.getElementById(`no_akta_perikatan_${counter}`).setAttribute("required", true);
+                    document.getElementById(`tgl_akta_perikatan_${counter}`).setAttribute("required", true);
+                    jns_perikatan.classList.add("d-none");
+                    no_peringkat.classList.add("d-none");
+                    document.getElementById(`jns_perikatan_${counter}`).removeAttribute("required");
+                    document.getElementById(`no_peringkat_perikatan_${counter}`).removeAttribute("required");
                 } else {
                     no_akta.classList.add("d-none");
                     tgl_akta.classList.add("d-none");
-                    $(no_akta).prop("required", false);
-                    $(tgl_akta).prop("required", false);
                     document.getElementById(`no_akta_perikatan_${counter}`).removeAttribute("required")
                     document.getElementById(`tgl_akta_perikatan_${counter}`).removeAttribute("required")
+                    jns_perikatan.classList.remove("d-none");
+                    no_peringkat.classList.remove("d-none");
+                    document.getElementById(`jns_perikatan_${counter}`).setAttribute("required", true);
+                    document.getElementById(`no_peringkat_perikatan_${counter}`).setAttribute("required", true);
                 }
             });
 

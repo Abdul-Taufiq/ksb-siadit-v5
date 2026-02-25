@@ -15,6 +15,7 @@ use App\Models\MasterPKPMK\PkPmk;
 use App\Models\MasterPKPMK\PkPmkAddendum;
 use App\Models\Output\LogActivity;
 use App\Models\Output\MonitoringAo;
+use App\Services\PerjanjianKredit\PK\PKGadaiService;
 use App\Services\PerjanjianKredit\PK\PkServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -22,10 +23,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PkPmkController extends Controller
 {
-    protected $PkServices;
-    public function __construct(PkServices $pkServices)
+    protected $PkServices, $PkGadaiService;
+    public function __construct(PkServices $pkServices, PKGadaiService $pkGadaiService)
     {
         $this->PkServices = $pkServices;
+        $this->PkGadaiService = $pkGadaiService;
     }
 
     public function create($idKredit)
@@ -177,7 +179,7 @@ class PkPmkController extends Controller
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.pk.print-sppk',
             [
-                'title' => 'Print Data SPPK',
+                'title' => 'Print Data SPPK An.' . $pkpmk->debitur->nama_debitur,
                 'pkpmk' => $pkpmk,
                 'jam_tanah' => $jam_tanah,
                 'jam_kenda' => $jam_kenda,
@@ -275,12 +277,57 @@ class PkPmkController extends Controller
         return $print;
     }
 
+
     // print Sptma
     public function printSptma($idPkpmk)
     {
         $this->authorize('createLegal', PkPmk::class);
 
         $print = $this->PkServices->genetareSptma($idPkpmk, 'SPK');
+
+        return $print;
+    }
+
+
+    // print gadai
+    public function printGadaiPk($idPkpmk)
+    {
+        $this->authorize('createLegal', PKPmk::class);
+
+        $print = $this->PkGadaiService->generatePkGadai($idPkpmk, 'SPK');
+
+        return $print;
+    }
+
+
+    // print blokir
+    public function printGadaiBlokir($idPkpmk)
+    {
+        $this->authorize('createLegal', PKPmk::class);
+
+        $print = $this->PkGadaiService->generateBlokir($idPkpmk, 'SPK');
+
+        return $print;
+    }
+
+
+    // print buka blokir
+    public function printGadaiBukaBlokir($idPkpmk)
+    {
+        $this->authorize('createLegal', PKPmk::class);
+
+        $print = $this->PkGadaiService->generateBukaBlokir($idPkpmk, 'SPK');
+
+        return $print;
+    }
+
+
+    // print buka blokir
+    public function printGadaiKuasa($idPkpmk)
+    {
+        $this->authorize('createLegal', PKPmk::class);
+
+        $print = $this->PkGadaiService->generateKuasa($idPkpmk, 'SPK');
 
         return $print;
     }

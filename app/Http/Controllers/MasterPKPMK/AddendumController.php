@@ -182,12 +182,12 @@ class AddendumController extends Controller
         $penjamin = Penjamin::where('id_kredit', $pkpmkV->id_kredit)->get();
 
         // create no sppk dan logika lainnya
-        $pkpmk = $this->PkServices->genetareSppk($ids, 'Addendum');
+        $pkpmk = $this->AddServices->genetareSppk($ids, 'Addendum');
 
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.pk.print-sppk',
             [
-                'title' => 'Print Data SPPK',
+                'title' => 'Print Data SPPK An-' . $pkpmk->debitur->nama_debitur,
                 'pkpmk' => $pkpmk,
                 'jam_tanah' => $jam_tanah,
                 'jam_kenda' => $jam_kenda,
@@ -234,7 +234,7 @@ class AddendumController extends Controller
         $pdf = Pdf::loadView(
             'page.master-perjanjian-kredit.addendum.print-addendum',
             [
-                'title' => 'Print Data',
+                'title' => 'Print Data PK An-' . $pkpmk->debitur->nama_debitur,
                 'pkpmk' => $pkpmk,
                 'jam_tanah' => $jam_tanah,
                 'jam_kenda' => $jam_kenda,

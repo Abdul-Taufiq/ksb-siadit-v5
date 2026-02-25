@@ -29,7 +29,7 @@
                                     <div class="row">
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsppk w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsppk w-100"
                                                 data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPPK</b>
@@ -55,7 +55,7 @@
                                 <div class="row">
                                     <div class="col-md-3 ">
                                         <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            class="btn btn-sm btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
                                             <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                             <b>PRINT SPPK</b>
                                         </button>
@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col-md-3 ">
                                         <button type="button"
-                                            class="btn btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
+                                            class="btn btn-sm btn-danger btn-icon-text btn-rounded btnsppk w-100" disabled>
                                             <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                             <b>PRINT SPPK</b>
                                         </button>
@@ -92,7 +92,7 @@
                                         @if ($pkpmk->tgl_print_pkpmk === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
                                                     data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PK</b>
@@ -103,7 +103,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PK</b>
                                                 </button>
@@ -116,7 +116,7 @@
                                         @if ($pkpmk->tgl_print_pkpmk === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
                                                     data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PMK</b>
@@ -127,7 +127,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT PMK</b>
                                                 </button>
@@ -143,7 +143,7 @@
                                         @if ($pkpmk->tgl_print_sp_agunan === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_agunan w-100"
                                                     data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPA</b>
@@ -154,7 +154,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPA</b>
                                                 </button>
@@ -168,7 +168,7 @@
                                         @if ($pkpmk->tgl_print_sp_bawah_tangan === null)
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
+                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_bawah_tangan w-100"
                                                     data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPPJF</b>
@@ -181,7 +181,7 @@
                                         @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
-                                                    class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                    class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                     <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                     <b>PRINT SPPJF</b>
                                                 </button>
@@ -194,7 +194,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPA</b>
                                             </button>
@@ -204,7 +204,7 @@
                                         </div>
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPPJF</b>
                                             </button>
@@ -219,7 +219,7 @@
                                     @if ($pkpmk->tgl_print_sp_asuransi === null && $pkpmk->kredit->persetujuan->asuransi != 'Ya')
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnsp_asuransi w-100"
                                                 data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPTMA</b>
@@ -230,7 +230,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT SPTMA</b>
                                             </button>
@@ -244,7 +244,7 @@
                                     @if ($pkpmk->tgl_print_tpbj === null)
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btn_tpbj w-100"
                                                 data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT TPBJ</b>
@@ -256,7 +256,7 @@
                                     @else
                                         <div class="col-md-3 ">
                                             <button type="button"
-                                                class="btn btn-danger btn-icon-text btn-rounded w-100 disabled">
+                                                class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
                                                 <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
                                                 <b>PRINT TPBJ</b>
                                             </button>
@@ -283,6 +283,61 @@
                                 Operasional)
                             </p>
                         @endif
+
+
+                        {{-- Perjanjian Gadai dan temannya --}}
+                        @if ($pkpmk->kredit->jamdeposito->count() !== 0)
+                            @if ($pkpmk->tgl_print_pkpmk != null)
+                                <div class="row mt-2">
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-sm {{ $pkpmk->tgl_print_gadai != null ? 'btn-danger' : 'btn-primary' }} btn-icon-text btn-rounded btn_gadai w-100"
+                                            data-id="{{ encrypt($pkpmk->id_pkpmk) }}"
+                                            {{ $pkpmk->tgl_print_gadai != null ? 'disabled' : '' }}>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT PK GADAI</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Khusus Jaminan
+                                                Tabungan/Deposito)</i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-sm {{ $pkpmk->tgl_print_blokir != null ? 'btn-danger' : 'btn-primary' }} btn-icon-text btn-rounded btn_blokir w-100"
+                                            data-id="{{ encrypt($pkpmk->id_pkpmk) }}"
+                                            {{ $pkpmk->tgl_print_blokir != null ? 'disabled' : '' }}>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT BLOKIR</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Permohonan Blokir)</i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-sm {{ $pkpmk->tgl_print_buka_blokir != null ? 'btn-danger' : 'btn-primary' }} btn-icon-text btn-rounded btn_buka_blokir w-100"
+                                            data-id="{{ encrypt($pkpmk->id_pkpmk) }}"
+                                            {{ $pkpmk->tgl_print_buka_blokir != null ? 'disabled' : '' }}>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT BUKA BLOKIR</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Permohonan Buka Blokir)</i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <button type="button"
+                                            class="btn btn-sm {{ $pkpmk->tgl_print_kuasa_pencairan != null ? 'btn-danger' : 'btn-primary' }} btn-icon-text btn-rounded btn_kuasa_pencairan w-100"
+                                            data-id="{{ encrypt($pkpmk->id_pkpmk) }}"
+                                            {{ $pkpmk->tgl_print_kuasa_pencairan != null ? 'disabled' : '' }}>
+                                            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                            <b>PRINT KUASA PENCAIRAN</b>
+                                        </button>
+                                        <p style="text-align: center; padding-top: 5px;"><i>(Kuasa Pencairan)</i>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+
                     </div>
                 </div>
             @endif
@@ -300,7 +355,7 @@
                         <br>
                         @if ($pkpmk->tgl_print_sppk === null && $pkpmk->kredit->status_kaops == 'Approve')
                             <a href="{{ route('debitur.sos.edit.pas', base64_encode($pkpmk->kredit->id_kredit)) }}"
-                                class="btn btn-outline-warning">S.O.S (for update PAS)</a>
+                                class="btn btn-sm btn-outline-warning">S.O.S (for update PAS)</a>
                         @endif
                     </div>
                 </div>
@@ -371,7 +426,6 @@
         });
     </script>
 
-
     {{-- SWA print SPTMA Asuransi --}}
     <script>
         $(document).ready(function() {
@@ -396,7 +450,6 @@
             });
         });
     </script>
-
 
     {{-- SWA print SPA --}}
     <script>
@@ -492,6 +545,97 @@
                     if (result.isConfirmed) {
                         window.location.href = '/kredit-pkpmk-edit/' + id;
                         // window.open('/pkpmk/print-sppjf-kredit/' + id, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+    {{-- SWA print GADAI dan Temannya --}}
+    <script>
+        $(document).ready(function() {
+            // PK Gadai
+            $('.btn_gadai').on('click', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Konfirmasi Cetak PK Gadai',
+                    html: 'Apakah Anda yakin ingin mencetak PK Gadai? <br> <b>Coution:</b> Aksi ini hanya bisa dilakukan sekali!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Cetak!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // window.location.href = '/pkpmk/print-perjanjian-kredit-pk/' + id;
+                        window.open('/pkpmk/print-gadai-pk/' + id, '_blank');
+                    }
+                });
+            });
+
+            // Blokir
+            $('.btn_blokir').on('click', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Konfirmasi Cetak Permohonan Blokir',
+                    html: 'Apakah Anda yakin ingin mencetak Permohonan Blokir? <br> <b>Coution:</b> Aksi ini hanya bisa dilakukan sekali!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Cetak!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // window.location.href = '/pkpmk/print-perjanjian-kredit-pk/' + id;
+                        window.open('/pkpmk/print-gadai-blokir/' + id, '_blank');
+                    }
+                });
+            });
+
+            // Buka Blokir
+            $('.btn_buka_blokir').on('click', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Konfirmasi Cetak Permohonan Buka Blokir',
+                    html: 'Apakah Anda yakin ingin mencetak Permohonan Buka Blokir? <br> <b>Coution:</b> Aksi ini hanya bisa dilakukan sekali!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Cetak!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // window.location.href = '/pkpmk/print-perjanjian-kredit-pk/' + id;
+                        window.open('/pkpmk/print-gadai-buka-blokir/' + id, '_blank');
+                    }
+                });
+            });
+
+            // Kuasa  Pencairan
+            $('.btn_kuasa_pencairan').on('click', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Konfirmasi Cetak Kuasa Pencairan',
+                    html: 'Apakah Anda yakin ingin mencetak Kuasa Pencairan? <br> <b>Coution:</b> Aksi ini hanya bisa dilakukan sekali!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Cetak!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // window.location.href = '/pkpmk/print-perjanjian-kredit-pk/' + id;
+                        window.open('/pkpmk/print-gadai-kuasa/' + id, '_blank');
                     }
                 });
             });

@@ -181,6 +181,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/print-sppjf-kredit/{idPkmk}', [PkPmkController::class, 'printSppjf'])->name('pkpmk.printSppjf');
         Route::get('/print-tpbj-kredit/{idPkmk}', [PkPmkController::class, 'printTpbj'])->name('pkpmk.printTpbj');
         Route::get('/print-sptma-kredit/{idPkmk}', [PkPmkController::class, 'printSptma'])->name('pkpmk.printSptma');
+        // print gadai
+        Route::get('/print-gadai-pk/{idPkmk}', [PkPmkController::class, 'printGadaiPk'])->name('pkpmk.printGadaiPk');
+        Route::get('/print-gadai-blokir/{idPkmk}', [PkPmkController::class, 'printGadaiBlokir'])->name('pkpmk.printGadaiBlokir');
+        Route::get('/print-gadai-buka-blokir/{idPkmk}', [PkPmkController::class, 'printGadaiBukaBlokir'])->name('pkpmk.printGadaiBukaBlokir');
+        Route::get('/print-gadai-kuasa/{idPkmk}', [PkPmkController::class, 'printGadaiKuasa'])->name('pkpmk.printGadaiKuasa');
     });
 
 
