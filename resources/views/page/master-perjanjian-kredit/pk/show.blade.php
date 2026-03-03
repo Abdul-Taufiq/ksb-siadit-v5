@@ -9,7 +9,7 @@
             @if (Auth::user()->jabatan == 'Legal')
                 <div class="stat-cards-item mb-2">
                     <div class="card-body w-100">
-                        @if ($pkpmk->kredit->status_kaops == 'Approve')
+                        @if ($pkpmk->kredit->status_kaops == 'Approve' && $pkpmk->kredit->status_pincab == 'Approve')
                             {{-- Print SPPK Dulu --}}
                             @if ($pkpmk->tgl_print_sppk === null)
                                 @if ($pkpmk->kredit->status_pincab != 'Approve')

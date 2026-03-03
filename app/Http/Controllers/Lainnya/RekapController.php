@@ -28,7 +28,7 @@ class RekapController extends Controller
                 'id_cabang',
                 DB::raw('COUNT(*) as total_data'),
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI" THEN jumlah_disetujui ELSE 0 END) as total_disetujui'),
-                DB::raw('SUM(CASE WHEN status_akhir = "DITOLAK" THEN jumlah_disetujui ELSE 0 END) as total_ditolak'),
+                DB::raw('SUM(CASE WHEN status_akhir = "DITOLAK" THEN jumlah_pengajuan ELSE 0 END) as total_ditolak'),
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI (TIDAK DIAMBIL)" THEN jumlah_disetujui ELSE 0 END) as total_tidak_diambil'),
                 DB::raw('SUM(CASE WHEN status_akhir = "PROSES" THEN 1 ELSE 0 END) as jumlah_diproses'),
                 DB::raw('SUM(CASE WHEN status_akhir = "DITOLAK" THEN 1 ELSE 0 END) as jumlah_ditolak'),
