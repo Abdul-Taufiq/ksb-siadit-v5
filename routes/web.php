@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\Lainnya\LogActivityController;
 use App\Http\Controllers\Lainnya\MonitoringAOController;
+use App\Http\Controllers\Lainnya\PlanningAOController;
 use App\Http\Controllers\Lainnya\RekapController;
 use App\Http\Controllers\MasterKredit\AgunanController;
 use App\Http\Controllers\MasterKredit\DebiturController;
@@ -16,6 +17,9 @@ use App\Http\Controllers\MasterUserController;
 use App\Livewire\Lainnya\JaminanTanahLivewire;
 use App\Livewire\Lainnya\LogAppVersion;
 use App\Livewire\Lainnya\MonitoringAOLivewire;
+use App\Livewire\Lainnya\PlanAO\PlanningAOLivewire;
+use App\Livewire\Lainnya\PlanAO\RekapPlanAOLivewire;
+use App\Livewire\Lainnya\PlanAO\ShowRekapPlanAOLivewire;
 use App\Livewire\Lainnya\RekapMonitoringAOLivewire;
 use App\Livewire\Lainnya\ShowRekapMonitoringAOLivewire;
 use App\Livewire\Lainnya\TAphtLivewire;
@@ -229,15 +233,25 @@ Route::middleware(['auth'])->group(function () {
 
     // Monitoring AO
     Route::prefix('monitoring')->group(function () {
+        // Prospek AO
         Route::get('ao', MonitoringAOLivewire::class)->name('monitoring.ao.index');
         Route::get('ao/create', [MonitoringAOController::class, 'create'])->name('monitoring.ao.create');
         Route::post('/store', [MonitoringAOController::class, 'store'])->name('monitoring.ao.store');
         Route::get('ao/edit/{id}', [MonitoringAOController::class, 'edit'])->name('monitoring.ao.edit');
         Route::patch('/update/{id}', [MonitoringAOController::class, 'update'])->name('monitoring.ao.update');
         Route::get('/lookup-cadeb', [MonitoringAOController::class, 'lookupCadeb'])->name('monitoring.ao.lookup');
-
         Route::get('rekap', RekapMonitoringAOLivewire::class)->name('monitoring.rekap.index');
         Route::get('rekap/show/{nama}/{tgl_awal}/{tgl_akhir}', ShowRekapMonitoringAOLivewire::class)->name('monitoring.rekap.show');
+
+        // Plan AO
+        Route::get('plan-ao', PlanningAOLivewire::class)->name('plan-ao.index');
+        Route::resource('plan-ao', PlanningAOController::class)->except([
+            'index',
+            'destroy'
+        ]);
+        Route::get('plan-ao-rekap', RekapPlanAOLivewire::class)->name('plan-ao.rekap');
+        Route::get('plan-ao-rekap/show/{kategori_plan}/{nama}/{tgl_awal}/{tgl_akhir}', ShowRekapPlanAOLivewire::class)->name('plan-ao.rekap.show');
+        Route::get('plan-ao-rekap/print/{idCab}/{nama}/{tgl_awal}/{tgl_akhir}', [PlanningAOController::class, 'printRekap'])->name('plan-ao.rekap.print');
     });
 
 

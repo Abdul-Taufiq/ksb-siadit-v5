@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lainnya;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cabang;
+use App\Models\Output\LogActivity;
 use App\Models\Output\MonitoringAo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -77,6 +78,9 @@ class MonitoringAOController extends Controller
         $monitor->tgl_kunjungan = now();
         $monitor->save();
 
+        // tracking & log
+        LogActivity::AddLog("(+) Prospek AO: {$monitor->nama_cadeb} - ({$monitor->no_hp_cadeb})");
+
         return redirect(route('monitoring.ao.index'))->with('AlertSuccess', 'Data Monitoring AO berhasil disimpan.');
     }
 
@@ -97,6 +101,9 @@ class MonitoringAOController extends Controller
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
         $monitor->save();
+
+        // tracking & log
+        LogActivity::AddLog("(u) Prospek AO: {$monitor->nama_cadeb} - ({$monitor->no_hp_cadeb})");
 
         return redirect(route('monitoring.ao.index'))->with('AlertSuccess', 'Data Monitoring AO berhasil disimpan.');
     }

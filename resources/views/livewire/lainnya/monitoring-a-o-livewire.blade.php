@@ -37,27 +37,27 @@
 
                 {{-- button --}}
                 <div class="row">
-                    @if (Auth::user()->jabatan != 'AO')
-                        <div class="col-md-6">
-                            <i>
-                                <b>NOTE : </b> Untuk export data, pastikan semua filter sudah diatur sesuai kebutuhan,
-                                data
-                                yang tampil didalam tabel akan diekspor.
-                            </i>
-                        </div>
-                        <div class="col-md-6 text-end mb-3">
-                            <div class="btn-group btn-group-sm col-md-8 w-100">
-                                {{-- <button id="btn-pdf" type="button" class="btn btn-outline-primary btn-md"
+                    {{-- @if (Auth::user()->jabatan != 'AO') --}}
+                    <div class="col-md-6">
+                        <i>
+                            <b>NOTE : </b> Untuk export data, pastikan semua filter sudah diatur sesuai kebutuhan,
+                            data
+                            yang tampil didalam tabel akan diekspor.
+                        </i>
+                    </div>
+                    <div class="col-md-6 text-end mb-3">
+                        <div class="btn-group btn-group-sm col-md-8 w-100">
+                            {{-- <button id="btn-pdf" type="button" class="btn btn-outline-primary btn-md"
                                 onclick="exportToPDF()">
                                 <i class="fa-solid fa-download"></i> PDF
                             </button> --}}
-                                <button id="btn-excel" type="button" class="btn btn-outline-primary btn-md"
-                                    onclick="exportExcelJS()">
-                                    <i class="fa-solid fa-download"></i> Excel
-                                </button>
-                            </div>
+                            <button id="btn-excel" type="button" class="btn btn-outline-primary btn-md"
+                                onclick="exportExcelJS()">
+                                <i class="fa-solid fa-download"></i> Excel
+                            </button>
                         </div>
-                    @endif
+                    </div>
+                    {{-- @endif --}}
                 </div>
 
                 <div class="table-responsive table-responsive-md" id="table-container">

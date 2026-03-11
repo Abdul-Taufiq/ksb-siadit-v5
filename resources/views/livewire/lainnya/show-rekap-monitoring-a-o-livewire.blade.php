@@ -132,7 +132,12 @@
                                     'displayName' => 'Nama AO',
                                     'class' => 'rowspan="2"',
                                 ]) --}}
-                                <th rowspan="2">Status</th>
+                                {{-- <th rowspan="2">Status</th> --}}
+                                @include('livewire.komponen.sorting-table', [
+                                    'nameSort' => 'status',
+                                    'displayName' => 'Status',
+                                    'class' => 'rowspan="2"',
+                                ])
                                 @include('livewire.komponen.sorting-table', [
                                     'nameSort' => 'nama_cadeb',
                                     'displayName' => 'Nama Cadeb',

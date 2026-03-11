@@ -108,6 +108,25 @@
                         </span>
                     </a>
                     <ul class="sub-menu {{ request()->is('monitoring*') ? '' : 'd-none' }}">
+                        {{-- Plan AO --}}
+                        {{-- <li>
+                            <a href="/monitoring/plan-ao"
+                                class="{{ request()->is('monitoring/plan-ao', 'monitoring/plan-ao/create', 'monitoring/plan-ao/*') ? 'active' : '' }}"
+                                style="{{ request()->is('monitoring/plan-ao', 'monitoring/plan-ao/create', 'monitoring/plan-ao/*') ? 'opacity: 1;' : '' }}">
+                                <span class="icon sub-icon"></span>
+                                Rencana AO
+                            </a>
+                        </li>
+                        <li style="border-bottom: 1px solid rgb(197, 197, 197)">
+                            <a href="/monitoring/plan-ao-rekap"
+                                class="{{ request()->is('monitoring/plan-ao-rekap*') ? 'active' : '' }}"
+                                style="{{ request()->is('monitoring/plan-ao-rekap*') ? 'opacity: 1;' : '' }}">
+                                <span class="icon sub-icon"></span>
+                                Rekap Rencana
+                            </a>
+                        </li> --}}
+
+                        {{-- Prospek AO --}}
                         <li>
                             <a href="/monitoring/ao" class="{{ request()->is('monitoring/ao*') ? 'active' : '' }}"
                                 style="{{ request()->is('monitoring/ao*') ? 'opacity: 1;' : '' }}">
@@ -120,7 +139,7 @@
                                 class="{{ request()->is('monitoring/rekap*') ? 'active' : '' }}"
                                 style="{{ request()->is('monitoring/rekap*') ? 'opacity: 1;' : '' }}">
                                 <span class="icon sub-icon"></span>
-                                Rekap Prospek AO
+                                Rekap Prospek
                             </a>
                         </li>
                     </ul>

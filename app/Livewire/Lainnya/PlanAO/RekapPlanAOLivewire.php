@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Lainnya;
+namespace App\Livewire\Lainnya\PlanAO;
 
-use App\Models\Output\MonitoringAo;
+use App\Models\Output\MonitoringPlanAO;
+use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class RekapMonitoringAOLivewire extends Component
+class RekapPlanAOLivewire extends Component
 {
     use WithPagination, WithoutUrlPagination;
     public $perPage = 10;
@@ -20,7 +20,7 @@ class RekapMonitoringAOLivewire extends Component
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
-    public $tgl_awal,  $tgl_akhir;
+    public $tgl_awal,  $tgl_akhir, $page_view = 'Rencana Prospek';
 
     // #[Url(history: true)]
     public $sortBy = 'created_at';
@@ -94,30 +94,10 @@ class RekapMonitoringAOLivewire extends Component
         $jabatan = Auth::user()->jabatan;
         $nama = Auth::user()->nama;
 
-        // $monitoring = MonitoringAo::with(['cabang'])
-        //     ->where(function ($query) {
-        //         $query->search($this->search) // scopeSearch di JamTanah
-        //             ->orWhereHas('cabang', function ($query) {
-        //                 $query->where('cabang', 'LIKE', "%{$this->search}%");
-        //             });
-        //     })
-        //     ->when($this->tgl_awal && $this->tgl_akhir, function ($query) {
-        //         $awal = Carbon::parse($this->tgl_awal)->startOfDay();
-        //         $akhir = Carbon::parse($this->tgl_akhir)->endOfDay();
-        //         $query->whereBetween('tgl_kunjungan', [$awal, $akhir]);
-        //     });
-
-
-
-        // // order by
-        // $monitoring->orderBy($this->sortBy, $this->sortDir);
-
-
-
-        $monitoring = MonitoringAo::select(
+        $monitoring = MonitoringPlanAO::select(
             'nama_ao',
             'id_cabang',
-            DB::raw("COUNT(CASE WHEN tgl_kunjungan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as total_kunjungan")
+            DB::raw("COUNT(CASE WHEN tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as total_kunjungan")
         )
             ->groupBy('nama_ao', 'id_cabang')
             ->where(function ($query) {
@@ -126,7 +106,6 @@ class RekapMonitoringAOLivewire extends Component
                         $q->where('cabang', 'LIKE', "%{$this->search}%");
                     });
             });
-
 
 
         // for area 
@@ -167,6 +146,8 @@ class RekapMonitoringAOLivewire extends Component
             $monitoring->where('nama_ao', $nama);
         }
 
+        $monitoring->where('kategori_plan', $this->page_view);
+
         // order by
         $monitoring->orderBy($this->sortBy, $this->sortDir);
 
@@ -181,8 +162,8 @@ class RekapMonitoringAOLivewire extends Component
 
         // untuk mengecualikan error
         /** @disregard P1013 Undefined method */
-        return view('livewire.lainnya.rekap-monitoring-a-o-livewire', compact('monitoring'))
-            ->extends('livewire.komponen.layouts.app', ['title' => 'Rekap Data Prospek AO'])
+        return view('livewire.lainnya.plan-a-o.rekap-plan-a-o-livewire', compact('monitoring'))
+            ->extends('livewire.komponen.layouts.app', ['title' => 'Rekap Data Plan AO'])
             ->section('livewire-konten');
     }
 }

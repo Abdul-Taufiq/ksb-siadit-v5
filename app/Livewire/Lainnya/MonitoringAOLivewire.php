@@ -162,7 +162,7 @@ class MonitoringAOLivewire extends Component
         // untuk mengecualikan error
         /** @disregard P1013 Undefined method */
         return view('livewire.lainnya.monitoring-a-o-livewire', compact('monitoring'))
-            ->extends('livewire.komponen.layouts.app', ['title' => 'Data Aktivitas Harian AO'])
+            ->extends('livewire.komponen.layouts.app', ['title' => 'Data Prospek Harian AO'])
             ->section('livewire-konten');
     }
 }

@@ -1,4 +1,4 @@
-<th wire:click="setSortBy('{{ $nameSort }}')" {!! $class ?? '' !!} {!! $style ?? '' !!}>
+<th wire:click="setSortBy('{{ $nameSort }}')" {!! $class ?? '' !!} {!! 'style="' . ($style ?? '') . '"' !!}>
     <button class="btn btn-sm d-flex justify-content-between align-items-center w-100">
         <strong class="text-start" style="font-size: 12px; color: black">{{ $displayName }}</strong> &nbsp;&nbsp;
         @if ($sortBy != $nameSort)

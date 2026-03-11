@@ -1,44 +1,38 @@
 <?php
 
-namespace App\Livewire\Lainnya;
+namespace App\Livewire\Lainnya\PlanAO;
 
-use App\Models\Cabang;
-use App\Models\Output\MonitoringAo;
-use App\Models\User;
+use App\Models\Output\MonitoringPlanAO;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class ShowRekapMonitoringAOLivewire extends Component
+
+class PlanningAOLivewire extends Component
 {
     use WithPagination, WithoutUrlPagination;
-    public $perPage = 'All';
+    public $perPage = 10;
 
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
-    public $tgl_awal,  $tgl_akhir;
+    public $tgl_awal,  $tgl_akhir, $page_view = 'Rencana Prospek';
 
     // #[Url(history: true)]
     public $sortBy = 'created_at';
     // #[Url(history: true)]
     public $sortDir = 'desc';
-    public $kc = false, $id_cabang, $nama, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = false, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
 
     // listener
     protected $listeners = ['refreshTable' => '$refresh', 'tableUpdated'];
 
 
-    public function mount($nama, $tgl_awal, $tgl_akhir)
+    public function mount()
     {
-        $this->nama = $nama;
-        $this->tgl_awal = $tgl_awal;
-        $this->tgl_akhir = $tgl_akhir;
-
         switch (Auth::user()->level) {
             case 'DIREKTUR':
             case 'SUPER USER':
@@ -89,25 +83,72 @@ class ShowRekapMonitoringAOLivewire extends Component
 
     public function resetFilter()
     {
-        $this->reset(['search']);
+        $this->reset(['search', 'tgl_awal', 'tgl_akhir']);
         $this->resetPage();
     }
 
 
+
     public function render()
     {
-        $namas = Crypt::decrypt($this->nama);
-        $user = User::where('nama', $namas)->first();
-        $cabang = Cabang::where('id_cabang', $user->id_cabang)->first();
+        $id_cabang = Auth::user()->id_cabang;
+        $jabatan = Auth::user()->jabatan;
+        $nama = Auth::user()->nama;
 
-        $monitoring = MonitoringAo::where('nama_ao', $namas)
+        $monitoring = MonitoringPlanAO::with(['cabang'])
             ->where(function ($query) {
                 $query->search($this->search) // scopeSearch di JamTanah
                     ->orWhereHas('cabang', function ($query) {
                         $query->where('cabang', 'LIKE', "%{$this->search}%");
                     });
             })
-            ->whereBetween('tgl_kunjungan', [$this->tgl_awal, $this->tgl_akhir]);
+            ->when($this->tgl_awal && $this->tgl_akhir, function ($query) {
+                $awal = Carbon::parse($this->tgl_awal)->startOfDay();
+                $akhir = Carbon::parse($this->tgl_akhir)->endOfDay();
+                $query->whereBetween('tgl_plan', [$awal, $akhir]);
+            });
+
+        // for area 
+        if ($id_cabang == 20) {
+            if (!empty($this->id_cabang)) {
+                if ($this->id_cabang == 'AREA 1' || $this->id_cabang == 'AREA 2' || $this->id_cabang == 'AREA 3') {
+                    $monitoring->whereIn('id_cabang', $this->id_cab_area);
+                } else {
+                    $monitoring->where('id_cabang', $this->id_cabang);
+                }
+            } else {
+                $monitoring->whereIn('id_cabang', $this->id_cab_area);
+            }
+        } elseif ($this->id_cabang == 'AREA 1' || $this->id_cabang == 'AREA 2' || $this->id_cabang == 'AREA 3') {
+            # code... for pusat
+            switch ($this->id_cabang) {
+                case 'AREA 1':
+                    # code...
+                    $monitoring->whereIn('id_cabang', $this->id_area_1);
+                    break;
+                case 'AREA 2':
+                    # code...
+                    $monitoring->whereIn('id_cabang', $this->id_area_2);
+                    break;
+                case 'AREA 3':
+                    # code...
+                    $monitoring->whereIn('id_cabang', $this->id_area_3);
+                    break;
+            }
+        } else {
+            $monitoring->when($this->id_cabang != 99, function ($query) {
+                $query->where('id_cabang', $this->id_cabang);
+            });
+        }
+
+
+        if ($jabatan == 'AO') {
+            $monitoring->where('nama_ao', $nama);
+        } else {
+            $monitoring;
+        }
+
+        $monitoring->where('kategori_plan', $this->page_view);
 
         // order by
         $monitoring->orderBy($this->sortBy, $this->sortDir);
@@ -116,44 +157,14 @@ class ShowRekapMonitoringAOLivewire extends Component
         if ($this->perPage == 'All') {
             $total = $monitoring->count();
             $monitoring  = $monitoring->paginate($total > 0 ? $total : 1);
-        }
-
-        // Persentase Kunjungan
-        $persen_kunjungan = number_format(($monitoring->count() / 160) * 100, 2);
-        $mon_count = $monitoring->count();
-
-        // persentase aplikasi masuk terhadap jumlah prospek/ yang sampe create spk
-        $suk_rate = $monitoring->where('status', 'Create SPK')->count();
-        if ($suk_rate > 0 && $mon_count > 0) {
-            $sukses_rate = number_format(($suk_rate / $mon_count) * 100, 2);
         } else {
-            $sukses_rate = 0;
+            $monitoring = $monitoring->paginate($this->perPage);
         }
 
-        // persentase rate noa terhadap aplikasi masuk/ yang sampe cair
-        $cetakPkCount = $monitoring->where('status_pk', 'Cetak PK')->count();
-        $createSpkCount = $monitoring->where('status', 'Create SPK')->count();
-        if ($createSpkCount > 0) {
-            $sukses_noa = number_format(($cetakPkCount / $createSpkCount) * 100, 2);
-        } else {
-            $sukses_noa = 0; // atau bisa '-' sesuai kebutuhan tampilan
-        }
-
-        // persentase rate noa terhadap prospek ao
-        $suk_prospek = $monitoring->where('status_pk', 'Cetak PK')->count();
-        $createSpkCount = $monitoring->where('status', 'Create SPK')->count();
-        if ($createSpkCount > 0 && $mon_count > 0) {
-            $sukses_prospek = number_format(($cetakPkCount / $mon_count) * 100, 2);
-        } else {
-            $sukses_prospek = 0; // atau bisa '-' sesuai kebutuhan tampilan
-        }
-
-        // tgl
-        $tgl = Carbon::parse($this->tgl_awal)->Translatedformat('d F Y') . ' s/d ' . Carbon::parse($this->tgl_akhir)->Translatedformat('d F Y');
         // untuk mengecualikan error
         /** @disregard P1013 Undefined method */
-        return view('livewire.lainnya.show-rekap-monitoring-a-o-livewire', compact('monitoring', 'cabang', 'user', 'tgl', 'persen_kunjungan', 'sukses_rate', 'sukses_noa', 'sukses_prospek'))
-            ->extends('livewire.komponen.layouts.app', ['title' => 'Rekap Data Aktivitas Harian AO'])
+        return view('livewire.lainnya.plan-a-o.planning-a-o-livewire', compact('monitoring'))
+            ->extends('livewire.komponen.layouts.app', ['title' => 'Data Rencana Harian AO'])
             ->section('livewire-konten');
     }
 }
