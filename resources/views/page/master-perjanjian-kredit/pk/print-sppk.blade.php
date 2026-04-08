@@ -817,7 +817,7 @@
                     <br><br><br>
                     {{-- <div style="margin-left: 20px;"> --}}
                     @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
-                        Eko Bambang Setiyoso
+                        DODY ARIF KISWADI
                     @else
                         {{ $pkpmk->cabang->nama_pincab }}
                     @endif

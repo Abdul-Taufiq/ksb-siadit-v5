@@ -62,17 +62,23 @@ class LiveSearchService
     public function searchAgunan(Request $request)
     {
         $key = $request->input('key');
-        $results = JamTanah::with('kredit', 'kredit.debitur')
-            ->where('no_shm_shgb', '=',  $key)
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if (!empty($key)) {
+            $results = JamTanah::with('kredit', 'kredit.debitur')
+                ->where('no_shm_shgb', '=',  $key)
+                ->orderBy('created_at', 'asc')
+                ->get();
 
-        // Mengenkripsi ID setiap debitur
-        $results->transform(function ($jam_tanah) {
-            $jam_tanah->encrypted_id = Crypt::encrypt($jam_tanah->id_jaminan_pertanahan);
-            return $jam_tanah;
-        });
-        return response()->json($results);
+            // Mengenkripsi ID setiap debitur
+            $results->transform(function ($jam_tanah) {
+                $jam_tanah->encrypted_id = Crypt::encrypt($jam_tanah->id_jaminan_pertanahan);
+                return $jam_tanah;
+            });
+
+            return response()->json($results);
+        } else {
+            // Jika $key kosong, Anda dapat mengembalikan respons kosong atau respons yang sesuai dengan kebutuhan Anda.
+            return response()->json(['message' => 'Key tidak boleh kosong'], 400);
+        }
     }
 
 
@@ -80,17 +86,23 @@ class LiveSearchService
     public function searchAgunanKenda(Request $request)
     {
         $key = $request->input('key');
-        $results = JamKenda::with('kredit', 'kredit.debitur')
-            ->where('no_bpkb', '=',  $key)
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if (!empty($key)) {
+            $results = JamKenda::with('kredit', 'kredit.debitur')
+                ->where('no_bpkb', '=',  $key)
+                ->orderBy('created_at', 'asc')
+                ->get();
 
-        // Mengenkripsi ID setiap debitur
-        $results->transform(function ($jam_kenda) {
-            $jam_kenda->encrypted_id = Crypt::encrypt($jam_kenda->id_jaminan_kendaraan);
-            return $jam_kenda;
-        });
-        return response()->json($results);
+            // Mengenkripsi ID setiap debitur
+            $results->transform(function ($jam_kenda) {
+                $jam_kenda->encrypted_id = Crypt::encrypt($jam_kenda->id_jaminan_kendaraan);
+                return $jam_kenda;
+            });
+
+            return response()->json($results);
+        } else {
+            // Jika $key kosong, Anda dapat mengembalikan respons kosong atau respons yang sesuai dengan kebutuhan Anda.
+            return response()->json(['message' => 'Key tidak boleh kosong'], 400);
+        }
     }
 
 

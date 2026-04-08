@@ -437,7 +437,7 @@
                 <td style="width: 35%;   padding: 3px 0; text-align: center;">
                     <br><br><br><br>
                     @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
-                        (<b style="font-size: 13px;">EKO BAMBANG SETIYOSO</b>)
+                        (<b style="font-size: 13px;">DODY ARIF KISWADI</b>)
                     @else
                         (<b style="font-size: 13px;">{{ $pkpmk->nama_pincab }}</b>)
                     @endif

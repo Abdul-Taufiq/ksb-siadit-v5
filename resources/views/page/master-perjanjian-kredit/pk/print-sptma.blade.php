@@ -143,7 +143,7 @@
             <div class="desk">
                 <table style="margin-left: 5mm;">
                     <tr>
-                        <td style="width: 25%">Nama</td>
+                        <td style="width: 30%">Nama</td>
                         <td style="width: 1%">:</td>
                         <td>
                             {{ $kredit->debitur->nama_debitur }}
@@ -168,16 +168,16 @@
                 </table>
 
                 @if ($kredit->debitur->status_pernikahan == 'Menikah')
-                    <table>
+                    <table style="margin-left: 5mm;">
                         <tr>
-                            <td style="width: 40mm">Nama</td>
-                            <td>:</td>
+                            <td style="width: 30%">Nama Pasangan</td>
+                            <td style="width: 1%">:</td>
                             <td>
                                 {{ $kredit->debitur->nama_pasangan }}
                             </td>
                         </tr>
                         <tr>
-                            <td>Tempat, tgl lahir</td>
+                            <td>Tempat, tgl lahir Pasangan</td>
                             <td>:</td>
                             <td>
                                 {{ $kredit->debitur->tempat_lahir_pasangan }},
@@ -185,21 +185,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Alamat</td>
+                            <td>Alamat Pasangan</td>
                             <td>:</td>
                             <td>
                                 {{ $kredit->debitur->alamat_pasangan }}
                             </td>
                         </tr>
                         <tr>
-                            <td>NIK</td>
+                            <td>NIK Pasangan</td>
                             <td>:</td>
                             <td>
                                 {{ $kredit->debitur->nik_pasangan }}
                             </td>
                         </tr>
                         <tr>
-                            <td>Pekerjaan</td>
+                            <td>Pekerjaan Pasangan</td>
                             <td>:</td>
                             <td>
                                 {{ $kredit->debitur->pekerjaan_pasangan }}
