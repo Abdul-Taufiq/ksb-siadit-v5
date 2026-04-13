@@ -480,7 +480,7 @@
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_pengeluaran_usaha"
                             name="bjk_pengeluaran_usaha"
-                            value="{{ number_format($muk?->keuanganBjk?->bjk_pengeluaran_lainnya, 0, ',', '.') ?? null }}">
+                            value="{{ number_format($muk?->keuanganBjk?->bjk_pengeluaran_usaha, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
             </tr>

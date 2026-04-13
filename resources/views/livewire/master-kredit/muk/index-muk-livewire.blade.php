@@ -160,19 +160,19 @@
                                                             </a>
                                                         @endif
                                                     @else
-                                                        @if ($pkPrint != null || $addPrint != null)
+                                                        {{-- @if ($pkPrint != null || $addPrint != null)
                                                             <a href="#"
                                                                 class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
                                                                 title="Edit">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
-                                                        @else
-                                                            <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                                class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                                title="Edit">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        @endif
+                                                        @else --}}
+                                                        <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                            class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                            title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                        {{-- @endif --}}
                                                     @endif
                                                 @endif
                                             @else

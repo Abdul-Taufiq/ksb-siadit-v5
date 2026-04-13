@@ -150,6 +150,21 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>NIK</td>
+                        <td>:</td>
+                        <td>
+                            {{ $kredit->debitur->nik }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempat, tgl lahir</td>
+                        <td>:</td>
+                        <td>
+                            {{ $kredit->debitur->tempat_lahir }},
+                            {{ Carbon\Carbon::parse($kredit->debitur->tgl_lahir)->translatedFormat('d F Y') }}
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Alamat</td>
                         <td style="width: 1%">:</td>
                         <td>
@@ -168,12 +183,21 @@
                 </table>
 
                 @if ($kredit->debitur->status_pernikahan == 'Menikah')
+                    <br>
+                    Serta pasangan
                     <table style="margin-left: 5mm;">
                         <tr>
                             <td style="width: 30%">Nama Pasangan</td>
                             <td style="width: 1%">:</td>
                             <td>
                                 {{ $kredit->debitur->nama_pasangan }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>NIK Pasangan</td>
+                            <td>:</td>
+                            <td>
+                                {{ $kredit->debitur->nik_pasangan }}
                             </td>
                         </tr>
                         <tr>
@@ -189,13 +213,6 @@
                             <td>:</td>
                             <td>
                                 {{ $kredit->debitur->alamat_pasangan }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>NIK Pasangan</td>
-                            <td>:</td>
-                            <td>
-                                {{ $kredit->debitur->nik_pasangan }}
                             </td>
                         </tr>
                         <tr>
@@ -234,7 +251,13 @@
         <br>
         <br>
         <div style="text-align: left;">
-            ({{ strtoupper($kredit->debitur->nama_debitur) }})
+            {{-- ({{ strtoupper($kredit->debitur->nama_debitur) }}) --}}
+            @if ($kredit->debitur->status_pernikahan == 'Menikah')
+                ({{ strtoupper($kredit->debitur->nama_debitur) }}) &nbsp;
+                ({{ strtoupper($kredit->debitur->nama_pasangan) }})
+            @else
+                ({{ strtoupper($kredit->debitur->nama_debitur) }})
+            @endif
         </div>
 
     </div>

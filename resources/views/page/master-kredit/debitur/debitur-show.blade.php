@@ -25,8 +25,8 @@
                         </div>
                         <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
                             <button data-id="{{ encrypt($kredit->id_kredit) }}"
-                                class="btn btn-primary text-white btn-sm w-100 w-md-auto btnIDI"
-                                {{ $kredit->tgl_print_idi != null ? 'disabled' : '' }}>
+                                class="btn btn-primary text-white btn-sm w-100 w-md-auto btnIDI">
+                                {{-- {{ $kredit->tgl_print_idi != null ? 'disabled' : '' }}> --}}
                                 <i class="fa-solid fa-download"></i> Print Permohonan IDI
                             </button>
                         </div>
