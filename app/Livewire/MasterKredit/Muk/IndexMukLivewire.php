@@ -210,7 +210,12 @@ class IndexMukLivewire extends Component
             if ($persetujuan->jns_kredit == 'Berjangka') {
                 $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
             } else {
-                $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                if ($persetujuan->jns_bunga == 'ANUITAS') {
+                    $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * (($kredit->besar_bunga / 12) * (1 + $kredit->besar_bunga / 12) ** $kredit->jkw)) / ((1 +  $kredit->besar_bunga / 12) ** $kredit->jkw - 1));
+                    // total = (plafond * ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) / ((1 + bungaValue / 12) ** jkwValue - 1);
+                } else {
+                    $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                }
             }
 
             // biaya pas
