@@ -232,6 +232,9 @@
         fasilitas pinjaman saya pada <b>PT BPR KUSUMA SUMBING</b> sebagaimana tercantum dalam
         Perjanjian Kredit Nomor
         {{ $kredit->kategori_spk == 'SPK' ? $pkpmk->no_pkpmk : $pkpmk->no_addendum }} tanggal
+
+
+
         {{ $kredit->kategori_spk == 'SPK' ? $pkpmk->tgl_pkpmk->translatedFormat('d F Y') : $pkpmk->tgl_addendum->translatedFormat('d F Y') }}
         dengan plafond sebesar {{ 'Rp' . number_format($kredit->jumlah_disetujui, 0, ',', '.') }}
         ({{ terbilang_id($kredit->jumlah_disetujui) }})
@@ -252,6 +255,7 @@
         <br>
         <div style="text-align: left;">
             {{-- ({{ strtoupper($kredit->debitur->nama_debitur) }}) --}}
+            <br>
             @if ($kredit->debitur->status_pernikahan == 'Menikah')
                 ({{ strtoupper($kredit->debitur->nama_debitur) }}) &nbsp;
                 ({{ strtoupper($kredit->debitur->nama_pasangan) }})

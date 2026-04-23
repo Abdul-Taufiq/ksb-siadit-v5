@@ -114,25 +114,39 @@ class PkServices
             'status_kredit' => 'Legal Created'
         ]);
 
-        // ambil data pincab di tb cabang
-        $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+        if (!empty($data['id_pkpmk'])) {
+            $pkpmk = PkPmk::find(base64_decode($data['id_pkpmk']));
 
-        $pkpmk = PKPmk::create([
-            'id_cabang' => Auth::user()->id_cabang,
-            'id_kredit' => $id_kredit,
-            'id_debitur' => $kredit->id_debitur,
-            'id_persetujuan' => $kredit->persetujuan->id_persetujuan,
-            'nama_pincab' => $pincab->nama_pincab,
-            'nik' => $pincab->nik,
-            'tempat_lahir' => $pincab->tempat_lahir,
-            'tgl_lahir' => $pincab->tgl_lahir,
-            'tempat_tinggal' => $pincab->tempat_tinggal,
-            'nomor_surat_kuasa' => $pincab->nomor_surat_kuasa,
-            'tgl_surat_kuasa' => $pincab->tgl_surat_kuasa,
-            'jabatan' => $pincab->jabatan,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+            $pkpmk->update([
+                'id_cabang' => Auth::user()->id_cabang,
+                'id_kredit' => $id_kredit,
+                'id_debitur' => $kredit->id_debitur,
+                'id_persetujuan' => $kredit->persetujuan->id_persetujuan,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        } else {
+            // ambil data pincab di tb cabang
+            $pincab = Cabang::where('id_cabang', Auth::user()->id_cabang)->first();
+
+            $pkpmk = PKPmk::create([
+                'id_cabang' => Auth::user()->id_cabang,
+                'id_kredit' => $id_kredit,
+                'id_debitur' => $kredit->id_debitur,
+                'id_persetujuan' => $kredit->persetujuan->id_persetujuan,
+                'nama_pincab' => $pincab->nama_pincab,
+                'nik' => $pincab->nik,
+                'tempat_lahir' => $pincab->tempat_lahir,
+                'tgl_lahir' => $pincab->tgl_lahir,
+                'tempat_tinggal' => $pincab->tempat_tinggal,
+                'nomor_surat_kuasa' => $pincab->nomor_surat_kuasa,
+                'tgl_surat_kuasa' => $pincab->tgl_surat_kuasa,
+                'jabatan' => $pincab->jabatan,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
 
         // persetujuan SPK
         $persetujuan = Persetujuan::where('id_kredit', $id_kredit)->update([

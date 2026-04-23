@@ -60,7 +60,7 @@
                                         <td>
                                             @if ($item->status_pincab == 'Approve' && $item->status_kakom == null)
                                                 {{-- untuk analis cabang atau analis area --}}
-                                                @if (Auth::user()->jabatan == 'Kasi Komersial')
+                                                @if (Auth::user()->jabatan == 'Kasi Komersial' || Auth::user()->jabatan == 'Pimpinan Cabang')
                                                     <div class="btn-group dropend">
                                                         <button type="button" class="btn btn-secondary dropdown-toggle"
                                                             style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"

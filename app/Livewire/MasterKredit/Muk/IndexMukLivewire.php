@@ -256,6 +256,12 @@ class IndexMukLivewire extends Component
                 $query->where('id_cabang', Auth::user()->id_cabang);
                 break;
             case 'Staf Analis Area':
+            case 'Staf Analis Area I':
+            case 'Staf Analis Area II':
+            case 'Staf Area':
+            case 'Staf Area I':
+            case 'Staf Area II':
+
                 $query->whereIn('id_cabang', $this->id_cab_area);
                 break;
 
