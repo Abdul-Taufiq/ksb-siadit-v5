@@ -119,185 +119,187 @@
 
 <body>
     @foreach ($kendaraan as $kenda)
-        <table class="table table-borderless w-100 mb-2">
-            <tr>
-                <td style="width: 25%; border: none;">
-                    <img style="width: 65px;"
-                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/images/icon_logo.png'))) }}">
-                </td>
-                <td style="width: 50%; text-align: center !important; vertical-align: middle; border: none;">
-                    <h3>
-                        <u>SURAT PERNYATAAN AGUNAN</u>
-                    </h3>
-                    <h3>
-                        {{-- Nomor: {!! $pkpmk->no_pkpmk ?? '<i class="text-danger">Not Display in Here</i>' !!} --}}
-                        {{ $pkpmk->no_pkpmk }}
-                    </h3>
-                </td>
-                <td style="width: 25%; border: none;">&nbsp;</td>
-            </tr>
-        </table>
+        <div class="container">
+            <table class="table table-borderless w-100 mb-2">
+                <tr>
+                    <td style="width: 25%; border: none;">
+                        <img style="width: 65px;"
+                            src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/images/icon_logo.png'))) }}">
+                    </td>
+                    <td style="width: 50%; text-align: center !important; vertical-align: middle; border: none;">
+                        <h3>
+                            <u>SURAT PERNYATAAN AGUNAN</u>
+                        </h3>
+                        <h3>
+                            {{-- Nomor: {!! $pkpmk->no_pkpmk ?? '<i class="text-danger">Not Display in Here</i>' !!} --}}
+                            {{ $pkpmk->no_pkpmk }}
+                        </h3>
+                    </td>
+                    <td style="width: 25%; border: none;">&nbsp;</td>
+                </tr>
+            </table>
 
 
-        {{-- Pembukaan --}}
-        <div class="">
-            Yang bertanda tangan dibawah ini:
-            <div class="headlist">
-                <div class="desk">
-                    <table style="margin-left: 5mm;">
-                        <tr>
-                            <td style="width: 25%">Nama</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kredit->debitur->nama_debitur }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kredit->debitur->alamat_ktp }}, RT/RW {{ $kredit->debitur->rt_rw_ktp }}, Kel.
-                                {{ $kredit->debitur->kelurahan }}
-                                Kec. {{ $kredit->debitur->kecamatan }}, Kab/Kota. {{ $kredit->debitur->kabupaten }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>NIK</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kredit->debitur->nik }}
-                            </td>
-                        </tr>
-                    </table>
+            {{-- Pembukaan --}}
+            <div class="">
+                Yang bertanda tangan dibawah ini:
+                <div class="headlist">
+                    <div class="desk">
+                        <table style="margin-left: 5mm;">
+                            <tr>
+                                <td style="width: 25%">Nama</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kredit->debitur->nama_debitur }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kredit->debitur->alamat_ktp }}, RT/RW {{ $kredit->debitur->rt_rw_ktp }}, Kel.
+                                    {{ $kredit->debitur->kelurahan }}
+                                    Kec. {{ $kredit->debitur->kecamatan }}, Kab/Kota.
+                                    {{ $kredit->debitur->kabupaten }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>NIK</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kredit->debitur->nik }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <br>
-            Dengan ini menerangkan bahwa kendaraan bermotor dengan identifikasi di bawah ini:
-            <div class="headlist">
-                <div class="desk">
-                    <table style="margin-left: 5mm;">
-                        <tr>
-                            <td style="width: 25%">Jenis/Model</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->jns_kendaraan }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Merk/Type</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->merk }}/{{ $kenda->type }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No. Polisi</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->nopol }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BPKB Atas Nama</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ strtoupper($kenda->atas_nama) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No. BPKB</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->no_bpkb }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No. Rangka</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->no_rangka }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No. Mesin</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->no_mesin }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Warna</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->warna }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Pembuatan</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->thn_pembuatan }}
-                            </td>
-                        </tr>
-                    </table>
+                <br>
+                Dengan ini menerangkan bahwa kendaraan bermotor dengan identifikasi di bawah ini:
+                <div class="headlist">
+                    <div class="desk">
+                        <table style="margin-left: 5mm;">
+                            <tr>
+                                <td style="width: 25%">Jenis/Model</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->jns_kendaraan }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Merk/Type</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->merk }}/{{ $kenda->type }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No. Polisi</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->nopol }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BPKB Atas Nama</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ strtoupper($kenda->atas_nama) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No. BPKB</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->no_bpkb }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No. Rangka</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->no_rangka }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No. Mesin</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->no_mesin }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Warna</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->warna }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pembuatan</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->thn_pembuatan }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <br>
-            Saya menjamin bahwa jaminan tersebut benar-benar milik saya pribadi sejak tahun
-            <b>{{ $kenda->thn_pembelian }}</b> dan saya benar-benar menggunakan kendaraan tersebut untuk
-            keperluan pribadi, yang saya beli dari:
-            <div class="headlist">
-                <div class="desk">
-                    <table style="margin-left: 5mm;">
-                        <tr>
-                            <td style="width: 25%">Nama</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->nama_pemilik_sebelumnya }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ $kenda->alamat_pemilik_sebelumnya }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Harga</td>
-                            <td style="width: 1%">:</td>
-                            <td>
-                                {{ 'Rp' . number_format($kenda->harga_pembelian, 0, ',', '.') }}
-                                ({{ Riskihajar\Terbilang\Facades\Terbilang::make($kenda->harga_pembelian, ' rupiah') }})
-                            </td>
-                        </tr>
-                    </table>
+                <br>
+                Saya menjamin bahwa jaminan tersebut benar-benar milik saya pribadi sejak tahun
+                <b>{{ $kenda->thn_pembelian }}</b> dan saya benar-benar menggunakan kendaraan tersebut untuk
+                keperluan pribadi, yang saya beli dari:
+                <div class="headlist">
+                    <div class="desk">
+                        <table style="margin-left: 5mm;">
+                            <tr>
+                                <td style="width: 25%">Nama</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->nama_pemilik_sebelumnya }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ $kenda->alamat_pemilik_sebelumnya }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Harga</td>
+                                <td style="width: 1%">:</td>
+                                <td>
+                                    {{ 'Rp' . number_format($kenda->harga_pembelian, 0, ',', '.') }}
+                                    ({{ Riskihajar\Terbilang\Facades\Terbilang::make($kenda->harga_pembelian, ' rupiah') }})
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <br>
-            Apabila dalam pemberian keterangan tersebut tidak benar adanya atau tidak sesuai dengan fakta yang ada,
-            maka SAYA siap untuk dituntut dengan ancaman Pidana sesuai Pasal 372 KUHP jo 378 KUHP tentang Pengelapan
-            dan Penipuan. <br>
-            Demikian surat pernyataan ini saya buat dengan sebenar-benarnya tanpa paksaan.
-        </div>
-
-        {{-- TTD --}}
-        <br>
-        <div style="page-break-inside: avoid">
-            <div style="text-align: left;">
-                {{-- {{ ucfirst($alamat) }}, --}}
-                {{ $kredit->cabang->alamat }},
-                {{ $kredit->kategori_spk == 'SPK' ? $pkpmk->tgl_print_sp_agunan->translatedFormat('d F Y') : $kredit->addendum->tgl_print_sp_agunan->translatedFormat('d F Y') }}
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div style="text-align: left;">
-                ({{ strtoupper($kredit->debitur->nama_debitur) }})
+                <br>
+                Apabila dalam pemberian keterangan tersebut tidak benar adanya atau tidak sesuai dengan fakta yang ada,
+                maka SAYA siap untuk dituntut dengan ancaman Pidana sesuai Pasal 372 KUHP jo 378 KUHP tentang Pengelapan
+                dan Penipuan. <br>
+                Demikian surat pernyataan ini saya buat dengan sebenar-benarnya tanpa paksaan.
             </div>
 
-        </div>
+            {{-- TTD --}}
+            <br>
+            <div style="page-break-inside: avoid">
+                <div style="text-align: left;">
+                    {{-- {{ ucfirst($alamat) }}, --}}
+                    {{ $kredit->cabang->alamat }},
+                    {{ $kredit->kategori_spk == 'SPK' ? $pkpmk->tgl_print_sp_agunan->translatedFormat('d F Y') : $kredit->addendum->tgl_print_sp_agunan->translatedFormat('d F Y') }}
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div style="text-align: left;">
+                    ({{ strtoupper($kredit->debitur->nama_debitur) }})
+                </div>
+
+            </div>
         </div>
     @endforeach
 
