@@ -114,6 +114,10 @@
         .premis-jaminan {
             margin-left: 2.1rem;
         }
+
+        .container {
+            page-break-inside: avoid;
+        }
     </style>
 </head>
 
