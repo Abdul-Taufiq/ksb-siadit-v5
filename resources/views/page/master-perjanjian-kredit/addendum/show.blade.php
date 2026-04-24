@@ -300,7 +300,7 @@
 
                         <br>
                         <br>
-                        @if ($pkpmk->tgl_print_sppk === null && $pkpmk->kredit->status_kaops == 'Approve')
+                        @if ($pkpmk->tgl_print_addendum === null && $pkpmk->kredit->status_kaops == 'Approve')
                             <a href="{{ route('debitur.sos.edit.pas', base64_encode($pkpmk->kredit->id_kredit)) }}"
                                 class="btn btn-sm btn-outline-warning">S.O.S (for update PAS)</a>
                         @endif
