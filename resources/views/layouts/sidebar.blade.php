@@ -109,7 +109,7 @@
                     </a>
                     <ul class="sub-menu {{ request()->is('monitoring*') ? '' : 'd-none' }}">
                         {{-- Plan AO --}}
-                        {{-- <li>
+                        <li>
                             <a href="/monitoring/plan-ao"
                                 class="{{ request()->is('monitoring/plan-ao', 'monitoring/plan-ao/create', 'monitoring/plan-ao/*') ? 'active' : '' }}"
                                 style="{{ request()->is('monitoring/plan-ao', 'monitoring/plan-ao/create', 'monitoring/plan-ao/*') ? 'opacity: 1;' : '' }}">
@@ -124,7 +124,7 @@
                                 <span class="icon sub-icon"></span>
                                 Rekap Rencana
                             </a>
-                        </li> --}}
+                        </li>
 
                         {{-- Prospek AO --}}
                         <li>

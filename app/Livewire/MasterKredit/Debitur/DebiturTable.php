@@ -107,10 +107,10 @@ class DebiturTable extends Component
         } elseif ($status == 'Tidak Diambil') {
             $this->modal_title = 'Tidak Diambil Nasabah - ' . $spk;
             $this->status = 'Tidak Diambil';
-        } elseif ($status == 'Cencel') {
-            $this->modal_title = 'Cencel Data - ' . $spk;
-            $this->status = 'Cencel';
-            $this->rekomendasi = 'Debitur Cencel';
+        } elseif ($status == 'Cancel') {
+            $this->modal_title = 'Cancel Data - ' . $spk;
+            $this->status = 'Cancel';
+            $this->rekomendasi = 'Debitur Cancel';
         } else {
             $this->modal_title = 'Reject Data - ' . $spk;
             $this->status = 'Reject';

@@ -16,9 +16,9 @@
                 <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                     <i class="fa-solid fa-xmark"></i> Rejected
                 </span>
-            @elseif ($kredit->status_ao == 'Cencel')
-                <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                    <i class="fa-solid fa-xmark"></i> Cencel
+            @elseif ($kredit->status_ao == 'Cancel')
+                <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cancel">
+                    <i class="fa-solid fa-xmark"></i> Cancel
                 </span>
             @else
                 <span class="badge text-bg-warning" style="font-size: 11px;" title="Harus Lakukan Print IDI terlebih dahulu!">
@@ -50,9 +50,9 @@
                     <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                         <i class="fa-solid fa-xmark"></i> Rejected
                     </span>
-                @elseif ($kredit->status_analis == 'Cencel')
-                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                        <i class="fa-solid fa-xmark"></i> Cencel
+                @elseif ($kredit->status_analis == 'Cancel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cancel">
+                        <i class="fa-solid fa-xmark"></i> Cancel
                     </span>
                 @else
                     @if ($kredit->status_ao == 'Reject')
@@ -69,7 +69,7 @@
         @else
             @if (
                 $kredit->status_ao != null &&
-                    $kredit->status_ao != 'Cencel' &&
+                    $kredit->status_ao != 'Cancel' &&
                     $kredit->status_ao != 'Reject' &&
                     $kredit->status_analis == null)
                 @include('livewire.komponen.button-modal')
@@ -82,9 +82,9 @@
                     <span class="badge text-bg-danger" style="font-size: 11px;" title="Rejected">
                         <i class="fa-solid fa-xmark"></i> Rejected
                     </span>
-                @elseif ($kredit->status_analis == 'Cencel')
-                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                        <i class="fa-solid fa-xmark"></i> Cencel
+                @elseif ($kredit->status_analis == 'Cancel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cancel">
+                        <i class="fa-solid fa-xmark"></i> Cancel
                     </span>
                 @else
                     @if ($kredit->status_ao == 'Reject')
@@ -103,7 +103,7 @@
 
     {{-- Kasi Komersial --}}
     @case('Kasi Komersial')
-        @if ($kredit->status_analis != null && $kredit->status_analis != 'Cencel' && $kredit->status_kakom == null)
+        @if ($kredit->status_analis != null && $kredit->status_analis != 'Cancel' && $kredit->status_kakom == null)
             @include('livewire.komponen.button-modal')
         @else
             @if ($kredit->status_kakom == 'Approve')
@@ -115,9 +115,9 @@
                     <i class="fa-solid fa-xmark"></i> Rejected
                 </span>
             @else
-                @if ($kredit->status_akhir == 'DEBITUR CENCEL')
-                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                        <i class="fa-solid fa-xmark"></i> DEBITUR CENCEL
+                @if ($kredit->status_akhir == 'DEBITUR Cancel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cancel">
+                        <i class="fa-solid fa-xmark"></i> DEBITUR Cancel
                     </span>
                 @else
                     <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
@@ -132,8 +132,8 @@
     @case('Pimpinan Cabang')
         @if (
             $kredit->status_analis != null &&
-                $kredit->status_analis != 'Cencel' &&
-                $kredit->status_kakom != 'Cencel' &&
+                $kredit->status_analis != 'Cancel' &&
+                $kredit->status_kakom != 'Cancel' &&
                 $kredit->status_pincab == null)
             @include('livewire.komponen.button-modal')
         @else
@@ -150,9 +150,9 @@
                     <i class="fa-solid fa-circle-exclamation"></i> SOSfromLegal
                 </span>
             @else
-                @if ($kredit->status_akhir == 'DEBITUR CENCEL')
-                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cencel">
-                        <i class="fa-solid fa-xmark"></i> DEBITUR CENCEL
+                @if ($kredit->status_akhir == 'DEBITUR Cancel')
+                    <span class="badge text-bg-info" style="font-size: 11px;" title="Nasabah Cancel">
+                        <i class="fa-solid fa-xmark"></i> DEBITUR Cancel
                     </span>
                 @else
                     <span class="badge text-bg-warning" style="font-size: 11px;" title="Belum Diperlukan">
@@ -325,7 +325,7 @@
                         </div>
                     @endif
 
-                    @if (!in_array($status, ['Tidak Diambil', 'Cencel']))
+                    @if (!in_array($status, ['Tidak Diambil', 'Cancel']))
                         <div class="form-group mb-2">
                             <label for="rekomendasi">Rekomendasi?</label>
                             <select id="rekomendasi" class="form-select form-select-sm" wire:model.live='rekomendasi'
