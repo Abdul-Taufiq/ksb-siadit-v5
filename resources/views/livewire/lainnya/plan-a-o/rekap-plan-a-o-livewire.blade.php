@@ -60,10 +60,6 @@
                         <tbody style="vertical-align: middle">
                             @if ($monitoring->isNotEmpty())
                                 @foreach ($monitoring as $data => $item)
-                                    @php
-                                        $persen_kunjungan = number_format(($item->total_kunjungan / 160) * 100, 2);
-                                    @endphp
-
                                     <tr wire:key='{{ sha1($item->id) }}'>
                                         <td style="text-align: center; width: 3%">
                                             {{ $loop->index + $monitoring->firstItem() }}
@@ -83,7 +79,7 @@
                                                 @endphp
                                                 <a
                                                     href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Prospek', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}">
-                                                    <strong>{{ $item->where('kategori_plan', 'Rencana Prospek')->count() }}
+                                                    <strong>{{ $item->count_prospek }}
                                                         Data</strong> &nbsp; | &nbsp;
                                                 </a>
                                                 <a href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Prospek', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}"
@@ -105,11 +101,11 @@
                                                     ]);
                                                 @endphp
                                                 <a
-                                                    href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Penagihan', 'nama' => encrypt($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}">
-                                                    <strong>{{ $item->where('kategori_plan', 'Rencana Penagihan')->count() }}
+                                                    href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Penagihan', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}">
+                                                    <strong>{{ $item->count_penagihan }}
                                                         Data</strong> &nbsp; | &nbsp;
                                                 </a>
-                                                <a href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Penagihan', 'nama' => encrypt($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}"
+                                                <a href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Penagihan', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}"
                                                     class="btn btn-info btn-sm btn-aksi" title="Show Detail">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
@@ -128,11 +124,11 @@
                                                     ]);
                                                 @endphp
                                                 <a
-                                                    href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Lainnya', 'nama' => encrypt($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}">
-                                                    <strong>{{ $item->where('kategori_plan', 'Rencana Lainnya')->count() }}
+                                                    href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Lainnya', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}">
+                                                    <strong>{{ $item->count_lainnya }}
                                                         Data</strong> &nbsp; | &nbsp;
                                                 </a>
-                                                <a href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Lainnya', 'nama' => encrypt($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}"
+                                                <a href="{{ route('plan-ao.rekap.show', ['kategori_plan' => 'Rencana Lainnya', 'nama' => base64_encode($item->nama_ao), 'tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]) }}"
                                                     class="btn btn-info btn-sm btn-aksi" title="Show Detail">
                                                     <i class="fa fa-eye"></i>
                                                 </a>

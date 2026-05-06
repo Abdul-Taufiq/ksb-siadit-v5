@@ -104,7 +104,13 @@
     {{-- Kasi Komersial --}}
     @case('Kasi Komersial')
         @if ($kredit->status_analis != null && $kredit->status_analis != 'Cancel' && $kredit->status_kakom == null)
-            @include('livewire.komponen.button-modal')
+            @if ($kredit->status_pincab == null)
+                @include('livewire.komponen.button-modal')
+            @else
+                <span class="badge text-bg-info" style="font-size: 11px;" title="Ditarik Langsung Oleh Pincab">
+                    <i class="fa-solid fa-circle-exclamation"></i> Handled
+                </span>
+            @endif
         @else
             @if ($kredit->status_kakom == 'Approve')
                 <span class="badge text-bg-success" style="font-size: 11px;" title="Approved">

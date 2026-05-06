@@ -223,10 +223,12 @@
                                             @case('Kasi Komersial')
 
                                             @case('Pimpinan Cabang')
-                                                @if (now()->greaterThan($item->created_at->copy()->addDay()->setHour(12)->setMinute(0)) && Auth::user()->jabatan == 'AO')
-                                                    <button class="btn btn-sm btn-secondary" title="Edit Disabled" disabled>
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </button>
+                                                @if (Auth::user()->jabatan == 'AO')
+                                                    @if (now()->greaterThan($item->created_at->copy()->addDay()->setHour(12)->setMinute(0)))
+                                                        <button class="btn btn-sm btn-secondary" title="Edit Disabled" disabled>
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                    @endif
                                                 @else
                                                     <a href="{{ route('plan-ao.edit', encrypt($item->id)) }}"
                                                         class="btn btn-sm btn-warning" title="Edit Data">

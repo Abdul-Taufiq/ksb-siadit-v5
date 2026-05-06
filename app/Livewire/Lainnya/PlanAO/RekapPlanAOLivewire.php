@@ -97,7 +97,10 @@ class RekapPlanAOLivewire extends Component
         $monitoring = MonitoringPlanAO::select(
             'nama_ao',
             'id_cabang',
-            DB::raw("COUNT(CASE WHEN tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as total_kunjungan")
+            DB::raw("COUNT(CASE WHEN tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as total_kunjungan"),
+            DB::raw("COUNT(CASE WHEN kategori_plan = 'Rencana Prospek' AND tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as count_prospek"),
+            DB::raw("COUNT(CASE WHEN kategori_plan = 'Rencana Penagihan' AND tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as count_penagihan"),
+            DB::raw("COUNT(CASE WHEN kategori_plan = 'Rencana Lainnya' AND tgl_plan BETWEEN '{$this->tgl_awal}' AND '{$this->tgl_akhir}' THEN 1 END) as count_lainnya")
         )
             ->groupBy('nama_ao', 'id_cabang')
             ->where(function ($query) {
@@ -145,8 +148,6 @@ class RekapPlanAOLivewire extends Component
         if ($jabatan == 'AO') {
             $monitoring->where('nama_ao', $nama);
         }
-
-        $monitoring->where('kategori_plan', $this->page_view);
 
         // order by
         $monitoring->orderBy($this->sortBy, $this->sortDir);

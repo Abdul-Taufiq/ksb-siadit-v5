@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MasterKredit\Kredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
