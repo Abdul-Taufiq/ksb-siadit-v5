@@ -63,8 +63,14 @@
         <td>Alamat Domisili</td>
         <td>:</td>
         <td>
-            {{ $muk->kredit->debitur->alamat_rumah }}, RT/RW {{ $muk->kredit->debitur->rt_rw_rumah }}, Kode Pos
-            {{ $muk->kredit->debitur->kode_pos }}
+            @if ($muk->kredit->debitur->alamat_rumah == 'Sama dengan alamat KTP')
+                {{ $muk->kredit->debitur->alamat_ktp }}, RT/RW {{ $muk->kredit->debitur->rt_rw_ktp }}, Kel/Desa
+                {{ $muk->kredit->debitur->kelurahan }}, Kecamatan {{ $muk->kredit->debitur->kecamatan }}, Kabupaten
+                {{ $muk->kredit->debitur->kabupaten }}, Kode Pos {{ $muk->kredit->debitur->kode_pos }}
+            @else
+                {{ $muk->kredit->debitur->alamat_rumah }}, Kode Pos
+                {{ $muk->kredit->debitur->kode_pos }}
+            @endif
         </td>
     </tr>
     <tr>
