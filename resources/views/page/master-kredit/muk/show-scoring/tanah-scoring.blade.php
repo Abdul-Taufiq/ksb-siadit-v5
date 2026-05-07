@@ -328,7 +328,7 @@
                             <td style="width: 30%">Bentuk Tanah</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ (data_get($tanah, "$SCScoring.bentuk_tanah") == '1' ? 'PERSEGI PANJANG' : data_get($tanah, "$SCScoring.bentuk_tanah") == '2') ? 'TRAPESIUM' : 'LAINNYA' }}
+                                {{ data_get($tanah, "$SCScoring.bentuk_tanah") == '1' ? 'PERSEGI PANJANG' : (data_get($tanah, "$SCScoring.bentuk_tanah") == '2' ? 'TRAPESIUM' : 'LAINNYA') }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.bentuk_tanah") }}
@@ -338,7 +338,7 @@
                             <td style="width: 30%">Lebar Muka</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ (data_get($tanah, "$SCScoring.lebar_muka") == '1' ? 'LEBAR DIBELAKANG' : data_get($tanah, "$SCScoring.lebar_muka") == '2') ? 'SAMA LEBAR' : 'LEBAR DIDEPAN' }}
+                                {{ data_get($tanah, "$SCScoring.lebar_muka") == '1' ? 'LEBAR DIBELAKANG' : (data_get($tanah, "$SCScoring.lebar_muka") == '2' ? 'SAMA LEBAR' : 'LEBAR DIDEPAN') }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.lebar_muka") }}
@@ -348,7 +348,7 @@
                             <td style="width: 30%">Kontur</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ (data_get($tanah, "$SCScoring.kontur") == '1' ? 'DATAR' : data_get($tanah, "$SCScoring.kontur") == '2') ? 'LANDAI' : 'CURAM' }}
+                                {{ data_get($tanah, "$SCScoring.kontur") == '1' ? 'DATAR' : (data_get($tanah, "$SCScoring.kontur") == '2' ? 'LANDAI' : 'CURAM') }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.kontur") }}
@@ -358,7 +358,7 @@
                             <td style="width: 30%">Elevasi</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ (data_get($tanah, "$SCScoring.elevasi") == '1' ? 'LEBIH TINGGI' : data_get($tanah, "$SCScoring.elevasi") == '2') ? 'SEJAJAR JALAN' : 'LEBIH RENDAH' }}
+                                {{ data_get($tanah, "$SCScoring.elevasi") == '1' ? 'LEBIH TINGGI' : (data_get($tanah, "$SCScoring.elevasi") == '2' ? 'SEJAJAR JALAN' : 'LEBIH RENDAH') }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.elevasi") }}
