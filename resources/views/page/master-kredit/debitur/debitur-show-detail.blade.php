@@ -540,7 +540,7 @@
                     <tr>
                         <th class="nomer">Alamat (domisili)</th>
                         <td>:
-                            @if ($kredit->debitur->alamat_rumah == 'Sama dengan alamat KTP')
+                            @if ($kredit->debitur->alamat_rumah == $kredit->debitur->alamat_ktp)
                                 {{ $kredit->debitur->alamat_ktp }}, RT/RW {{ $kredit->debitur->rt_rw_ktp }},
                                 Kel/Desa
                                 {{ $kredit->debitur->kelurahan }}, Kecamatan
