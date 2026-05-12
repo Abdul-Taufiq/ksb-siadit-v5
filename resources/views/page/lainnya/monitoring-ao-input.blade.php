@@ -14,6 +14,35 @@
         <strong>Data Calon Debitur</strong>
         <hr>
     </div>
+
+    @if (Auth::user()->jabatan != 'AO')
+        <div class="col-md-12 mb-4">
+            <div class="form-group">
+                <label for="tgl_kunjungan">Tanggal Kunjungan AO :</label>
+                <input type="date" name="tgl_kunjungan" id="tgl_kunjungan" required
+                    class="form-control form-control-sm is-invalid"
+                    value="{{ $monitoring != null ? $monitoring->tgl_kunjungan->format('Y-m-d') : null }}">
+            </div>
+        </div>
+    @endif
+
+
+    @if (Auth::user()->jabatan == 'AO' && now()->hour <= 12 && $metode == 'create')
+        <div class="col-md-12 mb-4">
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input type="hidden" name="cek_tgl_ao" value="False">
+                    <input class="form-check-input" type="checkbox" id="cek_tgl_ao" name="cek_tgl_ao" value="True"
+                        style="size: 10px" onchange="confirmCheckbox()">
+                    <label class="form-check-label" for="cek_tgl_ao"
+                        style="font-style: italic; color: rgb(158, 158, 0);">
+                        Centang kotak ini maka tanggal akan disimpan ke hari kemarin!
+                    </label>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="no_hp_cadeb{{ $id_field }}">No HP Calon Debitur :</label>
@@ -99,11 +128,12 @@
         </strong>
         <hr>
     </div>
+
     <div class="col-md-6 mb-4">
         <div class="form-group">
             <label for="kunjungan_ke{{ $id_field }}">Follow Up/Kunjungan Ke :</label>
-            <input type="number" name="kunjungan_ke{{ $id_field }}" id="kunjungan_ke{{ $id_field }}" required
-                class="form-control form-control-sm is-invalid" placeholder="Hanya angka 1-9999"
+            <input type="number" name="kunjungan_ke{{ $id_field }}" id="kunjungan_ke{{ $id_field }}"
+                required class="form-control form-control-sm is-invalid" placeholder="Hanya angka 1-9999"
                 value="{{ $monitoring != null ? $monitoring->kunjungan_ke : null }}" min="1" max="9999">
         </div>
     </div>

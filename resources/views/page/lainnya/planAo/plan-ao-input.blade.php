@@ -28,6 +28,34 @@
             </select>
         </div>
     </div>
+
+    @if (Auth::user()->jabatan != 'AO')
+        <div class="col-md-6 mb-4">
+            <div class="form-group">
+                <label for="tgl_plan">Tanggal Plan AO :</label>
+                <input type="date" name="tgl_plan" id="tgl_plan" required
+                    class="form-control form-control-sm is-invalid"
+                    value="{{ $monitoring != null ? $monitoring->tgl_plan->format('Y-m-d') : null }}">
+            </div>
+        </div>
+    @endif
+
+
+    @if (Auth::user()->jabatan == 'AO' && now()->hour <= 12 && $metode == 'create')
+        <div class="col-md-6 mb-4">
+            <div class="form-group">
+                <div class="form-check form-check-inline mt-4">
+                    <input type="hidden" name="cek_tgl_ao" value="False">
+                    <input class="form-check-input" type="checkbox" id="cek_tgl_ao" name="cek_tgl_ao" value="True"
+                        style="size: 10px" onchange="confirmCheckbox()">
+                    <label class="form-check-label" for="cek_tgl_ao"
+                        style="font-style: italic; color: rgb(148, 148, 18);">
+                        Centang kotak ini maka tanggal akan disimpan ke hari kemarin!
+                    </label>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 
 {{-- Rencana Prospek --}}

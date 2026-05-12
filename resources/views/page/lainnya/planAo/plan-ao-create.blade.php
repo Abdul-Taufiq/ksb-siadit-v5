@@ -231,5 +231,22 @@
             toggleDiv();
         });
     </script>
+
+    {{-- funsi peringatan pengisian hari kemarin --}}
+    <script>
+        function confirmCheckbox() {
+            var checkbox = document.getElementById("cek_tgl_ao");
+            if (checkbox.checked) {
+                Swal.fire({
+                    title: 'PERINGATAN!',
+                    html: 'Yakin akan melanjutkan dengan menyimpan <b>tanggal ke hari kemarin</b>? <br> data ini tidak bisa diubah kecuali di Kakom atau Pincab!',
+                    theme: document.body.classList.contains('darkmode') ? "dark" : "light",
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            }
+            return true; // Lanjutkan submit jika tidak dicentang
+        }
+    </script>
 @endsection
 @endsection

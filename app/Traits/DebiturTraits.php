@@ -105,7 +105,7 @@ trait DebiturTraits
             'catatan_field' => 'catatan_ao',
             'label_approve' => 'Data Dikirim Ke Analis Cabang',
             'label_reject' => 'AO Reject',
-            'label_cencel' => 'AO Cenceled',
+            'label_cancel' => 'AO Canceled',
             'next_jabatan' => 'Analis Cabang',
             'putusan' => ['field_nama' => 'nama_ao', 'field_rekom' => 'rekom_ao', 'catatan' => 'catatan_ao'],
             'pemutus_kredit' => 'Ya',
@@ -117,7 +117,7 @@ trait DebiturTraits
             'catatan_field' => 'catatan_analis',
             'label_approve' => 'Analis Cabang Approve',
             'label_reject' => 'Analis Cabang Reject',
-            'label_cencel' => 'Analis Cabang Cenceled',
+            'label_cancel' => 'Analis Cabang Canceled',
             'next_jabatan' => 'Kasi Komersial',
             'putusan' => ['field_nama' => 'nama_analis_cabang', 'field_rekom' => 'rekom_analis_cabang', 'catatan' => 'catatan_analis_cabang'],
             'pemutus_kredit' => 'Tidak',
@@ -129,7 +129,7 @@ trait DebiturTraits
             'catatan_field' => 'catatan_kakom',
             'label_approve' => 'Kasi Komersial Approve',
             'label_reject' => 'Kasi Komersial Reject',
-            'label_cencel' => 'Kasi Komersial Cenceled',
+            'label_cancel' => 'Kasi Komersial Canceled',
             'next_jabatan' => 'Pimpinan Cabang',
             'putusan' => ['field_nama' => 'nama_kakom', 'field_rekom' => 'rekom_kakom', 'catatan' => 'catatan_kakom'],
             'pemutus_kredit' => 'Tidak',
@@ -141,7 +141,7 @@ trait DebiturTraits
             'catatan_field' => 'catatan_pincab',
             'label_approve' => 'Pimpinan Cabang Approve',
             'label_reject' => 'Pimpinan Cabang Reject',
-            'label_cencel' => 'Pimpinan Cabang Cenceled',
+            'label_cancel' => 'Pimpinan Cabang Canceled',
             'next_jabatan' => 'Legal',
             'putusan' => ['field_nama' => 'nama_pincab', 'field_rekom' => 'rekom_pincab', 'catatan' => 'catatan_pincab'],
             'pemutus_kredit' => 'Ya',
@@ -170,9 +170,9 @@ trait DebiturTraits
         if ($jabatan == 'Pimpinan Cabang') {
             if ($this->putusan != 'Cabang') {
                 // jika putusan bukan cabang
-                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
             } else {
-                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
 
                 // PERSETUJUAN PINCAB
                 $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first();
@@ -203,7 +203,12 @@ trait DebiturTraits
                     if ($persetujuan->jns_kredit == 'Berjangka') {
                         $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
                     } else {
-                        $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                        if ($persetujuan->jns_bunga == 'ANUITAS') {
+                            $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * (($kredit->besar_bunga / 12) * (1 + $kredit->besar_bunga / 12) ** $kredit->jkw)) / ((1 +  $kredit->besar_bunga / 12) ** $kredit->jkw - 1));
+                            // total = (plafond * ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) / ((1 + bungaValue / 12) ** jkwValue - 1);
+                        } else {
+                            $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                        }
                     }
 
                     // biaya pas
@@ -246,10 +251,10 @@ trait DebiturTraits
                 ]);
             }
         } else {
-            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cencel']);
+            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
         }
 
-        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
+        $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CANCEL');
         $kredit->save();
 
         // tracking lama
@@ -297,9 +302,9 @@ trait DebiturTraits
                 if ($this->putusan != 'Cabang') {
                     $tracking->update([
                         'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                        'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
                     ]);
 
                     // if approve
@@ -332,13 +337,13 @@ trait DebiturTraits
                 else {
                     $tracking->update([
                         'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                        'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                        'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
                     ]);
 
                     // update kredit
-                    $kredit->status_akhir = $this->status == 'Approve' ? 'DISETUJUI' : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CENCEL');
+                    $kredit->status_akhir = $this->status == 'Approve' ? 'DISETUJUI' : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CANCEL');
                     $kredit->save();
 
                     // tracking selanjutnya
@@ -370,13 +375,13 @@ trait DebiturTraits
         else {
             $tracking->update([
                 'nama' => $user->nama,
-                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cencel'),
+                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cancel'),
                 'tgl_status' => now(),
-                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cencel'),
+                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cancel'),
             ]);
 
             // tracking selanjutnya
-            if ($this->status != 'Cencel') {
+            if ($this->status != 'Cancel') {
                 TrackingSPK::AddTrackingSPK($kredit, [
                     'id_cabang' => $kredit->id_cabang,
                     'id_kredit' => $kredit->id_kredit,
@@ -391,33 +396,27 @@ trait DebiturTraits
         }
 
         // update putusan untuk MUK
-        if ($jabatan === 'AO') {
-            if ($this->status == 'Approve') {
+        if ($this->status === 'Approve') {
+            if ($jabatan === 'AO' || $putusan === null) {
+                // buat record baru
                 MukPutusan::create([
                     'id_kredit' => $kredit->id_kredit,
                     $setting['putusan']['field_nama'] => $user->nama,
                     $setting['putusan']['field_rekom'] => $this->rekomendasi,
                     $setting['putusan']['catatan'] => $this->catatan,
                 ]);
-            }
-        } else if ($putusan === null) {
-            if ($this->status == 'Approve') {
-                MukPutusan::create([
+            } else {
+                // update record yang sudah ada
+                $putusan->update([
                     'id_kredit' => $kredit->id_kredit,
+                    'id_muk' => $muk->id_muk,
                     $setting['putusan']['field_nama'] => $user->nama,
                     $setting['putusan']['field_rekom'] => $this->rekomendasi,
                     $setting['putusan']['catatan'] => $this->catatan,
                 ]);
             }
-        } else {
-            $putusan->update([
-                'id_kredit' => $kredit->id_kredit,
-                'id_muk' => $muk->id_muk,
-                $setting['putusan']['field_nama'] => $user->nama,
-                $setting['putusan']['field_rekom'] => $this->rekomendasi,
-                $setting['putusan']['catatan'] => $this->catatan,
-            ]);
         }
+
 
         // log & dispatch event
         LogActivity::AddLog("(cs) Data SPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: {$kredit->status_kredit} |");

@@ -25,8 +25,10 @@
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
                             {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DISETUJUI')->count(), 0, ',', '.') }}
+                            &nbsp; | &nbsp;
+                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DISETUJUI (TIDAK DIAMBIL)')->count(), 0, ',', '.') }}
                         </p>
-                        <p class="stat-cards-info__title" style="font-size: 12px;">DISETUJUI</p>
+                        <p class="stat-cards-info__title" style="font-size: 12px;">DISETUJUI | TIDAK DIAMBIL</p>
                     </div>
                 </article>
             </div>
@@ -37,9 +39,9 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DISETUJUI (TIDAK DIAMBIL)')->count(), 0, ',', '.') }}
+                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DEBITUR CANCEL')->count(), 0, ',', '.') }}
                         </p>
-                        <p class="stat-cards-info__title" style="font-size: 12px;">DISETUJUI (TIDAK DIAMBIL)</p>
+                        <p class="stat-cards-info__title" style="font-size: 12px;">DEBITUR CANCEL</p>
                     </div>
                 </article>
             </div>

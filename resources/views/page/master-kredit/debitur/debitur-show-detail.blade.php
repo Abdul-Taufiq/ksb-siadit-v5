@@ -83,7 +83,8 @@
                         <tr>
                             <th>Jenis SPK</th>
                             <td>: {{ $kredit->kategori_spk }} -
-                                {{ $kredit->jns_kategori_spk }}</td>
+                                {{ $kredit->jns_kategori_spk }} | {{ $kredit->jns_pinjaman }}
+                            </td>
                         </tr>
                         <tr>
                             <th>Jumlah Pengajuan</th>

@@ -137,8 +137,7 @@
                                         @endif
                                     @endif
 
-
-                                    @if (!empty($pkpmk->kredit->jamkenda))
+                                    @if ($pkpmk->kredit->jamkenda->isNotEmpty())
                                         {{-- button SPA --}}
                                         @if ($pkpmk->tgl_print_sp_agunan === null)
                                             <div class="col-md-3 ">

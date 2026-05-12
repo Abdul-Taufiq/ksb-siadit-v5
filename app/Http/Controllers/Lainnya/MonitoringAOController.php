@@ -52,6 +52,12 @@ class MonitoringAOController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->cek_tgl_ao == 'True') {
+            $tgl_kunjungan = now()->subDay()->format('Y-m-d');
+        } else {
+            $tgl_kunjungan = now()->format('Y-m-d');
+        }
+
         $tigaBulan = now()->subMonths(3)->startOfMonth()->format('Y-m-d');
         $prospekAO = MonitoringAo::where('no_hp_cadeb', $request->no_hp_cadeb)
             ->where('id_cabang', Auth::user()->id_cabang)
@@ -75,7 +81,9 @@ class MonitoringAOController extends Controller
         // $monitor->kunjungan_ke = $prospekAO != null ? $prospekAO->kunjungan_ke + 1 : 1;
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
-        $monitor->tgl_kunjungan = now();
+
+        $monitor->tgl_kunjungan = $tgl_kunjungan;
+
         $monitor->save();
 
         // tracking & log
@@ -100,6 +108,11 @@ class MonitoringAOController extends Controller
         $monitor->kunjungan_ke = $request->input('kunjungan_ke');
         $monitor->potensi_plafond = $this->normalizeNumber($request->input('potensi_plafond'));
         $monitor->keterangan = $request->input('keterangan');
+
+        if (Auth::user()->jabatan != 'AO') {
+            $monitor->tgl_kunjungan = $request->input('tgl_kunjungan');
+        }
+
         $monitor->save();
 
         // tracking & log

@@ -16,7 +16,7 @@
     {{-- Analis --}}
     @case('Analis Cabang')
         @if ($kredit->status_ao != null && $kredit->status_analis == null)
-            @if ($kredit->status_ao != 'Reject' && $kredit->status_ao != 'Cencel')
+            @if ($kredit->status_ao != 'Reject' && $kredit->status_ao != 'Cancel')
                 <a href="{{ route('debitur.edit', ['id' => encrypt($kredit->debitur->id_debitur), 'metode' => 'edit']) }}"
                     class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
                     <i class="fa fa-edit"></i>

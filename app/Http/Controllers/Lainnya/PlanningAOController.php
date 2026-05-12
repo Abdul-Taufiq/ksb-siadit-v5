@@ -40,11 +40,16 @@ class PlanningAOController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
+        if ($request->cek_tgl_ao == 'True') {
+            $tgl_plan = now()->subDay()->format('Y-m-d');
+        } else {
+            $tgl_plan = now()->format('Y-m-d');
+        }
+
         $plan = new MonitoringPlanAO();
         $plan->nama_ao = Auth::user()->nama;
         $plan->id_cabang = Auth::user()->id_cabang;
-        $plan->tgl_plan = now();
+        $plan->tgl_plan = $tgl_plan;
         $plan->kategori_plan = $request->kategori_plan;
         $plan->no_telp = $request->no_telp;
         $plan->baki_debet = $request->input('baki_debet') != null ? $this->normalizeNumber($request->input('baki_debet')) : null;
@@ -78,6 +83,11 @@ class PlanningAOController extends Controller
         $ids = Crypt::decrypt($id);
         $plan = MonitoringPlanAO::findOrFail($ids);
         $plan->kategori_plan = $request->kategori_plan;
+
+        if (Auth::user()->jabatan != 'AO') {
+            $plan->tgl_plan = $request->tgl_plan;
+        }
+
         $plan->no_telp = $request->no_telp;
         $plan->baki_debet = $request->input('baki_debet') != null ? $this->normalizeNumber($request->input('baki_debet')) : null;
         $plan->total_tagihan = $request->input('total_tagihan') != null ? $this->normalizeNumber($request->input('total_tagihan')) : null;

@@ -24,11 +24,11 @@
             </li>
         @endif
 
-        {{-- status Cencel --}}
+        {{-- status Cancel --}}
         @if ($jabatan != 'Legal' || $jabatan != 'Kasi Operasional')
             <li>
                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSPK"
-                    wire:click='ShowModal("Cencel", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>Cencel</button>
+                    wire:click='ShowModal("Cancel", "{{ $kredit->no_spk }}", "{{ base64_encode($kredit->id_kredit) }}")'>Cancel</button>
             </li>
         @endif
     </ul>

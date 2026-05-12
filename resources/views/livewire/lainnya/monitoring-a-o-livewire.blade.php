@@ -189,10 +189,18 @@
                                                 @case('Kasi Komersial')
 
                                                 @case('Pimpinan Cabang')
-                                                    @if ($item->created_at->startOfDay()->diffInDays(now()) > 2 && Auth::user()->jabatan == 'AO')
-                                                        <button class="btn btn-sm btn-secondary" title="Edit Disabled" disabled>
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </button>
+                                                    @if (Auth::user()->jabatan == 'AO')
+                                                        @if ($item->tgl_kunjungan->startOfDay()->diffInDays(now()) > 2)
+                                                            <button class="btn btn-sm btn-secondary"
+                                                                title="Edit Disabled | Melebihi masa edit" disabled>
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </button>
+                                                        @else
+                                                            <a href="{{ route('monitoring.ao.edit', encrypt($item->id)) }}"
+                                                                class="btn btn-sm btn-warning" title="Edit Data">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </a>
+                                                        @endif
                                                     @else
                                                         <a href="{{ route('monitoring.ao.edit', encrypt($item->id)) }}"
                                                             class="btn btn-sm btn-warning" title="Edit Data">

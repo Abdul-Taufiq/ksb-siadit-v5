@@ -71,7 +71,7 @@
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             {{-- aksi edit --}}
-                                            @if (Auth::user()->jabatan == 'Legal' && $item->kredit->status_legal == 'Created')
+                                            @if (Auth::user()->jabatan == 'Legal' && $item->kredit->status_kaops == null)
                                                 <a href="{{ route('pkpmk.edit', base64_encode($item->id_kredit)) }}"
                                                     class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
                                                     <i class="fa fa-edit"></i>
@@ -88,7 +88,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6" class="text-center"><i>Tidak Ada Data</i></td>
+                                    <td colspan="7" class="text-center"><i>Tidak Ada Data</i></td>
                                 </tr>
                             @endif
                         </tbody>

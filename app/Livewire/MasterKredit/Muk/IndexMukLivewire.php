@@ -161,7 +161,7 @@ class IndexMukLivewire extends Component
         // update trackingnya
         $tracking->update([
             'nama' => Auth::user()->nama,
-            'status' => $this->metode == 'Approve' ? 'Approve' : ($this->metode == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+            'status' => $this->metode == 'Approve' ? 'Approve' : ($this->metode == 'Reject' ? 'Reject' : 'Debitur Cancel'),
             'tgl_status' => now(),
             'status_spk' =>  $this->metode == 'Approve' ? 'DISETUJUI Oleh ' . $kredit->persetujuan->putusan : 'DITOLAK Oleh ' . $kredit->persetujuan->putusan,
         ]);

@@ -224,10 +224,16 @@
 
                                             @case('Pimpinan Cabang')
                                                 @if (Auth::user()->jabatan == 'AO')
-                                                    @if (now()->greaterThan($item->created_at->copy()->addDay()->setHour(12)->setMinute(0)))
-                                                        <button class="btn btn-sm btn-secondary" title="Edit Disabled" disabled>
+                                                    @if (now()->greaterThan($item->tgl_plan->copy()->addDays(2)->setHour(12)->setMinute(0)))
+                                                        <button class="btn btn-sm btn-secondary"
+                                                            title="Edit Disabled | Melebihi masa edit" disabled>
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </button>
+                                                    @else
+                                                        <a href="{{ route('plan-ao.edit', encrypt($item->id)) }}"
+                                                            class="btn btn-sm btn-warning" title="Edit Data">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('plan-ao.edit', encrypt($item->id)) }}"
