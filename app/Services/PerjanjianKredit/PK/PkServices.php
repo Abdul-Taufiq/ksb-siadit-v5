@@ -114,8 +114,8 @@ class PkServices
             'status_kredit' => 'Legal Created'
         ]);
 
-        if (!empty($data['id_pkpmk'])) {
-            $pkpmk = PkPmk::find(base64_decode($data['id_pkpmk']));
+        if (!empty($data['id_pk'])) {
+            $pkpmk = PkPmk::find(base64_decode($data['id_pk']));
 
             $pkpmk->update([
                 'id_cabang' => Auth::user()->id_cabang,

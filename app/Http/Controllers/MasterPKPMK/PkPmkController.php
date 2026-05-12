@@ -108,7 +108,7 @@ class PkPmkController extends Controller
         // dd($request->all());
         $pkpmk = $this->PkServices->PkStore($request->all());
 
-        if (!empty($request->id_addendum)) {
+        if ($request->metode == 'Edit') {
             $tanda = '(u)';
             $notif = 'DiUpdate';
         } else {
