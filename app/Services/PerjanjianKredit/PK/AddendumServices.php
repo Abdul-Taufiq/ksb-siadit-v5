@@ -492,12 +492,14 @@ class AddendumServices
             }
 
             // Tracking
-            $tracking->update([
-                'nama' => Auth::user()->nama,
-                'status' => 'Printed Addendum',
-                'tgl_status' => now(),
-                'status_spk' => 'Selesai',
-            ]);
+            if ($tracking != null) {
+                $tracking->update([
+                    'nama' => Auth::user()->nama,
+                    'status' => 'Printed PK',
+                    'tgl_status' => now(),
+                    'status_spk' => 'Selesai',
+                ]);
+            }
         }
 
         // Log Activity $debitur, $kredit, $status_aksi

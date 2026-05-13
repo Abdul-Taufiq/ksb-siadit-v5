@@ -184,7 +184,7 @@
                 <label for="no_shm_shgb_{{ $counter }}">No Sertifikat/No NIB</label>
                 <input type="text" name="no_shm_shgb_{{ $counter }}" id="no_shm_shgb_{{ $counter }}"
                     class="form-control is-invalid" required placeholder="Nomor Sertifikat"
-                    value="{{ $tanah->no_shm_shgb }}">
+                    value="{{ $tanah->no_shm_shgb }}" onfocusout="cariAgunan({{ $counter }})">
             </div>
         </div>
         <div class="col-md-6 mb-4">
@@ -371,8 +371,8 @@
             <div class="form-group">
                 <label for="no_bpkb_{{ $counter }}">Nomor BPKB</label>
                 <input type="text" name="no_bpkb_{{ $counter }}" id="no_bpkb_{{ $counter }}"
-                    class="form-control is-invalid" required placeholder="Nomor BPKB"
-                    value="{{ $kenda->no_bpkb }}">
+                    class="form-control is-invalid" required placeholder="Nomor BPKB" value="{{ $kenda->no_bpkb }}"
+                    onfocusout="cariAgunanKenda({{ $counter }})">
             </div>
         </div>
         <div class="col-md-6 mb-4">

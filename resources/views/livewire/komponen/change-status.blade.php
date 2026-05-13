@@ -336,18 +336,30 @@
                             <label for="rekomendasi">Rekomendasi?</label>
                             <select id="rekomendasi" class="form-select form-select-sm" wire:model.live='rekomendasi'
                                 required>
-                                <option valuedisabled="0" selected>-Pilih-</option>
+                                <option value="0" selected disabled>-Pilih-</option>
                                 @if (Auth::user()->jabatan == 'Pimpinan Cabang')
                                     @if ($putusan == 'Cabang')
-                                        <option value="ACC">ACC</option>
-                                        <option value="Tidak ACC">Tidak ACC</option>
+                                        <option {{ $status == 'Reject' ? 'disabled' : '' }} value="ACC">
+                                            ACC
+                                        </option>
+                                        <option {{ $status == 'Approve' ? 'disabled' : '' }} value="Tidak ACC">
+                                            Tidak ACC
+                                        </option>
                                     @else
-                                        <option value="Rekomendasi">Rekomendasi</option>
-                                        <option value="Tidak Rekomendasi">Tidak Rekomendasi</option>
+                                        <option {{ $status == 'Reject' ? 'disabled' : '' }} value="Rekomendasi">
+                                            Rekomendasi
+                                        </option>
+                                        <option {{ $status == 'Approve' ? 'disabled' : '' }}
+                                            value="Tidak Rekomendasi">
+                                            Tidak Rekomendasi
+                                        </option>
                                     @endif
                                 @else
-                                    <option value="Rekomendasi">Rekomendasi</option>
-                                    <option value="Tidak Rekomendasi">Tidak Rekomendasi</option>
+                                    <option {{ $status == 'Reject' ? 'disabled' : '' }} value="Rekomendasi">
+                                        Rekomendasi</option>
+                                    <option {{ $status == 'Approve' ? 'disabled' : '' }} value="Tidak Rekomendasi">
+                                        Tidak Rekomendasi
+                                    </option>
                                 @endif
                             </select>
                         </div>

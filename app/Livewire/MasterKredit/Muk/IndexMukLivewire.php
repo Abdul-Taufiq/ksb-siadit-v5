@@ -155,7 +155,7 @@ class IndexMukLivewire extends Component
 
         // tracking lama
         $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-            ->where('jabatan', 'Analis Cabang')
+            ->where('jabatan', 'Analis/KAKOM')
             ->orderByDesc('id_tracking')
             ->first();
         // update trackingnya

@@ -151,278 +151,254 @@ trait DebiturTraits
         // tinggal tambah jabatan baru di sini
     ];
 
-
     public function EditStatus()
     {
         $user = Auth::user();
-        $jabatan = $user->jabatan;
         $kredit = Kredit::find($this->id_kredit);
         $muk = Muk::where('id_kredit', $kredit->id_kredit)->first();
         $putusan = MukPutusan::where('id_kredit', $kredit->id_kredit)->first();
 
-        $setting = $this->jabatanMap[$jabatan] ?? null;
+        // ambil setting jika ada di jabatanMap
+        $setting = $this->jabatanMap[$user->jabatan] ?? null;
         if (!$setting) return;
 
         // update kredit
         $kredit->{$setting['status_field']} = $this->status;
         $kredit->{$setting['catatan_field']} = $this->catatan . '<br><b> » Added at: ' . now()->format('d-m-Y, H:i') . '</b>';
-        // untuk khusus pincab
-        if ($jabatan == 'Pimpinan Cabang') {
-            if ($this->putusan != 'Cabang') {
-                // jika putusan bukan cabang
-                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
-            } else {
-                $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
-
-                // PERSETUJUAN PINCAB
-                $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first();
-                if ($this->bunga_cek == true) {
-                    $persetujuan->besar_bunga = $persetujuan->besar_bunga_muk;
-                } else {
-                    $persetujuan->besar_bunga = $this->normalizeNumber($this->bunga);
-                }
-                // save
-                $persetujuan->save();
-
-                if ($this->plafond_cek == true) {
-                    $kredit->jumlah_disetujui = $kredit->jumlah_muk;
-                } else {
-                    $kredit->jumlah_disetujui = $this->normalizeNumber($this->plafond);
-                }
-
-                if ($this->jkw_cek == true) {
-                    $kredit->jkw = $kredit->jkw_muk;
-                } else {
-                    $kredit->jkw = $this->normalizeNumber($this->jkw);
-                }
-                // save
-                $kredit->save();
-
-                // UPDATE JUMLAH ANGSURAN DAN BIAYA P.A.S
-                if ($this->bunga_cek == false || $this->plafond_cek == false || $this->jkw_cek == false) {
-                    if ($persetujuan->jns_kredit == 'Berjangka') {
-                        $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
-                    } else {
-                        if ($persetujuan->jns_bunga == 'ANUITAS') {
-                            $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * (($kredit->besar_bunga / 12) * (1 + $kredit->besar_bunga / 12) ** $kredit->jkw)) / ((1 +  $kredit->besar_bunga / 12) ** $kredit->jkw - 1));
-                            // total = (plafond * ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) / ((1 + bungaValue / 12) ** jkwValue - 1);
-                        } else {
-                            $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
-                        }
-                    }
-
-                    // biaya pas
-                    $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
-                    $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
-                    $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
-                    $persetujuan->save();
-
-                    $persetujuan->update([
-                        'denda_hari' => (2 / 1000) * $persetujuan->jumlah_angsuran
-                    ]);
-                }
-            }
-
-            // JIKA STATUS KAKOM KOSONG
-            $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-                ->where('jabatan', 'Kasi Komersial')
-                ->whereNull('nama')
-                ->whereNull('status')
-                ->orderByDesc('id_tracking')
-                ->first();
-            if ($Tkakom !== null) {
-                $Tkakom->update([
-                    'nama' => '-',
-                    'status' => 'Ditarik Pincab',
-                    'tgl_status' => now(),
-                    'status_spk' => 'Proses',
-                ]);
-
-                // tracking selanjutnya
-                TrackingSPK::AddTrackingSPK($kredit, [
-                    'id_cabang' => $kredit->id_cabang,
-                    'id_kredit' => $kredit->id_kredit,
-                    'petugas_penerima' => $kredit->petugas_penerima,
-                    'nama' => null,
-                    'jabatan' => 'Pimpinan Cabang',
-                    'status' => null,
-                    'tgl_masuk' => now(),
-                    'status_spk' => 'Proses',
-                ]);
-            }
-        } else {
-            $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
-        }
-
+        $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
         $kredit->status_akhir = $this->status == 'Approve' ? $setting['status_akhir_app'] : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CANCEL');
         $kredit->save();
 
-        // tracking lama
-        if ($jabatan == 'Kasi Komersial' && $this->putusan != 'Cabang') {
+
+        // Ambil data Tracking lama
+        if ($user->jabatan == 'Kasi Komersial' && $this->putusan != 'Cabang') {
             $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
                 ->where('jabatan', 'Analis/KAKOM')
                 ->orderByDesc('id_tracking')
                 ->first();
         } else {
             $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-                ->where('jabatan', $jabatan)
+                ->where('jabatan', $user->jabatan)
                 ->orderByDesc('id_tracking')
                 ->first();
         }
 
-        // proses status
-        // pemutus kredit
-        if ($setting['pemutus_kredit'] == 'Ya') {
-            // ao
-            if ($jabatan == 'AO') {
-                $tracking->update([
-                    'nama' => $user->nama,
-                    'status' => $this->status == 'Approve' ? 'Created & Sent' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cancel'),
-                    'tgl_status' => now(),
-                    'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cancel'),
-                ]);
 
-                // tracking selanjutnya
-                if ($this->status == 'Approve') {
-                    TrackingSPK::AddTrackingSPK($kredit, [
-                        'id_cabang' => $kredit->id_cabang,
-                        'id_kredit' => $kredit->id_kredit,
-                        'petugas_penerima' => $kredit->petugas_penerima,
-                        'nama' => null,
-                        'jabatan' => $setting['next_jabatan'],
-                        'status' => null,
-                        'tgl_masuk' => now(),
-                        'status_spk' => 'Proses',
-                    ]);
-                }
-            }
-            // pincab
-            elseif ($jabatan == 'Pimpinan Cabang') {
-                // jika putusan bukan cabang maka jalankan ini
-                if ($this->putusan != 'Cabang') {
+        // pilih apakah jabatan pemutus kredit atau bukan
+        if ($setting['pemutus_kredit'] == 'Ya') {
+            switch ($user->jabatan) {
+                case 'AO':
                     $tracking->update([
                         'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
+                        'status' => $this->status == 'Approve' ? 'Created & Sent' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cancel'),
                         'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
+                        'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cancel'),
                     ]);
 
-                    // if approve
+                    // tracking selanjutnya
                     if ($this->status == 'Approve') {
-                        // update kredit
-                        $kredit->status_akhir = $this->status == 'Approve' ? 'PROSES' : 'DITOLAK';
+                        $this->AddTrackingNext($kredit, $setting);
+                    }
+                    break;
+
+                case 'Pimpinan Cabang':
+                    // cek dan sesuaikan apakah putusan cabang atau bukan dan update status kredit
+                    if ($this->putusan != 'Cabang') {
+                        // jika putusan bukan cabang
+                        $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
                         $kredit->save();
 
-                        // update muk
-                        $muk->update([
-                            'status_pincab' => 'Approve'
-                        ]);
+                        // JIKA STATUS KAKOM KOSONG
+                        $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                            ->where('jabatan', 'Kasi Komersial')
+                            ->whereNull('nama')
+                            ->whereNull('status')
+                            ->orderByDesc('id_tracking')
+                            ->first();
 
-                        // tracking selanjutnya
-                        if ($this->status == 'Approve') {
+                        if ($Tkakom !== null) {
+                            $Tkakom->update([
+                                'nama' => '-',
+                                'status' => 'Ditarik Pincab',
+                                'tgl_status' => now(),
+                                'status_spk' => 'Proses',
+                            ]);
+
+                            // buat tracking untuk pincab sendiri
                             TrackingSPK::AddTrackingSPK($kredit, [
                                 'id_cabang' => $kredit->id_cabang,
                                 'id_kredit' => $kredit->id_kredit,
                                 'petugas_penerima' => $kredit->petugas_penerima,
-                                'nama' => null,
-                                'jabatan' => 'Analis/KAKOM',
-                                'status' => null,
+                                'nama' => $user->nama,
+                                'status' => $this->status == 'Approve' ? 'Approve - Menunngu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                                 'tgl_masuk' => now(),
-                                'status_spk' => 'Proses',
+                                'tgl_status' => now(),
+                                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                            ]);
+                        } else {
+                            $tracking->update([
+                                'nama' => $user->nama,
+                                'status' => $this->status == 'Approve' ? 'Approve - Menunngu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                                'tgl_status' => now(),
+                                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
                             ]);
                         }
-                    }
-                }
-                // jika putusan cabang jalankan ini
-                else {
-                    $tracking->update([
-                        'nama' => $user->nama,
-                        'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
-                        'tgl_status' => now(),
-                        'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
-                    ]);
 
-                    // update kredit
-                    $kredit->status_akhir = $this->status == 'Approve' ? 'DISETUJUI' : ($this->status == 'Reject' ? $setting['status_akhir_rej'] : 'DEBITUR CANCEL');
-                    $kredit->save();
+                        // jika status pincab approve
+                        if ($this->status == 'Approve') {
+                            // update muk
+                            $muk->update([
+                                'status_pincab' => 'Approve'
+                            ]);
 
-                    // tracking selanjutnya
-                    if ($this->status == 'Approve') {
-                        TrackingSPK::AddTrackingSPK($kredit, [
-                            'id_cabang' => $kredit->id_cabang,
-                            'id_kredit' => $kredit->id_kredit,
-                            'petugas_penerima' => $kredit->petugas_penerima,
-                            'nama' => null,
-                            'jabatan' => $setting['next_jabatan'],
-                            'status' => null,
-                            'tgl_masuk' => now(),
-                            'status_spk' => 'Proses',
-                        ]);
+                            // tracking selanjutnya
+                            if ($this->status == 'Approve') {
+                                TrackingSPK::AddTrackingSPK($kredit, [
+                                    'id_cabang' => $kredit->id_cabang,
+                                    'id_kredit' => $kredit->id_kredit,
+                                    'petugas_penerima' => $kredit->petugas_penerima,
+                                    'nama' => null,
+                                    'jabatan' => 'Analis/KAKOM',
+                                    'status' => null,
+                                    'tgl_masuk' => now(),
+                                    'status_spk' => 'Proses',
+                                ]);
+                            }
+                        }
                     }
-                }
-            }
-            // pemutus kredit selain ao dan pincab BELOM DIBUTUHIN
-            else {
-                // $tracking->update([
-                //     'nama' => $user->nama,
-                //     'status' => $this->status == 'Approve' ? 'Approve' : 'Reject',
-                //     'tgl_status' => now(),
-                //     'status_spk' => $this->status == 'Approve' ? 'Disetujui' : 'Ditolak',
-                // ]);
+                    // bila BWMK/putusan Cabang
+                    else {
+                        // PERSETUJUAN PINCAB
+                        $persetujuan = Persetujuan::where('id_kredit', $kredit->id_kredit)->first();
+                        if ($this->bunga_cek == true) {
+                            $persetujuan->besar_bunga = $persetujuan->besar_bunga_muk;
+                        } else {
+                            $persetujuan->besar_bunga = $this->normalizeNumber($this->bunga);
+                        }
+                        // save
+                        $persetujuan->save();
+
+                        if ($this->plafond_cek == true) {
+                            $kredit->jumlah_disetujui = $kredit->jumlah_muk;
+                        } else {
+                            $kredit->jumlah_disetujui = $this->normalizeNumber($this->plafond);
+                        }
+
+                        if ($this->jkw_cek == true) {
+                            $kredit->jkw = $kredit->jkw_muk;
+                        } else {
+                            $kredit->jkw = $this->normalizeNumber($this->jkw);
+                        }
+                        // save
+                        $kredit->save();
+
+                        // UPDATE JUMLAH ANGSURAN DAN BIAYA P.A.S
+                        if ($this->bunga_cek == false || $this->plafond_cek == false || $this->jkw_cek == false) {
+                            if ($persetujuan->jns_kredit == 'Berjangka') {
+                                $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
+                            } else {
+                                if ($persetujuan->jns_bunga == 'ANUITAS') {
+                                    $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * (($kredit->besar_bunga / 12) * (1 + $kredit->besar_bunga / 12) ** $kredit->jkw)) / ((1 +  $kredit->besar_bunga / 12) ** $kredit->jkw - 1));
+                                    // total = (plafond * ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) / ((1 + bungaValue / 12) ** jkwValue - 1);
+                                } else {
+                                    $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
+                                }
+                            }
+
+                            // biaya pas
+                            $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
+                            $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
+                            $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
+                            $persetujuan->denda_hari = (2 / 1000) * $persetujuan->jumlah_angsuran;
+                            $persetujuan->save();
+                        }
+
+                        // tracking selanjutnya
+                        if ($this->status == 'Approve') {
+                            $this->AddTrackingNext($kredit, $setting);
+                        }
+                    }
+
+                    break;
+
+                default:
+                    # code...
+                    break;
             }
         }
-        // bukan pemutus kredit/direject pun masih bisa jalan keatas
+        // jika bukan pemutus kredit, cukup update tracking saat ini tanpa buat tracking baru
         else {
             $tracking->update([
                 'nama' => $user->nama,
-                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Rejected' : 'Debitur Cancel'),
+                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
                 'tgl_status' => now(),
-                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' : 'Debitur Cancel'),
+                'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
             ]);
 
             // tracking selanjutnya
             if ($this->status != 'Cancel') {
-                TrackingSPK::AddTrackingSPK($kredit, [
-                    'id_cabang' => $kredit->id_cabang,
-                    'id_kredit' => $kredit->id_kredit,
-                    'petugas_penerima' => $kredit->petugas_penerima,
-                    'nama' => null,
-                    'jabatan' => $setting['next_jabatan'],
-                    'status' => null,
-                    'tgl_masuk' => now(),
-                    'status_spk' => 'Proses',
-                ]);
+                $this->AddTrackingNext($kredit, $setting);
             }
         }
 
-        // update putusan untuk MUK
-        if ($this->status === 'Approve') {
-            if ($jabatan === 'AO' || $putusan === null) {
-                // buat record baru
+
+        // Create or Update Muk Putusan
+        if ($putusan === null) {
+            // cek AO
+            if ($user->jabatan === 'AO') {
+                // cek approve atau reject
+                if ($this->status === 'Approve') {
+                    // buat record baru
+                    MukPutusan::create([
+                        'id_kredit' => $kredit->id_kredit,
+                        $setting['putusan']['field_nama'] => $user->nama,
+                        $setting['putusan']['field_rekom'] => $this->rekomendasi,
+                        $setting['putusan']['catatan'] => $this->catatan,
+                    ]);
+                }
+            } else {
+                // buat record baru efektif di Analis
                 MukPutusan::create([
                     'id_kredit' => $kredit->id_kredit,
-                    $setting['putusan']['field_nama'] => $user->nama,
-                    $setting['putusan']['field_rekom'] => $this->rekomendasi,
-                    $setting['putusan']['catatan'] => $this->catatan,
-                ]);
-            } else {
-                // update record yang sudah ada
-                $putusan->update([
-                    'id_kredit' => $kredit->id_kredit,
-                    'id_muk' => $muk->id_muk,
+                    'nama_ao' => $kredit->nama_ao,
+                    'rekom_ao' => 'Rekomendasi',
+                    'catatan_ao' => preg_replace('/<b>.*$/', '', $kredit->catatan_ao),
                     $setting['putusan']['field_nama'] => $user->nama,
                     $setting['putusan']['field_rekom'] => $this->rekomendasi,
                     $setting['putusan']['catatan'] => $this->catatan,
                 ]);
             }
+        } else {
+            // update record yang sudah ada
+            $putusan->update([
+                'id_kredit' => $kredit->id_kredit,
+                'id_muk' => $muk->id_muk,
+                $setting['putusan']['field_nama'] => $user->nama,
+                $setting['putusan']['field_rekom'] => $this->rekomendasi,
+                $setting['putusan']['catatan'] => $this->catatan,
+            ]);
         }
-
 
         // log & dispatch event
         LogActivity::AddLog("(cs) Data SPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: {$kredit->status_kredit} |");
         $this->dispatch('AlertSuccess', ['message' => 'Data berhasil diubah status!', 'id' => Crypt::encrypt($kredit->id_kredit)]);
     }
 
+
+
+    private function AddTrackingNext($kredit, $setting)
+    {
+        TrackingSPK::AddTrackingSPK($kredit, [
+            'id_cabang' => $kredit->id_cabang,
+            'id_kredit' => $kredit->id_kredit,
+            'petugas_penerima' => $kredit->petugas_penerima,
+            'nama' => null,
+            'jabatan' => $setting['next_jabatan'],
+            'status' => null,
+            'tgl_masuk' => now(),
+            'status_spk' => 'Proses',
+        ]);
+    }
 
 
     // fungsi normal untuk setting number

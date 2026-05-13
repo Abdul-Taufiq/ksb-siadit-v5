@@ -177,9 +177,9 @@ class DebiturController extends Controller
     }
 
 
-    public function showModalAgunan(Request $request, LiveSearchService $live_search)
+    public function showModalAgunan($idEncrypt, LiveSearchService $live_search)
     {
-        return $live_search->showModalAgunan($request);
+        return $live_search->showModalAgunan($idEncrypt);
     }
 
 

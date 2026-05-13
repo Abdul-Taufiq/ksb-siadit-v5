@@ -97,7 +97,8 @@ class MukService
 
     public function storePartSatu($data)
     {
-        $id_cabang = Auth::user()->id_cabang;
+        // cek addendum atau spk biasa 
+        $kredit = Kredit::find(base64_decode(($data['id_kredit'])));
         // Ambil nama bulan dalam bentuk romawi
         $bulanRom = now()->format('m');
         switch ($bulanRom) {
@@ -138,33 +139,44 @@ class MukService
                 $bulanRom = "XII";
         }
 
-        $cabang_search = Cabang::where('id_cabang', $id_cabang)->first();
+        $cabang_search = Cabang::where('id_cabang', $kredit->id_cabang)->first();
         $cabang = $cabang_search->kode_spk;
         $now = Carbon::now();
         $thn = $now->year;
 
-        // cek addendum atau spk biasa 
-        $kredit = Kredit::find(base64_decode(($data['id_kredit'])));
         // No MUK
         if ($kredit->kategori_spk == 'Restruck') {
-            # code...
+            // Ambil data MUK terakhir berdasarkan cabang
             $ambil = Muk::where('no_muk', 'LIKE', "%/KSB.$cabang/MUK-KRD/R/%")
-                ->orderBy('created_at', 'desc')
-                ->take(1)
+                ->orderBy('created_at', 'desc') // urutkan dari yang terbaru
+                ->take(1)                       // ambil hanya 1 record terakhir
                 ->get();
+
+            // Jika tidak ada MUK sebelumnya
             if ($ambil->isEmpty()) {
+                // mulai dari nomor urut 001
                 $urut = "001";
+                // format nomor MUK: [urut]/KSB.[cabang]/MUK-KRD/R/[bulanRomawi]/[tahun]
                 $nomer = $urut . '/KSB.' . $cabang . '/MUK-KRD/R/' . $bulanRom . '/' . $thn;
             } else {
+                // Jika ada MUK sebelumnya, cek record terakhir
                 foreach ($ambil as $item) {
+                    // ambil 4 digit terakhir dari no_muk sebagai tahun
                     $cekTahun = substr($item->no_muk, -4, 4);
+
+                    // Jika tahun berbeda dengan tahun sekarang
                     if ($cekTahun != $thn) {
+                        // reset urut ke 001
                         $urut = "001";
                         $nomer = $urut . '/KSB.' . $cabang . '/MUK-KRD/R/' . $bulanRom . '/' . $thn;
                     } else {
+                        // ambil 3 digit pertama dari no_muk sebagai urutan
                         $urut = substr($item->no_muk, 0, 3);
+                        // konversi ke integer lalu tambah 1
                         $urut = (int)$urut + 1;
-                        $urut = str_pad($urut, 3, '0', STR_PAD_LEFT); // Menggunakan str_pad untuk menambahkan nol di depan
+                        // format kembali ke 3 digit dengan nol di depan (001, 002, dst.)
+                        $urut = str_pad($urut, 3, '0', STR_PAD_LEFT);
+                        // susun nomor MUK baru
                         $nomer = $urut . '/KSB.' . $cabang . '/MUK-KRD/R/' . $bulanRom . '/' . $thn;
                     }
                 }
@@ -193,7 +205,8 @@ class MukService
                 }
             }
         } else {
-            $ambil = Muk::where('no_muk', 'NOT LIKE', "%/KSB.$cabang/MUK-KRD/R/%")
+            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB.$cabang/MUK-KRD/%")
+                ->where('no_muk', 'NOT LIKE', "%/KSB.$cabang/MUK-KRD/R/%")
                 ->where('no_muk', 'NOT LIKE', "%/KSB.$cabang/MUK-KRD/NR/%")
                 ->orderBy('created_at', 'desc')
                 ->take(1)

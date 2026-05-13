@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Lainnya\LogActivityController;
 use App\Http\Controllers\Lainnya\MonitoringAOController;
 use App\Http\Controllers\Lainnya\PlanningAOController;
@@ -264,4 +265,6 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/latest-version', [LogActivityController::class, 'version'])->name('log.version');
         Route::get('/latest-version', LogAppVersion::class)->name('log.version');
     });
+
+    Route::get('/tester', [HomeController::class, 'tester']);
 });

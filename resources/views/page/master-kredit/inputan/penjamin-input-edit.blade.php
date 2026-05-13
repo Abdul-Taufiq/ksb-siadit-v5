@@ -263,8 +263,8 @@
 <div class="row" style="margin-left: 5px;">
     <div id="tambahan_penjamin"></div>
     <div class="text-center">
-        <button class="btn btn-outline-primary w-100 {{ Auth::user()->jabatan == 'Legal' ? 'd-none' : '' }}"
-            id="tambah_penjamin" type="button" onclick="tambahPenjamin()">
+        <button class="btn btn-outline-primary w-100" id="tambah_penjamin" type="button"
+            onclick="tambahPenjamin()">
             <i class="fa-solid fa-circle-plus"></i> Tambah Data Penjamin <i class="fa-solid fa-circle-plus"></i>
         </button>
     </div>

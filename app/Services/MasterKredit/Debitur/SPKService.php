@@ -115,6 +115,8 @@ class SPKService
             } else {
                 $ambil = Kredit::where('kategori_spk', 'SPK')
                     ->where('no_spk', 'LIKE', "%/KSB.$cabang/SPK-KRD/%")
+                    ->where('no_spk', 'NOT LIKE', "%/KSB.$cabang/SPK-KRD/R/%")
+                    ->where('no_spk', 'NOT LIKE', "%/KSB.$cabang/SPK-KRD/NR/%")
                     ->orderBy('created_at', 'desc')
                     ->take(1)
                     ->get();
