@@ -145,12 +145,15 @@ class AddendumLivewire extends Component
                 ->where('jabatan', $user->jabatan)
                 ->orderByDesc('id_tracking')
                 ->first();
-            $tracking->update([
-                'nama' => $user->nama,
-                'status' => '(*) S.O.S Disetujui',
-                'tgl_status' => now(),
-                'status_spk' => 'Disetujui',
-            ]);
+
+            if ($tracking != null) {
+                $tracking->update([
+                    'nama' => $user->nama,
+                    'status' => '(*) S.O.S Disetujui',
+                    'tgl_status' => now(),
+                    'status_spk' => 'Disetujui',
+                ]);
+            }
 
             // tracking selanjutnya
             TrackingSPK::AddTrackingSPK($kredit, [
@@ -179,12 +182,15 @@ class AddendumLivewire extends Component
                 ->where('jabatan', $user->jabatan)
                 ->orderByDesc('id_tracking')
                 ->first();
-            $tracking->update([
-                'nama' => $user->nama,
-                'status' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
-                'tgl_status' => now(),
-                'status_spk' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
-            ]);
+
+            if ($tracking != null) {
+                $tracking->update([
+                    'nama' => $user->nama,
+                    'status' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
+                    'tgl_status' => now(),
+                    'status_spk' => $this->status == 'Approve' ? 'Selesai' : 'Created & Sended',
+                ]);
+            }
 
             // tracking selanjutnya
             TrackingSPK::AddTrackingSPK($kredit, [
@@ -230,12 +236,14 @@ class AddendumLivewire extends Component
                 ->orderByDesc('id_tracking')
                 ->first();
 
-            $tracking->update([
-                'nama' => $user->nama,
-                'status' => 'Approve',
-                'tgl_status' => now(),
-                'status_spk' => 'Disetujui',
-            ]);
+            if ($tracking != null) {
+                $tracking->update([
+                    'nama' => $user->nama,
+                    'status' => 'Approve',
+                    'tgl_status' => now(),
+                    'status_spk' => 'Disetujui',
+                ]);
+            }
 
             // tracking selanjutnya
             TrackingSPK::AddTrackingSPK($kredit, [

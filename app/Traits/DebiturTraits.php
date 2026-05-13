@@ -171,17 +171,10 @@ trait DebiturTraits
 
 
         // Ambil data Tracking lama
-        if ($user->jabatan == 'Kasi Komersial' && $this->putusan != 'Cabang') {
-            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-                ->where('jabatan', 'Analis/KAKOM')
-                ->orderByDesc('id_tracking')
-                ->first();
-        } else {
-            $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
-                ->where('jabatan', $user->jabatan)
-                ->orderByDesc('id_tracking')
-                ->first();
-        }
+        $tracking = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+            ->where('jabatan', $user->jabatan)
+            ->orderByDesc('id_tracking')
+            ->first();
 
 
         // pilih apakah jabatan pemutus kredit atau bukan
@@ -258,7 +251,7 @@ trait DebiturTraits
                                     'id_kredit' => $kredit->id_kredit,
                                     'petugas_penerima' => $kredit->petugas_penerima,
                                     'nama' => null,
-                                    'jabatan' => 'Analis/KAKOM',
+                                    'jabatan' => 'Analis/KAKOM', // ini untuk yang handle di IndexMUKLivewire.php
                                     'status' => null,
                                     'tgl_masuk' => now(),
                                     'status_spk' => 'Proses',
@@ -313,6 +306,14 @@ trait DebiturTraits
                             $persetujuan->save();
                         }
 
+                        // update tracking
+                        $tracking->update([
+                            'nama' => $user->nama,
+                            'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
+                            'tgl_status' => now(),
+                            'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
+                        ]);
+
                         // tracking selanjutnya
                         if ($this->status == 'Approve') {
                             $this->AddTrackingNext($kredit, $setting);
@@ -328,12 +329,14 @@ trait DebiturTraits
         }
         // jika bukan pemutus kredit, cukup update tracking saat ini tanpa buat tracking baru
         else {
-            $tracking->update([
-                'nama' => $user->nama,
-                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
-                'tgl_status' => now(),
-                'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
-            ]);
+            if ($tracking != null) {
+                $tracking->update([
+                    'nama' => $user->nama,
+                    'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
+                    'tgl_status' => now(),
+                    'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Proses' :  'Debitur Cancel'),
+                ]);
+            }
 
             // tracking selanjutnya
             if ($this->status != 'Cancel') {
