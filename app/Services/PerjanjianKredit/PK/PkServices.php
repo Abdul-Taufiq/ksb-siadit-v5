@@ -248,7 +248,7 @@ class PkServices
             $now = Carbon::now();
             $thn = $now->year;
             $cek = PKPmk::where('id_cabang', Auth::user()->id_cabang)->count();
-            $ambil = PKPmk::where('no_sppk', 'LIKE', "%/KSB.$cabang/SPPK/%")
+            $ambil = PKPmk::where('no_sppk', 'LIKE', "%/KSB." . $cabang . "/SPPK/%")
                 ->orderBy('updated_at', 'desc')
                 ->take(1)
                 ->get();
