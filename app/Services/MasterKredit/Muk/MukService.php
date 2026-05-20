@@ -1119,7 +1119,9 @@ class MukService
 
         $value = str_replace('.', '', $value); // hapus ribuan
         $value = str_replace(',', '.', $value); // ubah desimal
-        return floatval($value);
+
+        // pembulatan
+        return round($value);
 
         // normalnya
         // $nilai = "49.000,89";
