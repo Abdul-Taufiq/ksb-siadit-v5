@@ -67,7 +67,7 @@ class PKGadaiService
                 $cabang = $pkpmk->cabang->kode_cabang;
                 $now = Carbon::now();
                 $thn = $now->year;
-                $ambil = PKPmk::where('no_gadai', 'LIKE', "%/KSB.KRD-$cabang/%")
+                $ambil = PKPmk::where('no_gadai', 'LIKE', "%/KSB.KRD-" . $cabang . "/%")
                     ->orderBy('updated_at', 'desc')
                     ->take(1)
                     ->get();

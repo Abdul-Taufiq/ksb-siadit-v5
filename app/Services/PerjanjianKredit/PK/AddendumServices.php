@@ -268,7 +268,7 @@ class AddendumServices
                 $cabang = $pkpmk->cabang->kode_spk;
                 $now = Carbon::now();
                 $thn = $now->year;
-                $ambil = PkPmkAddendum::where('no_sppk', 'LIKE', "%/KSB.$cabang/SPPK/R/$bulanRom/%")
+                $ambil = PkPmkAddendum::where('no_sppk', 'LIKE', "%/KSB." . $cabang . "/SPPK/R/$bulanRom/%")
                     ->orderBy('updated_at', 'desc')
                     ->take(1)
                     ->get();
@@ -299,7 +299,7 @@ class AddendumServices
                 $cabang = $pkpmk->cabang->kode_spk;
                 $now = Carbon::now();
                 $thn = $now->year;
-                $ambil = PkPmkAddendum::where('no_sppk', 'LIKE', "%/KSB.$cabang/SPPK/NR/$bulanRom/%")
+                $ambil = PkPmkAddendum::where('no_sppk', 'LIKE', "%/KSB." . $cabang . "/SPPK/NR/$bulanRom/%")
                     ->orderBy('updated_at', 'desc')
                     ->take(1)
                     ->get();
@@ -415,7 +415,7 @@ class AddendumServices
 
             if ($kredit->kategori_spk == 'Restruck') {
                 # code...
-                $ambil = PkPmkAddendum::where('no_addendum', 'LIKE', "%/KSB.KRD-$cabang/R/%")
+                $ambil = PkPmkAddendum::where('no_addendum', 'LIKE', "%/KSB.KRD-" . $cabang . "/R/%")
                     ->orderBy('updated_at', 'desc')
                     ->take(1)
                     ->get();
@@ -438,7 +438,7 @@ class AddendumServices
                 }
             } else {
                 # code...
-                $ambil = PkPmkAddendum::where('no_addendum', 'LIKE', "%/KSB.KRD-$cabang/NR/%")
+                $ambil = PkPmkAddendum::where('no_addendum', 'LIKE', "%/KSB.KRD-" . $cabang . "/NR/%")
                     ->orderBy('updated_at', 'desc')
                     ->take(1)
                     ->get();

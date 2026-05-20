@@ -147,7 +147,7 @@ class MukService
         // No MUK
         if ($kredit->kategori_spk == 'Restruck') {
             // Ambil data MUK terakhir berdasarkan cabang
-            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB.$cabang/MUK-KRD/R/%")
+            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB." . $cabang . "/MUK-KRD/R/%")
                 ->orderBy('created_at', 'desc') // urutkan dari yang terbaru
                 ->take(1)                       // ambil hanya 1 record terakhir
                 ->get();
@@ -183,7 +183,7 @@ class MukService
             }
         } elseif ($kredit->kategori_spk == 'NonRestruck') {
             # code...
-            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB.$cabang/MUK-KRD/NR/%")
+            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB." . $cabang . "/MUK-KRD/NR/%")
                 ->orderBy('created_at', 'desc')
                 ->take(1)
                 ->get();
@@ -205,9 +205,9 @@ class MukService
                 }
             }
         } else {
-            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB.$cabang/MUK-KRD/%")
-                ->where('no_muk', 'NOT LIKE', "%/KSB.$cabang/MUK-KRD/R/%")
-                ->where('no_muk', 'NOT LIKE', "%/KSB.$cabang/MUK-KRD/NR/%")
+            $ambil = Muk::where('no_muk', 'LIKE', "%/KSB." . $cabang . "/MUK-KRD/%")
+                ->where('no_muk', 'NOT LIKE', "%/KSB." . $cabang . "/MUK-KRD/R/%")
+                ->where('no_muk', 'NOT LIKE', "%/KSB." . $cabang . "/MUK-KRD/NR/%")
                 ->orderBy('created_at', 'desc')
                 ->take(1)
                 ->get();
@@ -396,7 +396,7 @@ class MukService
         for ($i = 1; $i < 51; $i++) {
             if (!empty($data['type_data_' . $i])) {
                 // for untuk input
-                for ($a = 1; $a < 3; $a++) {
+                for ($a = 1; $a < 5; $a++) {
                     // cek kosong input
                     if (!empty($data['nama_' . $i . '_' . $a])) {
                         $industri = MukIndustri::create([
