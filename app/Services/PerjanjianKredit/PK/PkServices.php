@@ -629,7 +629,8 @@ class PkServices
 
         $value = str_replace('.', '', $value); // hapus ribuan
         $value = str_replace(',', '.', $value); // ubah desimal
-        return round($value);
+        // return round($value);
+        return floatval($value);
 
         // normalnya
         // $nilai = "49.000,89";

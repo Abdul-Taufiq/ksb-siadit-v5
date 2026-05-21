@@ -356,7 +356,7 @@ class MukServiceEdit
 
                 // update nilai agunan dan nilai taksasi di tanah
                 $jamTanah = JamTanah::find($id_tanah);
-                if (!empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) {
+                if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
                     $jamTanah->update([
                         'nilai_jaminan' => $this->normalizeNumber($data['kes_nilai_pasar_' . $i]),
                         'nilai_taksasi' => $this->normalizeNumber($data['kes_nilai_taksasi_' . $i])
@@ -519,7 +519,7 @@ class MukServiceEdit
                         $rekap2 = new SC_Tanah_Rekap_2_Vanalis();
                     }
 
-                    if (!empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) {
+                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
                         $rekap1->id_muk = $id_muk;
                         $rekap1->id_jaminan_pertanahan = $id_tanah;
                         $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
@@ -705,7 +705,7 @@ class MukServiceEdit
                     $rekap1 = SC_Tanah_Rekap_1::find(base64_decode($data['id_sc_rekap']));
                     $rekap2 = SC_Tanah_Rekap_2::find(base64_decode($data['id_sc_rekap']));
 
-                    if ($rekap1 != null && !empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) {
+                    if ($rekap1 != null && isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
                         $rekap1->id_muk = $id_muk;
                         $rekap1->id_jaminan_pertanahan = $id_tanah;
                         $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
@@ -1088,7 +1088,8 @@ class MukServiceEdit
 
         $value = str_replace('.', '', $value); // hapus ribuan
         $value = str_replace(',', '.', $value); // ubah desimal
-        return round($value);
+        // return round($value);
+        return floatval($value);
 
         // normalnya
         // $nilai = "49.000,89";
