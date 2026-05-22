@@ -444,387 +444,388 @@ class MukService
 
                 // update nilai agunan dan nilai taksasi di tanah
                 $jamTanah = JamTanah::find($id_tanah);
-                if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
-                    $jamTanah->update([
-                        'nilai_jaminan' => $this->normalizeNumber($data['nilai_agunan_' . $i]),
-                        'nilai_taksasi' => $this->normalizeNumber($data['kes_nilai_taksasi_' . $i])
-                    ]);
-                }
-                if (!empty($data['bangunan_1_' . $i])) {
-                    $jamTanah->update([
-                        'nilai_jaminan' => $this->normalizeNumber($data['rekom_total_' . $i]),
-                        'nilai_taksasi' => $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i])
-                    ]);
-                }
-
-                // =============================
-                // for Staf Analis Area
-                if (Auth::user()->sub_jabatan == 'Staf Analis Area') {
-                    // Penilaian Agunan
-                    if (!empty($data['tgl_penilaian_' . $i])) {
-                        $pen = new SC_Tanah_Agunan_Vanalis();
-                        $pen->id_muk = $id_muk;
-                        $pen->id_jaminan_pertanahan = $id_tanah;
-                        $pen->nama_deb = $data['nama_deb_' . $i];
-                        $pen->tgl_penilaian = $data['tgl_penilaian_' . $i];
-                        $pen->lokasi = $data['lokasi_' . $i];
-                        $pen->penilai = $data['penilai_' . $i];
-                        $pen->luas_tanah = $data['luas_tanah_' . $i];
-                        $pen->batas_utara = $data['batas_utara_' . $i];
-                        $pen->batas_selatan = $data['batas_selatan_' . $i];
-                        $pen->batas_timur = $data['batas_timur_' . $i];
-                        $pen->batas_barat = $data['batas_barat_' . $i];
-                        $pen->hak_kepemilikan = $data['hak_kepemilikan_' . $i];
-                        $pen->nomor = $data['nomor_' . $i];
-                        $pen->atas_nama = $data['atas_nama_' . $i];
-                        $pen->tgl_berakhir_sertif = $data['hak_kepemilikan_' . $i] != 'SHM' ? $data['tgl_berakhir_sertif_' . $i] : null;
-                        $pen->edisi = $data['edisi_' . $i];
-                        $pen->no_gs = $data['no_gs_' . $i];
-
-                        // untuk Ruko dan Bangunan
-                        if (!empty($data['thn_pembangunan_' . $i])) {
-                            $pen->luas_bangunan = $data['luas_bangunan_' . $i];
-                            $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
-                            $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];
-                            $pen->thn_pembangunan = $data['thn_pembangunan_' . $i];
-                            $pen->thn_renov_akhir = $data['thn_renov_akhir_' . $i];
-                            $pen->umur_efektif = $data['umur_efektif_' . $i];
-                            $pen->kamar_tidur = $data['kamar_tidur_' . $i];
-                            $pen->jumlah_kt = $data['jumlah_kt_' . $i];
-                            $pen->kamar_mandi = $data['kamar_mandi_' . $i];
-                            $pen->jumlah_km = $data['jumlah_km_' . $i];
-                            $pen->jumlah_lantai = $data['jumlah_lantai_' . $i];
-                            $pen->jaringan_listrik = $data['jaringan_listrik_' . $i] != 'Lainnya' ? $data['jaringan_listrik_' . $i] : $data['jaringan_listrik_detail_' . $i];
-                            $pen->jaringan_air_bersih = $data['jaringan_air_bersih_' . $i];
-                            $pen->jaringan_telepon = $data['jaringan_telepon_' . $i];
-                        }
-
-                        // untuk bangunan
-                        if (!empty($data['penggunaan_bangunan_' . $i])) {
-                            $pen->penggunaan_bangunan = $data['penggunaan_bangunan_' . $i];
-                        }
-                        $pen->save();
+                if (!empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) { {
+                        $jamTanah->update([
+                            'nilai_jaminan' => $this->normalizeNumber($data['nilai_agunan_' . $i]),
+                            'nilai_taksasi' => $this->normalizeNumber($data['kes_nilai_taksasi_' . $i])
+                        ]);
+                    }
+                    if (!empty($data['bangunan_1_' . $i])) {
+                        $jamTanah->update([
+                            'nilai_jaminan' => $this->normalizeNumber($data['rekom_total_' . $i]),
+                            'nilai_taksasi' => $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i])
+                        ]);
                     }
 
-                    // Scoring
-                    if (!empty($data['tempat_ibadah_' . $i])) {
-                        $scTanah = new SC_Tanah_Scoring_Vanalis();
-                        $scTanah->id_muk = $id_muk;
-                        $scTanah->id_jaminan_pertanahan = $id_tanah;
-                        $scTanah->tempat_ibadah = $data['tempat_ibadah_' . $i];
-                        $scTanah->pasar = $data['pasar_' . $i];
-                        $scTanah->sekolah = $data['sekolah_' . $i];
-                        $scTanah->perkantoran = $data['perkantoran_' . $i];
-                        $scTanah->sutet = $data['sutet_' . $i];
-                        $scTanah->lokalisasi = $data['lokalisasi_' . $i];
-                        $scTanah->tps = $data['tps_' . $i];
-                        $scTanah->pemakaman = $data['pemakaman_' . $i];
-                        $scTanah->resiko_longsor = $data['resiko_longsor_' . $i];
-                        $scTanah->resiko_banjir = $data['resiko_banjir_' . $i];
-                        $scTanah->zonasi = $data['zonasi_' . $i];
-                        $scTanah->akses_jalan = $data['akses_jalan_' . $i];
-                        $scTanah->kondisi_jalan = $data['kondisi_jalan_' . $i];
-                        $scTanah->tusuk_sate = $data['tusuk_sate_' . $i];
-                        $scTanah->bentuk_tanah = $data['bentuk_tanah_' . $i];
-                        $scTanah->lebar_muka = $data['lebar_muka_' . $i];
-                        $scTanah->kontur = $data['kontur_' . $i];
-                        $scTanah->elevasi = $data['elevasi_' . $i];
-                        $scTanah->rel_kereta = $data['rel_kereta_' . $i];
-                        $scTanah->total_score_tanah = $data['total_score_tanah_' . $i];
+                    // =============================
+                    // for Staf Analis Area
+                    if (Auth::user()->sub_jabatan == 'Staf Analis Area') {
+                        // Penilaian Agunan
+                        if (!empty($data['tgl_penilaian_' . $i])) {
+                            $pen = new SC_Tanah_Agunan_Vanalis();
+                            $pen->id_muk = $id_muk;
+                            $pen->id_jaminan_pertanahan = $id_tanah;
+                            $pen->nama_deb = $data['nama_deb_' . $i];
+                            $pen->tgl_penilaian = $data['tgl_penilaian_' . $i];
+                            $pen->lokasi = $data['lokasi_' . $i];
+                            $pen->penilai = $data['penilai_' . $i];
+                            $pen->luas_tanah = $data['luas_tanah_' . $i];
+                            $pen->batas_utara = $data['batas_utara_' . $i];
+                            $pen->batas_selatan = $data['batas_selatan_' . $i];
+                            $pen->batas_timur = $data['batas_timur_' . $i];
+                            $pen->batas_barat = $data['batas_barat_' . $i];
+                            $pen->hak_kepemilikan = $data['hak_kepemilikan_' . $i];
+                            $pen->nomor = $data['nomor_' . $i];
+                            $pen->atas_nama = $data['atas_nama_' . $i];
+                            $pen->tgl_berakhir_sertif = $data['hak_kepemilikan_' . $i] != 'SHM' ? $data['tgl_berakhir_sertif_' . $i] : null;
+                            $pen->edisi = $data['edisi_' . $i];
+                            $pen->no_gs = $data['no_gs_' . $i];
 
-                        // for rukan dan bangunan
-                        if (!empty($data['pondasi_' . $i])) {
-                            $scTanah->pondasi = $data['pondasi_' . $i];
-                            $scTanah->rangka_atap = $data['rangka_atap_' . $i];
-                            $scTanah->plafon = $data['plafon_' . $i];
-                            $scTanah->pintu = $data['pintu_' . $i];
-                            $scTanah->imb = $data['imb_' . $i];
-                            $scTanah->penutup_atap = $data['penutup_atap_' . $i];
-                            $scTanah->dinding = $data['dinding_' . $i];
-                            $scTanah->lantai = $data['lantai_' . $i];
-                            $scTanah->total_skor_bangunan = $data['total_score_bangunan_' . $i];
-                            $scTanah->total_skor_rukan = !empty($data['total_skor_rukan_' . $i]) ? ($data['total_skor_rukan_' . $i]) : null;
+                            // untuk Ruko dan Bangunan
+                            if (!empty($data['thn_pembangunan_' . $i])) {
+                                $pen->luas_bangunan = $data['luas_bangunan_' . $i];
+                                $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
+                                $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];
+                                $pen->thn_pembangunan = $data['thn_pembangunan_' . $i];
+                                $pen->thn_renov_akhir = $data['thn_renov_akhir_' . $i];
+                                $pen->umur_efektif = $data['umur_efektif_' . $i];
+                                $pen->kamar_tidur = $data['kamar_tidur_' . $i];
+                                $pen->jumlah_kt = $data['jumlah_kt_' . $i];
+                                $pen->kamar_mandi = $data['kamar_mandi_' . $i];
+                                $pen->jumlah_km = $data['jumlah_km_' . $i];
+                                $pen->jumlah_lantai = $data['jumlah_lantai_' . $i];
+                                $pen->jaringan_listrik = $data['jaringan_listrik_' . $i] != 'Lainnya' ? $data['jaringan_listrik_' . $i] : $data['jaringan_listrik_detail_' . $i];
+                                $pen->jaringan_air_bersih = $data['jaringan_air_bersih_' . $i];
+                                $pen->jaringan_telepon = $data['jaringan_telepon_' . $i];
+                            }
 
-                            if (!empty($data['struktur_' . $i])) {
-                                $scTanah->struktur = $data['struktur_' . $i];
+                            // untuk bangunan
+                            if (!empty($data['penggunaan_bangunan_' . $i])) {
+                                $pen->penggunaan_bangunan = $data['penggunaan_bangunan_' . $i];
+                            }
+                            $pen->save();
+                        }
+
+                        // Scoring
+                        if (!empty($data['tempat_ibadah_' . $i])) {
+                            $scTanah = new SC_Tanah_Scoring_Vanalis();
+                            $scTanah->id_muk = $id_muk;
+                            $scTanah->id_jaminan_pertanahan = $id_tanah;
+                            $scTanah->tempat_ibadah = $data['tempat_ibadah_' . $i];
+                            $scTanah->pasar = $data['pasar_' . $i];
+                            $scTanah->sekolah = $data['sekolah_' . $i];
+                            $scTanah->perkantoran = $data['perkantoran_' . $i];
+                            $scTanah->sutet = $data['sutet_' . $i];
+                            $scTanah->lokalisasi = $data['lokalisasi_' . $i];
+                            $scTanah->tps = $data['tps_' . $i];
+                            $scTanah->pemakaman = $data['pemakaman_' . $i];
+                            $scTanah->resiko_longsor = $data['resiko_longsor_' . $i];
+                            $scTanah->resiko_banjir = $data['resiko_banjir_' . $i];
+                            $scTanah->zonasi = $data['zonasi_' . $i];
+                            $scTanah->akses_jalan = $data['akses_jalan_' . $i];
+                            $scTanah->kondisi_jalan = $data['kondisi_jalan_' . $i];
+                            $scTanah->tusuk_sate = $data['tusuk_sate_' . $i];
+                            $scTanah->bentuk_tanah = $data['bentuk_tanah_' . $i];
+                            $scTanah->lebar_muka = $data['lebar_muka_' . $i];
+                            $scTanah->kontur = $data['kontur_' . $i];
+                            $scTanah->elevasi = $data['elevasi_' . $i];
+                            $scTanah->rel_kereta = $data['rel_kereta_' . $i];
+                            $scTanah->total_score_tanah = $data['total_score_tanah_' . $i];
+
+                            // for rukan dan bangunan
+                            if (!empty($data['pondasi_' . $i])) {
+                                $scTanah->pondasi = $data['pondasi_' . $i];
+                                $scTanah->rangka_atap = $data['rangka_atap_' . $i];
+                                $scTanah->plafon = $data['plafon_' . $i];
+                                $scTanah->pintu = $data['pintu_' . $i];
+                                $scTanah->imb = $data['imb_' . $i];
+                                $scTanah->penutup_atap = $data['penutup_atap_' . $i];
+                                $scTanah->dinding = $data['dinding_' . $i];
+                                $scTanah->lantai = $data['lantai_' . $i];
+                                $scTanah->total_skor_bangunan = $data['total_score_bangunan_' . $i];
+                                $scTanah->total_skor_rukan = !empty($data['total_skor_rukan_' . $i]) ? ($data['total_skor_rukan_' . $i]) : null;
+
+                                if (!empty($data['struktur_' . $i])) {
+                                    $scTanah->struktur = $data['struktur_' . $i];
+                                }
+                            }
+
+                            $scTanah->save();
+                        }
+
+                        // Perhitungan
+                        for ($a = 1; $a < 51; $a++) {
+                            if (!empty($data['nama_' . $i . '_' . $a])) {
+                                $per = new SC_Tanah_Perhitungan_Vanalis();
+                                $per->id_muk = $id_muk;
+                                $per->id_jaminan_pertanahan = $id_tanah;
+                                $per->nama = $data['nama_' . $i . '_' . $a];
+                                $per->hubungan = $data['hubungan_' . $i . '_' . $a];
+                                $per->no_telp = $data['no_telp_' . $i . '_' . $a];
+                                $per->alamat = $data['alamat_' . $i . '_' . $a];
+                                $per->harga_per_meter = $this->normalizeNumber($data['harga_tanah_' . $i . '_' . $a]);
+                                $per->harga_bangunan = $this->normalizeNumber($data['harga_bangunan_' . $i . '_' . $a]);
+                                $per->keterangan = $data['keterangan_' . $i . '_' . $a];
+                                $per->save();
                             }
                         }
 
-                        $scTanah->save();
-                    }
-
-                    // Perhitungan
-                    for ($a = 1; $a < 51; $a++) {
-                        if (!empty($data['nama_' . $i . '_' . $a])) {
-                            $per = new SC_Tanah_Perhitungan_Vanalis();
-                            $per->id_muk = $id_muk;
-                            $per->id_jaminan_pertanahan = $id_tanah;
-                            $per->nama = $data['nama_' . $i . '_' . $a];
-                            $per->hubungan = $data['hubungan_' . $i . '_' . $a];
-                            $per->no_telp = $data['no_telp_' . $i . '_' . $a];
-                            $per->alamat = $data['alamat_' . $i . '_' . $a];
-                            $per->harga_per_meter = $this->normalizeNumber($data['harga_tanah_' . $i . '_' . $a]);
-                            $per->harga_bangunan = $this->normalizeNumber($data['harga_bangunan_' . $i . '_' . $a]);
-                            $per->keterangan = $data['keterangan_' . $i . '_' . $a];
-                            $per->save();
-                        }
-                    }
-
-                    // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
-                        $rekap1 = new SC_Tanah_Rekap_1_Vanalis();
-                        $rekap1->id_muk = $id_muk;
-                        $rekap1->id_jaminan_pertanahan = $id_tanah;
-                        $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
-                        $rekap1->pbb_tahun = $data['pbb_tahun_' . $i];
-                        $rekap1->data_1 = $this->normalizeNumber($data['data_1_' . $i]);
-                        $rekap1->data_2 = $this->normalizeNumber($data['data_2_' . $i]);
-                        $rekap1->data_3 = $this->normalizeNumber($data['data_3_' . $i]);
-                        $rekap1->data_luas_1 = $data['data_luas_1_' . $i];
-                        $rekap1->data_luas_2 = $data['data_luas_2_' . $i];
-                        $rekap1->data_luas_3 = $data['data_luas_3_' . $i];
-                        $rekap1->data_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
-                        $rekap1->data_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
-                        $rekap1->data_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
-                        $rekap1->nilai_pasar = $this->normalizeNumber($data['nilai_pasar_' . $i]);
-                        $rekap1->nilai_agunan = $this->normalizeNumber($data['nilai_agunan_' . $i]);
-                        $rekap1->safety_margin = $data['safety_margin_' . $i];
-                        $rekap1->kes_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
-                        $rekap1->kes_nilai_taksasi_persen = $data['kes_nilai_taksasi_persen_' . $i];
-                        $rekap1->kes_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
-                        $rekap1->kesimpulan = $data['kesimpulan_' . $i];
-                        $rekap1->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
-                        $rekap1->save();
-                    }
-
-                    // Rekap 2 for bangunan
-                    if (!empty($data['bangunan_1_' . $i])) {
-                        $rekap2 = new SC_Tanah_Rekap_2_Vanalis();
-                        $rekap2->id_muk = $id_muk;
-                        $rekap2->id_jaminan_pertanahan = $id_tanah;
-                        $rekap2->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
-                        $rekap2->pbb_tahun = $data['pbb_tahun_' . $i];
-                        $rekap2->tanah_1 = $this->normalizeNumber($data['data_1_' . $i]);
-                        $rekap2->tanah_2 = $this->normalizeNumber($data['data_2_' . $i]);
-                        $rekap2->tanah_3 = $this->normalizeNumber($data['data_3_' . $i]);
-                        $rekap2->tanah_luas_1 = $data['data_luas_1_' . $i];
-                        $rekap2->tanah_luas_2 = $data['data_luas_2_' . $i];
-                        $rekap2->tanah_luas_3 = $data['data_luas_3_' . $i];
-                        $rekap2->tanah_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
-                        $rekap2->tanah_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
-                        $rekap2->tanah_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
-                        $rekap2->bangunan_1 = $this->normalizeNumber($data['bangunan_1_' . $i]);
-                        $rekap2->bangunan_2 = $this->normalizeNumber($data['bangunan_2_' . $i]);
-                        $rekap2->bangunan_3 = $this->normalizeNumber($data['bangunan_3_' . $i]);
-                        $rekap2->bangunan_luas_1 = $data['bangunan_luas_1_' . $i];
-                        $rekap2->bangunan_luas_2 = $data['bangunan_luas_2_' . $i];
-                        $rekap2->bangunan_luas_3 = $data['bangunan_luas_3_' . $i];
-                        $rekap2->bangunan_total_1 = $this->normalizeNumber($data['bangunan_total_1_' . $i]);
-                        $rekap2->bangunan_total_2 = $this->normalizeNumber($data['bangunan_total_2_' . $i]);
-                        $rekap2->bangunan_total_3 = $this->normalizeNumber($data['bangunan_total_3_' . $i]);
-                        $rekap2->rekom_pasar_tanah = $this->normalizeNumber($data['nilai_pasar_' . $i]);
-                        $rekap2->rekom_agunan_tanah = $this->normalizeNumber($data['nilai_agunan_' . $i]);
-                        $rekap2->margin_tanah = $data['safety_margin_' . $i];
-                        $rekap2->rekom_pasar_bangunan = $this->normalizeNumber($data['rekom_pasar_bangunan_' . $i]);
-                        $rekap2->rekom_agunan_bangunan = $this->normalizeNumber($data['rekom_agunan_bangunan_' . $i]);
-                        $rekap2->margin_bangunan = $data['margin_bangunan_' . $i];
-                        $rekap2->rekom_total = $this->normalizeNumber($data['rekom_total_' . $i]);
-                        $rekap2->kes_tanah_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
-                        $rekap2->kes_taksasi_persen_1 = $data['kes_nilai_taksasi_persen_' . $i];
-                        $rekap2->kes_tanah_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
-                        $rekap2->kes_bangunan_nilai_pasar = $this->normalizeNumber($data['kes_bangunan_nilai_pasar_' . $i]);
-                        $rekap2->kes_taksasi_persen_2 = $data['kes_taksasi_persen_2_' . $i];
-                        $rekap2->kes_bangunan_nilai_taksasi = $this->normalizeNumber($data['kes_bangunan_nilai_taksasi_' . $i]);
-                        $rekap2->kes_total_nilai_pasar = $this->normalizeNumber($data['kes_total_nilai_pasar_' . $i]);
-                        $rekap2->kes_total_nilai_taksasi = $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i]);
-                        $rekap2->kesimpulan = $data['kesimpulan_' . $i];
-                        $rekap2->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
-                        $rekap2->save();
-                    }
-                }
-                // ================================
-                // for selain staff analis area
-                else {
-                    // Penilaian Agunan
-                    if (!empty($data['tgl_penilaian_' . $i])) {
-                        $pen = new SC_Tanah_Agunan();
-                        $pen->id_muk = $id_muk;
-                        $pen->id_jaminan_pertanahan = $id_tanah;
-                        $pen->nama_deb = $data['nama_deb_' . $i];
-                        $pen->tgl_penilaian = $data['tgl_penilaian_' . $i];
-                        $pen->lokasi = $data['lokasi_' . $i];
-                        $pen->penilai = $data['penilai_' . $i];
-                        $pen->luas_tanah = $data['luas_tanah_' . $i];
-                        $pen->batas_utara = $data['batas_utara_' . $i];
-                        $pen->batas_selatan = $data['batas_selatan_' . $i];
-                        $pen->batas_timur = $data['batas_timur_' . $i];
-                        $pen->batas_barat = $data['batas_barat_' . $i];
-                        $pen->hak_kepemilikan = $data['hak_kepemilikan_' . $i];
-                        $pen->nomor = $data['nomor_' . $i];
-                        $pen->atas_nama = $data['atas_nama_' . $i];
-                        $pen->tgl_berakhir_sertif = $data['hak_kepemilikan_' . $i] != 'SHM' ? $data['tgl_berakhir_sertif_' . $i] : null;
-                        $pen->edisi = $data['edisi_' . $i];
-                        $pen->no_gs = $data['no_gs_' . $i];
-
-                        // untuk Ruko dan Bangunan
-                        if (!empty($data['thn_pembangunan_' . $i])) {
-                            $pen->luas_bangunan = $data['luas_bangunan_' . $i];
-                            $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
-                            $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];
-                            $pen->thn_pembangunan = $data['thn_pembangunan_' . $i];
-                            $pen->thn_renov_akhir = $data['thn_renov_akhir_' . $i];
-                            $pen->umur_efektif = $data['umur_efektif_' . $i];
-                            $pen->kamar_tidur = $data['kamar_tidur_' . $i];
-                            $pen->jumlah_kt = $data['jumlah_kt_' . $i];
-                            $pen->kamar_mandi = $data['kamar_mandi_' . $i];
-                            $pen->jumlah_km = $data['jumlah_km_' . $i];
-                            $pen->jumlah_lantai = $data['jumlah_lantai_' . $i];
-                            $pen->jaringan_listrik = $data['jaringan_listrik_' . $i] != 'Lainnya' ? $data['jaringan_listrik_' . $i] : $data['jaringan_listrik_detail_' . $i];
-                            $pen->jaringan_air_bersih = $data['jaringan_air_bersih_' . $i];
-                            $pen->jaringan_telepon = $data['jaringan_telepon_' . $i];
+                        // Rekap 1 untuk Tanah serta Ruko dan Rukan
+                        if (!empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) {
+                            $rekap1 = new SC_Tanah_Rekap_1_Vanalis();
+                            $rekap1->id_muk = $id_muk;
+                            $rekap1->id_jaminan_pertanahan = $id_tanah;
+                            $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
+                            $rekap1->pbb_tahun = $data['pbb_tahun_' . $i];
+                            $rekap1->data_1 = $this->normalizeNumber($data['data_1_' . $i]);
+                            $rekap1->data_2 = $this->normalizeNumber($data['data_2_' . $i]);
+                            $rekap1->data_3 = $this->normalizeNumber($data['data_3_' . $i]);
+                            $rekap1->data_luas_1 = $data['data_luas_1_' . $i];
+                            $rekap1->data_luas_2 = $data['data_luas_2_' . $i];
+                            $rekap1->data_luas_3 = $data['data_luas_3_' . $i];
+                            $rekap1->data_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
+                            $rekap1->data_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
+                            $rekap1->data_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
+                            $rekap1->nilai_pasar = $this->normalizeNumber($data['nilai_pasar_' . $i]);
+                            $rekap1->nilai_agunan = $this->normalizeNumber($data['nilai_agunan_' . $i]);
+                            $rekap1->safety_margin = $data['safety_margin_' . $i];
+                            $rekap1->kes_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
+                            $rekap1->kes_nilai_taksasi_persen = $data['kes_nilai_taksasi_persen_' . $i];
+                            $rekap1->kes_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
+                            $rekap1->kesimpulan = $data['kesimpulan_' . $i];
+                            $rekap1->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
+                            $rekap1->save();
                         }
 
-                        // untuk bangunan
-                        if (!empty($data['penggunaan_bangunan_' . $i])) {
-                            $pen->penggunaan_bangunan = $data['penggunaan_bangunan_' . $i];
+                        // Rekap 2 for bangunan
+                        if (!empty($data['bangunan_1_' . $i])) {
+                            $rekap2 = new SC_Tanah_Rekap_2_Vanalis();
+                            $rekap2->id_muk = $id_muk;
+                            $rekap2->id_jaminan_pertanahan = $id_tanah;
+                            $rekap2->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
+                            $rekap2->pbb_tahun = $data['pbb_tahun_' . $i];
+                            $rekap2->tanah_1 = $this->normalizeNumber($data['data_1_' . $i]);
+                            $rekap2->tanah_2 = $this->normalizeNumber($data['data_2_' . $i]);
+                            $rekap2->tanah_3 = $this->normalizeNumber($data['data_3_' . $i]);
+                            $rekap2->tanah_luas_1 = $data['data_luas_1_' . $i];
+                            $rekap2->tanah_luas_2 = $data['data_luas_2_' . $i];
+                            $rekap2->tanah_luas_3 = $data['data_luas_3_' . $i];
+                            $rekap2->tanah_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
+                            $rekap2->tanah_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
+                            $rekap2->tanah_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
+                            $rekap2->bangunan_1 = $this->normalizeNumber($data['bangunan_1_' . $i]);
+                            $rekap2->bangunan_2 = $this->normalizeNumber($data['bangunan_2_' . $i]);
+                            $rekap2->bangunan_3 = $this->normalizeNumber($data['bangunan_3_' . $i]);
+                            $rekap2->bangunan_luas_1 = $data['bangunan_luas_1_' . $i];
+                            $rekap2->bangunan_luas_2 = $data['bangunan_luas_2_' . $i];
+                            $rekap2->bangunan_luas_3 = $data['bangunan_luas_3_' . $i];
+                            $rekap2->bangunan_total_1 = $this->normalizeNumber($data['bangunan_total_1_' . $i]);
+                            $rekap2->bangunan_total_2 = $this->normalizeNumber($data['bangunan_total_2_' . $i]);
+                            $rekap2->bangunan_total_3 = $this->normalizeNumber($data['bangunan_total_3_' . $i]);
+                            $rekap2->rekom_pasar_tanah = $this->normalizeNumber($data['nilai_pasar_' . $i]);
+                            $rekap2->rekom_agunan_tanah = $this->normalizeNumber($data['nilai_agunan_' . $i]);
+                            $rekap2->margin_tanah = $data['safety_margin_' . $i];
+                            $rekap2->rekom_pasar_bangunan = $this->normalizeNumber($data['rekom_pasar_bangunan_' . $i]);
+                            $rekap2->rekom_agunan_bangunan = $this->normalizeNumber($data['rekom_agunan_bangunan_' . $i]);
+                            $rekap2->margin_bangunan = $data['margin_bangunan_' . $i];
+                            $rekap2->rekom_total = $this->normalizeNumber($data['rekom_total_' . $i]);
+                            $rekap2->kes_tanah_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
+                            $rekap2->kes_taksasi_persen_1 = $data['kes_nilai_taksasi_persen_' . $i];
+                            $rekap2->kes_tanah_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
+                            $rekap2->kes_bangunan_nilai_pasar = $this->normalizeNumber($data['kes_bangunan_nilai_pasar_' . $i]);
+                            $rekap2->kes_taksasi_persen_2 = $data['kes_taksasi_persen_2_' . $i];
+                            $rekap2->kes_bangunan_nilai_taksasi = $this->normalizeNumber($data['kes_bangunan_nilai_taksasi_' . $i]);
+                            $rekap2->kes_total_nilai_pasar = $this->normalizeNumber($data['kes_total_nilai_pasar_' . $i]);
+                            $rekap2->kes_total_nilai_taksasi = $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i]);
+                            $rekap2->kesimpulan = $data['kesimpulan_' . $i];
+                            $rekap2->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
+                            $rekap2->save();
                         }
-                        $pen->save();
                     }
+                    // ================================
+                    // for selain staff analis area
+                    else {
+                        // Penilaian Agunan
+                        if (!empty($data['tgl_penilaian_' . $i])) {
+                            $pen = new SC_Tanah_Agunan();
+                            $pen->id_muk = $id_muk;
+                            $pen->id_jaminan_pertanahan = $id_tanah;
+                            $pen->nama_deb = $data['nama_deb_' . $i];
+                            $pen->tgl_penilaian = $data['tgl_penilaian_' . $i];
+                            $pen->lokasi = $data['lokasi_' . $i];
+                            $pen->penilai = $data['penilai_' . $i];
+                            $pen->luas_tanah = $data['luas_tanah_' . $i];
+                            $pen->batas_utara = $data['batas_utara_' . $i];
+                            $pen->batas_selatan = $data['batas_selatan_' . $i];
+                            $pen->batas_timur = $data['batas_timur_' . $i];
+                            $pen->batas_barat = $data['batas_barat_' . $i];
+                            $pen->hak_kepemilikan = $data['hak_kepemilikan_' . $i];
+                            $pen->nomor = $data['nomor_' . $i];
+                            $pen->atas_nama = $data['atas_nama_' . $i];
+                            $pen->tgl_berakhir_sertif = $data['hak_kepemilikan_' . $i] != 'SHM' ? $data['tgl_berakhir_sertif_' . $i] : null;
+                            $pen->edisi = $data['edisi_' . $i];
+                            $pen->no_gs = $data['no_gs_' . $i];
 
-                    // Scoring
-                    if (!empty($data['tempat_ibadah_' . $i])) {
-                        $scTanah = new SC_Tanah_Scoring();
-                        $scTanah->id_muk = $id_muk;
-                        $scTanah->id_jaminan_pertanahan = $id_tanah;
-                        $scTanah->tempat_ibadah = $data['tempat_ibadah_' . $i];
-                        $scTanah->pasar = $data['pasar_' . $i];
-                        $scTanah->sekolah = $data['sekolah_' . $i];
-                        $scTanah->perkantoran = $data['perkantoran_' . $i];
-                        $scTanah->sutet = $data['sutet_' . $i];
-                        $scTanah->lokalisasi = $data['lokalisasi_' . $i];
-                        $scTanah->tps = $data['tps_' . $i];
-                        $scTanah->pemakaman = $data['pemakaman_' . $i];
-                        $scTanah->resiko_longsor = $data['resiko_longsor_' . $i];
-                        $scTanah->resiko_banjir = $data['resiko_banjir_' . $i];
-                        $scTanah->zonasi = $data['zonasi_' . $i];
-                        $scTanah->akses_jalan = $data['akses_jalan_' . $i];
-                        $scTanah->kondisi_jalan = $data['kondisi_jalan_' . $i];
-                        $scTanah->tusuk_sate = $data['tusuk_sate_' . $i];
-                        $scTanah->bentuk_tanah = $data['bentuk_tanah_' . $i];
-                        $scTanah->lebar_muka = $data['lebar_muka_' . $i];
-                        $scTanah->kontur = $data['kontur_' . $i];
-                        $scTanah->elevasi = $data['elevasi_' . $i];
-                        $scTanah->rel_kereta = $data['rel_kereta_' . $i];
-                        $scTanah->total_score_tanah = $data['total_score_tanah_' . $i];
+                            // untuk Ruko dan Bangunan
+                            if (!empty($data['thn_pembangunan_' . $i])) {
+                                $pen->luas_bangunan = $data['luas_bangunan_' . $i];
+                                $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
+                                $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];
+                                $pen->thn_pembangunan = $data['thn_pembangunan_' . $i];
+                                $pen->thn_renov_akhir = $data['thn_renov_akhir_' . $i];
+                                $pen->umur_efektif = $data['umur_efektif_' . $i];
+                                $pen->kamar_tidur = $data['kamar_tidur_' . $i];
+                                $pen->jumlah_kt = $data['jumlah_kt_' . $i];
+                                $pen->kamar_mandi = $data['kamar_mandi_' . $i];
+                                $pen->jumlah_km = $data['jumlah_km_' . $i];
+                                $pen->jumlah_lantai = $data['jumlah_lantai_' . $i];
+                                $pen->jaringan_listrik = $data['jaringan_listrik_' . $i] != 'Lainnya' ? $data['jaringan_listrik_' . $i] : $data['jaringan_listrik_detail_' . $i];
+                                $pen->jaringan_air_bersih = $data['jaringan_air_bersih_' . $i];
+                                $pen->jaringan_telepon = $data['jaringan_telepon_' . $i];
+                            }
 
-                        // for rukan dan bangunan
-                        if (!empty($data['pondasi_' . $i])) {
-                            $scTanah->pondasi = $data['pondasi_' . $i];
-                            $scTanah->rangka_atap = $data['rangka_atap_' . $i];
-                            $scTanah->plafon = $data['plafon_' . $i];
-                            $scTanah->pintu = $data['pintu_' . $i];
-                            $scTanah->imb = $data['imb_' . $i];
-                            $scTanah->penutup_atap = $data['penutup_atap_' . $i];
-                            $scTanah->dinding = $data['dinding_' . $i];
-                            $scTanah->lantai = $data['lantai_' . $i];
-                            $scTanah->total_skor_bangunan = $data['total_score_bangunan_' . $i];
-                            $scTanah->total_skor_rukan = !empty($data['total_skor_rukan_' . $i]) ? ($data['total_skor_rukan_' . $i]) : null;
+                            // untuk bangunan
+                            if (!empty($data['penggunaan_bangunan_' . $i])) {
+                                $pen->penggunaan_bangunan = $data['penggunaan_bangunan_' . $i];
+                            }
+                            $pen->save();
+                        }
 
-                            if (!empty($data['struktur_' . $i])) {
-                                $scTanah->struktur = $data['struktur_' . $i];
+                        // Scoring
+                        if (!empty($data['tempat_ibadah_' . $i])) {
+                            $scTanah = new SC_Tanah_Scoring();
+                            $scTanah->id_muk = $id_muk;
+                            $scTanah->id_jaminan_pertanahan = $id_tanah;
+                            $scTanah->tempat_ibadah = $data['tempat_ibadah_' . $i];
+                            $scTanah->pasar = $data['pasar_' . $i];
+                            $scTanah->sekolah = $data['sekolah_' . $i];
+                            $scTanah->perkantoran = $data['perkantoran_' . $i];
+                            $scTanah->sutet = $data['sutet_' . $i];
+                            $scTanah->lokalisasi = $data['lokalisasi_' . $i];
+                            $scTanah->tps = $data['tps_' . $i];
+                            $scTanah->pemakaman = $data['pemakaman_' . $i];
+                            $scTanah->resiko_longsor = $data['resiko_longsor_' . $i];
+                            $scTanah->resiko_banjir = $data['resiko_banjir_' . $i];
+                            $scTanah->zonasi = $data['zonasi_' . $i];
+                            $scTanah->akses_jalan = $data['akses_jalan_' . $i];
+                            $scTanah->kondisi_jalan = $data['kondisi_jalan_' . $i];
+                            $scTanah->tusuk_sate = $data['tusuk_sate_' . $i];
+                            $scTanah->bentuk_tanah = $data['bentuk_tanah_' . $i];
+                            $scTanah->lebar_muka = $data['lebar_muka_' . $i];
+                            $scTanah->kontur = $data['kontur_' . $i];
+                            $scTanah->elevasi = $data['elevasi_' . $i];
+                            $scTanah->rel_kereta = $data['rel_kereta_' . $i];
+                            $scTanah->total_score_tanah = $data['total_score_tanah_' . $i];
+
+                            // for rukan dan bangunan
+                            if (!empty($data['pondasi_' . $i])) {
+                                $scTanah->pondasi = $data['pondasi_' . $i];
+                                $scTanah->rangka_atap = $data['rangka_atap_' . $i];
+                                $scTanah->plafon = $data['plafon_' . $i];
+                                $scTanah->pintu = $data['pintu_' . $i];
+                                $scTanah->imb = $data['imb_' . $i];
+                                $scTanah->penutup_atap = $data['penutup_atap_' . $i];
+                                $scTanah->dinding = $data['dinding_' . $i];
+                                $scTanah->lantai = $data['lantai_' . $i];
+                                $scTanah->total_skor_bangunan = $data['total_score_bangunan_' . $i];
+                                $scTanah->total_skor_rukan = !empty($data['total_skor_rukan_' . $i]) ? ($data['total_skor_rukan_' . $i]) : null;
+
+                                if (!empty($data['struktur_' . $i])) {
+                                    $scTanah->struktur = $data['struktur_' . $i];
+                                }
+                            }
+
+                            $scTanah->save();
+                        }
+
+                        // Perhitungan
+                        for ($a = 1; $a < 51; $a++) {
+                            if (!empty($data['nama_' . $i . '_' . $a])) {
+                                $per = new SC_Tanah_Perhitungan();
+                                $per->id_muk = $id_muk;
+                                $per->id_jaminan_pertanahan = $id_tanah;
+                                $per->nama = $data['nama_' . $i . '_' . $a];
+                                $per->hubungan = $data['hubungan_' . $i . '_' . $a];
+                                $per->no_telp = $data['no_telp_' . $i . '_' . $a];
+                                $per->alamat = $data['alamat_' . $i . '_' . $a];
+                                $per->harga_per_meter = $this->normalizeNumber($data['harga_tanah_' . $i . '_' . $a]);
+                                $per->harga_bangunan = $this->normalizeNumber($data['harga_bangunan_' . $i . '_' . $a]);
+                                $per->keterangan = $data['keterangan_' . $i . '_' . $a];
+                                $per->save();
                             }
                         }
 
-                        $scTanah->save();
-                    }
-
-                    // Perhitungan
-                    for ($a = 1; $a < 51; $a++) {
-                        if (!empty($data['nama_' . $i . '_' . $a])) {
-                            $per = new SC_Tanah_Perhitungan();
-                            $per->id_muk = $id_muk;
-                            $per->id_jaminan_pertanahan = $id_tanah;
-                            $per->nama = $data['nama_' . $i . '_' . $a];
-                            $per->hubungan = $data['hubungan_' . $i . '_' . $a];
-                            $per->no_telp = $data['no_telp_' . $i . '_' . $a];
-                            $per->alamat = $data['alamat_' . $i . '_' . $a];
-                            $per->harga_per_meter = $this->normalizeNumber($data['harga_tanah_' . $i . '_' . $a]);
-                            $per->harga_bangunan = $this->normalizeNumber($data['harga_bangunan_' . $i . '_' . $a]);
-                            $per->keterangan = $data['keterangan_' . $i . '_' . $a];
-                            $per->save();
+                        // Rekap 1 untuk Tanah serta Ruko dan Rukan
+                        if (!empty($data['data_1_' . $i]) && empty($data['bangunan_1_' . $i])) {
+                            $rekap1 = new SC_Tanah_Rekap_1();
+                            $rekap1->id_muk = $id_muk;
+                            $rekap1->id_jaminan_pertanahan = $id_tanah;
+                            $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
+                            $rekap1->pbb_tahun = $data['pbb_tahun_' . $i];
+                            $rekap1->data_1 = $this->normalizeNumber($data['data_1_' . $i]);
+                            $rekap1->data_2 = $this->normalizeNumber($data['data_2_' . $i]);
+                            $rekap1->data_3 = $this->normalizeNumber($data['data_3_' . $i]);
+                            $rekap1->data_luas_1 = $data['data_luas_1_' . $i];
+                            $rekap1->data_luas_2 = $data['data_luas_2_' . $i];
+                            $rekap1->data_luas_3 = $data['data_luas_3_' . $i];
+                            $rekap1->data_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
+                            $rekap1->data_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
+                            $rekap1->data_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
+                            $rekap1->nilai_pasar = $this->normalizeNumber($data['nilai_pasar_' . $i]);
+                            $rekap1->nilai_agunan = $this->normalizeNumber($data['nilai_agunan_' . $i]);
+                            $rekap1->safety_margin = $data['safety_margin_' . $i];
+                            $rekap1->kes_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
+                            $rekap1->kes_nilai_taksasi_persen = $data['kes_nilai_taksasi_persen_' . $i];
+                            $rekap1->kes_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
+                            $rekap1->kesimpulan = $data['kesimpulan_' . $i];
+                            $rekap1->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
+                            $rekap1->save();
                         }
-                    }
 
-                    // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
-                        $rekap1 = new SC_Tanah_Rekap_1();
-                        $rekap1->id_muk = $id_muk;
-                        $rekap1->id_jaminan_pertanahan = $id_tanah;
-                        $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
-                        $rekap1->pbb_tahun = $data['pbb_tahun_' . $i];
-                        $rekap1->data_1 = $this->normalizeNumber($data['data_1_' . $i]);
-                        $rekap1->data_2 = $this->normalizeNumber($data['data_2_' . $i]);
-                        $rekap1->data_3 = $this->normalizeNumber($data['data_3_' . $i]);
-                        $rekap1->data_luas_1 = $data['data_luas_1_' . $i];
-                        $rekap1->data_luas_2 = $data['data_luas_2_' . $i];
-                        $rekap1->data_luas_3 = $data['data_luas_3_' . $i];
-                        $rekap1->data_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
-                        $rekap1->data_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
-                        $rekap1->data_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
-                        $rekap1->nilai_pasar = $this->normalizeNumber($data['nilai_pasar_' . $i]);
-                        $rekap1->nilai_agunan = $this->normalizeNumber($data['nilai_agunan_' . $i]);
-                        $rekap1->safety_margin = $data['safety_margin_' . $i];
-                        $rekap1->kes_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
-                        $rekap1->kes_nilai_taksasi_persen = $data['kes_nilai_taksasi_persen_' . $i];
-                        $rekap1->kes_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
-                        $rekap1->kesimpulan = $data['kesimpulan_' . $i];
-                        $rekap1->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
-                        $rekap1->save();
-                    }
-
-                    // Rekap 2 for bangunan
-                    if (!empty($data['bangunan_1_' . $i])) {
-                        $rekap2 = new SC_Tanah_Rekap_2();
-                        $rekap2->id_muk = $id_muk;
-                        $rekap2->id_jaminan_pertanahan = $id_tanah;
-                        $rekap2->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
-                        $rekap2->pbb_tahun = $data['pbb_tahun_' . $i];
-                        $rekap2->tanah_1 = $this->normalizeNumber($data['data_1_' . $i]);
-                        $rekap2->tanah_2 = $this->normalizeNumber($data['data_2_' . $i]);
-                        $rekap2->tanah_3 = $this->normalizeNumber($data['data_3_' . $i]);
-                        $rekap2->tanah_luas_1 = $data['data_luas_1_' . $i];
-                        $rekap2->tanah_luas_2 = $data['data_luas_2_' . $i];
-                        $rekap2->tanah_luas_3 = $data['data_luas_3_' . $i];
-                        $rekap2->tanah_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
-                        $rekap2->tanah_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
-                        $rekap2->tanah_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
-                        $rekap2->bangunan_1 = $this->normalizeNumber($data['bangunan_1_' . $i]);
-                        $rekap2->bangunan_2 = $this->normalizeNumber($data['bangunan_2_' . $i]);
-                        $rekap2->bangunan_3 = $this->normalizeNumber($data['bangunan_3_' . $i]);
-                        $rekap2->bangunan_luas_1 = $data['bangunan_luas_1_' . $i];
-                        $rekap2->bangunan_luas_2 = $data['bangunan_luas_2_' . $i];
-                        $rekap2->bangunan_luas_3 = $data['bangunan_luas_3_' . $i];
-                        $rekap2->bangunan_total_1 = $this->normalizeNumber($data['bangunan_total_1_' . $i]);
-                        $rekap2->bangunan_total_2 = $this->normalizeNumber($data['bangunan_total_2_' . $i]);
-                        $rekap2->bangunan_total_3 = $this->normalizeNumber($data['bangunan_total_3_' . $i]);
-                        $rekap2->rekom_pasar_tanah = $this->normalizeNumber($data['nilai_pasar_' . $i]);
-                        $rekap2->rekom_agunan_tanah = $this->normalizeNumber($data['nilai_agunan_' . $i]);
-                        $rekap2->margin_tanah = $data['safety_margin_' . $i];
-                        $rekap2->rekom_pasar_bangunan = $this->normalizeNumber($data['rekom_pasar_bangunan_' . $i]);
-                        $rekap2->rekom_agunan_bangunan = $this->normalizeNumber($data['rekom_agunan_bangunan_' . $i]);
-                        $rekap2->margin_bangunan = $data['margin_bangunan_' . $i];
-                        $rekap2->rekom_total = $this->normalizeNumber($data['rekom_total_' . $i]);
-                        $rekap2->kes_tanah_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
-                        $rekap2->kes_taksasi_persen_1 = $data['kes_nilai_taksasi_persen_' . $i];
-                        $rekap2->kes_tanah_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
-                        $rekap2->kes_bangunan_nilai_pasar = $this->normalizeNumber($data['kes_bangunan_nilai_pasar_' . $i]);
-                        $rekap2->kes_taksasi_persen_2 = $data['kes_taksasi_persen_2_' . $i];
-                        $rekap2->kes_bangunan_nilai_taksasi = $this->normalizeNumber($data['kes_bangunan_nilai_taksasi_' . $i]);
-                        $rekap2->kes_total_nilai_pasar = $this->normalizeNumber($data['kes_total_nilai_pasar_' . $i]);
-                        $rekap2->kes_total_nilai_taksasi = $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i]);
-                        $rekap2->kesimpulan = $data['kesimpulan_' . $i];
-                        $rekap2->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
-                        $rekap2->save();
+                        // Rekap 2 for bangunan
+                        if (!empty($data['bangunan_1_' . $i])) {
+                            $rekap2 = new SC_Tanah_Rekap_2();
+                            $rekap2->id_muk = $id_muk;
+                            $rekap2->id_jaminan_pertanahan = $id_tanah;
+                            $rekap2->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
+                            $rekap2->pbb_tahun = $data['pbb_tahun_' . $i];
+                            $rekap2->tanah_1 = $this->normalizeNumber($data['data_1_' . $i]);
+                            $rekap2->tanah_2 = $this->normalizeNumber($data['data_2_' . $i]);
+                            $rekap2->tanah_3 = $this->normalizeNumber($data['data_3_' . $i]);
+                            $rekap2->tanah_luas_1 = $data['data_luas_1_' . $i];
+                            $rekap2->tanah_luas_2 = $data['data_luas_2_' . $i];
+                            $rekap2->tanah_luas_3 = $data['data_luas_3_' . $i];
+                            $rekap2->tanah_total_1 = $this->normalizeNumber($data['data_total_1_' . $i]);
+                            $rekap2->tanah_total_2 = $this->normalizeNumber($data['data_total_2_' . $i]);
+                            $rekap2->tanah_total_3 = $this->normalizeNumber($data['data_total_3_' . $i]);
+                            $rekap2->bangunan_1 = $this->normalizeNumber($data['bangunan_1_' . $i]);
+                            $rekap2->bangunan_2 = $this->normalizeNumber($data['bangunan_2_' . $i]);
+                            $rekap2->bangunan_3 = $this->normalizeNumber($data['bangunan_3_' . $i]);
+                            $rekap2->bangunan_luas_1 = $data['bangunan_luas_1_' . $i];
+                            $rekap2->bangunan_luas_2 = $data['bangunan_luas_2_' . $i];
+                            $rekap2->bangunan_luas_3 = $data['bangunan_luas_3_' . $i];
+                            $rekap2->bangunan_total_1 = $this->normalizeNumber($data['bangunan_total_1_' . $i]);
+                            $rekap2->bangunan_total_2 = $this->normalizeNumber($data['bangunan_total_2_' . $i]);
+                            $rekap2->bangunan_total_3 = $this->normalizeNumber($data['bangunan_total_3_' . $i]);
+                            $rekap2->rekom_pasar_tanah = $this->normalizeNumber($data['nilai_pasar_' . $i]);
+                            $rekap2->rekom_agunan_tanah = $this->normalizeNumber($data['nilai_agunan_' . $i]);
+                            $rekap2->margin_tanah = $data['safety_margin_' . $i];
+                            $rekap2->rekom_pasar_bangunan = $this->normalizeNumber($data['rekom_pasar_bangunan_' . $i]);
+                            $rekap2->rekom_agunan_bangunan = $this->normalizeNumber($data['rekom_agunan_bangunan_' . $i]);
+                            $rekap2->margin_bangunan = $data['margin_bangunan_' . $i];
+                            $rekap2->rekom_total = $this->normalizeNumber($data['rekom_total_' . $i]);
+                            $rekap2->kes_tanah_nilai_pasar = $this->normalizeNumber($data['kes_nilai_pasar_' . $i]);
+                            $rekap2->kes_taksasi_persen_1 = $data['kes_nilai_taksasi_persen_' . $i];
+                            $rekap2->kes_tanah_nilai_taksasi = $this->normalizeNumber($data['kes_nilai_taksasi_' . $i]);
+                            $rekap2->kes_bangunan_nilai_pasar = $this->normalizeNumber($data['kes_bangunan_nilai_pasar_' . $i]);
+                            $rekap2->kes_taksasi_persen_2 = $data['kes_taksasi_persen_2_' . $i];
+                            $rekap2->kes_bangunan_nilai_taksasi = $this->normalizeNumber($data['kes_bangunan_nilai_taksasi_' . $i]);
+                            $rekap2->kes_total_nilai_pasar = $this->normalizeNumber($data['kes_total_nilai_pasar_' . $i]);
+                            $rekap2->kes_total_nilai_taksasi = $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i]);
+                            $rekap2->kesimpulan = $data['kesimpulan_' . $i];
+                            $rekap2->rekomendasi_penilai = $data['rekomendasi_penilai_' . $i];
+                            $rekap2->save();
+                        }
                     }
                 }
             }
