@@ -716,7 +716,7 @@ class MukServiceEdit
                         $rekap2 = new SC_Tanah_Rekap_2();
                     }
 
-                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== '' & !isset($data['bangunan_1_' . $i])) {
+                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== '' && !isset($data['bangunan_1_' . $i])) {
                         $rekap1->id_muk = $id_muk;
                         $rekap1->id_jaminan_pertanahan = $id_tanah;
                         $rekap1->nilai_njop = $this->normalizeNumber($data['nilai_njop_' . $i]);
