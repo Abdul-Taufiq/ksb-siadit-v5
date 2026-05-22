@@ -284,7 +284,10 @@
                                         <input class="form-check-input" type="checkbox" id="plafond_sama_muk"
                                             wire:model.live='plafond_cek'>
                                         <label class="form-check-label notbold" for="plafond_sama_muk">
-                                            Plafond Sama dengan MUK
+                                            Plafond Sama dengan MUK =
+                                            <strong style="color: red">
+                                                {{ $muk_plafon != null ? 'Rp' . number_format($muk_plafon, 0, ',', '.') : 'DATA TIDAK SINKRON, ISI MANUAL!' }}
+                                            </strong>
                                         </label>
                                     </div>
                                     <div class="input-group">
@@ -303,7 +306,10 @@
                                         <input class="form-check-input" type="checkbox" id="jkw_sama_muk"
                                             wire:model.live='jkw_cek'>
                                         <label class="form-check-label notbold" for="jkw_sama_muk">
-                                            JKW Sama dengan MUK
+                                            JKW Sama dengan MUK =
+                                            <strong style="color: red">
+                                                {{ $muk_jkw != null ? $muk_jkw . ' Bulan' : 'DATA TIDAK SINKRON, ISI MANUAL!' }}
+                                            </strong>
                                         </label>
                                     </div>
                                     <input type="text" class="form-control form-control-sm" id="jkw"
@@ -319,7 +325,10 @@
                                         <input class="form-check-input" type="checkbox" id="bunga_sama_muk"
                                             wire:model.live='bunga_cek'>
                                         <label class="form-check-label notbold" for="bunga_sama_muk">
-                                            Bunga Sama dengan MUK
+                                            Bunga Sama dengan MUK =
+                                            <strong style="color: red">
+                                                {{ $muk_bunga != null ? $muk_bunga . '%' : 'DATA TIDAK SINKRON, ISI MANUAL!' }}
+                                            </strong>
                                         </label>
                                     </div>
                                     <input type="text" class="form-control form-control-sm" id="bunga"

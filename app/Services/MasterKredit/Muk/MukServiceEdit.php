@@ -503,8 +503,8 @@ class MukServiceEdit
                     }
 
                     // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    $rekap1Cek = SC_Tanah_Rekap_1_Vanalis::find(base64_decode($data['id_sc_rekap']));
-                    $rekap2Cek = SC_Tanah_Rekap_2_Vanalis::find(base64_decode($data['id_sc_rekap']));
+                    $rekap1Cek = SC_Tanah_Rekap_1_Vanalis::find(base64_decode($data['id_sc_rekap_' . $i]));
+                    $rekap2Cek = SC_Tanah_Rekap_2_Vanalis::find(base64_decode($data['id_sc_rekap_' . $i]));
 
                     if ($rekap1Cek != null) {
                         $rekap1 = $rekap1Cek;
@@ -701,8 +701,8 @@ class MukServiceEdit
                     }
 
                     // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    $rekap1Cek = SC_Tanah_Rekap_1::find(base64_decode($data['id_sc_rekap']));
-                    $rekap2Cek = SC_Tanah_Rekap_2::find(base64_decode($data['id_sc_rekap']));
+                    $rekap1Cek = SC_Tanah_Rekap_1::find(base64_decode($data['id_sc_rekap_' . $i]));
+                    $rekap2Cek = SC_Tanah_Rekap_2::find(base64_decode($data['id_sc_rekap_' . $i]));
 
                     if ($rekap1Cek != null) {
                         $rekap1 = $rekap1Cek;

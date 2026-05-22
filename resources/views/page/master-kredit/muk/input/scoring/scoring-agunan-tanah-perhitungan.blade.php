@@ -436,7 +436,7 @@
 </div>
 
 {{-- Rekap Checking agunan --}}
-<input type="hidden" name="id_sc_rekap" id="id_sc_rekap"
+<input type="hidden" name="id_sc_rekap_{{ $loop->iteration }}" id="id_sc_rekap_{{ $loop->iteration }}"
     value="{{ base64_encode(data_get($tanah, "$vanalisRekap1.id_sc_rekap_1") ?? (data_get($tanah, "$vanalisRekap2.id_sc_rekap_2") ?? (data_get($tanah, "$vcabRekap1.id_sc_rekap_1") ?? data_get($tanah, "$vcabRekap2.id_sc_rekap_2")))) }}">
 <div class="row mt-4">
     <div class="col-md-6">

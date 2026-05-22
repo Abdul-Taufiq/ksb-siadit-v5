@@ -31,6 +31,7 @@ class DebiturTable extends Component
     public $analis_komite_selected = null;
     public $analis_area = [], $analis_komite = [];
     public $plafond, $jkw, $bunga, $plafond_cek, $jkw_cek, $bunga_cek = null;
+    public $muk_jkw, $muk_plafon, $muk_bunga;
 
     protected $listeners = ['refreshTable' => '$refresh', 'UpdateStatus', 'reCallSelect'];
 
@@ -125,6 +126,9 @@ class DebiturTable extends Component
         $this->id_kredit = base64_decode($id);
         $kredit = Kredit::find(base64_decode($id));
         $this->putusan = $kredit->persetujuan?->putusan ?? 'Cabang'; //this penentunya
+        $this->muk_jkw  = $kredit->jkw_muk;
+        $this->muk_plafon  = $kredit->jumlah_muk;
+        $this->muk_bunga = $kredit->persetujuan?->besar_bunga_muk;
 
         $this->dispatch('initializeSummernote');
         // pemanggilan ulang JS
