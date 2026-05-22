@@ -481,7 +481,7 @@ class MukServiceEdit
                     // Perhitungan
                     for ($a = 1; $a < 51; $a++) {
                         if (!empty($data['nama_' . $i . '_' . $a])) {
-                            $perCek = SC_Tanah_Perhitungan_Vanalis::find(base64_decode($data['id_sc_perhitungan_' . $i]));
+                            $perCek = SC_Tanah_Perhitungan_Vanalis::find(base64_decode($data['id_sc_perhitungan_' . $i . '_' . $a]));
 
                             if ($perCek != null) {
                                 $per = $perCek;
@@ -686,7 +686,7 @@ class MukServiceEdit
                     // Perhitungan
                     for ($a = 1; $a < 51; $a++) {
                         if (!empty($data['nama_' . $i . '_' . $a])) {
-                            $per = SC_Tanah_Perhitungan::find(base64_decode($data['id_sc_perhitungan_' . $a]));
+                            $per = SC_Tanah_Perhitungan::find(base64_decode($data['id_sc_perhitungan_' . $i . '_' . $a]));
                             $per->id_muk = $id_muk;
                             $per->id_jaminan_pertanahan = $id_tanah;
                             $per->nama = $data['nama_' . $i . '_' . $a];

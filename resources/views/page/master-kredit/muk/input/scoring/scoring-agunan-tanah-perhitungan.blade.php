@@ -13,7 +13,7 @@
     @endphp
     @if ($dataPerhitungan->count() > 0)
         @foreach ($dataPerhitungan as $item)
-            <input type="hidden" name="id_sc_perhitungan_{{ $loop->iteration }}"
+            <input type="hidden" name="id_sc_perhitungan_{{ $loop->parent->iteration }}_{{ $loop->iteration }}"
                 value="{{ base64_encode($item->id_sc_perhitungan) }}">
 
             <div class="col-md-6">
