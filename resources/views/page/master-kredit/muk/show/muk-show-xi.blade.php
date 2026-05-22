@@ -66,7 +66,7 @@
 
     {{-- area --}}
     @if (
-        $muk->deviasi?->perihal != '-' ||
+        $muk->deviasi?->perihal != '<p>-</p>' ||
             $muk->kredit->persetujuan->putusan == 'Area' ||
             $muk->kredit->persetujuan->putusan == 'Pusat')
         <table class="table table-bordered table-sm w-100">
