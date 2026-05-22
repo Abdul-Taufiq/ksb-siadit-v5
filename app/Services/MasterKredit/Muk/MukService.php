@@ -598,7 +598,7 @@ class MukService
                     }
 
                     // Rekap 2 for bangunan
-                    if (!empty($data['bangunan_1_' . $i])) {
+                    if (isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] !== '') {
                         $rekap2 = new SC_Tanah_Rekap_2_Vanalis();
                         $rekap2->id_muk = $id_muk;
                         $rekap2->id_jaminan_pertanahan = $id_tanah;
@@ -783,7 +783,7 @@ class MukService
                     }
 
                     // Rekap 2 for bangunan
-                    if (!empty($data['bangunan_1_' . $i])) {
+                    if (isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] !== '') {
                         $rekap2 = new SC_Tanah_Rekap_2();
                         $rekap2->id_muk = $id_muk;
                         $rekap2->id_jaminan_pertanahan = $id_tanah;
