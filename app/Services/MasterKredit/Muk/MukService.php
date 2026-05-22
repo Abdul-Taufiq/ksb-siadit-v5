@@ -446,13 +446,13 @@ class MukService
                 $jamTanah = JamTanah::find($id_tanah);
                 if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null  && isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] === null) {
                     $jamTanah->update([
-                        'nilai_jaminan' => $this->normalizeNumber($data['kes_nilai_pasar_' . $i]),
+                        'nilai_jaminan' => $this->normalizeNumber($data['nilai_agunan_' . $i]),
                         'nilai_taksasi' => $this->normalizeNumber($data['kes_nilai_taksasi_' . $i])
                     ]);
                 }
                 if (!empty($data['bangunan_1_' . $i])) {
                     $jamTanah->update([
-                        'nilai_jaminan' => $this->normalizeNumber($data['kes_total_nilai_pasar_' . $i]),
+                        'nilai_jaminan' => $this->normalizeNumber($data['rekom_total_' . $i]),
                         'nilai_taksasi' => $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i])
                     ]);
                 }
