@@ -20,7 +20,7 @@
                         id="depo_nilai_pasar_agunan_{{ $loop->iteration }}" class="form-control form-control-sm setRp"
                         required data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                         data-bs-title="Jika ada perubahan SAFETY MARGIN (SM) Mohon untuk update nilai dibawah ini agar Sinkron"
-                        value="{{ number_format(data_get($tanah, "$vanalisTab.nilai_pasar") ?? (data_get($tanah, "$vanalisDepo.nilai_pasar_agunan") ?? (data_get($tanah, "$vcabTab.nilai_pasar") ?? data_get($tanah, "$vcabDepo.nilai_pasar_agunan"))), 0, ',', '.') }}">
+                        value="{{ number_format(data_get($depo, "$vanalisTab.nilai_pasar") ?? (data_get($depo, "$vanalisDepo.nilai_pasar_agunan") ?? (data_get($depo, "$vcabTab.nilai_pasar") ?? data_get($depo, "$vcabDepo.nilai_pasar_agunan"))), 0, ',', '.') }}">
                 </div>
             </td>
         </tr>
