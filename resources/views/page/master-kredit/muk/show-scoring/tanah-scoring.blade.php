@@ -273,7 +273,7 @@
                             <td style="width: 30%">Resiko Banjir</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ data_get($tanah, "$SCScoring.resiko_banjir") == '1' ? 'RENDAH' : 'TINGGI' }}
+                                {{ data_get($tanah, "$SCScoring.resiko_banjir") == '1' ? 'RENDAH' : 'SEDANG' }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.resiko_banjir") }}
