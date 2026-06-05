@@ -263,7 +263,7 @@
                             <td style="width: 30%">Resiko Longsor</td>
                             <td style="width: 2%">:</td>
                             <td>
-                                {{ data_get($tanah, "$SCScoring.resiko_longsor") == '1' ? 'RENDAH' : 'TINGGI' }}
+                                {{ data_get($tanah, "$SCScoring.resiko_longsor") == '1' ? 'RENDAH' : 'SEDANG' }}
                             </td>
                             <td style="background-color: rgb(214, 214, 214); text-align: center">
                                 {{ data_get($tanah, "$SCScoring.resiko_longsor") }}
