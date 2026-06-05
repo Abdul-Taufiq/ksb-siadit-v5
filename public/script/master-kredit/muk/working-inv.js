@@ -12,6 +12,11 @@ const jnsKredit = document.getElementById("jns_kredit");
 const persen_gpm = document.getElementById("persen_gpm");
 
 const totalBDKMK = document.getElementById("total_bd_modal_kerja");
+
+$("#jns_bjk").on("change", function () {
+    updateKmk();
+});
+
 function updateKmk() {
     let inv = toNumber(inventory.dataset.rawValue || inventory.value);
     let piutang = toNumber(
@@ -40,10 +45,12 @@ function updateKmk() {
     const buttonSave = document.getElementById("simpan");
     const peringatan = document.getElementById("peringatan");
     const jumlah_disetujui = document.getElementById("jumlah_disetujui");
+    const jns_bjk = document.getElementById("jns_bjk");
 
     if (
         kreditTujuan.value == "Modal Kerja" &&
-        toNumber(jumlah_disetujui.value) > totalWI
+        toNumber(jumlah_disetujui.value) > totalWI &&
+        jns_bjk.value == "Non-Pertanian"
     ) {
         buttonSave.setAttribute("disabled", "true");
         peringatan.classList.remove("d-none");

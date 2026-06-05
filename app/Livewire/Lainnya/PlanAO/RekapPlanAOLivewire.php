@@ -93,6 +93,7 @@ class RekapPlanAOLivewire extends Component
         $id_cabang = Auth::user()->id_cabang;
         $jabatan = Auth::user()->jabatan;
         $nama = Auth::user()->nama;
+        $userModels = User::where('id_cabang', $this->id_cabang)->where('jabatan', 'AO')->where('status', 'Aktif')->where('email', 'NOT LIKE', '%dummy%')->get();
 
         $monitoring = MonitoringPlanAO::select(
             'nama_ao',
@@ -147,6 +148,8 @@ class RekapPlanAOLivewire extends Component
 
         if ($jabatan == 'AO') {
             $monitoring->where('nama_ao', $nama);
+        } else {
+            $monitoring->whereIn('nama_ao', $userModels->pluck('nama')->toArray());
         }
 
         // order by

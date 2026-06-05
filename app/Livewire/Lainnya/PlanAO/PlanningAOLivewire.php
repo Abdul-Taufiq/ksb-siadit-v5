@@ -3,6 +3,7 @@
 namespace App\Livewire\Lainnya\PlanAO;
 
 use App\Models\Output\MonitoringPlanAO;
+use App\Models\User;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +95,7 @@ class PlanningAOLivewire extends Component
         $id_cabang = Auth::user()->id_cabang;
         $jabatan = Auth::user()->jabatan;
         $nama = Auth::user()->nama;
+        $userModels = User::where('id_cabang', $this->id_cabang)->where('jabatan', 'AO')->where('status', 'Aktif')->where('email', 'NOT LIKE', '%dummy%')->get();
 
         $monitoring = MonitoringPlanAO::with(['cabang'])
             ->where(function ($query) {
@@ -145,7 +147,7 @@ class PlanningAOLivewire extends Component
         if ($jabatan == 'AO') {
             $monitoring->where('nama_ao', $nama);
         } else {
-            $monitoring;
+            $monitoring->whereIn('nama_ao', $userModels->pluck('nama')->toArray());
         }
 
         $monitoring->where('kategori_plan', $this->page_view);

@@ -22,10 +22,10 @@ class IndexMukLivewire extends Component
     use WithPagination, WithoutUrlPagination, WithFileUploads;
     // For filter
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
-    public $tgl_awal,  $tgl_akhir, $search = '';
+    public $tgl_awal,  $tgl_akhir, $search = '', $id_cabang;
 
     public $sortBy = 'created_at', $sortDir = 'desc', $perPage = 10;
-    public $kc = false, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = false, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
     public $modal_title, $spk = [], $id_kredit, $file_putusan, $metode;
     public $plafond, $jkw, $bunga, $plafond_cek, $jkw_cek, $bunga_cek = null;

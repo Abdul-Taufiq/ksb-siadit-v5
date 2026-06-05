@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cabang;
 use App\Models\Output\LogActivity;
 use App\Models\Output\MonitoringPlanAO;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,10 +123,12 @@ class PlanningAOController extends Controller
         $nama = base64_decode($nama_ao);
         $id_cab = base64_decode($idCab);
         $cabang = Cabang::where('id_cabang', $id_cab)->first();
+        $userModels = User::where('id_cabang', $id_cab)->where('jabatan', 'AO')->where('status', 'Aktif')->where('email', 'NOT LIKE', '%dummy%')->get();
 
         $baseQuery  = MonitoringPlanAO::where('nama_ao', $nama)
             ->where('id_cabang', $id_cab)
-            ->whereBetween('tgl_plan', [$tgl_awal, $tgl_akhir]);
+            ->whereBetween('tgl_plan', [$tgl_awal, $tgl_akhir])
+            ->whereIn('nama_ao', $userModels->pluck('nama')->toArray());;
 
         // Prospek
         $monPro = (clone $baseQuery)->where('kategori_plan', 'Rencana Prospek')

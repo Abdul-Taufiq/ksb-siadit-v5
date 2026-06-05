@@ -19,13 +19,13 @@ class DebiturTable extends Component
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $search = '';
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
-    public $tgl_awal,  $tgl_akhir;
+    public $tgl_awal,  $tgl_akhir, $id_cabang;
     // #[Url(history: true)]
     public $sortBy = 'created_at';
     // #[Url(history: true)]
     public $sortDir = 'desc';
     public $perPage = 10;
-    public $kc = true, $id_cabang, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = true, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     public $modal_title, $status, $catatan, $id_kredit, $rekomendasi = '0', $putusan = '';
     public $analis_area_selected = null;
     public $analis_komite_selected = null;

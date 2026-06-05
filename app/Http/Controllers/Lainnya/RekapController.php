@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cabang;
 use App\Models\MasterKredit\Kredit;
 use App\Models\Output\LogActivity;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class RekapController extends Controller
         $awal = Carbon::parse($min)->startOfDay();
         $akhir = Carbon::parse($max)->endOfDay();
         $id_cabang = base64_decode($id);
+        $userModels = User::where('id_cabang', $id_cabang)->where('jabatan', 'AO')->where('status', 'Aktif')->get();
 
         // Area 1
         if ($id_cabang == 21) {
@@ -39,6 +41,7 @@ class RekapController extends Controller
                 ->whereIn('id_cabang', [4, 5, 6, 7, 8, 9])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
+                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -63,6 +66,7 @@ class RekapController extends Controller
                 ->whereIn('id_cabang', [1, 2, 3, 10, 11])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
+                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -87,6 +91,7 @@ class RekapController extends Controller
                 ->whereIn('id_cabang', [3, 10])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
+                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -110,6 +115,7 @@ class RekapController extends Controller
                 ->whereBetween('created_at', [$awal, $akhir])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
+                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -135,6 +141,7 @@ class RekapController extends Controller
                 ->where('id_cabang', $id_cabang)
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
+                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
