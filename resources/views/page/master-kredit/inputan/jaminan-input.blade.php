@@ -235,6 +235,14 @@
                 placeholder="Nominal">
         </div>
     </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="form-group">
+            <label for="tgl_deposito_1">Tanggal Deposito</label>
+            <input type="date" name="tgl_deposito_1" id="tgl_deposito_1" class="form-control is-invalid" required
+                placeholder="Tanggal Deposito">
+        </div>
+    </div>
 </div>
 
 {{-- Non Jaminan --}}

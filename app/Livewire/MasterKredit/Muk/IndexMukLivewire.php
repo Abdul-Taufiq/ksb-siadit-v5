@@ -138,7 +138,7 @@ class IndexMukLivewire extends Component
     public function ChangeStatus()
     {
         $file = $this->file_putusan;
-        $fileName = 'putusan_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $fileName = 'putusan_' . now()->format('Y-m-d_H-i') . '_' .  uniqid() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('file_upload/putusan', $fileName, 'public'); // lebih aman dan Livewire-friendly
 
         $id_kre = base64_decode($this->id_kredit);

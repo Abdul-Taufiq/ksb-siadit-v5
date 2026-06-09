@@ -199,6 +199,14 @@ function tambahJaminan() {
                         <input type="text" name="nominal_${counter}" id="nominal_${counter}" class="form-control is-invalid" required placeholder="Nominal">
                     </div>
                 </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label for="tgl_deposito_${$counter}">Tanggal Deposito</label>
+                        <input type="date" name="tgl_deposito_${$counter}"
+                            id="tgl_deposito_${$counter}" class="form-control is-invalid" required
+                            placeholder="Tanggal Deposito">
+                    </div>
+                </div>
             </div>
         `;
 
