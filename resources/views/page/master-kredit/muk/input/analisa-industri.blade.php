@@ -60,11 +60,11 @@
                 <table class="table table-striped table-sm w-100">
                     <tr>
                         <td>
-                            <label for="type_data_{{ $loop->iteration }}">Type</label>
+                            <label for="type_data_edit_{{ $loop->iteration }}">Type</label>
                         </td>
                         <td>
-                            <select name="type_data_{{ $loop->iteration }}" id="type_data_{{ $loop->iteration }}"
-                                class="form-select is-invalid">
+                            <select name="type_data_edit_{{ $loop->iteration }}"
+                                id="type_data_edit_{{ $loop->iteration }}" class="form-select is-invalid">
                                 <option selected disabled>-PILIH-</option>
                                 <option {{ $industri->type_data == 'Personal Checking' ? 'selected' : '' }}
                                     value="Personal Checking">Personal Checking</option>
