@@ -32,6 +32,14 @@ function initializeSummernote(selector, placeholder, height) {
                         .removeClass("border-danger");
                 }
             },
+            onPaste: function (e) {
+                // aktifkan cleanPaste
+                var bufferText = (
+                    (e.originalEvent || e).clipboardData || window.clipboardData
+                ).getData("Text");
+                e.preventDefault();
+                document.execCommand("insertText", false, bufferText);
+            },
             onImageUpload: function (files) {
                 alert("Penyisipan gambar dan vidio dinonaktifkan!");
             },
@@ -44,7 +52,7 @@ function initializeSummernote(selector, placeholder, height) {
 
     // untuk ngecek nilai awal saat load
     var $editor = $(selector).next(".note-editor");
-    if ($(selector).val() != "") {
+    if ($(selector).val() !== "") {
         $editor.addClass("border-success").removeClass("border-danger");
     } else {
         $editor.removeClass("border-success").addClass("border-danger");

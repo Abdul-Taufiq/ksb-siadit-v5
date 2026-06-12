@@ -43,89 +43,92 @@
 {{-- Personal --}}
 @if ($muk->industri->count() > 0)
     <div class="row" style="margin-left: 5px;">
-        @foreach ($muk->industri as $industri)
-            <input type="hidden" name="id_industri_{{ $loop->iteration }}" id="id_industri_{{ $loop->iteration }}"
-                value="{{ base64_encode($industri->id_industri) }}">
+        @for ($i = 1; $i <= 5; $i++)
+            @foreach ($muk->industri as $industri)
+                <input type="hidden" name="id_industri_{{ $loop->iteration }}" id="id_industri_{{ $loop->iteration }}"
+                    value="{{ base64_encode($industri->id_industri) }}">
 
-            <div class="col-md-6 mb-2" id="head_industri_{{ $loop->iteration }}">
-                <div class="form-group mb-2">
-                    <label for="aksi_data_industri_{{ $loop->iteration }}">Aksi Data ini!</label>
-                    <select name="aksi_data_industri_{{ $loop->iteration }}" class="form-select form-select-sm"
-                        required>
-                        <option selected disabled>-Pilih-</option>
-                        <option class="text-primary" value="Edit">Edit/Biarkan disimpan</option>
-                        <option class="text-danger" value="Hapus">Hapus/Tidak akan disimpan</option>
-                    </select>
+                <div class="col-md-6 mb-2" id="head_industri_{{ $loop->iteration }}">
+                    <div class="form-group mb-2">
+                        <label for="aksi_data_industri_{{ $loop->iteration }}">Aksi Data ini!</label>
+                        <select name="aksi_data_industri_{{ $loop->iteration }}" class="form-select form-select-sm"
+                            required>
+                            <option selected disabled>-Pilih-</option>
+                            <option class="text-primary" value="Edit">Edit/Biarkan disimpan</option>
+                            <option class="text-danger" value="Hapus">Hapus/Tidak akan disimpan</option>
+                        </select>
+                    </div>
+                    <table class="table table-striped table-sm w-100">
+                        <tr>
+                            <td>
+                                <label for="type_data_edit_{{ $loop->iteration }}">Type</label>
+                            </td>
+                            <td>
+                                <select name="type_data_edit_{{ $loop->iteration }}"
+                                    id="type_data_edit_{{ $loop->iteration }}" class="form-select is-invalid">
+                                    <option selected disabled>-PILIH-</option>
+                                    <option {{ $industri->type_data == 'Personal Checking' ? 'selected' : '' }}
+                                        value="Personal Checking">Personal Checking</option>
+                                    <option {{ $industri->type_data == 'Trade Checking' ? 'selected' : '' }}
+                                        value="Trade Checking">
+                                        Trade Checking</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="nama_{{ $loop->iteration }}">Nama</label>
+                            </td>
+                            <td>
+                                <input type="text" name="nama_{{ $loop->iteration }}"
+                                    id="nama_{{ $loop->iteration }}" class="form-control form-control-sm is-invalid"
+                                    placeholder="Nama" required value="{{ $industri->nama }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="hubungan_{{ $loop->iteration }}">Hubungan</label>
+                            </td>
+                            <td>
+                                <input type="text" name="hubungan_{{ $loop->iteration }}"
+                                    id="hubungan_{{ $loop->iteration }}"
+                                    class="form-control form-control-sm is-invalid" placeholder="Hubungan" required
+                                    value="{{ $industri->hubungan }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="lama_hubungan_{{ $loop->iteration }}">Lama Hubungan</label>
+                            </td>
+                            <td>
+                                <input type="text" name="lama_hubungan_{{ $loop->iteration }}"
+                                    id="lama_hubungan_{{ $loop->iteration }}"
+                                    class="form-control form-control-sm is-invalid" placeholder="Lama Hubungan" required
+                                    value="{{ $industri->lama_hubungan }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="no_hp_{{ $loop->iteration }}">No.Hp/Telepon</label>
+                            </td>
+                            <td>
+                                <input type="text" name="no_hp_{{ $loop->iteration }}"
+                                    id="no_hp_{{ $loop->iteration }}" class="form-control form-control-sm is-invalid"
+                                    placeholder="No.Hp/Telepon" required value="{{ $industri->no_hp }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="keterangan_{{ $loop->iteration }}">Keterangan</label>
+                            </td>
+                            <td>
+                                <textarea name="keterangan_{{ $loop->iteration }}" id="keterangan_{{ $loop->iteration }}">{!! $industri->keterangan !!}</textarea>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <table class="table table-striped table-sm w-100">
-                    <tr>
-                        <td>
-                            <label for="type_data_{{ $loop->iteration }}">Type</label>
-                        </td>
-                        <td>
-                            <select name="type_data_{{ $loop->iteration }}" id="type_data_{{ $loop->iteration }}"
-                                class="form-select is-invalid">
-                                <option selected disabled>-PILIH-</option>
-                                <option {{ $industri->type_data == 'Personal Checking' ? 'selected' : '' }}
-                                    value="Personal Checking">Personal Checking</option>
-                                <option {{ $industri->type_data == 'Trade Checking' ? 'selected' : '' }}
-                                    value="Trade Checking">
-                                    Trade Checking</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="nama_{{ $loop->iteration }}">Nama</label>
-                        </td>
-                        <td>
-                            <input type="text" name="nama_{{ $loop->iteration }}" id="nama_{{ $loop->iteration }}"
-                                class="form-control form-control-sm is-invalid" placeholder="Nama" required
-                                value="{{ $industri->nama }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="hubungan_{{ $loop->iteration }}">Hubungan</label>
-                        </td>
-                        <td>
-                            <input type="text" name="hubungan_{{ $loop->iteration }}"
-                                id="hubungan_{{ $loop->iteration }}" class="form-control form-control-sm is-invalid"
-                                placeholder="Hubungan" required value="{{ $industri->hubungan }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="lama_hubungan_{{ $loop->iteration }}">Lama Hubungan</label>
-                        </td>
-                        <td>
-                            <input type="text" name="lama_hubungan_{{ $loop->iteration }}"
-                                id="lama_hubungan_{{ $loop->iteration }}"
-                                class="form-control form-control-sm is-invalid" placeholder="Lama Hubungan" required
-                                value="{{ $industri->lama_hubungan }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="no_hp_{{ $loop->iteration }}">No.Hp/Telepon</label>
-                        </td>
-                        <td>
-                            <input type="text" name="no_hp_{{ $loop->iteration }}"
-                                id="no_hp_{{ $loop->iteration }}" class="form-control form-control-sm is-invalid"
-                                placeholder="No.Hp/Telepon" required value="{{ $industri->no_hp }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="keterangan_{{ $loop->iteration }}">Keterangan</label>
-                        </td>
-                        <td>
-                            <textarea name="keterangan_{{ $loop->iteration }}" id="keterangan_{{ $loop->iteration }}">{!! $industri->keterangan !!}</textarea>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        @endforeach
+            @endforeach
+        @endfor
     </div>
 @else
     <div class="row" style="margin-left: 5px;" id="head_industri_1">

@@ -217,17 +217,21 @@ class IndexMukLivewire extends Component
                     $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
                 }
             }
-
-            // biaya pas
-            $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
-            $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
-            $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
-            $persetujuan->save();
-
-            $persetujuan->update([
-                'denda_hari' => (2 / 1000) * $persetujuan->jumlah_angsuran
-            ]);
+        } else {
+            // jika tidak ada perubahan di bunga, plafond, dan jkw, maka jumlah angsuran tetap
+            $persetujuan->jumlah_angsuran = $persetujuan->jumlah_angsuran_muk;
         }
+
+        // biaya pas
+        $persetujuan->jumlah_provisi = ($kredit->jumlah_disetujui * $persetujuan->provisi) / 100;
+        $persetujuan->biaya_adm = ($kredit->jumlah_disetujui * $persetujuan->besar_adm) / 100;
+        $persetujuan->biaya_survey = ($kredit->jumlah_disetujui * $persetujuan->besar_survey) / 100;
+        $persetujuan->denda_hari = (2 / 1000) * $persetujuan->jumlah_angsuran;
+        $persetujuan->save();
+
+        // $persetujuan->update([
+        //     'denda_hari' => (2 / 1000) * $persetujuan->jumlah_angsuran
+        // ]);
 
         $this->reset('file_putusan');
         // 🔥 Kirim event ke Livewire atau JavaScript

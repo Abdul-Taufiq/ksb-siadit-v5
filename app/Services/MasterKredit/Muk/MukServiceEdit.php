@@ -291,7 +291,7 @@ class MukServiceEdit
                 if ($data['aksi_data_industri_' . $i] == 'Edit') {
                     $industri = MukIndustri::find(base64_decode($data['id_industri_' . $i]))->update([
                         'id_muk' => $id_muk,
-                        'type_data' => $data['type_data_' . $i],
+                        'type_data' => $data['type_data_edit_' . $i],
                         'nama' => $data['nama_' . $i],
                         'hubungan' => $data['hubungan_' . $i],
                         'lama_hubungan' => $data['lama_hubungan_' . $i],
