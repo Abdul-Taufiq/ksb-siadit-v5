@@ -308,7 +308,7 @@ class MukServiceEdit
                     // for untuk input
                     for ($a = 1; $a < 3; $a++) {
                         // cek kosong input
-                        if (!empty($data['nama_' . $i . '_' . $a])) {
+                        if (!empty($data['nama_' . $a . '_' . $i])) {
                             $industri = MukIndustri::create([
                                 'id_muk' => $id_muk,
                                 'type_data' => $data['type_data_' . $i],
