@@ -38,10 +38,10 @@ class RekapController extends Controller
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI (TIDAK DIAMBIL)" THEN 1 ELSE 0 END) as jumlah_tidak_diambil')
             )
                 ->whereBetween('created_at', [$awal, $akhir])
-                ->whereIn('id_cabang', [4, 5, 6, 7, 8, 9])
+                ->whereIn('id_cabang', [4, 5, 6, 8, 9])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
-                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
+                ->whereIn('petugas_penerima', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -63,10 +63,10 @@ class RekapController extends Controller
                 DB::raw('SUM(CASE WHEN status_akhir = "DISETUJUI (TIDAK DIAMBIL)" THEN 1 ELSE 0 END) as jumlah_tidak_diambil')
             )
                 ->whereBetween('created_at', [$awal, $akhir])
-                ->whereIn('id_cabang', [1, 2, 3, 10, 11])
+                ->whereIn('id_cabang', [1, 2, 3, 7, 10, 11])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
-                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
+                ->whereIn('petugas_penerima', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -91,7 +91,7 @@ class RekapController extends Controller
                 ->whereIn('id_cabang', [3, 10])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
-                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
+                ->whereIn('petugas_penerima', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -115,7 +115,7 @@ class RekapController extends Controller
                 ->whereBetween('created_at', [$awal, $akhir])
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
-                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
+                ->whereIn('petugas_penerima', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();
@@ -141,7 +141,7 @@ class RekapController extends Controller
                 ->where('id_cabang', $id_cabang)
                 ->orderBy('id_cabang', 'ASC')
                 ->orderBy('petugas_penerima', 'ASC')
-                ->whereIn('nama_ao', $userModels->pluck('nama')->toArray())
+                ->whereIn('petugas_penerima', $userModels->pluck('nama')->toArray())
 
                 ->groupBy('petugas_penerima', 'id_cabang')
                 ->get();

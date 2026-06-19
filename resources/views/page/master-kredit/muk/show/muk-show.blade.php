@@ -27,7 +27,9 @@
                         <div class="col-12 col-md-3 mb-sm-1" style="font-size: 14px">
                             <i class="fa-solid fa-circle-exclamation"></i> Data Ini Merupakan Putusan dari
                             <b>{{ $muk->kredit->persetujuan->putusan }}</b> <br>
-                            @if ($muk->kredit->persetujuan->putusan != 'Cabang')
+                            @if (
+                                $muk->kredit->persetujuan->putusan != 'Cabang' ||
+                                    ($muk->deviasi->perihal != null && $muk->deviasi->perihal != '<p>-</p>'))
                                 Silahkan lihat file putusan di bawah ini <br>
                                 @if ($muk->file_putusan)
                                     <a href="{{ asset('storage/file_upload/putusan/' . $muk->file_putusan) }}"
