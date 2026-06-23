@@ -390,7 +390,7 @@
                 <div style="margin-left: 0px;">
                     {{-- membuat urutan --}}
                     {{ $counter }}. &nbsp;
-                    @php $counter++; @endphp Tabungan Deposito
+                    @php $counter++; @endphp Tabungan/Deposito
                 </div>
                 <table style="width: 95%; margin-left: 20px;">
                     <tr>
@@ -411,7 +411,7 @@
                     </tr>
                     <tr>
                         <td style="width: 1%">•</td>
-                        <td style="width: 25%">Nominal Deposito</td>
+                        <td style="width: 25%">Nominal</td>
                         <td style="width: 1%;">:</td>
                         <td>
                             {{ number_format($depo->nominal, 0, ',', '.') }}

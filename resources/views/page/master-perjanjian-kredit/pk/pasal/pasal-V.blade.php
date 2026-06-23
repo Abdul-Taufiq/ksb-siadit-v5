@@ -56,7 +56,7 @@
                             {{-- membuat urutan --}}
                             {{ $counter }}. &nbsp;
                             @php $counter++; @endphp
-                            Tabungan Deposito
+                            Tabungan/Deposito
                         </div>
                     </div>
                     <ul class="list">
@@ -81,7 +81,7 @@
                         <li>
                             <table style="width: 100%;">
                                 <tr>
-                                    <td style="width: 30%">Nominal Deposito</td>
+                                    <td style="width: 30%">Nominal</td>
                                     <td style="width: 1px;">:</td>
                                     <td>{{ number_format($depo->nominal, 0, ',', '.') }}</td>
                                 </tr>

@@ -79,32 +79,28 @@
                 class="form-select is-invalid">
                 <option {{ $debitur == null ? 'selected' : '' }} disabled>- Pilih Pendidikan Terakhir Debitur -
                 </option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'Tidak Sekolah') ? 'selected' : null }}
+                <option {{ optional($debitur)->pendidikan_terakhir === 'Tidak Sekolah' ? 'selected' : null }}
                     value="Tidak Sekolah">Tidak Sekolah</option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'SD sederajat') ? 'selected' : null }}
+                <option {{ optional($debitur)->pendidikan_terakhir === 'SD Sederajat' ? 'selected' : null }}
                     value="SD Sederajat">SD sederajat</option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'SMP sederajat') ? 'selected' : null }}
+                <option {{ optional($debitur)->pendidikan_terakhir === 'SMP Sederajat' ? 'selected' : null }}
                     value="SMP Sederajat">SMP sederajat</option>
-                <option
-                    {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'SMA sederajat') ? 'selected' : null }}
+                <option {{ optional($debitur)->pendidikan_terakhir === 'SMA Sederajat' ? 'selected' : null }}
                     value="SMA Sederajat">SMA sederajat</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'D1') ? 'selected' : null }}
-                    value="D1">D1</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'D2') ? 'selected' : null }}
-                    value="D2">D2</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'D3') ? 'selected' : null }}
-                    value="D3">D3</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'D4') ? 'selected' : null }}
-                    value="D4">D4</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'S1') ? 'selected' : null }}
-                    value="S1">S1</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'S2') ? 'selected' : null }}
-                    value="S2">S2</option>
-                <option {{ ($debitur == null ? null : $debitur->pendidikan_terakhir == 'S3') ? 'selected' : null }}
-                    value="S3">S3</option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'D1' ? 'selected' : null }} value="D1">D1
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'D2' ? 'selected' : null }} value="D2">D2
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'D3' ? 'selected' : null }} value="D3">D3
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'D4' ? 'selected' : null }} value="D4">D4
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'S1' ? 'selected' : null }} value="S1">S1
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'S2' ? 'selected' : null }} value="S2">S2
+                </option>
+                <option {{ optional($debitur)->pendidikan_terakhir === 'S3' ? 'selected' : null }} value="S3">S3
+                </option>
             </select>
         </div>
     </div>
