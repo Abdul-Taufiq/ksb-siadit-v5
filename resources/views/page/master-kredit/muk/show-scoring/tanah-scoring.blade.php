@@ -882,140 +882,139 @@
             </div>
         @endif
     </div>
-</div>
 
 
-{{-- Kesimpulan --}}
-<div class="card mb-2">
-    <div class="card-header bg-primary text-white head-judul" style="text-align: center">
-        III. KESIMPULAN
+    {{-- Kesimpulan --}}
+    <div class="card mb-2">
+        <div class="card-header bg-primary text-white head-judul" style="text-align: center">
+            III. KESIMPULAN
+        </div>
+        <div class="card-body">
+            @if ($tanah->detail_kategori_jaminan == 'Tanah' || $tanah->detail_kategori_jaminan == 'Ruko & Rukan')
+                <table class="table table-sm w-100">
+                    <tr>
+                        <td style="width: 30%">
+                            Nilai Pasar Agunan (Setelah SM)
+                        </td>
+                        <td style="width: 2%">:</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_pasar"), 0, ',', '.') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Taksasi (%)
+                        </td>
+                        <td style="width: 2%">:</td>
+                        <td>
+                            {{ data_get($tanah, "$SCRekap1.kes_nilai_taksasi_persen") }} %
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Nilai Taksasi Agunan
+                        </td>
+                        <td style="width: 2%">:</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_taksasi"), 0, ',', '.') }}
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-sm w-100">
+                    <tr>
+                        <td style="width: 20%">Kesimpulan</td>
+                        <td style="width: 2%">:</td>
+                        <td>
+                            {!! data_get($tanah, "$SCRekap1.kesimpulan") !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rekomendasi Penilai</td>
+                        <td>:</td>
+                        <td>
+                            {!! data_get($tanah, "$SCRekap1.rekomendasi_penilai") !!}
+                        </td>
+                    </tr>
+                </table>
+            @else
+                <table class="table table-sm w-100">
+                    <tr>
+                        <td style="width: 30%">
+                            Nilai Pasar Agunan (Setelah SM)
+                        </td>
+                        <td style="width: 2%">:</td>
+                        <td style="width: 20%">
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_pasar"), 0, ',', '.') }}
+                        </td>
+                        <td style="width: 2%">+</td>
+                        <td style="width: 20%">
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_bangunan_nilai_pasar"), 0, ',', '.') }}
+                        </td>
+                        <td style="width: 2%">=</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_total_nilai_pasar"), 0, ',', '.') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Nilai Pasar Tanah</strong></td>
+                        <td></td>
+                        <td><strong>Nilai Pasar Bangunan</strong></td>
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Taksasi (%)</td>
+                        <td>:</td>
+                        <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_1") }} %</td>
+                        <td></td>
+                        <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_2") }} %</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Taksasi Agunan</td>
+                        <td>:</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_taksasi"), 0, ',', '.') }}
+                        </td>
+                        <td>+</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_bangunan_nilai_taksasi"), 0, ',', '.') }}
+                        </td>
+                        <td>=</td>
+                        <td>
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_total_nilai_taksasi"), 0, ',', '.') }}
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-sm w-100">
+                    <tr>
+                        <td style="width: 15%">Kesimpulan</td>
+                        <td style="width: 2%">:</td>
+                        <td>
+                            {!! data_get($tanah, "$SCRekap2.kesimpulan") !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rekomendasi Penilai</td>
+                        <td>:</td>
+                        <td>
+                            {!! data_get($tanah, "$SCRekap2.rekomendasi_penilai") !!}
+                        </td>
+                    </tr>
+                </table>
+            @endif
+        </div>
     </div>
-    <div class="card-body">
-        @if ($tanah->detail_kategori_jaminan == 'Tanah' || $tanah->detail_kategori_jaminan == 'Ruko & Rukan')
-            <table class="table table-sm w-100">
-                <tr>
-                    <td style="width: 20%">
-                        Nilai Pasar (Setelah SM)
-                    </td>
-                    <td style="width: 2%">:</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_pasar"), 0, ',', '.') }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Taksasi (%)
-                    </td>
-                    <td style="width: 2%">:</td>
-                    <td>
-                        {{ data_get($tanah, "$SCRekap1.kes_nilai_taksasi_persen") }} %
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nilai Taksasi Agunan
-                    </td>
-                    <td style="width: 2%">:</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_taksasi"), 0, ',', '.') }}
-                    </td>
-                </tr>
-            </table>
 
-            <table class="table table-sm w-100">
-                <tr>
-                    <td style="width: 20%">Kesimpulan</td>
-                    <td style="width: 2%">:</td>
-                    <td>
-                        {!! data_get($tanah, "$SCRekap1.kesimpulan") !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Rekomendasi Penilai</td>
-                    <td>:</td>
-                    <td>
-                        {!! data_get($tanah, "$SCRekap1.rekomendasi_penilai") !!}
-                    </td>
-                </tr>
-            </table>
-        @else
-            <table class="table table-sm w-100">
-                <tr>
-                    <td style="width: 15%">
-                        Nilai Pasar (Setelah SM)
-                    </td>
-                    <td style="width: 2%">:</td>
-                    <td style="width: 15%">
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_pasar"), 0, ',', '.') }}
-                    </td>
-                    <td>+</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_bangunan_nilai_pasar"), 0, ',', '.') }}
-                    </td>
-                    <td>=</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_total_nilai_pasar"), 0, ',', '.') }}
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><strong>Nilai Pasar Tanah</strong></td>
-                    <td></td>
-                    <td><strong>Nilai Pasar Bangunan</strong></td>
-                    <td></td>
-                    <td><strong>Total</strong></td>
-                </tr>
-                <tr>
-                    <td>Taksasi (%)</td>
-                    <td>:</td>
-                    <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_1") }} %</td>
-                    <td></td>
-                    <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_2") }} %</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Nilai Taksasi Agunan</td>
-                    <td>:</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_taksasi"), 0, ',', '.') }}
-                    </td>
-                    <td>+</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_bangunan_nilai_taksasi"), 0, ',', '.') }}
-                    </td>
-                    <td>=</td>
-                    <td>
-                        {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_total_nilai_taksasi"), 0, ',', '.') }}
-                    </td>
-                </tr>
-            </table>
-
-            <table class="table table-sm w-100">
-                <tr>
-                    <td style="width: 15%">Kesimpulan</td>
-                    <td style="width: 2%">:</td>
-                    <td>
-                        {!! data_get($tanah, "$SCRekap2.kesimpulan") !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Rekomendasi Penilai</td>
-                    <td>:</td>
-                    <td>
-                        {!! data_get($tanah, "$SCRekap2.rekomendasi_penilai") !!}
-                    </td>
-                </tr>
-            </table>
-        @endif
+    {{-- ttd --}}
+    <div class="card mb-2" id="ttd_putusan" style="page-break-inside: avoid">
+        <div class="card-body">
+            @include('page.master-kredit.muk.show-scoring.ttd-putusan')
+        </div>
     </div>
-</div>
-
-{{-- ttd --}}
-<div class="card mb-2" id="ttd_putusan" style="page-break-inside: avoid">
-    <div class="card-body">
-        @include('page.master-kredit.muk.show-scoring.ttd-putusan')
-    </div>
-</div>
 </div>
