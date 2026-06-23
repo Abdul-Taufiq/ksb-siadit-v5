@@ -942,7 +942,7 @@
             <table class="table table-sm w-100">
                 <tr>
                     <td style="width: 15%">
-                        Nilai Pasar Agunan
+                        Nilai Pasar (Setelah SM)
                     </td>
                     <td style="width: 2%">:</td>
                     <td style="width: 15%">
