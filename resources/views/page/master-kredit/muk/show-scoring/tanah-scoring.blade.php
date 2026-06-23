@@ -497,10 +497,10 @@
                                 <td style="width: 30%">IMB</td>
                                 <td style="width: 2%">:</td>
                                 <td>
-                                    {{ data_get($tanah, "$SCScoring.pintu") == '1' ? 'ADA' : 'TIDAK ADA' }}
+                                    {{ data_get($tanah, "$SCScoring.imb") == '1' ? 'ADA' : 'TIDAK ADA' }}
                                 </td>
                                 <td style="width: 10%; background-color: rgb(214, 214, 214); text-align: center">
-                                    {{ data_get($tanah, "$SCScoring.pintu") }}
+                                    {{ data_get($tanah, "$SCScoring.imb") }}
                                 </td>
                             </tr>
                         </table>
@@ -895,7 +895,7 @@
             <table class="table table-sm w-100">
                 <tr>
                     <td style="width: 20%">
-                        Nilai Pasar Agunan
+                        Nilai Pasar (Setelah SM)
                     </td>
                     <td style="width: 2%">:</td>
                     <td>

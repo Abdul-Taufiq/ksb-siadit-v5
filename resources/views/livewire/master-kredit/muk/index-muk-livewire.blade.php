@@ -131,11 +131,19 @@
 
                                             @if (Auth::user()->sub_jabatan == 'Staf Analis Area' || Auth::user()->jabatan == 'Analis Cabang')
                                                 @if ($item->status_pincab != null && $item->status_kakom != null)
-                                                    <a href="#"
-                                                        class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                        title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+                                                    @if ($pkPrint != null || $addPrint != null)
+                                                        <a href="#"
+                                                            class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                            title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                            class="btn btn-warning btn-sm btn-aksi edit_data"
+                                                            title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    @endif
                                                 @else
                                                     @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
                                                         @if ($item->kredit->nama_analis == null || $item->kredit->nama_analis == Auth::user()->nama)
