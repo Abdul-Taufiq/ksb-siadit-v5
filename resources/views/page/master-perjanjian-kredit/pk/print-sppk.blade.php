@@ -414,7 +414,7 @@
                         <td style="width: 25%">Nominal</td>
                         <td style="width: 1%;">:</td>
                         <td>
-                            {{ number_format($depo->nominal, 0, ',', '.') }}
+                            Rp{{ number_format($depo->nominal, 0, ',', '.') }}
                         </td>
                     </tr>
                 </table>

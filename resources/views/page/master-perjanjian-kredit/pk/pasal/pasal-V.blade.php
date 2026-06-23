@@ -83,7 +83,7 @@
                                 <tr>
                                     <td style="width: 30%">Nominal</td>
                                     <td style="width: 1px;">:</td>
-                                    <td>{{ number_format($depo->nominal, 0, ',', '.') }}</td>
+                                    <td>Rp{{ number_format($depo->nominal, 0, ',', '.') }}</td>
                                 </tr>
                             </table>
                         </li>
