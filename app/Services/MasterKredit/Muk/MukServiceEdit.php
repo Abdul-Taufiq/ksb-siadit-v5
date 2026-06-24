@@ -593,6 +593,11 @@ class MukServiceEdit
                     // Penilaian Agunan
                     if (!empty($data['tgl_penilaian_' . $i])) {
                         $pen = SC_Tanah_Agunan::find(base64_decode($data['id_sc_agunan_' . $i]));
+
+                        if ($pen == null) {
+                            $pen = new SC_Tanah_Agunan();
+                        }
+
                         $pen->id_muk = $id_muk;
                         $pen->id_jaminan_pertanahan = $id_tanah;
                         $pen->nama_deb = $data['nama_deb_' . $i];
@@ -639,6 +644,11 @@ class MukServiceEdit
                     // Scoring
                     if (!empty($data['tempat_ibadah_' . $i])) {
                         $scTanah = SC_Tanah_Scoring::find(base64_decode($data['id_sc_scoring_' . $i]));
+
+                        if ($scTanah == null) {
+                            $scTanah = new SC_Tanah_Scoring();
+                        }
+
                         $scTanah->id_muk = $id_muk;
                         $scTanah->id_jaminan_pertanahan = $id_tanah;
                         $scTanah->tempat_ibadah = $data['tempat_ibadah_' . $i];
@@ -686,7 +696,14 @@ class MukServiceEdit
                     // Perhitungan
                     for ($a = 1; $a < 51; $a++) {
                         if (!empty($data['nama_' . $i . '_' . $a])) {
-                            $per = SC_Tanah_Perhitungan::find(base64_decode($data['id_sc_perhitungan_' . $i . '_' . $a]));
+                            $per = SC_Tanah_Perhitungan::find(
+                                base64_decode($data['id_sc_perhitungan_' . $i . '_' . $a] ?? '')
+                            );
+
+                            if ($per == null) {
+                                $per = new SC_Tanah_Perhitungan();
+                            }
+
                             $per->id_muk = $id_muk;
                             $per->id_jaminan_pertanahan = $id_tanah;
                             $per->nama = $data['nama_' . $i . '_' . $a];
