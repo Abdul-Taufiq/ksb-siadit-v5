@@ -28,8 +28,8 @@
                             <i class="fa-solid fa-circle-exclamation"></i> Data Ini Merupakan Putusan dari
                             <b>{{ $muk->kredit->persetujuan->putusan }}</b> <br>
                             @if (
-                                $muk->kredit->persetujuan->putusan != 'Cabang' ||
-                                    ($muk->deviasi->perihal != null && $muk->deviasi->perihal != '<p>-</p>'))
+                                ($muk->deviasi->perihal != null && $muk->deviasi->perihal != '<p>-</p>') ||
+                                    $muk->kredit->persetujuan->putusan != 'Cabang')
                                 Silahkan lihat file putusan di bawah ini <br>
                                 @if ($muk->file_putusan)
                                     <a href="{{ asset('storage/file_upload/putusan/' . $muk->file_putusan) }}"
