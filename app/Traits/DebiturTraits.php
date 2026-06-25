@@ -196,7 +196,7 @@ trait DebiturTraits
 
                 case 'Pimpinan Cabang':
                     // cek dan sesuaikan apakah putusan cabang atau memiliki deviasi atau bukan dan update status kredit
-                    if ($this->putusan != 'Cabang' || ($muk?->deviasi?->perihal !== null && $muk?->deviasi?->perihal !== '<p>-</p>')) {
+                    if (($muk?->deviasi?->perihal !== null && $muk?->deviasi?->perihal !== '<p>-</p>') || $this->putusan != 'Cabang') {
                         // jika putusan bukan cabang
                         $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
                         $kredit->save();
