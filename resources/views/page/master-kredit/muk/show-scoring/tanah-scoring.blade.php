@@ -608,9 +608,9 @@
                 </div>
 
                 @if ($index % 2 == 1 || $loop->last)
+                @endif
+            @endforeach
         </div>
-        @endif
-        @endforeach
 
         <div class="row">
             <div class="col-md-12">
@@ -894,16 +894,17 @@
                 <table class="table table-sm w-100">
                     <tr>
                         <td style="width: 30%">
-                            Nilai Pasar Agunan (Setelah SM)
+                            Nilai Pasar Agunan
                         </td>
                         <td style="width: 2%">:</td>
                         <td>
-                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_pasar"), 0, ',', '.') }}
+                            {{-- {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.kes_nilai_pasar"), 0, ',', '.') }} --}}
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.nilai_agunan"), 0, ',', '.') }}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Taksasi (%)
+                            Taksasi (%) (Setelah SM)
                         </td>
                         <td style="width: 2%">:</td>
                         <td>
@@ -941,19 +942,19 @@
                 <table class="table table-sm w-100">
                     <tr>
                         <td style="width: 30%">
-                            Nilai Pasar Agunan (Setelah SM)
+                            Nilai Pasar Agunan
                         </td>
                         <td style="width: 2%">:</td>
                         <td style="width: 20%">
-                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_pasar"), 0, ',', '.') }}
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.rekom_agunan_tanah"), 0, ',', '.') }}
                         </td>
                         <td style="width: 2%">+</td>
                         <td style="width: 20%">
-                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_bangunan_nilai_pasar"), 0, ',', '.') }}
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.rekom_agunan_bangunan"), 0, ',', '.') }}
                         </td>
                         <td style="width: 2%">=</td>
                         <td>
-                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_total_nilai_pasar"), 0, ',', '.') }}
+                            {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.rekom_total"), 0, ',', '.') }}
                         </td>
                     </tr>
                     <tr>
@@ -966,7 +967,7 @@
                         <td><strong>Total</strong></td>
                     </tr>
                     <tr>
-                        <td>Taksasi (%)</td>
+                        <td>Taksasi (%) (Setelah SM)</td>
                         <td>:</td>
                         <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_1") }} %</td>
                         <td></td>
