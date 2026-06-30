@@ -607,8 +607,7 @@
                     </table>
                 </div>
 
-                @if ($index % 2 == 1 || $loop->last)
-                @endif
+                {{ $index % 2 == 1 || $loop->last ? '</div>' : '' }}
             @endforeach
         </div>
 
@@ -904,7 +903,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Taksasi (%) (Setelah SM)
+                            Taksasi (%)
                         </td>
                         <td style="width: 2%">:</td>
                         <td>
@@ -913,7 +912,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Nilai Taksasi Agunan
+                            Nilai Taksasi Agunan (Setelah SM)
                         </td>
                         <td style="width: 2%">:</td>
                         <td>
@@ -967,7 +966,7 @@
                         <td><strong>Total</strong></td>
                     </tr>
                     <tr>
-                        <td>Taksasi (%) (Setelah SM)</td>
+                        <td>Taksasi (%)</td>
                         <td>:</td>
                         <td>{{ data_get($tanah, "$SCRekap2.kes_taksasi_persen_1") }} %</td>
                         <td></td>
@@ -976,7 +975,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Nilai Taksasi Agunan</td>
+                        <td>Nilai Taksasi Agunan (Setelah SM)</td>
                         <td>:</td>
                         <td>
                             {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.kes_tanah_nilai_taksasi"), 0, ',', '.') }}
