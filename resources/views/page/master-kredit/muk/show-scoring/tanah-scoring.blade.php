@@ -607,7 +607,7 @@
                     </table>
                 </div>
 
-                {{ $index % 2 == 1 || $loop->last ? '</div>' : '' }}
+                {!! $index % 2 == 1 || $loop->last ? '</div>' : '' !!}
             @endforeach
         </div>
 
