@@ -310,16 +310,48 @@ trait DebiturTraits
                         $persetujuan->denda_hari = (2 / 1000) * $persetujuan->jumlah_angsuran;
                         $persetujuan->save();
 
-                        // update tracking
-                        $tracking->update([
-                            'nama' => $user->nama,
-                            'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cancel'),
-                            'tgl_status' => now(),
-                            'status_spk' => $this->status == 'Approve' ? 'Disetujui' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cancel'),
-                        ]);
+                        // JIKA STATUS KAKOM KOSONG
+                        $Tkakom = TrackingSPK::where('id_kredit', $kredit->id_kredit)
+                            ->where('jabatan', 'Kasi Komersial')
+                            ->whereNull('nama')
+                            ->whereNull('status')
+                            ->orderByDesc('id_tracking')
+                            ->first();
+
+                        if ($Tkakom !== null) {
+                            $Tkakom->update([
+                                'nama' => '-',
+                                'status' => 'Ditarik Pincab',
+                                'tgl_status' => now(),
+                                'status_spk' => 'Proses',
+                            ]);
+
+                            // buat tracking untuk pincab sendiri
+                            TrackingSPK::AddTrackingSPK($kredit, [
+                                'id_cabang' => $kredit->id_cabang,
+                                'id_kredit' => $kredit->id_kredit,
+                                'petugas_penerima' => $kredit->petugas_penerima,
+                                'nama' => $user->nama,
+                                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                                'tgl_masuk' => now(),
+                                'tgl_status' => now(),
+                                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                            ]);
+                        } else {
+                            $tracking->update([
+                                'nama' => $user->nama,
+                                'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                                'tgl_status' => now(),
+                                'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
+                            ]);
+                        }
 
                         // tracking selanjutnya
                         if ($this->status == 'Approve') {
+                            // update muk
+                            $muk->update([
+                                'status_pincab' => 'Approve'
+                            ]);
                             $this->AddTrackingNext($kredit, $setting);
                         }
                     }
