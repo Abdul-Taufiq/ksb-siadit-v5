@@ -198,7 +198,7 @@ trait DebiturTraits
                     // cek dan sesuaikan apakah putusan cabang atau memiliki deviasi atau bukan dan update status kredit
                     if (($muk?->deviasi?->perihal !== null && $muk?->deviasi?->perihal !== '<p>-</p>') || $this->putusan != 'Cabang') {
                         // jika putusan bukan cabang
-                        $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menungggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
+                        $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menunggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
                         $kredit->save();
 
                         // JIKA STATUS KAKOM KOSONG
@@ -223,7 +223,7 @@ trait DebiturTraits
                                 'id_kredit' => $kredit->id_kredit,
                                 'petugas_penerima' => $kredit->petugas_penerima,
                                 'nama' => $user->nama,
-                                'status' => $this->status == 'Approve' ? 'Approve - Menunngu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                                'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                                 'tgl_masuk' => now(),
                                 'tgl_status' => now(),
                                 'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
@@ -231,7 +231,7 @@ trait DebiturTraits
                         } else {
                             $tracking->update([
                                 'nama' => $user->nama,
-                                'status' => $this->status == 'Approve' ? 'Approve - Menunngu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
+                                'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                                 'tgl_status' => now(),
                                 'status_spk' => $this->status == 'Approve' ? 'Proses' : ($this->status == 'Reject' ? 'Ditolak' :  'Debitur Cencel'),
                             ]);
@@ -419,7 +419,7 @@ trait DebiturTraits
         }
 
         // log & dispatch event
-        LogActivity::AddLog("(cs) Data SPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: {$kredit->status_kredit} |");
+        LogActivity::AddLog("(cs) Data SPK | No SPK: {$kredit->no_spk} | Nama: {$kredit->debitur->nama_debitur} <br> Perubahan Status SPK: {$kredit->status_kredit}");
         $this->dispatch('AlertSuccess', ['message' => 'Data berhasil diubah status!', 'id' => Crypt::encrypt($kredit->id_kredit)]);
     }
 
