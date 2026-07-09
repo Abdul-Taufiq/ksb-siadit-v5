@@ -503,9 +503,9 @@
                             <td style="width: 25%; text-align: left">Jenis Kelamin</td>
                             <td style="width: 2px">:</td>
                             <td colspan="2">
-                                @if ($kredit->debitur->jenis_kelamin = 'Laki-laki')
+                                @if ($kredit->debitur->jenis_kelamin == 'Laki-laki')
                                     Perempuan
-                                @elseif ($kredit->debitur->jenis_kelamin = 'Perempuan')
+                                @elseif ($kredit->debitur->jenis_kelamin == 'Perempuan')
                                     Laki-laki
                                 @endif
                             </td>
@@ -978,9 +978,9 @@
                                     <td style="width: 25%; text-align: left">Jenis Kelamin</td>
                                     <td style="width: 2px">:</td>
                                     <td colspan="2">
-                                        @if ($penjamins->jenis_kelamin = 'Laki-laki')
+                                        @if ($penjamins->jenis_kelamin == 'Laki-laki')
                                             Perempuan
-                                        @elseif ($penjamins->jenis_kelamin = 'Perempuan')
+                                        @elseif ($penjamins->jenis_kelamin == 'Perempuan')
                                             Laki-laki
                                         @endif
                                     </td>
