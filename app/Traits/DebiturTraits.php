@@ -221,8 +221,9 @@ trait DebiturTraits
                             TrackingSPK::AddTrackingSPK($kredit, [
                                 'id_cabang' => $kredit->id_cabang,
                                 'id_kredit' => $kredit->id_kredit,
-                                'petugas_penerima' => $kredit->petugas_penerima,
+                                'creator' => $kredit->petugas_penerima,
                                 'nama' => $user->nama,
+                                'jabatan' => 'Pimpinan Cabang',
                                 'status' => $this->status == 'Approve' ? 'Approve - Menunggu Putusan ' . $kredit->persetujuan->putusan : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                                 'tgl_masuk' => now(),
                                 'tgl_status' => now(),
@@ -249,11 +250,12 @@ trait DebiturTraits
                                 TrackingSPK::AddTrackingSPK($kredit, [
                                     'id_cabang' => $kredit->id_cabang,
                                     'id_kredit' => $kredit->id_kredit,
-                                    'petugas_penerima' => $kredit->petugas_penerima,
+                                    'creator' => $kredit->petugas_penerima,
                                     'nama' => null,
-                                    'jabatan' => 'Analis/KAKOM', // ini untuk yang handle di IndexMUKLivewire.php
+                                    'jabatan' => 'Analis/KAKOM',
                                     'status' => null,
                                     'tgl_masuk' => now(),
+                                    'tgl_status' => null,
                                     'status_spk' => 'Proses',
                                 ]);
                             }
@@ -330,8 +332,9 @@ trait DebiturTraits
                             TrackingSPK::AddTrackingSPK($kredit, [
                                 'id_cabang' => $kredit->id_cabang,
                                 'id_kredit' => $kredit->id_kredit,
-                                'petugas_penerima' => $kredit->petugas_penerima,
+                                'creator' => $kredit->petugas_penerima,
                                 'nama' => $user->nama,
+                                'jabatan' => 'Pimpinan Cabang',
                                 'status' => $this->status == 'Approve' ? 'Approve' : ($this->status == 'Reject' ? 'Reject' : 'Debitur Cencel'),
                                 'tgl_masuk' => now(),
                                 'tgl_status' => now(),
