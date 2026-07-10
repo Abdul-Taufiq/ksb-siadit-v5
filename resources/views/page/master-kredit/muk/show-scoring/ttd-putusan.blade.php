@@ -11,19 +11,19 @@
     <tr>
         <td style="text-align: center">
             <br><br><br><br>
-            {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_pincab : '' }}
+            {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_pincab ?? '<br>' : '' !!}
             <hr style="margin: 0;">
             {{ $muk->id_cabang == '1' ? 'Kepala Kantor' : 'Pimpinan Cabang' }}
         </td>
         <td style="text-align: center">
             <br><br><br><br>
-            {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_kakom : '' }}
+            {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_kakom ?? '<br>' : '' !!}
             <hr style="margin: 0;">
             Kasi Komersial
         </td>
         <td style="text-align: center">
             <br><br><br><br>
-            {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_cabang : '' }}
+            {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_cabang ?? '<br>' : '' !!}
             <hr style="margin: 0;">
             Analis Kredit
         </td>
@@ -44,19 +44,19 @@
         <tr>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_manajer_area : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_manajer_area ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Manajer Area
             </td>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_area : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_area ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Analis Area
             </td>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_komite : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_komite ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Analis Komite
             </td>
@@ -78,19 +78,19 @@
         <tr>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_direktur_utama : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_direktur_utama ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Direktur Utama
             </td>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_direktur_komersial : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_direktur_komersial ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Direktur Komersial
             </td>
             <td style="text-align: center">
                 <br><br><br><br>
-                {{ !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_pst : '' }}
+                {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_analis_pst ?? '<br>' : '' !!}
                 <hr style="margin: 0;">
                 Analis Pusat
             </td>

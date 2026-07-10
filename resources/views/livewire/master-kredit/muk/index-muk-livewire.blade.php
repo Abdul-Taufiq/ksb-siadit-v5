@@ -58,7 +58,10 @@
                                         <td>{{ $item->no_muk }}</td>
                                         <td>{{ $item->tgl_muk->translatedFormat('d F Y') }}</td>
                                         <td>
-                                            @if ($item->status_pincab == 'Approve' && $item->status_kakom == null)
+                                            @if (
+                                                $item->status_pincab == 'Approve' &&
+                                                    $item->status_kakom == null &&
+                                                    !in_array($item->deviasi->perihal, ['-', '<p>-</p>']))
                                                 {{-- untuk analis cabang atau analis area --}}
                                                 @if (Auth::user()->jabatan == 'Kasi Komersial' || Auth::user()->jabatan == 'Pimpinan Cabang')
                                                     <div class="btn-group dropend">

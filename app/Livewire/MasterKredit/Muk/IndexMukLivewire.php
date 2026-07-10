@@ -138,11 +138,11 @@ class IndexMukLivewire extends Component
     public function ChangeStatus()
     {
         $file = $this->file_putusan;
-        $fileName = 'putusan_' . now()->format('Y-m-d_H-i') . '_' .  uniqid() . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('file_upload/putusan', $fileName, 'public'); // lebih aman dan Livewire-friendly
-
         $id_kre = base64_decode($this->id_kredit);
         $muk = Muk::where('id_kredit', $id_kre)->first();
+        $fileName = 'putusan_' . $muk->no_muk . '_' . now()->format('Y-m-d_H-i') . '_' .  substr(uniqid(), -4) . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('file_upload/putusan', $fileName, 'public'); // lebih aman dan Livewire-friendly
+
         $muk->file_putusan = $fileName;
         $muk->status_kakom = $this->metode;
         $muk->save();
