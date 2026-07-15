@@ -19,7 +19,18 @@
             <br><br><br><br>
             {!! !empty($muk->putusan->nama_ao) ? $muk->putusan->nama_kakom ?? '<br>' : '' !!}
             <hr style="margin: 0;">
-            Kasi Komersial
+            @switch($muk->putusan?->nama_kakom)
+                @case('Feppi Kurniasari')
+                    Kepala Kantor Kas
+                @break
+
+                @case('Arief Murtono')
+                    Team Leader
+                @break
+
+                @default
+                    Kasi Komersial
+            @endswitch
         </td>
         <td style="text-align: center">
             <br><br><br><br>

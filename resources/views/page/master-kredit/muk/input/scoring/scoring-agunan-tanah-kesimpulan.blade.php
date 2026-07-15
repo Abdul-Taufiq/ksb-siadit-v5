@@ -128,14 +128,15 @@
     <div class="col-md-12 mb-3">
         <label class="notbbold" for="kesimpulan_{{ $loop->iteration }}">Kesimpulan</label>
         <textarea name="kesimpulan_{{ $loop->iteration }}" id="kesimpulan_{{ $loop->iteration }}" cols="30"
-            rows="3" class="form-control is-invalid">{!! data_get($tanah, "$vanalisRekap1.kesimpulan") ?? data_get($tanah, "$vcabRekap2.kesimpulan") !!}</textarea>
+            rows="3" class="form-control is-invalid">{!! data_get($tanah, "$vanalisRekap1.kesimpulan") ??
+                (data_get($tanah, "$vcabRekap1.kesimpulan") ?? data_get($tanah, "$vcabRekap2.kesimpulan")) !!}</textarea>
     </div>
 
     <div class="col-md-12">
         <label class="notbbold" for="rekomendasi_penilai_{{ $loop->iteration }}">Rekomendasi Penilai</label>
         <textarea name="rekomendasi_penilai_{{ $loop->iteration }}" id="rekomendasi_penilai_{{ $loop->iteration }}"
             cols="30" rows="2" class="form-control is-invalid">{!! data_get($tanah, "$vanalisRekap1.rekomendasi_penilai") ??
-                data_get($tanah, "$vcabRekap2.rekomendasi_penilai") !!}</textarea>
+                (data_get($tanah, "$vcabRekap1.rekomendasi_penilai") ?? data_get($tanah, "$vcabRekap2.rekomendasi_penilai")) !!}</textarea>
     </div>
 
 </div>
