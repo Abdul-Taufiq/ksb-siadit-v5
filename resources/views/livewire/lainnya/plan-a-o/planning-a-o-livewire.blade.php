@@ -61,8 +61,6 @@
                 </div>
             </div>
 
-            {{ $id_cabang }}
-
             <div class="table-responsive table-responsive-md" id="table-container">
                 <table class="table table-striped table-hover table-sm" id="exportTable">
                     <thead class="table-primary">
