@@ -7,6 +7,7 @@ use App\Http\Controllers\Lainnya\LogActivityController;
 use App\Http\Controllers\Lainnya\MonitoringAOController;
 use App\Http\Controllers\Lainnya\PlanningAOController;
 use App\Http\Controllers\Lainnya\RekapController;
+use App\Http\Controllers\MasterInsentif\InsentifAOController;
 use App\Http\Controllers\MasterKredit\AgunanController;
 use App\Http\Controllers\MasterKredit\DebiturController;
 use App\Http\Controllers\MasterKredit\MukController;
@@ -24,6 +25,7 @@ use App\Livewire\Lainnya\PlanAO\ShowRekapPlanAOLivewire;
 use App\Livewire\Lainnya\RekapMonitoringAOLivewire;
 use App\Livewire\Lainnya\ShowRekapMonitoringAOLivewire;
 use App\Livewire\Lainnya\TAphtLivewire;
+use App\Livewire\MasterInsentif\InsentifAOLivewire;
 use App\Livewire\MasterKredit\Muk\AddMukLivewire;
 use App\Livewire\MasterKredit\Muk\IndexMukLivewire;
 use App\Livewire\MasterPK\AddendumLivewire;
@@ -265,6 +267,13 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/latest-version', [LogActivityController::class, 'version'])->name('log.version');
         Route::get('/latest-version', LogAppVersion::class)->name('log.version');
     });
+
+
+    // Insentif
+    Route::prefix('insentif')->group(function () {
+        Route::get('/', InsentifAOLivewire::class)->name('insentif.index');
+    });
+
 
     Route::get('/tester', [HomeController::class, 'tester']);
 });

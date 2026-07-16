@@ -18,12 +18,12 @@ class TAphtLivewire extends Component
     use WithPagination, WithoutUrlPagination, WithFileUploads;
     public $perPage = 10;
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
-    public $search = '';
+    public $search = '', $id_cabang = 99;
     #[Url(history: true)] //jika ini aktif maka akan ada url tambahan dikomen/dihapus aja
     public $tgl_awal,  $tgl_akhir;
     // For filter
     public $sortBy = 'created_at', $sortDir = 'desc';
-    public $kc = false, $id_cabang = 99, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
+    public $kc = false, $id_cab_area, $id_area_1, $id_area_2, $id_area_3;
     // for modal
     public $modal_title, $metode, $id_table;
     public $nomor, $sertifikat, $jns_perikatan, $progress, $inp_tgl_awal, $inp_tgl_akhir, $keterangan, $status_akhir, $data = [];
@@ -40,11 +40,18 @@ class TAphtLivewire extends Component
 
     public function mount()
     {
+        if (! function_exists('defaultCabang')) {
+            function defaultCabang($current, $fallback)
+            {
+                return $current ?: $fallback;
+            }
+        }
+
         switch (Auth::user()->level) {
             case 'DIREKTUR':
             case 'SUPER USER':
                 $this->kc = true;
-                $this->id_cabang = 99;
+                $this->id_cabang = defaultCabang($this->id_cabang, 99);
                 $this->id_area_1 = [4, 5, 6, 8, 9];
                 $this->id_area_2 = [1, 2, 3, 7, 10, 11];
                 $this->id_area_3 = [3, 10];
@@ -52,19 +59,19 @@ class TAphtLivewire extends Component
 
             case 'AREA 1':
                 $this->kc = true;
-                $this->id_cabang = null;
+                $this->id_cabang = defaultCabang($this->id_cabang, null);
                 $this->id_cab_area = [4, 5, 6, 8, 9];
                 break;
 
             case 'AREA 2':
                 $this->kc = true;
-                $this->id_cabang = null;
+                $this->id_cabang = defaultCabang($this->id_cabang, null);
                 $this->id_cab_area = [1, 2, 3, 7, 10, 11];
                 break;
 
             case 'AREA 3':
                 $this->kc = true;
-                $this->id_cabang = null;
+                $this->id_cabang = defaultCabang($this->id_cabang, null);
                 $this->id_cab_area = [3, 10];
                 break;
 

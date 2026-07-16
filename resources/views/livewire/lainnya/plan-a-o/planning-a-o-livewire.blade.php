@@ -61,6 +61,8 @@
                 </div>
             </div>
 
+            {{ $id_cabang }}
+
             <div class="table-responsive table-responsive-md" id="table-container">
                 <table class="table table-striped table-hover table-sm" id="exportTable">
                     <thead class="table-primary">
@@ -161,6 +163,7 @@
                                 <i class="fa fa-spinner fa-spin"></i> Loading...
                             </td>
                         </tr>
+                        {{ $monitoring }}
                         @if ($monitoring->isNotEmpty())
                             @foreach ($monitoring as $data => $item)
                                 <tr wire:key='{{ sha1($item->id) }}' wire:loading.remove wire:target='page_view'>

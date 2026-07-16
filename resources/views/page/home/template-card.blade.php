@@ -1,7 +1,12 @@
 <div class="card mb-2">
-    <div class="card-header">
-        <h5>{{ $nomor }}</h5>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ $nomor }}</h5>
+        <i class="d-none d-lg-inline" style="font-size: 13px;">
+            Info detail ada di <b>Menu Lainnya -> Rekap Data SPK</b> atau
+            <a href="{{ route('rekap.spk') }}" class="text-primary">Klik disini!</a>
+        </i>
     </div>
+
     <div class="card-body">
         <div class="row stat-cards">
             <div class="col-md-4 mb-2">

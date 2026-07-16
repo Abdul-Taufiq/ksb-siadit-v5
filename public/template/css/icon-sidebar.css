@@ -57,6 +57,13 @@
     -webkit-mask-image: url(../font-awesome/svgs/solid/book-bookmark.svg);
     mask-image: url(../font-awesome/svgs/solid/book-bookmark.svg);
 }
+.menu-insentif {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    -webkit-mask-image: url(../font-awesome/svgs/solid/clipboard-list.svg);
+    mask-image: url(../font-awesome/svgs/solid/clipboard-list.svg);
+}
 .master-rekap {
     width: 20px;
     height: 20px;
