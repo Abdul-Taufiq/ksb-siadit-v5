@@ -82,6 +82,16 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                    @elseif ($item->status_kakom == 'Approve')
+                                                        <span class="badge text-bg-success" style="font-size: 11px;"
+                                                            title="Approved">
+                                                            <i class="fa-solid fa-check"></i> Approved
+                                                        </span>
+                                                    @elseif ($item->status_kakom == 'Reject')
+                                                        <span class="badge text-bg-danger" style="font-size: 11px;"
+                                                            title="Rejected">
+                                                            <i class="fa-solid fa-xmark"></i> Rejected
+                                                        </span>
                                                     @else
                                                         <span class="badge text-bg-info" style="font-size: 11px;"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
