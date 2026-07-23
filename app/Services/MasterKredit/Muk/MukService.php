@@ -394,11 +394,11 @@ class MukService
 
         // Analisa Industri
         for ($i = 1; $i < 51; $i++) {
-            if (!empty($data['type_data_' . $i])) {
+            if (isset($data['type_data_' . $i]) && $data['type_data_' . $i] != null) {
                 // for untuk input
                 for ($a = 1; $a < 5; $a++) {
                     // cek kosong input
-                    if (!empty($data['nama_' . $i . '_' . $a])) {
+                    if (isset($data['nama_' . $i . '_' . $a]) && $data['nama_' . $i . '_' . $a] != null) {
                         $industri = MukIndustri::create([
                             'id_muk' => base64_decode($data['id_muk']),
                             'type_data' => $data['type_data_' . $i],
@@ -667,7 +667,7 @@ class MukService
                         $pen->no_gs = $data['no_gs_' . $i];
 
                         // untuk Ruko dan Bangunan
-                        if (!empty($data['luas_bangunan_fisik_' . $i])) {
+                        if (isset($data['luas_bangunan_fisik_' . $i]) && $data['luas_bangunan_fisik_' . $i] != null) {
                             $pen->luas_bangunan = $data['luas_bangunan_' . $i];
                             $pen->luas_bangunan_fisik = $data['luas_bangunan_fisik_' . $i];
                             $pen->beda_luas_bangunan = $data['beda_luas_bangunan_' . $i];

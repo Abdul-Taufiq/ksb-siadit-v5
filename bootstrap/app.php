@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             CheckMaintenanceMode::class,
             CheckPermission::class,
-            SendEmailTAPHT::class,
+            // SendEmailTAPHT::class,
             // SendEmailKreditLengkap::class,
         ]);
     })
