@@ -60,7 +60,8 @@
                                         <td>
                                             @if (
                                                 ($item->status_pincab == 'Approve' && $item->status_kakom == null) ||
-                                                    !in_array($item->deviasi?->perihal, ['-', '<p>-</p>'] || $item->kredit->persetujuan->putusan != 'Cabang'))
+                                                    !in_array($item->deviasi?->perihal, ['-', '<p>-</p>']) ||
+                                                    $item->kredit->persetujuan->putusan != 'Cabang')
                                                 {{-- untuk analis cabang atau analis area --}}
                                                 @if (Auth::user()->jabatan == 'Kasi Komersial' || Auth::user()->jabatan == 'Pimpinan Cabang')
                                                     <div class="btn-group dropend">
@@ -73,14 +74,14 @@
                                                             <li>
                                                                 <button type="button" class="dropdown-item"
                                                                     data-bs-toggle="modal" data-bs-target="#modalID"
-                                                                    wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve
-                                                                </button>
+                                                                    wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve</button>
                                                             </li>
                                                             <li>
                                                                 <button type="button" class="dropdown-item"
                                                                     data-bs-toggle="modal" data-bs-target="#modalID"
                                                                     wire:click='ShowModal("Reject", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Reject</button>
                                                             </li>
+                                                        </ul> {{-- Perbaikan: Ditambahkan tag penutup ul yang hilang --}}
                                                     </div>
                                                 @else
                                                     <span class="badge text-bg-info" style="font-size: 11px;"
@@ -90,49 +91,65 @@
                                                         <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
                                                     </span>
                                                 @endif
-                                            @elseif ($item->status_kakom == 'Approve')
-                                                <span class="badge text-bg-success" style="font-size: 11px;"
-                                                    title="Approved">
-                                                    <i class="fa-solid fa-check"></i> Approved
-                                                </span>
-                                            @elseif ($item->status_kakom == 'Reject')
-                                                <span class="badge text-bg-danger" style="font-size: 11px;"
-                                                    title="Rejected">
-                                                    <i class="fa-solid fa-xmark"></i> Rejected
-                                                </span>
-                                            @else
-                                                <span class="badge text-bg-info" style="font-size: 11px;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya, <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
-                                                    <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
-                                                </span>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('muk.show', encrypt($item->id_muk)) }}"
-                                                class="btn btn-info btn-sm btn-aksi" title="Show Detail">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            {{-- aksi edit --}}
-                                            @php
-                                                $pkpmkPrinted = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
-                                                $addendumPrinted = $item->kredit->addendum?->tgl_print_addendum;
-                                                if ($pkpmkPrinted != null) {
-                                                    $pkPrint = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
-                                                } else {
-                                                    $pkPrint = null;
-                                                }
+                                        @elseif ($item->status_kakom == 'Approve')
+                                            <span class="badge text-bg-success" style="font-size: 11px;"
+                                                title="Approved">
+                                                <i class="fa-solid fa-check"></i> Approved
+                                            </span>
+                                        @elseif ($item->status_kakom == 'Reject')
+                                            <span class="badge text-bg-danger" style="font-size: 11px;"
+                                                title="Rejected">
+                                                <i class="fa-solid fa-xmark"></i> Rejected
+                                            </span>
+                                        @else
+                                            <span class="badge text-bg-info" style="font-size: 11px;"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya, <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
+                                                <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
+                                            </span>
+                                @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('muk.show', encrypt($item->id_muk)) }}"
+                                        class="btn btn-info btn-sm btn-aksi" title="Show Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    {{-- aksi edit --}}
+                                    @php
+                                        $pkpmkPrinted = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
+                                        $addendumPrinted = $item->kredit->addendum?->tgl_print_addendum;
+                                        if ($pkpmkPrinted != null) {
+                                            $pkPrint = $item->kredit->pkpmk->first()?->tgl_print_pkpmk;
+                                        } else {
+                                            $pkPrint = null;
+                                        }
 
-                                                if ($addendumPrinted != null) {
-                                                    $addPrint = $item->kredit->addendum?->tgl_print_addendum;
-                                                } else {
-                                                    $addPrint = null;
-                                                }
-                                            @endphp
+                                        if ($addendumPrinted != null) {
+                                            $addPrint = $item->kredit->addendum?->tgl_print_addendum;
+                                        } else {
+                                            $addPrint = null;
+                                        }
+                                    @endphp
 
-                                            @if (Auth::user()->sub_jabatan == 'Staf Analis Area' || Auth::user()->jabatan == 'Analis Cabang')
-                                                @if ($item->status_pincab != null && $item->status_kakom != null)
+                                    @if (Auth::user()->sub_jabatan == 'Staf Analis Area' || Auth::user()->jabatan == 'Analis Cabang')
+                                        @if ($item->status_pincab != null && $item->status_kakom != null)
+                                            @if ($pkPrint != null || $addPrint != null)
+                                                <a href="#"
+                                                    class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                    title="Edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                    class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            @endif
+                                        @else
+                                            @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
+                                                @if ($item->kredit->nama_analis == null || $item->kredit->nama_analis == Auth::user()->nama)
                                                     @if ($pkPrint != null || $addPrint != null)
                                                         <a href="#"
                                                             class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
@@ -147,58 +164,41 @@
                                                         </a>
                                                     @endif
                                                 @else
-                                                    @if (Auth::user()->sub_jabatan == 'Staf Analis Area')
-                                                        @if ($item->kredit->nama_analis == null || $item->kredit->nama_analis == Auth::user()->nama)
-                                                            @if ($pkPrint != null || $addPrint != null)
-                                                                <a href="#"
-                                                                    class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                                    title="Edit">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            @else
-                                                                <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                                    class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                                    title="Edit">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            @endif
-                                                        @else
-                                                            <a href="#"
-                                                                class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                                title="Edit">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        @endif
-                                                    @else
-                                                        {{-- @if ($pkPrint != null || $addPrint != null)
+                                                    <a href="#"
+                                                        class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                                        title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                @endif
+                                            @else
+                                                {{-- @if ($pkPrint != null || $addPrint != null)
                                                             <a href="#"
                                                                 class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
                                                                 title="Edit">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
                                                         @else --}}
-                                                        <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
-                                                            class="btn btn-warning btn-sm btn-aksi edit_data"
-                                                            title="Edit">
-                                                            <i class="fa fa-edit"></i>
-                                                        </a>
-                                                        {{-- @endif --}}
-                                                    @endif
-                                                @endif
-                                            @else
-                                                <a href="#"
-                                                    class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
-                                                    title="Edit">
+                                                <a href="{{ route('muk.edit', base64_encode($item->id_muk)) }}"
+                                                    class="btn btn-warning btn-sm btn-aksi edit_data" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
+                                                {{-- @endif --}}
                                             @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6" class="text-center"><i>Tidak Ada Data</i></td>
+                                        @endif
+                                    @else
+                                        <a href="#"
+                                            class="btn btn-outline-warning btn-sm btn-aksi edit_data disabled"
+                                            title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    @endif
+                                </td>
                                 </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="6" class="text-center"><i>Tidak Ada Data</i></td>
+                            </tr>
                             @endif
                         </tbody>
                     </table>
