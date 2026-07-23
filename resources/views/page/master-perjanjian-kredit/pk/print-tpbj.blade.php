@@ -233,6 +233,7 @@
                         @endif
                     </table>
                 </div>
+                <br>
                 <div class="column">
                     <table style="width: 100%">
                         <tr>
@@ -315,6 +316,7 @@
                         </tr>
                     </table>
                 </div>
+                <br>
                 <div class="column_kenda">
                     <table style="width: 100%">
                         <tr>
