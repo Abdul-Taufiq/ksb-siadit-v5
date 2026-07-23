@@ -58,31 +58,38 @@
                                         <td>{{ $item->no_muk }}</td>
                                         <td>{{ $item->tgl_muk->translatedFormat('d F Y') }}</td>
                                         <td>
-                                            @if (
-                                                ($item->status_pincab == 'Approve' && $item->status_kakom == null) ||
-                                                    !in_array($item->deviasi?->perihal, ['-', '<p>-</p>']) ||
-                                                    $item->kredit->persetujuan->putusan != 'Cabang')
+                                            @if ($item->kredit->persetujuan->putusan != 'Cabang' || !in_array($item->deviasi?->perihal, ['-', '<p>-</p>']))
                                                 {{-- untuk analis cabang atau analis area --}}
                                                 @if (Auth::user()->jabatan == 'Kasi Komersial' || Auth::user()->jabatan == 'Pimpinan Cabang')
-                                                    <div class="btn-group dropend">
-                                                        <button type="button" class="btn btn-secondary dropdown-toggle"
-                                                            style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Status
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <button type="button" class="dropdown-item"
-                                                                    data-bs-toggle="modal" data-bs-target="#modalID"
-                                                                    wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve</button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" class="dropdown-item"
-                                                                    data-bs-toggle="modal" data-bs-target="#modalID"
-                                                                    wire:click='ShowModal("Reject", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Reject</button>
-                                                            </li>
-                                                        </ul> {{-- Perbaikan: Ditambahkan tag penutup ul yang hilang --}}
-                                                    </div>
+                                                    @if ($item->status_pincab == 'Approve' && $item->status_kakom == null)
+                                                        <div class="btn-group dropend">
+                                                            <button type="button"
+                                                                class="btn btn-secondary dropdown-toggle"
+                                                                style="width: 60px; height: 20px; font-size: 12px; margin: 0px; padding: 0px;"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Status
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <button type="button" class="dropdown-item"
+                                                                        data-bs-toggle="modal" data-bs-target="#modalID"
+                                                                        wire:click='ShowModal("Approve", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Approve</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button" class="dropdown-item"
+                                                                        data-bs-toggle="modal" data-bs-target="#modalID"
+                                                                        wire:click='ShowModal("Reject", "{{ $item->no_muk }}", "{{ base64_encode($item->kredit->id_kredit) }}")'>Reject</button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    @else
+                                                        <span class="badge text-bg-info" style="font-size: 11px;"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip"
+                                                            data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya. <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
+                                                            <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
+                                                        </span>
+                                                    @endif
                                                 @else
                                                     <span class="badge text-bg-info" style="font-size: 11px;"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
