@@ -7,7 +7,7 @@ const besar_bunga = document.getElementById("besar_bunga");
 const jns_kredit = document.getElementById("jns_kredit"); // Tambahkan deklarasi ini
 const forTrigerUsulan = document.querySelectorAll(
     "#jumlah_disetujui, #jkw",
-    "#denda_hari"
+    "#denda_hari",
 );
 
 const percentase = document.querySelectorAll("#besar_bunga");
@@ -45,30 +45,46 @@ jumlah_angsuran.addEventListener("keyup", function (event) {
 });
 
 function updateUsulanAngsuran() {
-    console.log("update angs");
-
     let plafond = toNumber(
-        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value
+        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let bunga = besar_bunga.dataset.rawValue || besar_bunga.value;
+    let bunga = toNumber(besar_bunga.dataset.rawValue || besar_bunga.value);
     let jkwValue = toNumber(jkw.value);
     let bungaValue = bunga / 100;
 
+    console.log(bungaValue);
+
     let total; // Deklarasi variabel di luar `if` untuk mencegah scoping issue
+
+    let flat = document.getElementById("flat");
+    let anuitas = document.getElementById("anuitas");
+    let efektif = document.getElementById("efektif");
 
     if (jns_kredit.value === "Berjangka") {
         total = ((plafond * bungaValue) / 360) * 31;
-        // console.log("Berjangka: " + total);
+
+        flat.disabled = true;
+        anuitas.disabled = true;
+        efektif.disabled = false;
     } else {
+        flat.disabled = false;
+        anuitas.disabled = false;
+        efektif.disabled = true;
+
         if (jns_bunga.value === "ANUITAS") {
             total =
                 (plafond *
                     ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) /
                 ((1 + bungaValue / 12) ** jkwValue - 1);
-        } else {
+        } else if (jns_bunga.value === "FLAT") {
             total =
                 ((plafond * jkwValue * bungaValue) / 12 + plafond) / jkwValue;
             // console.log("Angsuran: " + total);
+        } else {
+            total = 0;
+            alert(
+                "Jenis Kredit Angsuran Tidak boleh memilih Jenis Bunga EFEKTIF!",
+            );
         }
     }
 
@@ -101,9 +117,9 @@ setPercent(percentase, updateUsulanAngsuran);
 // Biaya Provisi
 function updateBiayaProvisi() {
     let plafond = toNumber(
-        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value
+        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let provisiVal = provisi.dataset.rawValue || provisi.value;
+    let provisiVal = toNumber(provisi.dataset.rawValue || provisi.value);
     let total = (plafond * provisiVal) / 100;
 
     // pembulatan
@@ -119,9 +135,9 @@ setPercent(inputProvisi, updateBiayaProvisi);
 // biaya Adm
 function updateBiayaAdm() {
     let plafond = toNumber(
-        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value
+        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let admVal = besar_adm.dataset.rawValue || besar_adm.value;
+    let admVal = toNumber(besar_adm.dataset.rawValue || besar_adm.value);
     let total = (plafond * admVal) / 100;
 
     // pembulatan
@@ -137,9 +153,11 @@ setPercent(inputbesar_adm, updateBiayaAdm);
 //  Survey
 function updateBiayaSurvey() {
     let plafond = toNumber(
-        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value
+        jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let surveyVal = besar_survey.dataset.rawValue || besar_survey.value;
+    let surveyVal = toNumber(
+        besar_survey.dataset.rawValue || besar_survey.value,
+    );
     let total = (plafond * surveyVal) / 100;
 
     // pembulatan
@@ -155,7 +173,7 @@ setPercent(inputbesar_survey, updateBiayaSurvey);
 // biaya denda
 function updateBiayaDenda() {
     let jumlah_angsurans = toNumber(
-        jumlah_angsuran.dataset.rawValue || jumlah_angsuran.value
+        jumlah_angsuran.dataset.rawValue || jumlah_angsuran.value,
     );
     let total = (2 / 1000) * jumlah_angsurans;
 

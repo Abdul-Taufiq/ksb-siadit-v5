@@ -262,16 +262,14 @@ class IndexMukLivewire extends Component
             })
             ->orderBy('id_kredit', 'desc');
 
-        switch (Auth::user()->sub_jabatan) {
-            case 'Analis Cabang (ALT)':
+        switch (Auth::user()->level) {
+            case 'MEDIUM USER':
                 $query->where('id_cabang', Auth::user()->id_cabang);
                 break;
-            case 'Staf Analis Area':
-            case 'Staf Analis Area I':
-            case 'Staf Analis Area II':
-            case 'Staf Area':
-            case 'Staf Area I':
-            case 'Staf Area II':
+            case 'AREA':
+            case 'AREA 1':
+            case 'AREA 2':
+            case 'AREA 3':
 
                 $query->whereIn('id_cabang', $this->id_cab_area);
                 break;

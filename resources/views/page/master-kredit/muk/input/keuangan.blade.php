@@ -532,7 +532,7 @@
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="bjk_total_penghasilan"
                             name="bjk_total_penghasilan"
-                            value="{{ number_format($muk?->keuanganBjk?->bjk_total_penghasilan_lainnya, 0, ',', '.') ?? null }}">
+                            value="{{ number_format($muk?->keuanganBjk?->bjk_total_penghasilan, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
             </tr>
@@ -672,14 +672,14 @@
             </tr>
             <tr>
                 <td>
-                    <label for="bjk_kewajiban_akhir" class="notbold">Kewajiban pada akhir periode</label>
+                    <label for="bjk_disposible_income" class="notbold">Disposible Income</label>
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
-                        <input type="text" class="form-control is-invalid setRp" id="bjk_kewajiban_akhir"
-                            name="bjk_kewajiban_akhir"
-                            value="{{ number_format($muk?->keuanganBjk?->bjk_kewajiban_akhir, 0, ',', '.') ?? null }}">
+                        <input type="text" class="form-control is-invalid setRp" id="bjk_disposible_income"
+                            name="bjk_disposible_income"
+                            value="{{ number_format($muk?->keuanganBjk?->bjk_disposible_income, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
             </tr>

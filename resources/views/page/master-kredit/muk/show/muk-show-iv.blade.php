@@ -305,12 +305,12 @@
             </tr>
             <tr>
                 <td>
-                    {{ $muk->jns_kredit_muk == 'Berjangka' ? 'Kewajiban pada Akhir Periode' : 'Disposable Income' }}
+                    Disposable Income
                 </td>
                 <td>:</td>
                 <td>
                     @if ($muk->jns_kredit_muk == 'Berjangka')
-                        {{ 'Rp' . number_format($muk->keuanganBjk->bjk_kewajiban_akhir, 0, ',', '.') }}
+                        {{ 'Rp' . number_format($muk->keuanganBjk->bjk_disposible_income, 0, ',', '.') }}
                     @else
                         {{ 'Rp' . number_format($muk->keuangan->dis_income, 0, ',', '.') }}
                     @endif

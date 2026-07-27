@@ -4,7 +4,7 @@ const inventory = document.getElementById("inventory");
 const piutang_usaha = document.getElementById("piutang_usaha");
 const utang_usaha = document.getElementById("utang_usaha");
 const kmk_inputs = document.querySelectorAll(
-    "#inventory, #piutang_usaha, #utang_usaha"
+    "#inventory, #piutang_usaha, #utang_usaha",
 );
 const hpp = document.getElementById("omset_harga_pokok");
 const pendapatan = document.getElementById("omset_usaha");
@@ -20,7 +20,7 @@ $("#jns_bjk").on("change", function () {
 function updateKmk() {
     let inv = toNumber(inventory.dataset.rawValue || inventory.value);
     let piutang = toNumber(
-        piutang_usaha.dataset.rawValue || piutang_usaha.value
+        piutang_usaha.dataset.rawValue || piutang_usaha.value,
     );
     let utang = toNumber(utang_usaha.dataset.rawValue || utang_usaha.value);
 
@@ -93,14 +93,14 @@ if (jnsKredit.value == "Berjangka") {
 const doh_2 = document.getElementById("doh_2");
 function updateDoh2() {
     let piutang = toNumber(
-        piutang_usaha.dataset.rawValue || piutang_usaha.value
+        piutang_usaha.dataset.rawValue || piutang_usaha.value,
     );
     let total = 0;
 
     if (jnsKredit.value == "Berjangka") {
         let periode =
             bjk_periode_usaha.dataset.rawValue || bjk_periode_usaha.value;
-        let total = (piutang / omset) * 30;
+        total = (piutang / omset) * 30;
         total = Math.round(total);
     } else {
         let omset = toNumber(pendapatan.dataset.rawValue || pendapatan.value);
@@ -129,7 +129,7 @@ function updateDoh3() {
 
     if (jnsKredit.value == "Berjangka") {
         let omset = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
-        let total = (utang / omset) * 30;
+        total = (utang / omset) * 30;
         total = Math.round(total);
     } else {
         let omset = toNumber(pendapatan.dataset.rawValue || pendapatan.value);

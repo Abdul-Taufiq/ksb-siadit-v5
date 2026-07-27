@@ -74,6 +74,7 @@ Auth::routes([
 Route::middleware(['auth'])->group(function () {
     // Route::get('/xxx', [App\Http\Controllers\HelperController::class, 'index'])->name('xxx');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home/{awal?}/{akhir?}', [App\Http\Controllers\HomeController::class, 'index'])->name('get-filter');
     Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 

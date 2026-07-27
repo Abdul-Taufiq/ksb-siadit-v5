@@ -58,7 +58,9 @@
                                         <td>{{ $item->no_muk }}</td>
                                         <td>{{ $item->tgl_muk->translatedFormat('d F Y') }}</td>
                                         <td>
-                                            @if ($item->kredit->persetujuan->putusan != 'Cabang' || !in_array($item->deviasi?->perihal, ['-', '<p>-</p>']))
+                                            @if (
+                                                ($item->kredit?->persetujuan?->putusan ?? '') != 'Cabang' ||
+                                                    !in_array($item->deviasi?->perihal ?? '', ['-', '<p>-</p>']))
                                                 {{-- untuk analis cabang atau analis area --}}
                                                 @if (Auth::user()->jabatan == 'Kasi Komersial' || Auth::user()->jabatan == 'Pimpinan Cabang')
                                                     @if ($item->status_pincab == 'Approve' && $item->status_kakom == null)
@@ -101,23 +103,25 @@
                                                         </span>
                                                     @endif
                                                 @else
-                                                    <span class="badge text-bg-info" style="font-size: 11px;"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip"
-                                                        data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya. <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
-                                                        <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
-                                                    </span>
+                                                    @if ($item->status_kakom == 'Approve')
+                                                        <span class="badge text-bg-success" style="font-size: 11px;"
+                                                            title="Approved">
+                                                            <i class="fa-solid fa-check"></i> Approved
+                                                        </span>
+                                                    @elseif ($item->status_kakom == 'Reject')
+                                                        <span class="badge text-bg-danger" style="font-size: 11px;"
+                                                            title="Rejected">
+                                                            <i class="fa-solid fa-xmark"></i> Rejected
+                                                        </span>
+                                                    @else
+                                                        <span class="badge text-bg-info" style="font-size: 11px;"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip"
+                                                            data-bs-title="Status ini hanya untuk follow up putusan selain cabang dan hanya KAKOM yang update statusnya. <br> Perubahan status dapat dilakukan di menu DATA DEBITUR">
+                                                            <i class="fa-solid fa-circle-exclamation"></i> NotNeeded
+                                                        </span>
+                                                    @endif
                                                 @endif
-                                            @elseif ($item->status_kakom == 'Approve')
-                                                <span class="badge text-bg-success" style="font-size: 11px;"
-                                                    title="Approved">
-                                                    <i class="fa-solid fa-check"></i> Approved
-                                                </span>
-                                            @elseif ($item->status_kakom == 'Reject')
-                                                <span class="badge text-bg-danger" style="font-size: 11px;"
-                                                    title="Rejected">
-                                                    <i class="fa-solid fa-xmark"></i> Rejected
-                                                </span>
                                             @else
                                                 <span class="badge text-bg-info" style="font-size: 11px;"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"

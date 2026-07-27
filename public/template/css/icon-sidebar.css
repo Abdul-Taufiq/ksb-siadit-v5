@@ -71,13 +71,6 @@
     -webkit-mask-image: url(../font-awesome/svgs/solid/boxes-packing.svg);
     mask-image: url(../font-awesome/svgs/solid/boxes-packing.svg);
 }
-.tracking-apht {
-    width: 20px;
-    height: 20px;
-    background-color: whitesmoke;
-    -webkit-mask-image: url(../font-awesome/svgs/solid/file-signature.svg);
-    mask-image: url(../font-awesome/svgs/solid/file-signature.svg);
-}
 
 .log-activity {
     width: 20px;

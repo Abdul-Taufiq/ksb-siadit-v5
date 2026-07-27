@@ -83,11 +83,14 @@
                 <td>
                     <select class="form-select form-select-sm is-invalid" name="jns_bunga" id="jns_bunga" required>
                         <option selected disabled>-Pilih-</option>
-                        <option {{ $kredit?->persetujuan?->jns_bunga == 'FLAT' ? 'selected' : '' }} value="FLAT">FLAT
+                        <option id="flat" {{ $kredit?->persetujuan?->jns_bunga == 'FLAT' ? 'selected' : '' }}
+                            value="FLAT">FLAT
                         </option>
-                        <option {{ $kredit?->persetujuan?->jns_bunga == 'ANUITAS' ? 'selected' : '' }} value="ANUITAS">
+                        <option id="anuitas" {{ $kredit?->persetujuan?->jns_bunga == 'ANUITAS' ? 'selected' : '' }}
+                            value="ANUITAS">
                             ANUITAS</option>
-                        <option {{ $kredit?->persetujuan?->jns_bunga == 'EFEKTIF' ? 'selected' : '' }} value="EFEKTIF">
+                        <option id="efektif" {{ $kredit?->persetujuan?->jns_bunga == 'EFEKTIF' ? 'selected' : '' }}
+                            value="EFEKTIF">
                             EFEKTIF</option>
                     </select>
                 </td>

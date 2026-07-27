@@ -43,7 +43,7 @@
             <td>
                 <input type="number" name="depo_score_{{ $loop->iteration }}" id="depo_score_{{ $loop->iteration }}"
                     class="form-control form-control-sm" required min="0"
-                    value="{{ data_get($depo, "$vanalisTab.score") ?? (data_get($depo, "$vanalisDepo.score") ?? (data_get($depo, "$vcabTab.score") ?? data_get($depo, "$vcabDepo.score"))) }}">
+                    value="{{ data_get($depo, "$vanalisTab.score") ?? (data_get($depo, "$vanalisDepo.score") ?? (data_get($depo, "$vcabTab.score") ?? data_get($depo, "$vcabDepo.score")) ?? '0') }}">
             </td>
         </tr>
         <tr>

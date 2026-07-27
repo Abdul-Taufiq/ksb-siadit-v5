@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('template/css/icon-sidebar.css') }}">
     <link href="{{ asset('template/css/animate.css') }}" rel="stylesheet">
     {{-- logo --}}
-    <link rel="shortcut icon" href="{{ asset('images/logo-ksb.png') }}">
+    {{-- <link rel="shortcut icon" href="{{ asset('images/logo-ksb.png') }}"> --}}
     <link rel="icon" href="{{ asset('images/logo-ksb.png') }}">
     {{-- summernote --}}
     <link rel="stylesheet" href="{{ asset('template/summernote/summernote-bs5.min.css') }}">

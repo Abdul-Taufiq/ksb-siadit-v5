@@ -324,7 +324,7 @@ class MukService
                 'bjk_sisa_penghasilan' => $this->normalizeNumber($data['bjk_sisa_penghasilan']),
                 'bjk_angsuran_pinjaman' => $this->normalizeNumber($data['bjk_angsuran_pinjaman']),
                 'bjk_kewajiban_bunga' => $this->normalizeNumber($data['bjk_kewajiban_bunga']),
-                'bjk_kewajiban_akhir' => $this->normalizeNumber($data['bjk_kewajiban_akhir']),
+                'bjk_disposible_income' => $this->normalizeNumber($data['bjk_disposible_income']),
                 'bjk_idir' => $this->normalizeNumber($data['bjk_idir']),
                 'nominal' => $this->normalizeNumber($data['nominal']),
                 'selisih_penghasilan' => $this->normalizeNumber($data['selisih_penghasilan']),

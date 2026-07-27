@@ -8,7 +8,7 @@
         style="display: none; justify-content: center; align-items: center; position: fixed; width: 100%; height: 100%; background: #000000bd;z-index: 9999; top: 0; left: 0;">
         <div
             style="display: flex; margin: auto; width: 100%; height: 100%; justify-content: center; align-items: center;">
-            <img style="width: 300px;" src="{{ asset('images/loading.gif') }}" alt="Loading...">
+            <img style="width: 250px;" src="{{ asset('images/loading_ksb.gif') }}" alt="Loading...">
         </div>
     </div>
 
@@ -107,7 +107,7 @@
                                 target="__blank">Puchase</a>
                         </li>
                         <li>&nbsp; | &nbsp;</li>
-                        <li>Version 1.0.0</li>
+                        <li>Version 5.0.0</li>
                     </ul>
                 </div>
             </footer>

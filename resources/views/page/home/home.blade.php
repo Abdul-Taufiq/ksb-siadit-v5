@@ -47,87 +47,36 @@
                     </div>
                 </div>
             </div>
+            <div class="stat-cards-item" style="height:  60px; margin-bottom: 10px;">
+                <div class="card-body" style="margin-top: -25px;">
+                    <div class="d-flex align-items-center justify-content-center flex-wrap">
+                        <span class="d-flex d-none d-sm-flex">Filter SPK Per Tanggal</span>
+                        <div class="d-flex align-items-end m-3">
+                            <div class="form-group">
+                                <label for="min" class="sr-only">From:</label>
+                                <input type="date" name="min" id="min" class="form-control form-control-sm"
+                                    value="{{ $min ?? null }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="max" class="sr-only">To:</label>
+                                <input type="date" name="max" id="max" class="form-control form-control-sm"
+                                    value="{{ $max ?? null }}">
+                            </div>
+                            <div class="btn-group" style="margin-left: 5px;">
+                                <button id="btn-filter" class="btn btn-success btn-sm">Filter</button>
+                                <button id="btn-refresh" class="btn btn-info btn-sm">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            {{-- PUSAT --}}
-            @if ($kode == 'PUSAT')
+            @foreach ($cards as $card)
                 @include('page.home.template-card', [
-                    'nomor' => '#. INFO SPK ALL CABANG',
-                    'id_cbg' => $id_cabang,
+                    'nomor' => $card['nomor'],
+                    'stat' => $card['stat'],
                 ])
-
-                @include('page.home.template-card', [
-                    'nomor' => '#. INFO SPK ALL CABANG AREA 1',
-                    'id_cbg' => $area1,
-                ])
-
-                @include('page.home.template-card', [
-                    'nomor' => '#. INFO SPK ALL CABANG AREA 2',
-                    'id_cbg' => $area2,
-                ])
-
-
-                @include('page.home.template-card', ['nomor' => '1. INFO SPK KPO', 'id_cbg' => 1])
-                @include('page.home.template-card', [
-                    'nomor' => '2. INFO SPK KC TEMANGGUNG',
-                    'id_cbg' => 2,
-                ])
-                @include('page.home.template-card', ['nomor' => '3. INFO SPK KC WONOSOBO', 'id_cbg' => 3])
-                @include('page.home.template-card', ['nomor' => '4. INFO SPK KC AMBARAWA', 'id_cbg' => 4])
-                @include('page.home.template-card', ['nomor' => '5. INFO SPK KC SEMARANG', 'id_cbg' => 5])
-                @include('page.home.template-card', ['nomor' => '6. INFO SPK KC MRANGGEN', 'id_cbg' => 6])
-                @include('page.home.template-card', ['nomor' => '7. INFO SPK KC SUKOREJO', 'id_cbg' => 7])
-                @include('page.home.template-card', ['nomor' => '8. INFO SPK KC WELERI', 'id_cbg' => 8])
-                @include('page.home.template-card', ['nomor' => '9. INFO SPK KC DELANGGU', 'id_cbg' => 9])
-                @include('page.home.template-card', [
-                    'nomor' => '10. INFO SPK KC GOMBONG',
-                    'id_cbg' => 10,
-                ])
-                @include('page.home.template-card', [
-                    'nomor' => '11. INFO SPK KC SOKARAJA',
-                    'id_cbg' => 11,
-                ])
-
-                {{-- AREA 1 --}}
-            @elseif ($kode == 'AREA 1')
-                @include('page.home.template-card', [
-                    'nomor' => '0. INFO SPK ALL CABANG AREA 1',
-                    'id_cbg' => $id_cabang,
-                ])
-                @include('page.home.template-card', ['nomor' => '1. INFO SPK KC AMBARAWA', 'id_cbg' => 4])
-                @include('page.home.template-card', ['nomor' => '2. INFO SPK KC SEMARANG', 'id_cbg' => 5])
-                @include('page.home.template-card', ['nomor' => '3. INFO SPK KC MRANGGEN', 'id_cbg' => 6])
-                @include('page.home.template-card', ['nomor' => '4. INFO SPK KC SUKOREJO', 'id_cbg' => 7])
-                @include('page.home.template-card', ['nomor' => '4. INFO SPK KC WELERI', 'id_cbg' => 8])
-                @include('page.home.template-card', ['nomor' => '5. INFO SPK KC DELANGGU', 'id_cbg' => 9])
-
-                {{-- AREA 2 --}}
-            @elseif ($kode == 'AREA 2')
-                @include('page.home.template-card', [
-                    'nomor' => '0. INFO SPK ALL CABANG AREA 2',
-                    'id_cbg' => $id_cabang,
-                ])
-                @include('page.home.template-card', ['nomor' => '1. INFO SPK KPO', 'id_cbg' => 1])
-                @include('page.home.template-card', [
-                    'nomor' => '2. INFO SPK KC TEMANGGUNG',
-                    'id_cbg' => 2,
-                ])
-                @include('page.home.template-card', ['nomor' => '3. INFO SPK KC WONOSOBO', 'id_cbg' => 3])
-                @include('page.home.template-card', [
-                    'nomor' => '5. INFO SPK KC GOMBONG',
-                    'id_cbg' => 10,
-                ])
-                @include('page.home.template-card', [
-                    'nomor' => '6. INFO SPK KC SOKARAJA',
-                    'id_cbg' => 11,
-                ])
-
-                {{-- CABANG --}}
-            @else
-                @include('page.home.template-card', [
-                    'nomor' => 'INFO SPK ' . $spk->first()->cabang->cabang,
-                    'id_cbg' => $spk->first()->id_cabang,
-                ])
-            @endif
+            @endforeach
 
         </div>
     </main>
@@ -173,6 +122,34 @@
 
         setInterval(updateDateTime, 1000);
         updateDateTime();
+    </script>
+
+    <script>
+        $(document).on("click", "#btn-filter", function() {
+            let min = $("#min").val();
+            let max = $("#max").val();
+
+            if (min == '' || max < min || max == '') {
+                Swal.fire({
+                    title: 'Tanggal Tidak Valid!',
+                    html: 'Pastikan Tanggal Min dan Tanggal Max tidak kosong serta tanggal Max tidak boleh lebih kecil dari tanggal Min!',
+                    theme: document.body.classList.contains('darkmode') ? "dark" : "light",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                window.location.replace(`/home/${encodeURIComponent(min)}/${encodeURIComponent(max)}`);
+            }
+        });
+
+        $(document).on("click", "#btn-refresh", function() {
+            // kosongkan filter
+            $("#min").val('');
+            $("#max").val('');
+
+            // reload data awal
+            window.location.replace(`/home`);
+        });
     </script>
 @endsection
 @endsection

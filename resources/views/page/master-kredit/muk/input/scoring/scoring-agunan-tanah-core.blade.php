@@ -77,7 +77,8 @@
         <label for="hak_kepemilikan_{{ $loop->iteration }}">Hak Kepemilikan</label>
         <input type="text" class="form-control form-control-sm" name="hak_kepemilikan_{{ $loop->iteration }}"
             id="hak_kepemilikan_{{ $loop->iteration }}" required maxlength="20"
-            oninput="this.value = this.value.toUpperCase()">
+            oninput="this.value = this.value.toUpperCase()"
+            value="{{ data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->no_shm_shgb) }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">
@@ -107,7 +108,7 @@
         </div>
         <input type="date" name="tgl_berakhir_sertif_{{ $loop->iteration }}"
             id="tgl_berakhir_sertif_{{ $loop->iteration }}" class="form-control form-control-sm"
-            {{ data_get($tanah, "$vanalis.hak_kepemilikan") !== 'SHM' || data_get($tanah, "$vcab.hak_kepemilikan") !== 'SHM' ? 'required' : null }}
+            {{ data_get($tanah, "$vanalis.hak_kepemilikan") == 'SHM' || data_get($tanah, "$vcab.hak_kepemilikan") == 'SHM' ? null : 'required' }}
             value="{{ data_get($tanah, "$vanalis.tgl_berakhir_sertif") ?? data_get($tanah, "$vcab.tgl_berakhir_sertif")?->format('Y-m-d') }}">
         <i id="tgl_sertif_danger_{{ $loop->iteration }}" class="text-danger d-none" style="font-weight: bold">Tidak
             Perlu Jika Hak Kepemilikan SHM,
@@ -316,7 +317,8 @@
             </label>
             <input type="text" class="form-control form-control-sm"
                 name="jaringan_listrik_detail_{{ $loop->iteration }}"
-                id="jaringan_listrik_detail_{{ $loop->iteration }}" required>
+                id="jaringan_listrik_detail_{{ $loop->iteration }}" required
+                value="{{ data_get($tanah, "$vanalis.jaringan_listrik") ?? data_get($tanah, "$vcab.jaringan_listrik") != null ? '0' : null }}">
         </div>
     </div>
     <div class="col-md-4 mb-4">

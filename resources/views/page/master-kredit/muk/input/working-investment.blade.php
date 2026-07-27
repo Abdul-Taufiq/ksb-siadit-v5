@@ -9,8 +9,6 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="inventory" name="inventory"
-                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Mohon Update Nilai Ini Jika Anda mengubah Tujuan Kredit/Total BD diatas (REKAP SLIK) Agar nilai bisa SINKRON"
                             value="{{ number_format($muk?->working?->inventory, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -23,9 +21,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="piutang_usaha"
-                            name="piutang_usaha" data-bs-toggle="tooltip" data-bs-placement="top"
-                            data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Mohon Update Nilai Ini Jika Anda mengubah Tujuan Kredit/Total BD diatas (REKAP SLIK) Agar nilai bisa SINKRON"
+                            name="piutang_usaha"
                             value="{{ number_format($muk?->working?->piutang_usaha, 0, ',', '.') ?? null }}">
                     </div>
                 </td>
@@ -38,8 +34,6 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="utang_usaha" name="utang_usaha"
-                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Mohon Update Nilai Ini Jika Anda mengubah Tujuan Kredit/Total BD diatas (REKAP SLIK) Agar nilai bisa SINKRON"
                             value="{{ number_format($muk?->working?->utang_usaha, 0, ',', '.') ?? null }}">
                     </div>
                 </td>

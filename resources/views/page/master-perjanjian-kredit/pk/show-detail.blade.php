@@ -21,14 +21,14 @@
             font-family: "Tahoma";
             font-style: normal;
             font-weight: normal;
-            src: url("{{ public_path('fonts/tahoma.ttf') }}") format("truetype");
+            src: url("/fonts/tahoma.ttf") format("truetype");
         }
 
         @font-face {
             font-family: "Tahoma";
             font-style: normal;
             font-weight: bold;
-            src: url("{{ public_path('fonts/tahomabd.ttf') }}") format("truetype");
+            src: url("/fonts/tahomabd.ttf") format("truetype");
         }
 
         body {

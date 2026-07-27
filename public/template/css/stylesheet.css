@@ -1,0 +1,35 @@
+/* 1. Ambil semua ketebalan font Inter (400, 500, 600, 700) dari Google Fonts CDN */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* 2. Petakan ulang deklarasi @font-face Anda agar mengambil aset dari CDN di atas */
+@font-face {
+    font-family: "Inter";
+    src: local("Inter"); /* Memaksa browser menggunakan font Inter dari CDN */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local("Inter");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local("Inter");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local("Inter");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}

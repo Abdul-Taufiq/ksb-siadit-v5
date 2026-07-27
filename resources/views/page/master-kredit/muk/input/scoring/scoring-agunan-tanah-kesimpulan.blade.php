@@ -15,7 +15,7 @@
                 <input type="text" name="kes_nilai_pasar_{{ $loop->iteration }}"
                     id="kes_nilai_pasar_{{ $loop->iteration }}" class="form-control form-control-sm setRp" readonly
                     {{-- value="{{ number_format($tanah->sc_tanah_rekap_1?->kes_nilai_pasar ?? $tanah->sc_tanah_rekap_2?->kes_tanah_nilai_pasar, 0, ',', '.') }}" --}}
-                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_pasar") ?? (data_get($tanah, "$vanalisRekap2.kes_nilai_pasar") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_pasar") ?? data_get($tanah, "$vcabRekap2.kes_nilai_pasar"))), 0, ',', '.') }}">
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_pasar") ?? (data_get($tanah, "$vanalisRekap2.kes_tanah_nilai_pasar") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_pasar") ?? data_get($tanah, "$vcabRekap2.kes_tanah_nilai_pasar"))), 0, ',', '.') }}">
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div class="input-group input-group-sm">
                 <input type="text" name="kes_nilai_taksasi_persen_{{ $loop->iteration }}"
                     id="kes_nilai_taksasi_persen_{{ $loop->iteration }}" class="form-control form-control-sm"
-                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi_persen") ?? (data_get($tanah, "$vanalisRekap2.kes_nilai_taksasi_persen") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi_persen") ?? data_get($tanah, "$vcabRekap2.kes_nilai_taksasi_persen"))), 0, ',', '.') ?? $tanah->detail_kategori_jaminan == 'Tanah' ? '50' : ($tanah->detail_kategori_jaminan == 'Tanah & Bangunan' ? '70' : '60') }}"
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi_persen") ?? (data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_1") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi_persen") ?? data_get($tanah, "$vcabRekap2.kes_taksasi_persen_1"))), 0, ',', '.') ?? $tanah->detail_kategori_jaminan == 'Tanah' ? '50' : ($tanah->detail_kategori_jaminan == 'Tanah & Bangunan' ? '70' : '60') }}"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                     data-bs-title="Jika ada perubahan pada TAKSASI Mohon untuk update NILAI PASAR TANAH YANG DIREKOMENDASIKAN agar Sinkron">
                 <span class="input-group-text">%</span>
@@ -41,7 +41,7 @@
                 <input type="text" name="kes_nilai_taksasi_{{ $loop->iteration }}"
                     id="kes_nilai_taksasi_{{ $loop->iteration }}" class="form-control form-control-sm setRp" readonly
                     {{-- value="{{ number_format($tanah->sc_tanah_rekap_1?->kes_nilai_taksasi ?? $tanah->sc_tanah_rekap_2?->kes_tanah_nilai_taksasi, 0, ',', '.') }}" --}}
-                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi") ?? (data_get($tanah, "$vanalisRekap2.kes_nilai_taksasi") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi") ?? data_get($tanah, "$vcabRekap2.kes_nilai_taksasi"))), 0, ',', '.') }}">
+                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi") ?? (data_get($tanah, "$vanalisRekap2.kes_tanah_nilai_taksasi") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi") ?? data_get($tanah, "$vcabRekap2.kes_tanah_nilai_taksasi"))), 0, ',', '.') }}">
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" name="kes_taksasi_persen_2_{{ $loop->iteration }}"
                         id="kes_taksasi_persen_2_{{ $loop->iteration }}" class="form-control form-control-sm"
-                        value="{{ data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_2") ? number_format($tanah->sc_tanah_rekap_2?->kes_taksasi_persen_2, 0, ',', '.') : '70' }}"
+                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_2") ?? data_get($tanah, "$vcabRekap2.kes_taksasi_persen_2"), 0, ',', '.') ?? '70' }}"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                         data-bs-title="Jika ada perubahan pada TAKSASI Mohon untuk update NILAI PASAR BANGUNAN YANG DIREKOMENDASIKAN agar Sinkron">
                     <span class="input-group-text">%</span>

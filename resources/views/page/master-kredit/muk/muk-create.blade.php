@@ -157,4 +157,20 @@
             initializeSummernote("#pertimbangan", "Ketik Sesuatu...", 100);
         });
     </script>
+
+    <script>
+        $(function() {
+            Swal.fire({
+                title: 'Update Versi Beta!',
+                html: `<b>Pengisian MUK kini dilakukan secara otomatis,</b> sehingga tidak diperlukan lagi pembaruan manual sebagaimana pada versi sebelumnya. <br><br>
+                Fitur ini masih dalam tahap pengembangan, Apabila terdapat bagian yang belum berjalan otomatis, mohon segera menghubungi pihak terkait agar dapat dilakukan perbaikan. <br><br>
+                Atas perhatian dan laporan yang diberikan, kami ucapkan terima kasih. 🙏
+                `,
+                theme: document.body.classList.contains('darkmode') ? "dark" : "light",
+                icon: 'info',
+                confirmButtonText: 'OK',
+                width: '700px'
+            });
+        });
+    </script>
 @endsection

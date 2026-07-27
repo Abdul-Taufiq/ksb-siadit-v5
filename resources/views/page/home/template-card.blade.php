@@ -16,7 +16,7 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->count(), 0, ',', '.') }}
+                            {{ number_format($stat['total']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">TOTAL DATA</p>
                     </div>
@@ -29,9 +29,9 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DISETUJUI')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['disetujui']) }}
                             &nbsp; | &nbsp;
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DISETUJUI (TIDAK DIAMBIL)')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['tidak_diambil']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">DISETUJUI | TIDAK DIAMBIL</p>
                     </div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DEBITUR CANCEL')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['cancel']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">DEBITUR CANCEL</p>
                     </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_kredit', 'SELESAI')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['selesai']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">SELESAI</p>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'PROSES')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['proses']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">PROSES</p>
                     </div>
@@ -83,9 +83,9 @@
                     </div>
                     <div class="stat-cards-info">
                         <p class="stat-cards-info__num" style="font-size: 15px">
-                            {{ number_format($spk->whereIn('id_cabang', $id_cbg)->where('status_akhir', 'DITOLAK')->count(), 0, ',', '.') }}
+                            {{ number_format($stat['ditolak']) }}
                             &nbsp; | &nbsp;
-                            {{ $spkSlik->count() }}
+                            {{ number_format($stat['slik']) }}
                         </p>
                         <p class="stat-cards-info__title" style="font-size: 12px;">DITOLAK | DITOLAK SLIK</p>
                     </div>

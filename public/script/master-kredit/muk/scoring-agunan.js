@@ -45,32 +45,57 @@ $(document).ready(function () {
 
     tanah.forEach((prefix) => {
         processElementsScore(`${prefix}_`, (counter) =>
-            setScoreTanah(prefix, counter)
+            setScoreTanah(prefix, counter),
         );
+
+        // tambahkan listener update
+        document.querySelectorAll(`[id^=${prefix}_]`).forEach((el) => {
+            el.addEventListener("change", runAllCalculations);
+            el.addEventListener("keyup", runAllCalculations);
+        });
     });
 
     bangunan.forEach((prefix) => {
         processElementsScore(`${prefix}_`, (counter) =>
-            setScoreBangunan(prefix, counter)
+            setScoreBangunan(prefix, counter),
         );
+
+        document.querySelectorAll(`[id^=${prefix}_]`).forEach((el) => {
+            el.addEventListener("change", runAllCalculations);
+            el.addEventListener("keyup", runAllCalculations);
+        });
     });
+
+    // fungsi untuk menjalankan semua kalkulasi
+    function runAllCalculations() {
+        for (let i = 1; i < 200; i++) {
+            [1, 2, 3].forEach((index) => bindHitungTotal(index, i));
+            [1, 2, 3].forEach((index) => bindHitungTotalBangunan(index, i));
+            NilaiPasarAgunan(i);
+            AutoLuas(i);
+            setHargaDiterima(i);
+            setNilaiSM(i);
+        }
+
+        console.log("hey");
+    }
 
     // for kesimpulan
     kesText.forEach((prefix) => {
         processElementsScore(`${prefix}_`, (counter) =>
-            setSummernote(prefix, counter)
+            setSummernote(prefix, counter),
         );
     });
 
     for (let index = 1; index < 200; index++) {
         const hakKepemilikan = document.getElementById(
-            `hak_kepemilikan_${index}`
+            `hak_kepemilikan_${index}`,
         );
         const tgl_sertip = document.getElementById(
-            `tgl_berakhir_sertif_${index}`
+            `tgl_berakhir_sertif_${index}`,
         );
         const tgl_sertip_danger = document.getElementById(
-            `tgl_sertif_danger_${index}`
+            `tgl_sertif_danger_${index}`,
         );
 
         // hak kepemilikan
@@ -127,10 +152,10 @@ function setScoreTanah(element, counter) {
 function setScoreBangunan(element, counter) {
     const inp = document.getElementById(`${element}_${counter}`);
     const setInp = document.getElementById(
-        `${element}_nom_bangunan_${counter}`
+        `${element}_nom_bangunan_${counter}`,
     );
     const totalScore = document.getElementById(
-        `total_score_bangunan_${counter}`
+        `total_score_bangunan_${counter}`,
     );
 
     if (inp && setInp) {
@@ -182,13 +207,13 @@ function calculateTotalScore(category, counter, InHasil) {
 
     // Jika total_score_bangunan_{counter} tidak kosong, lakukan penjumlahan
     const totalScoreTanah = document.getElementById(
-        `total_score_tanah_${counter}`
+        `total_score_tanah_${counter}`,
     );
     const totalScoreBangunan = document.getElementById(
-        `total_score_bangunan_${counter}`
+        `total_score_bangunan_${counter}`,
     );
     const totalSkorRukan = document.getElementById(
-        `total_skor_rukan_${counter}`
+        `total_skor_rukan_${counter}`,
     );
 
     if (totalScoreTanah && totalScoreBangunan && totalSkorRukan) {

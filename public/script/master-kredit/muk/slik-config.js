@@ -164,13 +164,13 @@ function updateDisIncome() {
 const selisih_penghasilan = document.getElementById("selisih_penghasilan");
 function updateSelisihPenghasilanBjk() {
     let sisa = toNumber(
-        bjk_sisa_penghasilan.dataset.rawValue || bjk_sisa_penghasilan.value
+        bjk_sisa_penghasilan.dataset.rawValue || bjk_sisa_penghasilan.value,
     );
     let angsuran = toNumber(
-        bjk_angsuran_pinjaman.dataset.rawValue || bjk_angsuran_pinjaman.value
+        bjk_angsuran_pinjaman.dataset.rawValue || bjk_angsuran_pinjaman.value,
     );
     let akhir = toNumber(
-        bjk_kewajiban_akhir.dataset.rawValue || bjk_kewajiban_akhir.value
+        bjk_disposible_income.dataset.rawValue || bjk_disposible_income.value,
     );
 
     let total = 0;
@@ -193,10 +193,10 @@ function updateSelisihPenghasilanBjk() {
 const selisih_persen = document.getElementById("selisih_persen");
 function updateSelisihPersenBjk() {
     let sisa = toNumber(
-        bjk_sisa_penghasilan.dataset.rawValue || bjk_sisa_penghasilan.value
+        bjk_sisa_penghasilan.dataset.rawValue || bjk_sisa_penghasilan.value,
     );
     let selisih = toNumber(
-        selisih_penghasilan.dataset.rawValue || selisih_penghasilan.value
+        selisih_penghasilan.dataset.rawValue || selisih_penghasilan.value,
     );
 
     let total = selisih / sisa;
@@ -213,6 +213,14 @@ function updateSelisihPersenBjk() {
 // total BD
 const totalBDMK = document.getElementById("total_bd_modal_kerja");
 const totalBDKMKView = document.getElementById("total_bd_modal_kerja_view");
+
+// auto update bakidebet jika value berubah pada tujuan kredit slik
+document.addEventListener("change", function (event) {
+    if (event.target.id.startsWith("tujuan_kredit_")) {
+        updateTotalBDModalKerja();
+        updateKmk();
+    }
+});
 
 function updateTotalBDModalKerja() {
     let total = 0;
