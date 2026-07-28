@@ -199,6 +199,7 @@ trait DebiturTraits
                     if (($muk?->deviasi?->perihal !== null && $muk?->deviasi?->perihal !== '<p>-</p>') || $this->putusan != 'Cabang') {
                         // jika putusan bukan cabang
                         $kredit->status_kredit = $this->status == 'Approve' ? $setting['label_approve'] . ' - Menunggu Putusan ' . $this->status : ($this->status == 'Reject' ? $setting['label_reject'] : $setting['label_cancel']);
+                        $kredit->status_akhir = 'PROSES';
                         $kredit->save();
 
                         // JIKA STATUS KAKOM KOSONG
