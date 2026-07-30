@@ -25,7 +25,20 @@
             <div class="input-group input-group-sm">
                 <input type="text" name="kes_nilai_taksasi_persen_{{ $loop->iteration }}"
                     id="kes_nilai_taksasi_persen_{{ $loop->iteration }}" class="form-control form-control-sm"
-                    value="{{ number_format(data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi_persen") ?? (data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_1") ?? (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi_persen") ?? data_get($tanah, "$vcabRekap2.kes_taksasi_persen_1"))), 0, ',', '.') ?? $tanah->detail_kategori_jaminan == 'Tanah' ? '50' : ($tanah->detail_kategori_jaminan == 'Tanah & Bangunan' ? '70' : '60') }}"
+                    value="{{ number_format(
+                        data_get($tanah, "$vanalisRekap1.kes_nilai_taksasi_persen") ??
+                            (data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_1") ??
+                                (data_get($tanah, "$vcabRekap1.kes_nilai_taksasi_persen") ??
+                                    (data_get($tanah, "$vcabRekap2.kes_taksasi_persen_1") ??
+                                        ($tanah->detail_kategori_jaminan == 'Tanah'
+                                            ? 50
+                                            : ($tanah->detail_kategori_jaminan == 'Tanah & Bangunan'
+                                                ? 70
+                                                : 60))))),
+                        0,
+                        ',',
+                        '.',
+                    ) }}"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                     data-bs-title="Jika ada perubahan pada TAKSASI Mohon untuk update NILAI PASAR TANAH YANG DIREKOMENDASIKAN agar Sinkron">
                 <span class="input-group-text">%</span>

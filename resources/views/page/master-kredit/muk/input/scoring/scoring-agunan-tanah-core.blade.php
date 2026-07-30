@@ -78,7 +78,7 @@
         <input type="text" class="form-control form-control-sm" name="hak_kepemilikan_{{ $loop->iteration }}"
             id="hak_kepemilikan_{{ $loop->iteration }}" required maxlength="20"
             oninput="this.value = this.value.toUpperCase()"
-            value="{{ data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->no_shm_shgb) }}">
+            value="{{ data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->hak_kepemilikan) }}">
     </div>
 </div>
 <div class="col-md-4 mb-4">

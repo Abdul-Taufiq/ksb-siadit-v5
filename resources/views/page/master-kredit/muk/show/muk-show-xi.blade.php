@@ -25,7 +25,21 @@
                 <td style="vertical-align: top;">{!! $muk->putusan?->catatan_pincab !!}</td>
             </tr>
             <tr>
-                <td>2. Kasi Komersial</td>
+                <td>
+                    @switch($muk->putusan?->nama_kakom)
+                        @case('Feppi Kurniasari')
+                            2. Kepala Kantor Kas
+                        @break
+
+                        @case('Arief Murtono')
+                        @case('Fitriana Eka Susanti')
+                            2. Team Leader
+                        @break
+
+                        @default
+                            2. Kasi Komersial
+                    @endswitch
+                </td>
                 <td style="text-align: center">
                     {{ !empty($muk->putusan->rekom_kakom) ? $muk->putusan->rekom_kakom : 'Belum Ada data' }}</td>
                 <td style="text-align: center; vertical-align: bottom">

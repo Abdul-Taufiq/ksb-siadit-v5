@@ -12,8 +12,10 @@
                     value="PINAS (Pinjaman Nasabah)">PINAS (Pinjaman Nasabah)</option>
                 <option {{ $kredit->jns_pinjaman == 'PIKAR (Internal KSB)' ? 'selected' : '' }}
                     value="PIKAR (Internal KSB)">PIKAR (Internal KSB)</option>
-                <option {{ $kredit->jns_pinjaman == 'Kredit Pihat Terkait' ? 'selected' : '' }}
-                    value="Kredit Pihak Terkait">Kredit Pihak Terkait</option>
+                <option {{ $kredit->jns_pinjaman == 'Kredit Pihat Terkait (dirkom)' ? 'selected' : '' }}
+                    value="Kredit Pihak Terkait (dirkom)">Kredit Pihak Terkait (TTD dirkom)</option>
+                <option {{ $kredit->jns_pinjaman == 'Kredit Pihat Terkait (dirut)' ? 'selected' : '' }}
+                    value="Kredit Pihak Terkait (dirut)">Kredit Pihak Terkait (TTD dirut)</option>
                 <option {{ $kredit->jns_pinjaman == 'PIKAR (Eksternal)' ? 'selected' : '' }} value="PIKAR (Eksternal)">
                     PIKAR (Eksternal)</option>
             </select>

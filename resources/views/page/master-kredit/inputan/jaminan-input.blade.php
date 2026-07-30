@@ -10,7 +10,8 @@
                 <option disabled selected>- Pilih Jenis Pinjaman -</option>
                 <option value="PINAS (Pinjaman Nasabah)">PINAS (Pinjaman Nasabah)</option>
                 <option value="PIKAR (Internal KSB)">PIKAR (Internal KSB)</option>
-                <option value="Kredit Pihak Terkait">Kredit Pihak Terkait</option>
+                <option value="Kredit Pihak Terkait (dirkom)">Kredit Pihak Terkait (TTD dirkom)</option>
+                <option value="Kredit Pihak Terkait (dirut)">Kredit Pihak Terkait (TTD dirut)</option>
                 <option value="PIKAR (Eksternal)">PIKAR (Eksternal)</option>
             </select>
         </div>

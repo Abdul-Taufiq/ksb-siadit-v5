@@ -305,18 +305,26 @@
             <tr>
                 <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">II. </td>
                 <td>
-                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
-                        <b>EKO BAMBANG SETIYOSO</b>, lahir di Kalabahi, pada tanggal 23 Oktober 1962, warga
-                        Negara Indonesia, bertempat tinggal di Puri Kencana Blok D No. 21 RT.001, RW.005,
-                        Kel/Desa
-                        Manding, Kecamatan Temanggung, Kabupaten Temanggung, Provinsi Jawa Tengah, NIK:
-                        3323032310620001, Dalam hal ini bertindak dalam kedudukannya selaku Direktur Utama PT
-                        BANK
+                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
+                        <b>BUDI DARMAWAN, S.E.</b>, lahir di Surakarta, pada tanggal 23 September 1974, warga
+                        Negara Indonesia, bertempat tinggal di Griyan Baru G III Nomor 121 RT.002, RW.013, Kel/Desa
+                        Baturan, Kecamatan Colomadu, Kabupaten Karanganyar, Provinsi Jawa Tengah, NIK:
+                        3313122309740005, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
                         PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
-                        BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 8 Tanggal 10 Oktober 2024
+                        BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 1 Tanggal 04 Mei 2026
                         yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
-                        Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut
-                        sebagai <b>PIHAK KEDUA (II)</b> atau disebut juga <b>BPR KUSUMA SUMBING</b>.
+                        Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
+                        <b>“BANK”</b>.
+                    @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
+                        <b>DODY ARIF KISWADI</b>, lahir di Pati, pada tanggal 12 Mei 1977, warga
+                        Negara Indonesia, bertempat tinggal di Kayen RT.006, RW.001, Kel/Desa
+                        Kayen, Kecamatan Kayen, Kabupaten Pati, Provinsi Jawa Tengah, NIK:
+                        3318021205770004, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
+                        PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
+                        BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 20 Tanggal 27 Desember 2024
+                        yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
+                        Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
+                        <b>“BANK”</b>.
                     @else
                         <b>{{ $pkpmk->nama_pincab }}</b>, lahir di
                         {{ $pkpmk->tempat_lahir }},
@@ -775,8 +783,10 @@
             <tr style="text-align: center;">
                 <td style="width: 35%;   padding: 3px 0; text-align: center;">
                     <br><br><br><br>
-                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
-                        (<b style="font-size: 13px;">EKO BAMBANG SETIYOSO</b>)
+                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
+                        (<b>BUDI DARMAWAN, S.E.</b>)
+                    @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
+                        (<b>DODY ARIF KISWADI</b>)
                     @else
                         (<b style="font-size: 13px;">{{ $pkpmk->nama_pincab }}</b>)
                     @endif

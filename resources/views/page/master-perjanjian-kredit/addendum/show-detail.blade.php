@@ -482,8 +482,10 @@
                 <tr style="text-align: center;">
                     <td style="width: 45%;   padding: 3px 0; text-align: center;">
                         <br><br><br><br>
-                        @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
-                            (<b>EKO BAMBANG SETIYOSO</b>)
+                        @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
+                            (<b>BUDI DARMAWAN, S.E.</b>)
+                        @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
+                            (<b>DODY ARIF KISWADI</b>)
                         @else
                             (<b>{{ strtoupper($pkpmk->kredit->cabang->nama_pincab) }}</b>)
                         @endif

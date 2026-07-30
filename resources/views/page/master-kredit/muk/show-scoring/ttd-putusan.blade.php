@@ -25,6 +25,7 @@
                 @break
 
                 @case('Arief Murtono')
+                @case('Fitriana Eka Susanti')
                     Team Leader
                 @break
 

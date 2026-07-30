@@ -816,7 +816,9 @@
                 <td style="width: 45%; padding: 3px; text-align: center;">
                     <br><br><br>
                     {{-- <div style="margin-left: 20px;"> --}}
-                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait')
+                    @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
+                        BUDI DARMAWAN, S.E.
+                    @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
                         DODY ARIF KISWADI
                     @else
                         {{ $pkpmk->cabang->nama_pincab }}
