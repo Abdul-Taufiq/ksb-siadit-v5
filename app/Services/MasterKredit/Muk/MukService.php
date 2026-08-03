@@ -398,7 +398,7 @@ class MukService
                 // for untuk input
                 for ($a = 1; $a < 5; $a++) {
                     // cek kosong input
-                    if (isset($data['nama_' . $i . '_' . $a]) && $data['nama_' . $i . '_' . $a] != null) {
+                    if (isset($data['nama_' . $a . '_' . $i]) && $data['nama_' . $a . '_' . $i] != null) {
                         $industri = MukIndustri::create([
                             'id_muk' => base64_decode($data['id_muk']),
                             'type_data' => $data['type_data_' . $i],

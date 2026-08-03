@@ -244,4 +244,6 @@ function updateTotalBDModalKerja() {
         totalBDKMKView.classList.remove("is-invalid");
         totalBDKMKView.classList.add("is-valid");
     }
+
+    updateKmk();
 }

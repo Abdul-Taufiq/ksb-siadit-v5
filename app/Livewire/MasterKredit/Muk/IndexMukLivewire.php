@@ -147,7 +147,8 @@ class IndexMukLivewire extends Component
         $file = $this->file_putusan;
         $id_kre = base64_decode($this->id_kredit);
         $muk = Muk::where('id_kredit', $id_kre)->first();
-        $fileName = 'putusan_' . $muk->no_muk . '_' . now()->format('Y-m-d_H-i') . '_' .  substr(uniqid(), -4) . '.' . $file->getClientOriginalExtension();
+        $safeNoMuk = preg_replace('/[^A-Za-z0-9\-]/', '_', $muk->no_muk);
+        $fileName = 'putusan_' . $safeNoMuk . '_' . now()->format('Y-m-d') . '_' .  substr(uniqid(), -4) . '.' . $file->getClientOriginalExtension();
         $file->storeAs('file_upload/putusan', $fileName, 'public'); // lebih aman dan Livewire-friendly
 
         $muk->file_putusan = $fileName;

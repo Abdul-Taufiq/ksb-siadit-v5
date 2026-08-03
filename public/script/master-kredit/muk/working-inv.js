@@ -12,6 +12,7 @@ const jnsKredit = document.getElementById("jns_kredit");
 const persen_gpm = document.getElementById("persen_gpm");
 
 const totalBDKMK = document.getElementById("total_bd_modal_kerja");
+const totalBDKMKv = document.getElementById("total_bd_modal_kerja_view");
 
 $("#jns_bjk").on("change", function () {
     updateKmk();
@@ -26,7 +27,7 @@ function updateKmk() {
 
     let total = inv + piutang - utang;
 
-    let BDKMK = toNumber(totalBDKMK.value);
+    let BDKMK = toNumber(totalBDKMKv.value);
     let totalWI = 0;
 
     if (total > BDKMK) {
@@ -35,8 +36,8 @@ function updateKmk() {
         totalWI = 0;
     }
 
-    total = Math.round(totalWI);
-    kmk.value = setFormatRupiah(total);
+    totalFix = Math.round(totalWI);
+    kmk.value = setFormatRupiah(totalFix);
     kmk.classList.remove("is-invalid");
     kmk.classList.add("is-valid");
 

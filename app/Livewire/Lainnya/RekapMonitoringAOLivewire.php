@@ -101,25 +101,27 @@ class RekapMonitoringAOLivewire extends Component
         $jabatan = Auth::user()->jabatan;
         $nama = Auth::user()->nama;
 
-        // $monitoring = MonitoringAo::with(['cabang'])
-        //     ->where(function ($query) {
-        //         $query->search($this->search) // scopeSearch di JamTanah
-        //             ->orWhereHas('cabang', function ($query) {
-        //                 $query->where('cabang', 'LIKE', "%{$this->search}%");
-        //             });
-        //     })
-        //     ->when($this->tgl_awal && $this->tgl_akhir, function ($query) {
-        //         $awal = Carbon::parse($this->tgl_awal)->startOfDay();
-        //         $akhir = Carbon::parse($this->tgl_akhir)->endOfDay();
-        //         $query->whereBetween('tgl_kunjungan', [$awal, $akhir]);
-        //     });
-
-
-
-        // // order by
-        // $monitoring->orderBy($this->sortBy, $this->sortDir);
-
-
+        if ($this->id_cabang == 99) {
+            $userModels = User::where('jabatan', 'AO')->where('status', 'Aktif')->where('email', 'NOT LIKE', '%dummy%')->orderBy('nama', 'ASC')->get();
+        } else if ($this->id_cabang == 'AREA 1' || $this->id_cabang == 'AREA 2' || $this->id_cabang == 'AREA 3') {
+            switch ($this->id_cabang) {
+                case 'AREA 1':
+                    $userModels = User::whereIn('id_cabang', $this->id_area_1)->where('jabatan', 'AO')->where('status', 'Aktif')
+                        ->where('email', 'NOT LIKE', '%dummy%')->orderBy('nama', 'ASC')->get();
+                    break;
+                case 'AREA 2':
+                    $userModels = User::whereIn('id_cabang', $this->id_area_2)->where('jabatan', 'AO')->where('status', 'Aktif')
+                        ->where('email', 'NOT LIKE', '%dummy%')->orderBy('nama', 'ASC')->get();
+                    break;
+                case 'AREA 3':
+                    $userModels = User::whereIn('id_cabang', $this->id_area_3)->where('jabatan', 'AO')->where('status', 'Aktif')
+                        ->where('email', 'NOT LIKE', '%dummy%')->orderBy('nama', 'ASC')->get();
+                    break;
+            }
+        } else {
+            $userModels = User::where('id_cabang', $this->id_cabang)->where('jabatan', 'AO')->where('status', 'Aktif')
+                ->where('email', 'NOT LIKE', '%dummy%')->orderBy('nama', 'ASC')->get();
+        }
 
         $monitoring = MonitoringAo::select(
             'nama_ao',
@@ -172,7 +174,10 @@ class RekapMonitoringAOLivewire extends Component
 
         if ($jabatan == 'AO') {
             $monitoring->where('nama_ao', $nama);
+        } else {
+            $monitoring->whereIn('nama_ao', $userModels->pluck('nama')->toArray());
         }
+
 
         // order by
         $monitoring->orderBy($this->sortBy, $this->sortDir);
