@@ -35,7 +35,7 @@ function setGPMbyHpp() {
 
     if (omset_usaha.value && hppVal) {
         let omsetVal = toNumber(
-            omset_usaha.dataset.rawValue || omset_usaha.value
+            omset_usaha.dataset.rawValue || omset_usaha.value,
         );
         let total = (hppVal / omsetVal) * 100; // Hitung GPM
         total = total.toFixed(2).replace(".", ",");
@@ -54,7 +54,7 @@ function setPersenGPM() {
 
     if (omset_usaha.value && gpmVal) {
         let omsetVal = toNumber(
-            omset_usaha.dataset.rawValue || omset_usaha.value
+            omset_usaha.dataset.rawValue || omset_usaha.value,
         );
         let total = (gpmVal * omsetVal) / 100; // Hitung GPM
         total = Math.round(total); // Pembulatan
@@ -68,7 +68,7 @@ setInputs(document.querySelectorAll("#omset_usaha"), setPersenGPM);
 // -PENGELUARAN USAHA-
 const pengeluaran_usaha = document.getElementById("pengeluaran_usaha");
 const PengeluaranUsahaInputs = document.querySelectorAll(
-    "#omset_harga_pokok, #omset_sewa, #omset_gaji_pegawai, #omset_listrik, #omset_transportasi, #omset_pengeluaran_lainnya"
+    "#omset_harga_pokok, #omset_sewa, #omset_gaji_pegawai, #omset_listrik, #omset_transportasi, #omset_pengeluaran_lainnya",
 );
 
 function updatePengeluaranUsaha() {
@@ -113,7 +113,7 @@ function updateKeuntunganUsaha() {
 // -TOTAL PENGHASILAN-
 const total_penghasilan = document.getElementById("total_penghasilan");
 const penghasilan_deb_inputs = document.querySelectorAll(
-    "#penghasilan_deb, #penghasilan_lainnya, #keuntungan_usaha"
+    "#penghasilan_deb, #penghasilan_lainnya, #keuntungan_usaha",
 );
 
 function updateTotalPenghasilan() {
@@ -134,7 +134,7 @@ setInputs(penghasilan_deb_inputs, updateTotalPenghasilan);
 // -TOTAL PENGELUARAN-
 const total_pengeluaran = document.getElementById("total_pengeluaran");
 const total_pengeluaran_inputs = document.querySelectorAll(
-    "#belanja_rt, #sewa_rumah, #pendidikan, #listrik, #transportasi, #pengeluaran_lainnya"
+    "#belanja_rt, #sewa_rumah, #pendidikan, #listrik, #transportasi, #pengeluaran_lainnya",
 );
 
 function updateTotalPengeluaran() {
@@ -159,7 +159,7 @@ const sisa_penghasilan = document.getElementById("sisa_penghasilan");
 function updateSisaPenghasilan() {
     let total =
         toNumber(
-            total_penghasilan.dataset.rawValue || total_penghasilan.value
+            total_penghasilan.dataset.rawValue || total_penghasilan.value,
         ) -
         toNumber(total_pengeluaran.dataset.rawValue || total_pengeluaran.value);
 
@@ -192,10 +192,10 @@ const idir = document.getElementById("idir");
 function updateIDIR() {
     let total =
         (toNumber(
-            angsuran_pinjaman.dataset.rawValue || angsuran_pinjaman.value
+            angsuran_pinjaman.dataset.rawValue || angsuran_pinjaman.value,
         ) +
             toNumber(
-                rekomendasi_asr.dataset.rawValue || rekomendasi_asr.value
+                rekomendasi_asr.dataset.rawValue || rekomendasi_asr.value,
             )) /
         toNumber(dis_income.dataset.rawValue || dis_income.value);
 
@@ -209,5 +209,10 @@ function updateIDIR() {
 }
 // setInputs(rekomendasi_asr_inputs, updateIDIR);
 // - END IDIR -
+
+// update IDIR jika Disposible Income berubah berubah
+dis_income.addEventListener("input", function () {
+    updateIDIR();
+});
 
 // END Matemetika angsuran

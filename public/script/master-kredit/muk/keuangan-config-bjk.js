@@ -167,6 +167,8 @@ function updateRekomendasiAsrBJK() {
     bjk_kewajiban_bunga.value = jumlah_angsuran.value;
     bjk_kewajiban_bunga.classList.remove("is-invalid");
     bjk_kewajiban_bunga.classList.add("is-valid");
+
+    bjk_kewajiban_bunga.dispatchEvent(new Event("input", { bubbles: true }));
     updateIDIRBjk();
 }
 // ends kewajiban angsuran perbulan
@@ -270,4 +272,12 @@ function setPersenGPMBJK() {
 }
 setPercent(document.querySelectorAll("#bjk_persen_gpm"), setPersenGPMBJK);
 setInputs(document.querySelectorAll("#bjk_omset"), setPersenGPMBJK);
+
+// update Disposible income saat kewajiban bunga perbulan berubah
+bjk_kewajiban_bunga.addEventListener("input", function () {
+    updateIDIRBjk();
+});
+bjk_angsuran_pinjaman.addEventListener("input", function () {
+    updateIDIRBjk();
+});
 // -ENDS KEUANGAN BERJANGKA-

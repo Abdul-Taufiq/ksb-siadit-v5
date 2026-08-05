@@ -116,6 +116,8 @@ function updateTotalAngsuran() {
     bjk_angsuran_pinjaman.classList.remove("is-invalid");
     bjk_angsuran_pinjaman.classList.add("is-valid");
     updateSelisihPenghasilanBjk();
+
+    bjk_angsuran_pinjaman.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
 // Pastikan setiap input yang ada dan yang baru dibuat tetap menghitung total
@@ -157,6 +159,8 @@ function updateDisIncome() {
     dis_income.value = setRpId(total);
     dis_income.classList.remove("is-invalid");
     dis_income.classList.add("is-valid");
+
+    dis_income.dispatchEvent(new Event("input", { bubbles: true }));
 }
 // -END DISPOSABLE INCOME-
 

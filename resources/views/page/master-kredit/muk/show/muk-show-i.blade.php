@@ -38,8 +38,8 @@
                 <td>Permohonan</td>
                 <td>:</td>
                 <td>
-                    {{ $muk->kredit->kategori_spk }}
-                    {{ $muk->kredit->jns_kategori_spk == '-' ? '' : $muk->kredit->jns_kategori_spk }}
+                    {{ $muk->kredit->kategori_spk == 'SPK' ? $muk->kredit->kategori_spk . ' | Baru' : 'Addendum | ' . $muk->kredit->kategori_spk }}
+                    {{ $muk->kredit->jns_kategori_spk == '-' ? '' : ' | ' . $muk->kredit->jns_kategori_spk }}
                 </td>
             </tr>
         </table>

@@ -48,11 +48,9 @@ function updateUsulanAngsuran() {
     let plafond = toNumber(
         jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let bunga = toNumber(besar_bunga.dataset.rawValue || besar_bunga.value);
+    let bunga = toPersen(besar_bunga.value);
     let jkwValue = toNumber(jkw.value);
-    let bungaValue = bunga / 100;
-
-    console.log(bungaValue);
+    let bungaValue = bunga;
 
     let total; // Deklarasi variabel di luar `if` untuk mencegah scoping issue
 
@@ -119,8 +117,8 @@ function updateBiayaProvisi() {
     let plafond = toNumber(
         jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let provisiVal = toNumber(provisi.dataset.rawValue || provisi.value);
-    let total = (plafond * provisiVal) / 100;
+    let provisiVal = toPersen(provisi.value);
+    let total = plafond * provisiVal;
 
     // pembulatan
     total = Math.round(total);
@@ -137,8 +135,8 @@ function updateBiayaAdm() {
     let plafond = toNumber(
         jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let admVal = toNumber(besar_adm.dataset.rawValue || besar_adm.value);
-    let total = (plafond * admVal) / 100;
+    let admVal = toPersen(besar_adm.value);
+    let total = plafond * admVal;
 
     // pembulatan
     total = Math.round(total);
@@ -155,10 +153,8 @@ function updateBiayaSurvey() {
     let plafond = toNumber(
         jumlah_disetujui.dataset.rawValue || jumlah_disetujui.value,
     );
-    let surveyVal = toNumber(
-        besar_survey.dataset.rawValue || besar_survey.value,
-    );
-    let total = (plafond * surveyVal) / 100;
+    let surveyVal = toPersen(besar_survey.value);
+    let total = plafond * surveyVal;
 
     // pembulatan
     total = Math.round(total);

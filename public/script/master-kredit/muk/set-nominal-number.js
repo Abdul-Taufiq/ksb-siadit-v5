@@ -79,4 +79,11 @@ function setInputs(Inputannya, fungsinya) {
         input.addEventListener("keyup", fungsinya); // Memastikan perhitungan tetap berjalan
     });
 }
+
+// untuk penjumlahan persen
+function toPersen(value) {
+    if (!value) return 0;
+    let angka = parseFloat(value.replace(/\./g, "").replace(",", ".")) || 0;
+    return angka / 100; // ubah ke desimal persentase
+}
 // {{ END CORE FUNGSI JUMLAH }}

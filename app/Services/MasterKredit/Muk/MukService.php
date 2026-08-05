@@ -444,13 +444,13 @@ class MukService
 
                 // update nilai agunan dan nilai taksasi di tanah
                 $jamTanah = JamTanah::find($id_tanah);
-                if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_1_' . $i])) {
+                if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_luas_1_' . $i])) {
                     $jamTanah->update([
                         'nilai_jaminan' => $this->normalizeNumber($data['nilai_agunan_' . $i]),
                         'nilai_taksasi' => $this->normalizeNumber($data['kes_nilai_taksasi_' . $i])
                     ]);
                 }
-                if (!empty($data['bangunan_1_' . $i])) {
+                if (!empty($data['bangunan_luas_1_' . $i])) {
                     $jamTanah->update([
                         'nilai_jaminan' => $this->normalizeNumber($data['rekom_total_' . $i]),
                         'nilai_taksasi' => $this->normalizeNumber($data['kes_total_nilai_taksasi_' . $i])
@@ -571,7 +571,7 @@ class MukService
                     }
 
                     // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_1_' . $i])) {
+                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_luas_1_' . $i])) {
                         $rekap1 = new SC_Tanah_Rekap_1_Vanalis();
                         $rekap1->id_muk = $id_muk;
                         $rekap1->id_jaminan_pertanahan = $id_tanah;
@@ -598,7 +598,7 @@ class MukService
                     }
 
                     // Rekap 2 for bangunan
-                    if (isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] !== '') {
+                    if (isset($data['bangunan_luas_1_' . $i]) && $data['bangunan_luas_1_' . $i] !== '') {
                         $rekap2 = new SC_Tanah_Rekap_2_Vanalis();
                         $rekap2->id_muk = $id_muk;
                         $rekap2->id_jaminan_pertanahan = $id_tanah;
@@ -756,7 +756,7 @@ class MukService
                     }
 
                     // Rekap 1 untuk Tanah serta Ruko dan Rukan
-                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_1_' . $i])) {
+                    if (isset($data['data_1_' . $i]) && $data['data_1_' . $i] !== null && !isset($data['bangunan_luas_1_' . $i])) {
                         $rekap1 = new SC_Tanah_Rekap_1();
                         $rekap1->id_muk = $id_muk;
                         $rekap1->id_jaminan_pertanahan = $id_tanah;
@@ -783,7 +783,7 @@ class MukService
                     }
 
                     // Rekap 2 for bangunan
-                    if (isset($data['bangunan_1_' . $i]) && $data['bangunan_1_' . $i] !== '') {
+                    if (isset($data['bangunan_luas_1_' . $i]) && $data['bangunan_luas_1_' . $i] !== '') {
                         $rekap2 = new SC_Tanah_Rekap_2();
                         $rekap2->id_muk = $id_muk;
                         $rekap2->id_jaminan_pertanahan = $id_tanah;
