@@ -161,7 +161,6 @@
                                 <i class="fa fa-spinner fa-spin"></i> Loading...
                             </td>
                         </tr>
-                        {{ $monitoring }}
                         @if ($monitoring->isNotEmpty())
                             @foreach ($monitoring as $data => $item)
                                 <tr wire:key='{{ sha1($item->id) }}' wire:loading.remove wire:target='page_view'>
