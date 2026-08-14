@@ -326,8 +326,20 @@
                             warga Negara Indonesia, bertempat tinggal di {{ $kredit->cabang->tempat_tinggal }},
                             NIK:
                             {{ $kredit->cabang->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
-                            {{ $kredit->cabang->jabatan }}
-                            PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING Cabang {{ $kredit->cabang->alamat }} dalam
+                            @if ($pkpmk->id_cabang == '1')
+                                @if ($pkpmk->jabatan == 'Pimpinan')
+                                    Kepala Kantor
+                                @else
+                                    Pjs Kepala Kantor
+                                @endif
+                            @else
+                                {{ $pkpmk->jabatan }}
+                            @endif
+                            PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING
+                            @if ($pkpmk->id_cabang != '1')
+                                Cabang {{ $pkpmk->alamat }}
+                            @endif
+                            dalam
                             jabatannya
                             tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
                             {{ $kredit->cabang->nomor_surat_kuasa }},

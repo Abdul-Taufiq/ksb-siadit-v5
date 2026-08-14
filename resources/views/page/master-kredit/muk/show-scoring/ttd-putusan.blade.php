@@ -21,16 +21,20 @@
             <hr style="margin: 0;">
             @switch($muk->putusan?->nama_kakom)
                 @case('Feppi Kurniasari')
-                    Kepala Kantor Kas
+                    2. Kepala Kantor Kas
                 @break
 
                 @case('Arief Murtono')
                 @case('Fitriana Eka Susanti')
-                    Team Leader
+                    2. Team Leader
                 @break
 
                 @default
-                    Kasi Komersial
+                    @if ($muk->putusan?->sub_jabatan_kakom === null)
+                        2. Kasi Komersial
+                    @else
+                        {{ $muk->putusan?->sub_jabatan_kakom }}
+                    @endif
             @endswitch
         </td>
         <td style="text-align: center">

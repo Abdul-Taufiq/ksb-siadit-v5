@@ -37,7 +37,11 @@
                         @break
 
                         @default
-                            2. Kasi Komersial
+                            @if ($muk->putusan?->sub_jabatan_kakom === null)
+                                2. Kasi Komersial
+                            @else
+                                {{ $muk->putusan?->sub_jabatan_kakom }}
+                            @endif
                     @endswitch
                 </td>
                 <td style="text-align: center">

@@ -131,7 +131,7 @@ class IndexMukLivewire extends Component
     // hide modal
     public function HideModal()
     {
-        $this->reset(['modal_title', 'id_kredit', 'file_putusan']);
+        $this->reset(['modal_title', 'id_kredit', 'file_putusan', 'plafond', 'jkw', 'bunga', 'plafond_cek', 'jkw_cek', 'bunga_cek']);
         $this->js("window.dispatchEvent(new Event('resetSelect2'))");
     }
 
