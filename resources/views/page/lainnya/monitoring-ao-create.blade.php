@@ -150,11 +150,11 @@
             }
 
             // atur tombol sesuai hasil validasi
-            if (!valid) {
-                buttonSave.setAttribute('disabled', 'true');
-            } else {
-                buttonSave.removeAttribute('disabled');
-            }
+            // if (!valid) {
+            //     buttonSave.setAttribute('disabled', 'true');
+            // } else {
+            //     buttonSave.removeAttribute('disabled');
+            // }
 
             // alternatif
             // ^08 = harus mulai dengan 08, \d{6,} = minimal 6 digit setelahnya
