@@ -163,6 +163,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('show-muk/scoring/{idMuk}', [MukController::class, 'showScoring'])->name('show.scoring');
         Route::get('show-muk/scoring/anar/{idMuk}', [MukController::class, 'showScoring'])->name('show.scoring.anar');
         Route::get('form-muk/edit/{id}', [MukController::class, 'editMuk'])->name('muk.edit');
+        // update catatan putusan
+        Route::post('form-muk/update/catatan', [MukController::class, 'updateCatatan'])->name('muk.update.catatan');
 
         // print
         Route::get('print-muk/{id}', [MukController::class, 'printMuk'])->name('print.muk');

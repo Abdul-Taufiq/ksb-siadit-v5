@@ -200,6 +200,88 @@
                 </div>
             </div>
 
+            {{-- edit catatan putusan --}}
+            @if ($muk->putusan?->nama_pincab == null)
+                <div class="card mb-2">
+                    <div class="card-header bg-warning ">
+                        <div class="d-flex justify-content-between">
+                            <div class="head-judul">EDIT CATATAN PUTUSAN</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 14px">
+                            <b>Coution:</b> Edit ini dapat dilakukan sesuai user yang login (kecuali Pimpinan Cabang) dan
+                            akan
+                            menghilang jika Pimpinan Cabang sudah melakukan perubahan Status!
+                        </p>
+
+                        <br>
+                        <form id="quickForm" action="{{ route('muk.update.catatan') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" id="id_putusan" name="id_putusan"
+                                value="{{ base64_encode($muk->putusan?->id_putusan) }}" readonly>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    @php
+                                        $user = Auth::user()->jabatan;
+                                        $jabatan = '';
+                                        switch ($user) {
+                                            case 'AO':
+                                                $jabatan = 'catatan_ao';
+                                                break;
+                                            case 'Analis Cabang':
+                                                $jabatan = 'catatan_analis_cabang';
+                                                break;
+                                            case 'Kasi Komersial':
+                                                $jabatan = 'catatan_kakom';
+                                                break;
+
+                                            default:
+                                                # code...
+                                                break;
+                                        }
+                                    @endphp
+                                    <input type="hidden" name="field_ctt" id="field_ctt" value="{{ $jabatan }}">
+
+                                    <div class="form-group">
+                                        <div class="d-flex justify-content-between">
+                                            <label for="catatan">Catatan Putusan</label>
+                                            <label for="catatan" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="ISI DENGAN SEKSAMA!">
+                                                <i class="fa-solid fa-circle-question"></i>
+                                            </label>
+                                        </div>
+                                        <textarea name="catatan" id="catatan">{!! $muk?->putusan?->$jabatan !!}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-start">
+                                <div class="form-group mb-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="terms" class="custom-control-input"
+                                            id="exampleCheck1" required>
+                                        <label class="custom-control-label" for="exampleCheck1">Saya setuju dengan
+                                            <a href="#" style="color: #007bff; text-decoration: none;">
+                                                ketentuan yang berlaku
+                                            </a>.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="button" id="simpan" class="btn btn-primary"
+                                    style="letter-spacing: 2px;">
+                                    <i class="fa-regular fa-floppy-disk"></i> &nbsp; <b>SIMPAN</b> </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
 
 
@@ -228,6 +310,15 @@
                         '_blank');
                 }
             });
+        });
+    </script>
+
+    <script src="{{ asset('script/master-kredit/debitur/confirm-submit.js') }}"></script>
+    <script src="{{ asset('script/master-kredit/debitur/debitur-cek-input.js') }}"></script>
+    <script src="{{ asset('script/master-kredit/muk/summernote-area.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            initializeSummernote("#catatan", "Ketik sesuatu...", 100);
         });
     </script>
 @endsection

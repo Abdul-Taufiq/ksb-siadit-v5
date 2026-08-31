@@ -373,6 +373,11 @@
                             <td style="width: 20px;">: </td>
                             <td>
                                 {{ !empty($kredit->persetujuan->penalty) ? $kredit->persetujuan->penalty . ' X' : 'Belum ada data' }}
+                                @if ($kredit->jkw <= 12)
+                                    &nbsp; Bunga
+                                @else
+                                    &nbsp; Angsuran
+                                @endif
                             </td>
                         </tr>
                     </table>

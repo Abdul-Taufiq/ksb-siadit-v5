@@ -12,6 +12,7 @@ use App\Models\MasterKredit\Penjamin;
 use App\Models\MasterKredit\PikarEks;
 use App\Models\MasterMUK\Muk;
 use App\Models\MasterMUK\MukIndustri;
+use App\Models\MasterMUK\MukPutusan;
 use App\Models\MasterMUK\MukSlik;
 use App\Models\Output\LogActivity;
 use App\Services\MasterKredit\Debitur\JaminanService;
@@ -391,6 +392,21 @@ class MukController extends Controller
             'SCDepo' => $SCDepo,
             'SCTab' => $SCTab,
         ]);
+    }
+
+
+    // UPDATE CATATAN Putusan
+    public function updateCatatan(Request $request)
+    {
+        $putusan = MukPutusan::findorFail(base64_decode($request->id_putusan));
+        // ambil nama field dari request
+        $field = $request->field_ctt;
+
+        // isi field tersebut dengan catatan
+        $putusan->$field = $request->catatan;
+        $putusan->save();
+
+        return redirect()->back()->with('AlertSuccess', 'Berhasil Diupdate!');
     }
 
 

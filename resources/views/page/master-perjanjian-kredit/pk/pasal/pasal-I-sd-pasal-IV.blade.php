@@ -216,8 +216,10 @@
             <div class="col-md-1">(6)</div>
             <div class="col-md-11">
                 Apabila <b>DEBITUR</b> melunasi sisa pinjaman pada saat pinjaman belum jatuh tempo, maka
-                <b>DEBITUR</b> dikenakan pinalti sebesar {{ $pkpmk->persetujuan->penalty }}
-                ({{ terbilang_only($pkpmk->persetujuan->penalty) }}) kali bunga.
+                <b>DEBITUR</b> dikenakan pinalti sebesar
+                {{ $pkpmk->persetujuan->penalty }}
+                ({{ terbilang_only($pkpmk->persetujuan->penalty) }}) kali
+                {{ $pkpmk->kredit->jkw <= 12 ? 'bunga' : 'angsuran' }}.
             </div>
         </div>
     @else

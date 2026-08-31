@@ -107,7 +107,7 @@
                                 target="__blank">Puchase</a>
                         </li>
                         <li>&nbsp; | &nbsp;</li>
-                        <li>Version 5.0.0</li>
+                        <li>Version 5.1.0</li>
                     </ul>
                 </div>
             </footer>

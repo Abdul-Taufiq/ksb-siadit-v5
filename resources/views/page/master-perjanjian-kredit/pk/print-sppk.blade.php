@@ -716,8 +716,8 @@
             <td style="width: 1%">:</td>
             <td>
                 {{ $pkpmk->persetujuan->penalty }}
-                ({{ terbilang_only($pkpmk->persetujuan->penalty) }})
-                kali bunga
+                ({{ terbilang_only($pkpmk->persetujuan->penalty) }}) kali
+                {{ $pkpmk->kredit->jkw <= 12 ? 'bunga' : 'angsuran' }}.
             </td>
         </tr>
     </table>
