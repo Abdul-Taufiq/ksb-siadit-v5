@@ -201,7 +201,28 @@
             </div>
 
             {{-- edit catatan putusan --}}
-            @if ($muk->putusan?->nama_pincab == null)
+
+            @php
+                $user = Auth::user()->jabatan;
+                $akses = '';
+                switch ($user) {
+                    case 'AO':
+                        $akses = 'Ya';
+                        break;
+                    case 'Analis Cabang':
+                        $akses = 'Ya';
+                        break;
+                    case 'Kasi Komersial':
+                        $akses = 'Ya';
+                        break;
+
+                    default:
+                        $akses = 'Tidak';
+                        break;
+                }
+            @endphp
+
+            @if ($akses == 'Ya' && $muk->putusan?->nama_pincab == null)
                 <div class="card mb-2">
                     <div class="card-header bg-warning ">
                         <div class="d-flex justify-content-between">
