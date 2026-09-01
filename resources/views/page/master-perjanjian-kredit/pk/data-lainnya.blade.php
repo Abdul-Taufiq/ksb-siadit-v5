@@ -71,19 +71,23 @@
                 $penalty = 0;
 
                 if ($kredit->persetujuan->penalty == null) {
-                    // Proses pengecekan pinalti
-                    if ($kredit->jkw <= 12) {
-                        $penalty = 3;
-                    } elseif ($kredit->jkw <= 24) {
-                        $penalty = 1;
-                    } elseif ($kredit->jkw <= 36) {
-                        $penalty = 2;
-                    } elseif ($kredit->jkw <= 48) {
-                        $penalty = 3;
-                    } elseif ($kredit->jkw <= 60) {
-                        $penalty = 5;
+                    if ($kredit->persetujuan->jns_bunga == 'FLAT') {
+                        // Proses pengecekan pinalti
+                        if ($kredit->jkw <= 12) {
+                            $penalty = 3;
+                        } elseif ($kredit->jkw <= 24) {
+                            $penalty = 1;
+                        } elseif ($kredit->jkw <= 36) {
+                            $penalty = 2;
+                        } elseif ($kredit->jkw <= 48) {
+                            $penalty = 3;
+                        } elseif ($kredit->jkw <= 60) {
+                            $penalty = 5;
+                        } else {
+                            $penalty = 0;
+                        }
                     } else {
-                        $penalty = 0;
+                        $penalty = 3;
                     }
                 } else {
                     $penalty = $kredit->persetujuan->penalty;
@@ -92,7 +96,8 @@
 
             <label for="penalty">Penalti pelunasan :</label>
             <input type="number" name="penalty" class="form-control" id="penalty" autocomplete="off" required
-                placeholder="Hanya Angka, cth: 2" value="{{ $penalty }}" readonly>
+                placeholder="Hanya Angka, cth: 2" value="{{ $penalty }}"
+                {{ $kredit->persetujuan->jns_bunga == 'FLAT' ? 'readonly' : '' }}>
         </div>
     </div>
     <div class="col-md-6 mb-3">

@@ -219,7 +219,11 @@
                 <b>DEBITUR</b> dikenakan pinalti sebesar
                 {{ $pkpmk->persetujuan->penalty }}
                 ({{ terbilang_only($pkpmk->persetujuan->penalty) }}) kali
-                {{ $pkpmk->kredit->jkw <= 12 ? 'bunga' : 'angsuran' }}.
+                @if ($pkpmk->persetujuan->jns_bunga == 'FLAT')
+                    {{ $pkpmk->kredit->jkw <= 12 ? 'bunga' : 'angsuran' }}.
+                @else
+                    bunga per bulan.
+                @endif
             </div>
         </div>
     @else
