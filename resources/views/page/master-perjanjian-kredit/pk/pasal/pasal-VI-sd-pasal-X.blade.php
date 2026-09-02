@@ -128,38 +128,38 @@
 
     Tanpa persetujuan tertulis dari <b>BANK</b>, selama kredit belum lunas <b>DEBITUR</b> tidak diperbolehkan untuk:
     <div class="row">
-        <div class="col-md-1">a.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">a.</div>
         <div class="col-md-11">
             Menerima kredit dari bank lain.
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">b.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">b.</div>
         <div class="col-md-11">
             Mengikatkan diri sebagai penjamin <i>(borg)</i> terhadap pihak ketiga.
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">c.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">c.</div>
         <div class="col-md-11">
             Membuka cabang/perwakilan baru atau usaha baru selain usaha yang telah ada.
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">d.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">d.</div>
         <div class="col-md-11">
             Merubah bentuk/status hukum perusahaan, merubah anggaran dasar perusahaan atau merubah susunan
             pengurus/pemegang saham perusahaan.
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">e.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">e.</div>
         <div class="col-md-11">
             Membagikan deviden/keuntungan/laba perusahaan.
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">f.</div>
+        <div class="col-md-1" style="margin-left: 0.2rem">f.</div>
         <div class="col-md-11">
             Memindahtangankan atau menyewakan barang jaminan dengan alasan apapun juga kepada pihak ketiga.
         </div>
