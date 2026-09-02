@@ -278,7 +278,60 @@
         </div>
     </div>
 
-    @if ($pkpmk->persetujuan->jns_kredit == 'Angsuran')
+    {{-- @if ($pkpmk->persetujuan->jns_kredit == 'Angsuran') --}}
+    <div class="row" style="margin-left: 2.5rem;">
+        <div class="col-md-1">3)</div>
+        <div class="col-md-11" style="width: 93% !important">
+            Khusus untuk kredit konsumtif dengan tujuan untuk pembelian kendaraan bermotor,
+            <b>DEBITUR</b> dengan ini memberikan kuasa kepada <b>BANK</b> untuk mentransfer atau dengan cara apapun
+            menyerahkan jumlah uang yang berasal dari Perjanjian Kredit ini kepada pihak lain yang
+            berhak menerima Kredit ini sesuai dengan permohonan kredit yang diajukan.
+        </div>
+    </div>
+    <div class="row" style="margin-left: 2.5rem;">
+        <div class="col-md-1">4)</div>
+        <div class="col-md-11" style="width: 93% !important">
+            <b>BANK</b> diberikan ijin dan persetujuan untuk:
+        </div>
+    </div>
+
+    {{-- isi dari no 3 --}}
+    <div class="row" style="margin-left: 5rem;">
+        <div class="col-md-1">a.</div>
+        <div class="col-md-11" style="width: 93.8% !important;">
+            Memasuki pekarangan dan atau lingkungan Obyek Agunan.
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5rem;">
+        <div class="col-md-1">b.</div>
+        <div class="col-md-11" style="width: 93.8% !important;">
+            Melakukan pemeriksaan atas keadaan Obyek Agunan berikut fasilitas yang melekat padanya.
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5rem;">
+        <div class="col-md-1">c.</div>
+        <div class="col-md-11" style="width: 93.8% !important;">
+            Mengajukan pertanyaan dan memperoleh informasi/keterangan secara langsung
+            ataupun tidak langsung dari <b>DEBITUR</b> dan atau para penghuni lainnya dari Obyek
+            Agunan ataupun pihak lain mengenai hal-hal yang perlu diketahui oleh <b>BANK</b>.
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5rem;">
+        <div class="col-md-1">d.</div>
+        <div class="col-md-11" style="width: 93.8% !important;">
+            Menyampaikan teguran lisan maupun secara tertulis yang harus segera
+            ditaati/dilakukan oleh <b>DEBITUR</b>, apabila <b>DEBITUR</b> tidak memenuhi
+            ketentuan-ketentuan sebagaimana tercantum dalam Perjanjian Kredit.
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5rem;">
+        <div class="col-md-1">e.</div>
+        <div class="col-md-11" style="width: 93.8% !important;">
+            Memasang tanda peringatan (berupa pemasangan banner atau pelakat, dan media
+            lainnya) pada Obyek Agunan.
+        </div>
+    </div>
+    {{-- @else
         <div class="row" style="margin-left: 2.5rem;">
             <div class="col-md-1">3)</div>
             <div class="col-md-11" style="width: 93% !important">
@@ -294,8 +347,6 @@
                 <b>BANK</b> diberikan ijin dan persetujuan untuk:
             </div>
         </div>
-
-        {{-- isi dari no 3 --}}
         <div class="row" style="margin-left: 5rem;">
             <div class="col-md-1">a.</div>
             <div class="col-md-11" style="width: 93.8% !important;">
@@ -331,54 +382,7 @@
                 lainnya) pada Obyek Agunan.
             </div>
         </div>
-    @else
-        <div class="row" style="margin-left: 2.5rem;">
-            <div class="col-md-1">3)</div>
-            <div class="col-md-11" style="width: 93% !important">
-                Khusus untuk kredit konsumtif dengan tujuan untuk pembelian kendaraan bermotor,
-                <b>DEBITUR</b> dengan ini memberikan kuasa kepada <b>BANK</b> untuk mentransfer atau dengan cara apapun
-                menyerahkan jumlah uang yang berasal dari Perjanjian Kredit ini kepada pihak lain yang
-                berhak menerima Kredit ini sesuai dengan permohonan kredit yang diajukan.
-            </div>
-        </div>
-
-        {{-- isi dari no 3 --}}
-        <div class="row" style="margin-left: 5rem;">
-            <div class="col-md-1">a.</div>
-            <div class="col-md-11" style="width: 93.8% !important;">
-                Memasuki pekarangan dan atau lingkungan Obyek Agunan.
-            </div>
-        </div>
-        <div class="row" style="margin-left: 5rem;">
-            <div class="col-md-1">b.</div>
-            <div class="col-md-11" style="width: 93.8% !important;">
-                Melakukan pemeriksaan atas keadaan Obyek Agunan berikut fasilitas yang melekat padanya.
-            </div>
-        </div>
-        <div class="row" style="margin-left: 5rem;">
-            <div class="col-md-1">c.</div>
-            <div class="col-md-11" style="width: 93.8% !important;">
-                Mengajukan pertanyaan dan memperoleh informasi/keterangan secara langsung
-                ataupun tidak langsung dari <b>DEBITUR</b> dan atau para penghuni lainnya dari Obyek
-                Agunan ataupun pihak lain mengenai hal-hal yang perlu diketahui oleh <b>BANK</b>.
-            </div>
-        </div>
-        <div class="row" style="margin-left: 5rem;">
-            <div class="col-md-1">d.</div>
-            <div class="col-md-11" style="width: 93.8% !important;">
-                Menyampaikan teguran lisan maupun secara tertulis yang harus segera
-                ditaati/dilakukan oleh <b>DEBITUR</b>, apabila <b>DEBITUR</b> tidak memenuhi
-                ketentuan-ketentuan sebagaimana tercantum dalam Perjanjian Kredit.
-            </div>
-        </div>
-        <div class="row" style="margin-left: 5rem;">
-            <div class="col-md-1">e.</div>
-            <div class="col-md-11" style="width: 93.8% !important;">
-                Memasang tanda peringatan (berupa pemasangan banner atau pelakat, dan media
-                lainnya) pada Obyek Agunan.
-            </div>
-        </div>
-    @endif
+    @endif --}}
 
     <div class="row">
         <div class="col-md-1">(2)</div>
