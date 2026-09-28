@@ -196,6 +196,19 @@
             </tr>
             <tr>
                 <td>
+                    <label class="notbold" for="jarak_survey">Jarak Lokasi Survey</label>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control is-invalid setRp" id="jarak_survey"
+                            name="jarak_survey" min="1" maxlength="5" required
+                            value="{{ number_format($kredit?->persetujuan?->jarak_survey ?? 0, 2, ',', '.') ?? null }}">
+                        <span class="input-group-text">Kilometer</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label class="notbold" for="biaya_survey">Jumlah Survey</label>
                 </td>
                 <td>

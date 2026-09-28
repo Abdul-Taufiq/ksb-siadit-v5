@@ -732,7 +732,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 d-none">
         <div class="form-group">
             <label for="selisih_penghasilan">Selisih Penghasilan dengan Total Angsuran</label>
             <div class="input-group input-group-sm">
@@ -743,7 +743,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 d-none">
         <label for="selisih_persen">&nbsp;</label>
         <div class="input-group input-group-sm">
             <input type="text" class="form-control is-invalid" id="selisih_persen" name="selisih_persen"

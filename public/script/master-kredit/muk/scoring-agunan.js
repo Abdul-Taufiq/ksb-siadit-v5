@@ -108,7 +108,7 @@ $(document).ready(function () {
                 tgl_sertip.classList.remove("d-none");
             }
 
-            hakKepemilikan.addEventListener("keyup", function () {
+            hakKepemilikan.addEventListener("change", function () {
                 if (hakKepemilikan.value === "SHM") {
                     tgl_sertip_danger.classList.remove("d-none");
                     tgl_sertip.classList.add("d-none");

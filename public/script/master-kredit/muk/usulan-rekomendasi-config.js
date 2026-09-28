@@ -80,9 +80,9 @@ function updateUsulanAngsuran() {
             // console.log("Angsuran: " + total);
         } else {
             total = 0;
-            alert(
-                "Jenis Kredit Angsuran Tidak boleh memilih Jenis Bunga EFEKTIF!",
-            );
+            // alert(
+            //     "Jenis Kredit Angsuran Tidak boleh memilih Jenis Bunga EFEKTIF!",
+            // );
         }
     }
 

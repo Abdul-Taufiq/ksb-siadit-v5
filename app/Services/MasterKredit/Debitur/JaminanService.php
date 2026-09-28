@@ -121,6 +121,7 @@ class JaminanService
                 $pikareks->tgl_perjanjian = $data['tgl_perjanjian'];
                 $pikareks->nama_bpjs = $data['nama_bpjs'];
                 $pikareks->no_bpjs = $data['no_bpjs'];
+                $pikareks->save();
             } else {
                 $pikar = new PikarEks();
                 $pikar->id_kredit = $kredit->id_kredit;

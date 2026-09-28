@@ -108,7 +108,7 @@ class DebiturController extends Controller
         return view('page.master-kredit.debitur.debitur-edit', [
             'title' => $metode == 'edit' ? 'Edit Data SPK' : 'Tambah SPK Exist',
             'debitur' => $debitur,
-            'metode' => $metode,
+            'metode' => $metode == 'edit' ? 'edit' : 'create',
             'id_field' => $metode == 'edit' ? '_edit' : null
         ]);
     }

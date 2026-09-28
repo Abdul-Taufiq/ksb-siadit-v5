@@ -84,7 +84,13 @@
                 <div class="input-group input-group-sm">
                     <input type="text" name="kes_taksasi_persen_2_{{ $loop->iteration }}"
                         id="kes_taksasi_persen_2_{{ $loop->iteration }}" class="form-control form-control-sm"
-                        value="{{ number_format(data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_2") ?? data_get($tanah, "$vcabRekap2.kes_taksasi_persen_2"), 0, ',', '.') ?? '70' }}"
+                        value="{{ number_format(
+                            data_get($tanah, "$vanalisRekap2.kes_taksasi_persen_2") ??
+                                (data_get($tanah, "$vcabRekap2.kes_taksasi_persen_2") ?? 70),
+                            0,
+                            ',',
+                            '.',
+                        ) }}"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                         data-bs-title="Jika ada perubahan pada TAKSASI Mohon untuk update NILAI PASAR BANGUNAN YANG DIREKOMENDASIKAN agar Sinkron">
                     <span class="input-group-text">%</span>

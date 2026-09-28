@@ -75,10 +75,16 @@
 <div class="col-md-4 mb-4">
     <div class="form-group">
         <label for="hak_kepemilikan_{{ $loop->iteration }}">Hak Kepemilikan</label>
-        <input type="text" class="form-control form-control-sm" name="hak_kepemilikan_{{ $loop->iteration }}"
-            id="hak_kepemilikan_{{ $loop->iteration }}" required maxlength="20"
-            oninput="this.value = this.value.toUpperCase()"
-            value="{{ data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->hak_kepemilikan) }}">
+        <select name="hak_kepemilikan_{{ $loop->iteration }}" id="hak_kepemilikan_{{ $loop->iteration }}"
+            class="form-control form-control-sm" required>
+            <option disabled selected>Pilih Hak Kepemilikan</option>
+            <option value="SHM"
+                {{ (data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->hak_kepemilikan)) == 'SHM' ? 'selected' : '' }}>
+                SHM</option>
+            <option value="SHGB"
+                {{ (data_get($tanah, "$vanalis.hak_kepemilikan") ?? (data_get($tanah, "$vcab.hak_kepemilikan") ?? $tanah->hak_kepemilikan)) == 'SHGB' ? 'selected' : '' }}>
+                SHGB</option>
+        </select>
     </div>
 </div>
 <div class="col-md-4 mb-4">

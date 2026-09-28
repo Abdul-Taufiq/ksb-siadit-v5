@@ -189,6 +189,22 @@ class DebiturTable extends Component
             ]);
         } else {
             $this->EditStatus();
+
+            $this->reset(([
+                'modal_title',
+                'catatan',
+                'status',
+                'id_kredit',
+                'rekomendasi',
+                'analis_area',
+                'analis_area_selected',
+                'analis_komite',
+                'analis_komite_selected',
+                'putusan',
+                'plafond',
+                'jkw',
+                'bunga',
+            ]));
         }
     }
 

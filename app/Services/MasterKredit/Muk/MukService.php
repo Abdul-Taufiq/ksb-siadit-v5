@@ -364,6 +364,7 @@ class MukService
             'biaya_adm' => $this->normalizeNumber($data['biaya_adm']),
             'besar_survey' =>  $this->normalizeNumber($data['besar_survey']),
             'biaya_survey' =>  $this->normalizeNumber($data['biaya_survey']),
+            'jarak_survey' =>  $this->normalizeNumber($data['jarak_survey']),
             'denda_hari' => $this->normalizeNumber($data['denda_hari']),
         ]);
 

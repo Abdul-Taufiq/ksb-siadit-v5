@@ -30,7 +30,7 @@
                             @if (
                                 ($muk->deviasi?->perihal != null && $muk->deviasi?->perihal != '<p>-</p>') ||
                                     $muk->kredit->persetujuan->putusan != 'Cabang')
-                                Silahkan lihat file putusan di bawah ini <br>
+                                Silahkan lihat file putusan/deviasi di bawah ini <br>
                                 @if ($muk->file_putusan)
                                     <a href="{{ asset('storage/file_upload/putusan/' . $muk->file_putusan) }}"
                                         target="_blank" style="font-weight: bold; color: darkcyan">

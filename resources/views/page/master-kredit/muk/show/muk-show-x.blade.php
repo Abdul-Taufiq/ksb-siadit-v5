@@ -72,6 +72,15 @@
         </td>
     </tr>
     <tr>
+        <td>Jarak Lokasi Survey</td>
+        <td>:</td>
+        <td>
+            {{ optional($muk->kredit->persetujuan)->jarak_survey !== null
+                ? number_format(optional($muk->kredit->persetujuan)->jarak_survey, 2, ',', '.') . ' Kilometer'
+                : '-' }}
+        </td>
+    </tr>
+    <tr>
         <td>Angsuran/bul</td>
         <td>:</td>
         <td>

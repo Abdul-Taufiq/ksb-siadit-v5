@@ -17,7 +17,7 @@
                     juga.
                 </div>
             </div>
-            @if ($pkpmk->kredit->jns_pinjaman == 'PIKAR (Eksernal)')
+            @if ($pkpmk->kredit->jns_pinjaman == 'PIKAR (Eksternal)')
                 Dengan ini <b>BANK</b> telah menandatangani Perjanjian Kerja Sama
                 Nomor {{ $pkpmk->kredit->pikareks->no_perjanjian }} tanggal
                 {{ $pkpmk->kredit->pikareks->tgl_perjanjian?->translatedFormat('d F Y') }}
