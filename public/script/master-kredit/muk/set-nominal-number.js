@@ -8,7 +8,7 @@ document.querySelectorAll(".setRp").forEach(function (input) {
 
 /* Fungsi formatRupiah */
 function formatRupiah(angka) {
-    var numberString = angka.replace(/[^,\d]/g, "").toString(),
+    var numberString = angka.replace(/[^-\d,]/g, "").toString(), // izinkan minus
         split = numberString.split(","),
         sisa = split[0].length % 3,
         rupiah = split[0].substr(0, sisa),
