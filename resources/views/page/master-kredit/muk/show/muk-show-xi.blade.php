@@ -40,7 +40,7 @@
                             @if ($muk->putusan?->sub_jabatan_kakom === null)
                                 2. Kasi Komersial
                             @else
-                                {{ $muk->putusan?->sub_jabatan_kakom }}
+                                2. {{ $muk->putusan?->sub_jabatan_kakom }}
                             @endif
                     @endswitch
                 </td>

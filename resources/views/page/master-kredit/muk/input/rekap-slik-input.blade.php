@@ -13,7 +13,8 @@
             </div>
             <div class="col-md-12 text-center mb-3">
                 <label for="aksi_data_slik_{{ $loop->iteration }}">Aksi Data ini!</label>
-                <select name="aksi_data_slik_{{ $loop->iteration }}" class="form-select form-select-sm" required>
+                <select name="aksi_data_slik_{{ $loop->iteration }}" id="aksi_data_slik_{{ $loop->iteration }}"
+                    class="form-select form-select-sm" required>
                     <option selected disabled>-Pilih-</option>
                     <option selected class="text-primary" value="Edit">Edit/Biarkan disimpan</option>
                     <option class="text-danger" value="Hapus">Hapus/Tidak akan disimpan</option>

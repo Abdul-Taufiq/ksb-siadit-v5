@@ -21,17 +21,17 @@
             <hr style="margin: 0;">
             @switch($muk->putusan?->nama_kakom)
                 @case('Feppi Kurniasari')
-                    2. Kepala Kantor Kas
+                    Kepala Kantor Kas
                 @break
 
                 @case('Arief Murtono')
                 @case('Fitriana Eka Susanti')
-                    2. Team Leader
+                    Team Leader
                 @break
 
                 @default
                     @if ($muk->putusan?->sub_jabatan_kakom === null)
-                        2. Kasi Komersial
+                        Kasi Komersial
                     @else
                         {{ $muk->putusan?->sub_jabatan_kakom }}
                     @endif

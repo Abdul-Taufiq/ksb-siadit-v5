@@ -30,7 +30,7 @@ class MukServiceEdit
 
         // slik
         for ($slikCount = 1; $slikCount < 201; $slikCount++) {
-            if (!empty($data['nama_bank_' . $slikCount]) && !empty($data['plafond_' . $slikCount])) {
+            if (!empty($data['nama_bank_' . $slikCount]) && !empty($data['tgl_awal_slik_' . $slikCount])) {
                 // untuk update slik
                 if (!empty($data['id_slik_' . $slikCount])) {
                     if ($data['aksi_data_slik_' . $slikCount] == 'Edit') {

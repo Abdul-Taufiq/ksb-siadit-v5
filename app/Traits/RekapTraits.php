@@ -30,7 +30,7 @@ trait RekapTraits
             ->when($this->tgl_awal && $this->tgl_akhir, function ($query) {
                 $awal = Carbon::parse($this->tgl_awal)->startOfDay();
                 $akhir = Carbon::parse($this->tgl_akhir)->endOfDay();
-                $query->whereBetween('created_at', [$awal, $akhir]);
+                $query->whereBetween('tgl_pengajuan', [$awal, $akhir]);
             });
 
         // for area 

@@ -416,7 +416,7 @@ trait DebiturTraits
             $putusan->update([
                 'id_kredit' => $kredit->id_kredit,
                 'id_muk' => $muk->id_muk,
-                'sub_jabatan_kakom' => $user->jabatan == 'Kasi Komersial' ? $user->sub_jabatan : null,
+                'sub_jabatan_kakom' => Auth::user()->jabatan !== 'Kasi Komersial' ? null : Auth::user()->sub_jabatan,
                 $setting['putusan']['field_nama'] => $user->nama,
                 $setting['putusan']['field_rekom'] => $this->rekomendasi,
                 $setting['putusan']['catatan'] => $this->catatan,
