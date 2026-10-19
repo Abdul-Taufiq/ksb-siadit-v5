@@ -373,11 +373,17 @@
                             <td style="width: 20px;">: </td>
                             <td>
                                 {{ !empty($kredit->persetujuan->penalty) ? $kredit->persetujuan->penalty . ' X' : 'Belum ada data' }}
-                                @if ($kredit->jkw <= 12)
+                                @if ($kredit->persetujuan?->jns_bunga == 'FLAT')
+                                    {{ $kredit->jkw <= 12 ? 'Bunga' : 'Angsuran' }}.
+                                @else
+                                    Bunga
+                                @endif
+
+                                {{-- @if ($kredit->jkw <= 12)
                                     &nbsp; Bunga
                                 @else
                                     &nbsp; Angsuran
-                                @endif
+                                @endif --}}
                             </td>
                         </tr>
                     </table>

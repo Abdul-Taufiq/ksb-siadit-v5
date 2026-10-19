@@ -101,6 +101,7 @@ function updateDoh2() {
     if (jnsKredit.value == "Berjangka") {
         let periode =
             bjk_periode_usaha.dataset.rawValue || bjk_periode_usaha.value;
+        let omset = toNumber(bjk_omset.dataset.rawValue || bjk_omset.value);
         total = (piutang / omset) * 30;
         total = Math.round(total);
     } else {

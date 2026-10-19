@@ -244,9 +244,7 @@
                         <span class="input-group-text">Rp.</span>
                         <input type="text" class="form-control is-invalid setRp" id="jumlah_angsuran"
                             name="jumlah_angsuran" data-bs-toggle="tooltip" data-bs-placement="top"
-                            data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Hanya berlaku untuk jenis bunga FLAT saja." required
-                            value="{{ $angsuran }}">
+                            data-bs-custom-class="custom-tooltip" required value="{{ $angsuran }}">
                     </div>
                 </td>
             </tr>

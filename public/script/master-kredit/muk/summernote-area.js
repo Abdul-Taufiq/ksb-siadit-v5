@@ -4,6 +4,7 @@ function initializeSummernote(selector, placeholder, height) {
         placeholder: placeholder,
         tabsize: 2,
         height: height,
+        spellCheck: false,
         toolbar: [
             ["style", ["bold", "italic", "underline", "clear"]],
             ["font", ["strikethrough", "superscript", "subscript"]],

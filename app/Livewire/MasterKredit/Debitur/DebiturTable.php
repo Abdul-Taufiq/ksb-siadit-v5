@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\{Component, WithPagination, WithoutUrlPagination};
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\DB;
 
 class DebiturTable extends Component
 {
@@ -188,7 +189,10 @@ class DebiturTable extends Component
                 'status_spk' => 'DISETUJUI (TIDAK DIAMBIL)',
             ]);
         } else {
-            $this->EditStatus();
+            // Bungkus dalam Transaction agar jika ada error di tengah, semua di-rollback
+            DB::transaction(function () {
+                $this->EditStatus();
+            });
 
             $this->reset(([
                 'modal_title',

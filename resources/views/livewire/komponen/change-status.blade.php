@@ -384,11 +384,11 @@
                     <input type="hidden" name="encryptedId" id="encryptedId" value="">
                     <div class="form-group mb-0">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="terms" class="custom-control-input" id="exampleCheck2"
+                            <input type="checkbox" name="terms" class="custom-control-input" id="termsAdd"
                                 required>
-                            <label class="custom-control-label" for="exampleCheck2">Saya setuju dengan
+                            <label class="custom-control-label" for="termsAdd">Saya setuju dengan
                                 <a style="color: blue" href="#">ketentuan yang berlaku</a>.</label>
-                            <label class="text-danger" for="exampleCheck2"
+                            <label class="text-danger" for="termsAdd"
                                 style="font-size: 0.85rem !important"><i>Coution:
                                 </i> Pastikan bahwa Anda telah
                                 yakin untuk melakukan aksi ini! & Pastikan mengisinya dengan seksama karena akan

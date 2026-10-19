@@ -1,54 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
     function bindActions() {
         // fungsi simpan data
-        $("#simpanAdd").on("click", function (e) {
-            var $form = $("#quickFormAdd");
-            var inputRequired = $form.find("[required]");
+        $("#simpanAdd")
+            .off("click")
+            .on("click", function (e) {
+                e.preventDefault(); // 🔥 Mencegah perilaku default browser/mobile
 
-            var inputKosong = inputRequired.filter(function () {
-                var val = $(this).val();
-                return val === null || val.trim() === "";
-            });
+                var $form = $("#quickFormAdd");
+                var inputRequired = $form.find("[required]");
 
-            var terms = document.getElementById("termsAdd");
-            if (terms && terms.checked === false) {
-                Swal.fire({
-                    title: "Gagal Simpan Data!",
-                    text: "PASTIKAN UNTUK MENYETUJUI TERMS APLIKASI!",
-                    icon: "error",
+                var inputKosong = inputRequired.filter(function () {
+                    var val = $(this).val();
+                    return val === null || val.trim() === "";
                 });
-                return;
-            }
 
-            if (inputKosong.length > 0) {
-                Swal.fire({
-                    title: "Gagal Simpan Data!",
-                    text: "ADA DATA MANDATORI YANG BELUM DIISI, PASTIKAN UNTUK MENGISI SEMUA DATA MANDATORI!",
-                    icon: "error",
-                });
-                return;
-            }
-
-            Swal.fire({
-                title: "Konfirmasi Simpan!",
-                text: "Apakah Anda Ingin Menyimpan Data?",
-                icon: "info",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya, Simpan!",
-                cancelButtonText: "Batal",
-                theme: document.body.classList.contains("darkmode")
-                    ? "dark"
-                    : "light",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#loading-screen").fadeIn(); // 🔥 Tampilkan loading screen manual
-                    Livewire.dispatch("UpdateStatus"); // 🔥 Emit langsung ke Livewire
+                var terms = document.getElementById("termsAdd");
+                if (terms && terms.checked === false) {
+                    Swal.fire({
+                        title: "Gagal Simpan Data!",
+                        text: "PASTIKAN UNTUK MENYETUJUI TERMS APLIKASI!",
+                        icon: "error",
+                    });
+                    return;
                 }
+
+                if (inputKosong.length > 0) {
+                    Swal.fire({
+                        title: "Gagal Simpan Data!",
+                        text: "ADA DATA MANDATORI YANG BELUM DIISI, PASTIKAN UNTUK MENGISI SEMUA DATA MANDATORI!",
+                        icon: "error",
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    title: "Konfirmasi Simpan!",
+                    text: "Apakah Anda Ingin Menyimpan Data?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Simpan!",
+                    cancelButtonText: "Batal",
+                    theme: document.body.classList.contains("darkmode")
+                        ? "dark"
+                        : "light",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loading-screen").fadeIn(); // 🔥 Tampilkan loading screen manual
+                        Livewire.dispatch("UpdateStatus"); // 🔥  langsung ke Livewire
+                    }
+                });
             });
-        });
     }
+
+    // Jalankan pertama kali
+    bindActions();
 
     Livewire.on("RebindJS", () => {
         bindActions(); // panggil ulang fungsi JS kamu
@@ -88,7 +95,7 @@ Livewire.on("AlertSuccess", (data) => {
             // const escapedKey = CSS.escape(userId);
             const escapedKey = userId;
             const newRow = document.querySelector(
-                `[wire\\:key='${escapedKey}']`
+                `[wire\\:key='${escapedKey}']`,
             );
             if (newRow) {
                 newRow.scrollIntoView({ behavior: "smooth", block: "center" });

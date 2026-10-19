@@ -1,57 +1,61 @@
 $(document).ready(function () {
     // fungsi simpan data
-    $("#simpan").on("click", function (e) {
-        var $form = $("#quickForm");
-        var inputRequired = $form.find("[required]");
+    $("#simpan")
+        .off("click")
+        .on("click", function (e) {
+            e.preventDefault(); // 🔥 Mencegah perilaku default browser/mobile
 
-        var inputKosong = inputRequired.filter(function () {
-            var val = $(this).val();
-            return val === null || val.trim() === "";
-        });
+            var $form = $("#quickForm");
+            var inputRequired = $form.find("[required]");
 
-        var terms = document.getElementById("terms");
-        if (terms && terms.checked === false) {
-            Swal.fire({
-                title: "Gagal Simpan Data!",
-                text: "PASTIKAN UNTUK MENYETUJUI TERMS APLIKASI!",
-                icon: "error",
+            var inputKosong = inputRequired.filter(function () {
+                var val = $(this).val();
+                return val === null || val.trim() === "";
             });
-            return;
-        }
 
-        if (inputKosong.length > 0) {
-            Swal.fire({
-                title: "Gagal Simpan Data!",
-                text: "ADA DATA MANDATORI YANG BELUM DIISI, PASTIKAN UNTUK MENGISI SEMUA DATA MANDATORI!",
-                icon: "error",
-            });
-            return;
-        }
-
-        Swal.fire({
-            title: "Konfirmasi Simpan!",
-            text: "Apakah Anda Ingin Menyimpan Data?",
-            icon: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ya, Simpan!",
-            cancelButtonText: "Batal",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $("#loading-screen").fadeIn(); // 🔥 Tampilkan loading screen manual
-                const metode = document.getElementById("metode").value;
-
-                if (metode == "Add") {
-                    Livewire.dispatch("StoreData"); // 🔥 Emit langsung ke Livewire
-                } else if (metode == "Edit") {
-                    Livewire.dispatch("UpdateData"); // 🔥 Emit langsung ke Livewire
-                } else {
-                    Livewire.dispatch("ChangeStatus"); // 🔥 Emit langsung ke Livewire
-                }
+            var terms = document.getElementById("terms");
+            if (terms && terms.checked === false) {
+                Swal.fire({
+                    title: "Gagal Simpan Data!",
+                    text: "PASTIKAN UNTUK MENYETUJUI TERMS APLIKASI!",
+                    icon: "error",
+                });
+                return;
             }
+
+            if (inputKosong.length > 0) {
+                Swal.fire({
+                    title: "Gagal Simpan Data!",
+                    text: "ADA DATA MANDATORI YANG BELUM DIISI, PASTIKAN UNTUK MENGISI SEMUA DATA MANDATORI!",
+                    icon: "error",
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: "Konfirmasi Simpan!",
+                text: "Apakah Anda Ingin Menyimpan Data?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Simpan!",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#loading-screen").fadeIn(); // 🔥 Tampilkan loading screen manual
+                    const metode = document.getElementById("metode").value;
+
+                    if (metode == "Add") {
+                        Livewire.dispatch("StoreData"); // 🔥 Emit langsung ke Livewire
+                    } else if (metode == "Edit") {
+                        Livewire.dispatch("UpdateData"); // 🔥 Emit langsung ke Livewire
+                    } else {
+                        Livewire.dispatch("ChangeStatus"); // 🔥 Emit langsung ke Livewire
+                    }
+                }
+            });
         });
-    });
 });
 
 // 🔥 Ketika Livewire selesai menyimpan data, sembunyikan loading screen
@@ -87,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // const escapedKey = CSS.escape(userId); //escape css
                 const escapedKey = userId;
                 const newRow = document.querySelector(
-                    `[wire\\:key='${escapedKey}']`
+                    `[wire\\:key='${escapedKey}']`,
                 );
                 if (newRow) {
                     newRow.scrollIntoView({
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.body.style.overflow = "auto";
                     setTimeout(
                         () => newRow.classList.remove("table-info"),
-                        2000
+                        2000,
                     );
                 }
             }, 500); // Adjust the timeout as needed
