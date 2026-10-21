@@ -5,14 +5,14 @@ $("#jns_kredit").on("change", function () {
     const berjangka = document.getElementById("keuangan_berjangka");
     const jns_bjk = document.getElementById("jns_bjk");
 
-    if (selectopt === "Angsuran") {
-        angsuran.classList.remove("d-none");
-        berjangka.classList.add("d-none");
-        jns_bjk.removeAttribute("required"); // ✅ hapus required
-    } else {
+    if (selectopt === "Berjangka") {
         angsuran.classList.add("d-none");
         berjangka.classList.remove("d-none");
         jns_bjk.setAttribute("required", "true"); // ✅ tambahkan required
+    } else {
+        angsuran.classList.remove("d-none");
+        berjangka.classList.add("d-none");
+        jns_bjk.removeAttribute("required"); // ✅ hapus required
     }
 });
 

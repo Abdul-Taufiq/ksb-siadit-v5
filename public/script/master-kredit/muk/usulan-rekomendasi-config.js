@@ -58,7 +58,7 @@ function updateUsulanAngsuran() {
     let anuitas = document.getElementById("anuitas");
     let efektif = document.getElementById("efektif");
 
-    if (jns_kredit.value === "Berjangka") {
+    if (jns_kredit.value != "Angsuran") {
         total = ((plafond * bungaValue) / 360) * 31;
 
         flat.disabled = true;

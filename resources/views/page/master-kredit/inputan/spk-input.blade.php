@@ -12,6 +12,9 @@
                     value="Restruck">Addendum (Restruck)</option>
                 <option {{ ($kredit == null ? null : $kredit->kategori_spk == 'NonRestruck') ? 'selected' : null }}
                     value="NonRestruck">Addendum (Non-Restruck)</option>
+                <option
+                    {{ ($kredit == null ? null : $kredit->kategori_spk == 'Perpanjangan RK (Rollover)') ? 'selected' : null }}
+                    value="Perpanjangan RK (Rollover)">Perpanjangan RK (Rollover)</option>
             </select>
         </div>
     </div>

@@ -38,16 +38,16 @@ $(document).ready(function () {
     $(`#kategori_spk${idfield}`).on("change", function () {
         var select = $(this).val();
         var headR = document.getElementById(
-            `head_detail_kategori_spk${idfield}`
+            `head_detail_kategori_spk${idfield}`,
         );
         var headNR = document.getElementById(
-            `head_detail_kategori_spk_non${idfield}`
+            `head_detail_kategori_spk_non${idfield}`,
         );
-        if (select == "SPK") {
+        if (select == "NonRestruck") {
             headR.classList.add("d-none");
-            headNR.classList.add("d-none");
+            headNR.classList.remove("d-none");
             $(headR).find(".form-select").prop("required", false);
-            $(headNR).find(".form-select").prop("required", false);
+            $(headNR).find(".form-select").prop("required", true);
         } else if (select == "Restruck") {
             headR.classList.remove("d-none");
             headNR.classList.add("d-none");
@@ -55,9 +55,9 @@ $(document).ready(function () {
             $(headNR).find(".form-select").prop("required", false);
         } else {
             headR.classList.add("d-none");
-            headNR.classList.remove("d-none");
+            headNR.classList.add("d-none");
             $(headR).find(".form-select").prop("required", false);
-            $(headNR).find(".form-select").prop("required", true);
+            $(headNR).find(".form-select").prop("required", false);
         }
     });
 
@@ -80,7 +80,7 @@ $(document).ready(function () {
     // set rupiah
 
     var plafondPengajuan = document.getElementById(
-        `jumlah_pengajuan${idfield}`
+        `jumlah_pengajuan${idfield}`,
     );
     plafondPengajuan.addEventListener("input", function (e) {
         this.value = formatRupiah(this.value, "Rp. ");

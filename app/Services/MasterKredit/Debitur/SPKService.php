@@ -89,7 +89,7 @@ class SPKService
                         }
                     }
                 }
-            } elseif ($data['kategori_spk'] == 'NonRestruck') {
+            } elseif ($data['kategori_spk'] == 'NonRestruck' || $data['kategori_spk'] == 'Perpanjangan RK (Rollover)') {
                 # code...
                 $ambil = Kredit::where('no_spk', 'LIKE', "%/KSB.$cabang/SPK-KRD/NR/%")
                     ->orderBy('created_at', 'desc')
@@ -140,9 +140,9 @@ class SPKService
             }
 
             // addendum lainya
-            if ($data['kategori_spk'] == 'SPK') {
-                $jenisnya = '-';
-                $detailnya = '-';
+            if ($data['kategori_spk'] == 'NonRestruck') {
+                $jenisnya = $data['detail_kategori_spk_non'];
+                $detailnya = $data['detail_kategori_spk_non'];
             } elseif ($data['kategori_spk'] == 'Restruck') {
                 if ($data['detail_kategori_spk'] == 'Reschedulling') {
                     $jenisnya = 'Reschedulling';
@@ -158,8 +158,8 @@ class SPKService
                     $detailnya = 'Perubahan Jenis Kredit';
                 }
             } else {
-                $jenisnya = $data['detail_kategori_spk_non'];
-                $detailnya = $data['detail_kategori_spk_non'];
+                $jenisnya = '-';
+                $detailnya = '-';
             }
 
 
@@ -239,9 +239,9 @@ class SPKService
     public function updateSPK(array $data, $spk)
     {
         // addendum lainya
-        if ($data['kategori_spk_edit'] == 'SPK') {
-            $jenisnya = '-';
-            $detailnya = '-';
+        if ($data['kategori_spk_edit'] == 'NonRestruck') {
+            $jenisnya = $data['detail_kategori_spk_non_edit'];
+            $detailnya = $data['detail_kategori_spk_non_edit'];
         } elseif ($data['kategori_spk_edit'] == 'Restruck') {
             if ($data['detail_kategori_spk_edit'] == 'Reschedulling') {
                 $jenisnya = 'Reschedulling';
@@ -257,8 +257,8 @@ class SPKService
                 $detailnya = 'Perubahan Jenis Kredit';
             }
         } else {
-            $jenisnya = $data['detail_kategori_spk_non_edit'];
-            $detailnya = $data['detail_kategori_spk_non_edit'];
+            $jenisnya = '-';
+            $detailnya = '-';
         }
 
         if ($data['tujuan_pengajuan_edit'] != "") {

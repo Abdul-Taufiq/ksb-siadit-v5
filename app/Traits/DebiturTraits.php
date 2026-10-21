@@ -263,17 +263,52 @@ trait DebiturTraits
                         $kredit->jkw = $this->jkw_cek ? $kredit->jkw_muk : $this->normalizeNumber($this->jkw);
                         $kredit->save();
 
-                        if (!$this->bunga_cek || !$this->plafond_cek || !$this->jkw_cek) {
+                        // \Log::debug('Debug perhitungan angsuran', [
+                        //     'jumlah_disetujui' => $kredit->jumlah_disetujui,
+                        //     'besar_bunga_kredit' => $persetujuan->besar_bunga,
+                        //     'besar_bunga_persetujuan' => $persetujuan->besar_bunga,
+                        //     'jkw' => $kredit->jkw,
+                        //     'jenis_kredit' => $persetujuan->jns_kredit,
+                        //     'jenis_bunga' => $persetujuan->jns_bunga,
+                        // ]);
+
+                        // UPDATE JUMLAH ANGSURAN DAN BIAYA P.A.S
+                        if ($this->bunga_cek == false || $this->plafond_cek == false || $this->jkw_cek == false) {
                             if ($persetujuan->jns_kredit == 'Berjangka') {
                                 $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) * 31) / 360);
                             } else {
                                 if ($persetujuan->jns_bunga == 'ANUITAS') {
-                                    $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * (($kredit->besar_bunga / 12) * (1 + $kredit->besar_bunga / 12) ** $kredit->jkw)) / ((1 + $kredit->besar_bunga / 12) ** $kredit->jkw - 1));
+                                    $plafond = (float) $kredit->jumlah_disetujui;
+                                    $bungaTahunan = (float) $persetujuan->besar_bunga;
+                                    $jkw = (int) $kredit->jkw;
+
+                                    if ($jkw <= 0) {
+                                        throw new \RuntimeException(
+                                            'Jangka waktu kredit harus lebih dari 0.'
+                                        );
+                                    }
+
+                                    // Bunga tahunan (%) menjadi bunga bulanan desimal
+                                    $bungaBulanan = ($bungaTahunan / 100) / 12;
+
+                                    // Menghitung (1 + i)^n
+                                    $nilaiX = pow(1 + $bungaBulanan, $jkw);
+
+                                    if ($bungaBulanan == 0.0) {
+                                        // Jika bunga 0%
+                                        $persetujuan->jumlah_angsuran = round($plafond / $jkw);
+                                    } else {
+                                        $persetujuan->jumlah_angsuran = round(
+                                            ($plafond * $bungaBulanan * $nilaiX)
+                                                / ($nilaiX - 1)
+                                        );
+                                    }
                                 } else {
                                     $persetujuan->jumlah_angsuran = round(($kredit->jumlah_disetujui * ($persetujuan->besar_bunga / 100) / 12) + ($kredit->jumlah_disetujui / $kredit->jkw));
                                 }
                             }
                         } else {
+                            // jika tidak ada perubahan di bunga, plafond, dan jkw, maka jumlah angsuran tetap
                             $persetujuan->jumlah_angsuran = $persetujuan->jumlah_angsuran_muk;
                         }
 

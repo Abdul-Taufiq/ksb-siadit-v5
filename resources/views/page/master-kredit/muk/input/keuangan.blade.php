@@ -4,12 +4,14 @@
         <option selected disabled>-Pilih-</option>
         <option {{ $muk?->jns_kredit_muk == 'Angsuran' ? 'selected' : '' }} value="Angsuran">Angsuran</option>
         <option {{ $muk?->jns_kredit_muk == 'Berjangka' ? 'selected' : '' }} value="Berjangka">Berjangka</option>
+        <option {{ $muk?->jns_kredit_muk == 'Rekening Koran' ? 'selected' : '' }} value="Rekening Koran">Rekening Koran
+        </option>
     </select>
 </div>
 <hr>
 
-{{-- angsuran --}}
-<div class="row {{ $muk?->jns_kredit_muk == 'Angsuran' ? '' : 'd-none' }}" id="keuangan_angsuran"
+{{-- angsuran & RK --}}
+<div class="row {{ $muk?->jns_kredit_muk != 'Berjangka' ? '' : 'd-none' }}" id="keuangan_angsuran"
     style="margin-left: 5px;">
     <div class="col-md-6">
         <table class="table table-striped table-sm w-100">
