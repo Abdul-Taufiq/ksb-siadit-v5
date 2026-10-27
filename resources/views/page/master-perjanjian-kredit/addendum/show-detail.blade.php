@@ -460,6 +460,12 @@
                     Pemerintah yang berada dalam wilayah Republik Indonesia.
                 </div>
             @break
+
+            @case('Menambah Fasilitas')
+                @include('page.master-perjanjian-kredit.pk.pasal.pasal-I-sd-pasal-IV')
+                @include('page.master-perjanjian-kredit.pk.pasal.pasal-V')
+                @include('page.master-perjanjian-kredit.addendum.pasal.menambah-fasilitas')
+            @break
         @endswitch
 
 
