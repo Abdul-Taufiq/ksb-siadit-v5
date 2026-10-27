@@ -93,7 +93,7 @@
             </div>
             <div class="col-md-6 mb-4" id="head_tgl_akta_perikatan_{{ $counter }}">
                 <div class="form-group">
-                    <label for="tgl_akta_perikatan_{{ $counter }}">Tanggal Akta Perikatan : </label>
+                    <label for="tgl_akta_perikatan_{{ $counter }}">Tanggal Akta Perikatan / Tanggal SHT : </label>
                     <input type="date" class="form-control" name="tgl_akta_perikatan_{{ $counter }}"
                         id="tgl_akta_perikatan_{{ $counter }}" required placeholder="Nomor Akta"
                         value="{{ $tanah->tgl_akta_perikatan?->format('Y-m-d') }}">
@@ -116,7 +116,7 @@
         </div>
         <div class="col-md-6 mb-4" id="head_no_peringkat_perikatan_{{ $counter }}">
             <div class="form-group">
-                <label for="no_peringkat_perikatan_{{ $counter }}">Nomor Peringkat Perikatan</label>
+                <label for="no_peringkat_perikatan_{{ $counter }}">Nomor Peringkat Perikatan / Nomor SHT</label>
                 <input type="text" name="no_peringkat_perikatan_{{ $counter }}"
                     id="no_peringkat_perikatan_{{ $counter }}" class="form-control is-invalid" required
                     placeholder="Nomor Peringkat Perikatan" value="{{ $tanah->no_peringkat_perikatan }}">

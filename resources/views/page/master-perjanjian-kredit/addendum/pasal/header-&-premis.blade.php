@@ -274,34 +274,47 @@
             Legalisasi
         @endif
     @endif
-    (selanjutnya disebut PERJANJIAN KREDIT), dimana <b>BANK</b> telah memberikan kepada <b>DEBITUR</b> Fasilitas
-    Kredit sejumlah {{ 'Rp' . number_format($pkpmk->pkpmk->kredit->jumlah_disetujui, 0, ',', '.') }}
-    ({{ terbilang_id($pkpmk->pkpmk->kredit?->jumlah_disetujui) }})
-    dengan jangka waktu
-    {{ $pkpmk->pkpmk->kredit->jkw }} bulan terhitung mulai tanggal
-    {{ $pkpmk->pkpmk->tgl_awal->translatedFormat('d F Y') }} sampai dengan
-    {{ $pkpmk->pkpmk->tgl_akhir->translatedFormat('d F Y') }} sebagaimana diatur dalam PERJANJIAN KREDIT
-    yang akan dilakukan Perubahan Perjanjian Kredit
 
+    @if ($pkpmk->kredit->jns_kategori_spk == 'Menambah Fasilitas')
+        (selanjutnya disebut PERJANJIAN KREDIT), dimana <b>BANK</b> telah memberikan kepada <b>DEBITUR</b> Fasilitas
+        Kredit sejumlah {{ 'Rp' . number_format($pkpmk->pkpmk->kredit->jumlah_disetujui, 0, ',', '.') }}
+        ({{ terbilang_id($pkpmk->pkpmk->kredit?->jumlah_disetujui) }})
+        dengan jangka waktu
+        {{ $pkpmk->pkpmk->kredit->jkw }} bulan terhitung mulai tanggal
+        {{ $pkpmk->pkpmk->tgl_awal->translatedFormat('d F Y') }} sampai dengan
+        {{ $pkpmk->pkpmk->tgl_akhir->translatedFormat('d F Y') }}.
+    @else
+        (selanjutnya disebut PERJANJIAN KREDIT)
+        , dimana <b>BANK</b> telah memberikan kepada <b>DEBITUR</b> Fasilitas
+        Kredit sejumlah {{ 'Rp' . number_format($pkpmk->pkpmk->kredit->jumlah_disetujui, 0, ',', '.') }}
+        ({{ terbilang_id($pkpmk->pkpmk->kredit?->jumlah_disetujui) }})
+        dengan jangka waktu
+        {{ $pkpmk->pkpmk->kredit->jkw }} bulan terhitung mulai tanggal
+        {{ $pkpmk->pkpmk->tgl_awal->translatedFormat('d F Y') }} sampai dengan
+        {{ $pkpmk->pkpmk->tgl_akhir->translatedFormat('d F Y') }} sebagaimana diatur dalam PERJANJIAN KREDIT
+        yang akan dilakukan Perubahan Perjanjian Kredit
 
-    @if ($addDobel->count() > 1)
-        @foreach ($addDobel as $index => $addDobles)
-            @if ($index == $addDobel->count() - 1 && $addDobel->count() > 2)
-                dan terakhir telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }}
-                tanggal {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
-            @elseif ($index == $addDobel->count() - 1)
-                yang telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }} tanggal
-                {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
-            @else
-                yang telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }} tanggal
-                {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
-            @endif
-        @endforeach
+        @if ($addDobel->count() > 1)
+            @foreach ($addDobel as $index => $addDobles)
+                @if ($index == $addDobel->count() - 1 && $addDobel->count() > 2)
+                    dan terakhir telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }}
+                    tanggal {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
+                @elseif ($index == $addDobel->count() - 1)
+                    yang telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }} tanggal
+                    {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
+                @else
+                    yang telah dilakukan Perubahan Perjanjian Kredit Nomor {{ $addDobles->no_addendum }} tanggal
+                    {{ $addDobles->tgl_addendum?->translatedFormat('d F Y') }}
+                @endif
+            @endforeach
+        @endif
+        {{-- Nomor {{ $kredit->pkpmk->no_addendum }} tanggal
+            {{ $pkpmk->tgl_addendum?->translatedFormat('d F Y') }} --}}
+        (selanjutnya disebut dengan FASILITAS KREDIT). <br><br>
     @endif
 
-    {{-- Nomor {{ $kredit->pkpmk->no_addendum }} tanggal
-            {{ $pkpmk->tgl_addendum?->translatedFormat('d F Y') }} --}}
-    (selanjutnya disebut dengan FASILITAS KREDIT). <br><br>
+
+
 
     Bahwa dari surat permohonan <b>DEBITUR</b> tanggal
     {{ $pkpmk->kredit->tgl_pengajuan->translatedFormat('d F Y') }} bermaksud untuk
@@ -319,6 +332,15 @@
     @endif
 
     <br>
-    Maka berhubungan dengan itu <b>BANK</b> dan <b>DEBITUR</b> menyetujui untuk membuat <b>PERUBAHAN PERJANJIAN
-        KREDIT</b> sebagai berikut:
+    Maka berhubungan dengan itu <b>BANK</b> dan <b>DEBITUR</b> menyetujui untuk membuat
+    @if ($pkpmk->kredit->jns_kategori_spk == 'Menambah Fasilitas')
+        <b>
+            PERJANJIAN KREDIT
+        </b>
+    @else
+        <b>
+            PERUBAHAN PERJANJIAN KREDIT
+        </b>
+    @endif
+    </b> sebagai berikut:
 </div>
