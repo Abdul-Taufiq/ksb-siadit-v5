@@ -281,7 +281,7 @@
     {{ $pkpmk->pkpmk->kredit->jkw }} bulan terhitung mulai tanggal
     {{ $pkpmk->pkpmk->tgl_awal->translatedFormat('d F Y') }} sampai dengan
     {{ $pkpmk->pkpmk->tgl_akhir->translatedFormat('d F Y') }} sebagaimana diatur dalam PERJANJIAN KREDIT
-    yang telah dilakukan Perubahan Perjanjian Kredit
+    yang akan dilakukan Perubahan Perjanjian Kredit
 
 
     @if ($addDobel->count() > 1)
