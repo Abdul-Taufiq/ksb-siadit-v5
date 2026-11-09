@@ -506,7 +506,7 @@
             <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> beserta segala hak wewenang dan tuntutan serta
             kepentingan
             apapun yang dimiliki oleh Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> Nomor Rekening
-            10.21.02440
+            {{ $depo->pluck('no_rek')->join(', ', ' dan ') }}
             atas nama {{ strtoupper($depo->first()->atas_nama) }}
             @if ($depo->first()->jns_jaminan == 'Tabungan')
                 dengan nilai nominal sebesar {{ 'Rp' . number_format($depo->nominal, 0, ',', '.') }}
