@@ -108,7 +108,7 @@ class PKGadaiService
         }
 
         $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
-        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->get();
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->first();
 
         $debitur = $kredit->debitur;
 
