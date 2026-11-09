@@ -503,20 +503,24 @@
             berdasarkan perjanjian Kredit selanjutnya disebut <b>"Jumlah Terhutang"</b>. Dengan ini menggadaikan kepada
             <b>BPR KUSUMA SUMBING</b> dan <b>BPR KUSUMA SUMBING</b> dengan ini menerima penyerahan
             <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> secara gadai dari Simpanan
-            <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> beserta segala hak wewenang dan tuntutan serta
+            <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> beserta segala hak wewenang dan tuntutan
+            serta
             kepentingan
-            apapun yang dimiliki oleh Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> Nomor Rekening
+            apapun yang dimiliki oleh Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> Nomor
+            Rekening
             {{ $depo->pluck('no_rek')->join(', ', ' dan ') }}
             atas nama {{ strtoupper($depo->first()->atas_nama) }}
             @if ($depo->first()->jns_jaminan == 'Tabungan')
-                dengan nilai nominal sebesar {{ 'Rp' . number_format($depo->nominal, 0, ',', '.') }}
-                ({{ terbilang_id($depo->nominal) }}).
+                dengan nilai nominal sebesar {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
+                ({{ terbilang_id($depo->first()->nominal) }}).
             @endif
             @if ($depo->first()->jns_jaminan == 'Deposito')
-                yang dikeluarkan oleh BPR KUSUMA SUMBING tanggal {{ $depo->tgl_deposito?->translatedFormat('d F Y') }}
+                yang dikeluarkan oleh BPR KUSUMA SUMBING tanggal
+                {{ $depo->first()->tgl_deposito?->translatedFormat('d F Y') }}
                 dengan nilai nominal
-                sebesar {{ 'Rp' . number_format($depo->nominal, 0, ',', '.') }}
-                ({{ terbilang_id($depo->nominal) }}). untuk jangka waktu yang disebutkan dalam bilyet Simpanan
+                sebesar {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
+                ({{ terbilang_id($depo->first()->nominal) }}). untuk jangka waktu yang disebutkan dalam bilyet
+                Simpanan
                 Berjangka tersebut.
             @endif
             Selanjutnya disebut <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>.
@@ -532,7 +536,8 @@
             <h3>KETENTUAN GADAI</h3>
         </div>
         <div class="isi">
-            Pemberian gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berdasarkan perjanjian ini tidak
+            Pemberian gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berdasarkan perjanjian ini
+            tidak
             dapat diubah
             dan atau dibatalkan dan tetap berlaku sampai dengan seluruh jumlah terhutang dibayar lunas.
         </div>
@@ -548,7 +553,8 @@
             <div class="col-md-1">a.</div>
             <div class="col-md-11" style="width: 93% !important">
                 Mengetahui dan memahami dengan baik seluruh syarat dan ketentuan yang ditetapkan oleh BPR KUSUMA
-                SUMBING mengenai Gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut, melepaskan semua
+                SUMBING mengenai Gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut,
+                melepaskan semua
                 haknya
                 untuk mengajukan tuntutan dan
                 atau gugatan dengan alasan apapun terhadap BPR KUSUMA SUMBING apabila BPR KUSUMA SUMBING melaksanakan
@@ -563,14 +569,16 @@
             <div class="clearfix"></div>
             <div class="col-md-1">c.</div>
             <div class="col-md-11" style="width: 93% !important">
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut tidak digadaikan / diagunkan dengan cara
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut tidak digadaikan / diagunkan
+                dengan cara
                 bagaimanapun juga kepada orang atau
                 pihak lain.
             </div>
             <div class="clearfix"></div>
             <div class="col-md-1">d.</div>
             <div class="col-md-11" style="width: 93% !important">
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut bebas dari sita dan tidak tersangkut
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut bebas dari sita dan tidak
+                tersangkut
                 dalam suatu
                 perkara atau sengketa.
             </div>
@@ -606,7 +614,8 @@
         <div class="row" style="margin-left: 2.5rem;">
             <div class="col-md-1">b.</div>
             <div class="col-md-11" style="width: 93% !important">
-                Mencairkan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut baik pada tanggal jatuh
+                Mencairkan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut baik pada tanggal
+                jatuh
                 waktunya
                 maupun sebelum tanggal jatuh
                 waktunya dan sehubungan dengan hal tersebut menghentikan
@@ -619,7 +628,8 @@
             <div class="clearfix"></div>
             <div class="col-md-1">c.</div>
             <div class="col-md-11" style="width: 93% !important">
-                Mempergunakan uang hasil <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berikut jasanya tersebut
+                Mempergunakan uang hasil <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berikut jasanya
+                tersebut
                 untuk
                 memenuhi kewajiban Debitur
                 sebagaimana diuraikan dalam Perjanjian Kredit dan atau perjanjian lain yang berhubungan.
@@ -627,7 +637,8 @@
             <div class="clearfix"></div>
             <div class="col-md-1">d.</div>
             <div class="col-md-11" style="width: 93% !important">
-                Melakukan segala tindakan yang berhubungan dengan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
+                Melakukan segala tindakan yang berhubungan dengan
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
                 tersebut
                 tidak ada satupun
                 tindakan yang dikecualikan.
@@ -669,12 +680,15 @@
         <div class="row">
             <div class="col-md-1">(1)</div>
             <div class="col-md-11">
-                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji akan mengikat diri
+                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji akan
+                mengikat diri
                 untuk tidak
                 meminta dan atau
-                menuntut pembayaran / pencairan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> yang digadaikan
+                menuntut pembayaran / pencairan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> yang
+                digadaikan
                 berdasarkan perjanjian ini dan Pemilik
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji akan mengikat diri kepada BPR
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji akan mengikat diri
+                kepada BPR
                 KUSUMA
                 SUMBING untuk tidak menarik
                 kembali <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut dengan alasan apapun.
@@ -684,24 +698,28 @@
         <div class="row">
             <div class="col-md-1">(2)</div>
             <div class="col-md-11">
-                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji dan mengikat diri
+                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji dan mengikat
+                diri
                 pada BPR
                 KUSUMA SUMBING untuk menandatangani dan menyerahkan setiap dan semua surat dokumen apapun yang
                 diperlukan sehubungan dengan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> maupun
                 perpanjangannya atau
-                pembaharuannya dan sepanjang diperlukan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan
+                pembaharuannya dan sepanjang diperlukan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
+                dengan
                 ini
                 memberikan kuasa penuh sesuai ayat 2 pasal 3 kepada BPR KUSUMA SUMBING untuk dan atas nama Pemilik
                 <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> menandatangani semua akta, dokumen dan
                 surat-surat lain
-                yang diperlukan sehubungan dengan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut.
+                yang diperlukan sehubungan dengan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
+                tersebut.
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-1">(3)</div>
             <div class="col-md-11">
-                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji dan mengikat diri
+                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini berjanji dan mengikat
+                diri
                 kepada BPR
                 KUSUMA SUMBING untuk tidak memberikan kuasa kepada siapapun juga dan dengan cara apapun juga guna
                 melakukan tindakan apapun baik secara langsung berhubungan dengan
@@ -712,18 +730,22 @@
         <div class="row">
             <div class="col-md-1">(4)</div>
             <div class="col-md-11">
-                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini secara tegas menyatakan
+                Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan ini secara tegas
+                menyatakan
                 melepaskan
-                semua tindakan langsung yang berhubungan dengan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>.
+                semua tindakan langsung yang berhubungan dengan
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>.
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-1">(5)</div>
             <div class="col-md-11">
-                Gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> ini merupakan jaminan terus menerus dan
+                Gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> ini merupakan jaminan terus
+                menerus dan
                 sehubungan
-                dengan itu gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> ini tidak akan berakhir sebelum
+                dengan itu gadai <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> ini tidak akan berakhir
+                sebelum
                 seluruh
                 jumlah Terhutang sesuai Perjanjian Kredit dibayar lunas.
             </div>
@@ -742,10 +764,12 @@
         <div class="row">
             <div class="col-md-1">(1)</div>
             <div class="col-md-11">
-                Apabila uang hasil pencairan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> melebihi jumlah
+                Apabila uang hasil pencairan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> melebihi
+                jumlah
                 Terhutang,
                 maka BPR KUSUMA SUMBING akan mengembalikan sisanya tersebut kepada Pemilik
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>. Akan tetapi tanpa kewajiban bagi BPR KUSUMA
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>. Akan tetapi tanpa kewajiban bagi BPR
+                KUSUMA
                 SUMBING untuk
                 membayar jasa atau ganti rugi berupa apapun juga atas kelebihan tersebut dan apabila jumlahnya tidak
                 mencukupi untuk membayar seluruh jumlah Terhutang, kepada BPR KUSUMA SUMBING, maka Debitur bertanggung
@@ -756,18 +780,21 @@
             <div class="col-md-1">(2)</div>
             <div class="col-md-11">
                 Atas permintaan secara tertulis dari BPR KUSUMA SUMBING, Pemilik
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> atas biayanya sendiri harus segera melakukan
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> atas biayanya sendiri harus segera
+                melakukan
                 setiap
                 tindakan dan menandatangani semua dokumen yang diperlukan dan disyaratkan oleh BPR KUSUMA SUMBING untuk
                 menyempurnakan atau memperbaiki dokumen-dokumen yang dibuat Pemilik
-                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berdasarkan Perjanjian ini dan atau Perjanjian
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> berdasarkan Perjanjian ini dan atau
+                Perjanjian
                 lain yang
                 berhubungan.
             </div>
             <div class="clearfix"></div>
             <div class="col-md-1">(3)</div>
             <div class="col-md-11">
-                Untuk pengakhiran Perjanjian ini, Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan
+                Untuk pengakhiran Perjanjian ini, Pemilik
+                <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan
                 ini
                 mengesampingkan pasal 1266 dan 1267 KUHP Perdata dan atau semua peraturan perundang-undangan yang
                 mensyaratkan adanya suatu putusan pengadilan untuk pengakhiran Perjanjian ini oleh BPR KUSUMA SUMBING,
@@ -814,7 +841,8 @@
                     <b style="font-size: 13px;">PT BPR KUSUMA SUMBING</b>
                 </td>
                 <td style="padding: 4px 0; width: 65%; text-align: center;">
-                    <b style="font-size: 13px;">Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b></b>
+                    <b style="font-size: 13px;">Pemilik
+                        <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b></b>
                 </td>
             </tr>
             <tr style="text-align: center;">
