@@ -129,7 +129,7 @@
                     BUKA BLOKIR
                 </h3>
                 <h3>
-                    <b>{{ strtoupper($depo->jns_jaminan) }}</b>
+                    <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
                 </h3>
             </td>
             <td style="width: 20%; border: none;">&nbsp;</td>
@@ -174,11 +174,11 @@
         </tr>
     </table>
 
-    <p class="mt-3">Selaku pemegang Rekening <b>{{ strtoupper($depo->jns_jaminan) }}</b> :</p>
+    <p class="mt-3">Selaku pemegang Rekening <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> :</p>
     <table class="table table-sm table-borderless w-100 mb-4" style="margin-left: 15px;">
         @foreach ($depo as $data)
             <tr>
-                <td rowspan="2">{{ $loop->iteration }}</td>
+                <td rowspan="3" style="width: 4%">{{ $loop->iteration }}.</td>
                 <td style="width: 25%;">Nomor Rekening</td>
                 <td style="width: 2%;">:</td>
                 <td>{{ $data->no_rek }}</td>
@@ -200,7 +200,8 @@
         Selanjutnya saya minta kepada PT BPR Kusuma Sumbing
         {{ $pkpmk->id_cabang == 1 ? 'Kantor Pusat Operasional' : 'Kantor Cabang ' . ucfirst(strtolower($pkpmk->cabang->alamat)) }}
         untuk melakukan <b>pembukaan blokir</b> atas
-        <b>{{ strtoupper($depo->jns_jaminan) }}</b> tersebut untuk keperluan pelunasan atau/ telah penyelesaian
+        <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> tersebut untuk keperluan pelunasan atau/ telah
+        penyelesaian
         Fasilitas Kredit sesuai dengan Perjanjian Kredit
         Nomor {{ $pkpmk->no_pkpmk ?? $pkpmk->no_addendum }}, Tanggal
         {{ $pkpmk->tgl_print_pkpmk?->translatedFormat('d F Y') ?? $pkpmk->tgl_print_addendum?->translatedFormat('d F Y') }}.

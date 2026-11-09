@@ -190,13 +190,13 @@
     </p>
 
     <p class="texts">
-        Untuk mencairkan <b>{{ strtoupper($depo->jns_jaminan) }}</b> dengan data :
+        Untuk mencairkan <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> dengan data :
     </p>
 
     <table class="table table-sm table-borderless w-100 " style="margin-left: 15px; line-height: 12px !important">
         @foreach ($depo as $data)
             <tr>
-                <td rowspan="2">{{ $loop->iteration }}</td>
+                <td rowspan="3" style="width: 4%">{{ $loop->iteration }}.</td>
                 <td style="width: 25%;">Nomor Rekening</td>
                 <td style="width: 2%;">:</td>
                 <td>{{ $data->no_rek }}</td>
