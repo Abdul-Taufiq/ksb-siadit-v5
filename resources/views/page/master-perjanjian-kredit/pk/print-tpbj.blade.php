@@ -454,7 +454,7 @@
 
         <div style="page-break-inside: avoid">
             <table style="width: 100%; text-align: center;">
-                @if ($penjamin != '')
+                @if ($penjamin->isNotEmpty())
                     @foreach ($penjamin as $item)
                         <tr style="text-align: center;">
                             <td style="width: 45%;   padding: 3px 0; text-align: center;">

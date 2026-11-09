@@ -181,7 +181,7 @@
                     disebut sebagai <b>“DEBITUR”</b>.
                 @endif
 
-                @if ($penjamin != '')
+                @if ($penjamin->isNotEmpty())
                     @foreach ($penjamin as $penjaminItem)
                         <br>
                         -Yang turut hadir dan menanda-tangani perjanjian ini yaitu,

@@ -107,8 +107,8 @@ class PKGadaiService
             $no_pk = 'Addendum ' . $pkpmk->no_addendum;
         }
 
-        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->first();
-        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->first();
+        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
+        $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->get();
 
         $debitur = $kredit->debitur;
 
@@ -162,7 +162,7 @@ class PKGadaiService
             $no_pk = 'Addendum ' . $pkpmk->no_addendum;
         }
 
-        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->first();
+        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->first();
 
         $debitur = $kredit->debitur;
@@ -217,7 +217,7 @@ class PKGadaiService
             $no_pk = 'Addendum ' . $pkpmk->no_addendum;
         }
 
-        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->first();
+        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->first();
 
         $debitur = $kredit->debitur;
@@ -272,7 +272,7 @@ class PKGadaiService
             $no_pk = 'Addendum ' . $pkpmk->no_addendum;
         }
 
-        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->first();
+        $jam_depo = JamDeposito::where('id_kredit', $kredit->id_kredit)->get();
         $penjamin = Penjamin::where('id_kredit', $kredit->id_kredit)->where('nama_penjamin', $jam_depo->atas_nama)->first();
 
         $debitur = $kredit->debitur;

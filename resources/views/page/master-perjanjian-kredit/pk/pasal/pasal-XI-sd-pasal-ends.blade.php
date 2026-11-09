@@ -140,7 +140,7 @@ dengan ketentuan Otoritas Jasa Keuangan. <br>
     </table>
 
     <table style="width: 100%;  text-align: center">
-        @if ($penjamin != '')
+        @if ($penjamin->isNotEmpty())
             @foreach ($penjamin as $item)
                 <tr style="text-align: center;">
                     <td style="width: 35%;   padding: 3px 0; text-align: center">

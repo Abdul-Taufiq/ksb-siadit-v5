@@ -150,7 +150,7 @@
             <tr>
                 <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">I. </td>
 
-                @if ($penjamin !== null)
+                @if ($penjamin->isNotEmpty())
                     <td>
                         @if ($penjamin->status_pernikahan == 'Menikah')
                             <b>{{ $penjamin->nama_penjamin }}</b>, lahir di {{ $penjamin->tempat_lahir }}, pada tanggal

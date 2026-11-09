@@ -468,6 +468,16 @@
             @break
         @endswitch
 
+        <span>
+            <b>DEBITUR</b> dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma
+            Sumbing
+            melalui
+            Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui: <br>
+        </span>
+        <span style="font-size: 13px">
+            Telepon : 0293 – 596362, 596390 | Whatsapp : 0812 71111 280 | Instagram : @bprkusumasumbing<br>
+            Website : https://web.bprkusumasumbing.com/pengaduan-konsumen
+        </span>
 
         {{-- TTD --}}
         <br>

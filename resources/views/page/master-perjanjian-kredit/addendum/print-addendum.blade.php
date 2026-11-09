@@ -50,6 +50,7 @@
         h3 {
             font-size: 12pt !important;
             margin-bottom: -4px !important;
+            font-weight: bold !important;
         }
 
         .header {
@@ -463,7 +464,7 @@
         </table>
 
         <table style="width: 100%;  text-align: center">
-            @if ($penjamin != '')
+            @if ($penjamin->isNotEmpty())
                 @foreach ($penjamin as $item)
                     <tr style="text-align: center;">
                         <td style="width: 35%;   padding: 3px 0; text-align: center">

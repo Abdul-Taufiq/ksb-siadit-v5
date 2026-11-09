@@ -194,21 +194,24 @@
     </p>
 
     <table class="table table-sm table-borderless w-100 " style="margin-left: 15px; line-height: 12px !important">
-        <tr>
-            <td style="width: 25%;">Nomor Rekening</td>
-            <td style="width: 2%;">:</td>
-            <td>{{ $depo->no_rek }}</td>
-        </tr>
-        <tr>
-            <td>Nominal</td>
-            <td>:</td>
-            <td>{{ 'Rp' . number_format($depo->nominal, 0, ',', '.') }}</td>
-        </tr>
-        <tr>
-            <td>Atas Nama</td>
-            <td>:</td>
-            <td>{{ $depo->atas_nama }}</td>
-        </tr>
+        @foreach ($depo as $data)
+            <tr>
+                <td rowspan="2">{{ $loop->iteration }}</td>
+                <td style="width: 25%;">Nomor Rekening</td>
+                <td style="width: 2%;">:</td>
+                <td>{{ $data->no_rek }}</td>
+            </tr>
+            <tr>
+                <td>Nominal</td>
+                <td>:</td>
+                <td>{{ 'Rp' . number_format($data->nominal, 0, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td>Atas Nama</td>
+                <td>:</td>
+                <td>{{ $data->atas_nama }}</td>
+            </tr>
+        @endforeach
     </table>
 
     <p class="texts">

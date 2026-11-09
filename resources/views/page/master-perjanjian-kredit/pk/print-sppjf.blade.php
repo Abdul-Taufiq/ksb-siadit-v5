@@ -221,7 +221,7 @@
                             disebut sebagai <b>“DEBITUR”</b>.
                         @endif
 
-                        @if ($penjamin != '')
+                        @if ($penjamin->isNotEmpty())
                             @foreach ($penjamin as $penjaminItem)
                                 <br>
                                 -Yang turut hadir dan menanda-tangani perjanjian ini yaitu,
@@ -896,7 +896,7 @@
         </table>
 
         <table style="width: 100%;  text-align: center">
-            @if ($penjamin != '')
+            @if ($penjamin->isNotEmpty())
                 @foreach ($penjamin as $item)
                     <tr style="text-align: center;">
                         <td style="width: 45%;   padding: 3px 0; text-align: center">
