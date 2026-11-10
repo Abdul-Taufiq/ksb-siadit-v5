@@ -246,12 +246,23 @@
                         @endif
 
                         Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
-                        @if ($tanah->jns_perikatan == 'APHT')
-                            dengan {{ $tanah->jns_perikatan }} dengan pembebanan hak tanggungan
-                            peringkat
-                            {{ $tanah->no_peringkat_perikatan }}.
+                        @if ($tanah->kategori_pengikatan == 'Sudah dibebani HT')
+                            Dengan ini menyerahkan kepada <b>BANK</b>, yang telah dibebani Sertifikat Hak Tanggungan
+                            Nomor {{ $tanah->no_akta_perikatan }} dengan pembebanan hak tanggungan
+                            peringkat {{ $tanah->no_peringkat_perikatan }}.
+                        @elseif ($tanah->kategori_pengikatan == 'Sudah ada SKMHT')
+                            Dengan ini menyerahkan kepada <b>BANK</b>, yang telah diberikan SKMHT dengan
+                            Akta Nomor {{ $tanah->no_akta_perikatan }} Tanggal
+                            {{ optional($tanah->tgl_akta_perikatan)->translatedFormat('d F Y') }}.
                         @else
-                            dengan {{ $tanah->jns_perikatan }}.
+                            Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
+                            @if ($tanah->jns_perikatan == 'APHT')
+                                dengan {{ $tanah->jns_perikatan }} dengan pembebanan hak tanggungan
+                                peringkat
+                                {{ $tanah->no_peringkat_perikatan }}.
+                            @else
+                                dengan {{ $tanah->jns_perikatan }}.
+                            @endif
                         @endif
                     </div>
                 @endforeach
