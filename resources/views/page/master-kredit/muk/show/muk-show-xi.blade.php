@@ -84,9 +84,9 @@
 
     {{-- area --}}
     @if (
-        $muk->kredit->persetujuan->putusan == 'Area' ||
-            $muk->kredit->persetujuan->putusan == 'Pusat' ||
-            ($muk->deviasi->perihal != '<p>-</p>' && $muk->deviasi->perihal != '-'))
+        $muk?->kredit->persetujuan->putusan == 'Area' ||
+            $muk?->kredit->persetujuan->putusan == 'Pusat' ||
+            ($muk?->deviasi?->perihal != '<p>-</p>' && $muk?->deviasi?->perihal != '-'))
         <table class="table table-bordered table-sm w-100">
             <thead>
                 <tr>
@@ -154,8 +154,8 @@
 
     {{-- Pusat --}}
     @if (
-        $muk->kredit->persetujuan->putusan == 'Pusat' ||
-            ($muk->deviasi->perihal != '<p>-</p>' && $muk->deviasi->perihal != '-'))
+        $muk?->kredit->persetujuan->putusan == 'Pusat' ||
+            ($muk?->deviasi?->perihal != '<p>-</p>' && $muk?->deviasi?->perihal != '-'))
         <table class="table table-bordered table-sm w-100">
             <thead>
                 <tr>

@@ -888,7 +888,12 @@ class MukServiceEdit
                 // ================================
                 // for selain staff analis area
                 else {
-                    $scKenda = SC_Kendaraan::find(base64_decode($data['id_sc_kendaraan_' . $i]));
+                    $scKendaCek = SC_Kendaraan::find(base64_decode($data['id_sc_kendaraan_' . $i]));
+                    if ($scKendaCek != null) {
+                        $scKenda = $scKendaCek;
+                    } else {
+                        $scKenda = new SC_Kendaraan();
+                    }
                     $scKenda->id_muk = $id_muk;
                     $scKenda->id_jaminan_kendaraan = $id_kenda;
                     $scKenda->tgl_pemeriksaan = now()->format('Y-m-d');
