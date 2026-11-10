@@ -245,7 +245,6 @@
                             tentang Penerbitan Dokumen Elektronik Dalam Kegiatan Pendaftaran Tanah
                         @endif
 
-                        Dengan ini menyerahkan kepada <b>BANK</b>, yang akan dibebani
                         @if ($tanah->kategori_pengikatan == 'Sudah dibebani HT')
                             Dengan ini menyerahkan kepada <b>BANK</b>, yang telah dibebani Sertifikat Hak Tanggungan
                             Nomor {{ $tanah->no_akta_perikatan }} dengan pembebanan hak tanggungan
