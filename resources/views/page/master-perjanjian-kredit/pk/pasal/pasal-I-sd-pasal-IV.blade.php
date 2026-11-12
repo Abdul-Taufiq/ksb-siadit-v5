@@ -1,5 +1,6 @@
 {{-- pasal 1 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 1</h3>
         <h3>JUMLAH KREDIT</h3>
@@ -17,7 +18,8 @@
 
 
 {{-- pasal 2 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 2</h3>
         <h3>BUNGA, BIAYA DAN PROVISI</h3>
@@ -108,7 +110,8 @@
 
 
 {{-- pasal 3 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 3</h3>
         <h3>JANGKA WAKTU KREDIT</h3>
@@ -123,7 +126,8 @@
 
 
 {{-- pasal 4 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 4</h3>
         <h3>CARA PEMBAYARAN dan DENDA</h3>

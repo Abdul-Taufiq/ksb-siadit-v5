@@ -364,7 +364,6 @@
         <b>PIHAK PERTAMA (I)</b> dan <b>PIHAK KEDUA (II)</b> selanjutnya secara bersama-sama disebut sebagai
         <b>Para Pihak</b>. <br>
 
-        <br>
         Para pihak bertindak dalam kedudukan masing-masing tersebut di atas terlebih dulu menyatakan bahwa: <br>
 
         <div class="row">
@@ -504,25 +503,45 @@
             <b>BPR KUSUMA SUMBING</b> dan <b>BPR KUSUMA SUMBING</b> dengan ini menerima penyerahan
             <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> secara gadai dari Simpanan
             <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> beserta segala hak wewenang dan tuntutan
-            serta
-            kepentingan
-            apapun yang dimiliki oleh Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b> Nomor
-            Rekening
-            {{ $depo->pluck('no_rek')->join(', ', ' dan ') }}
-            atas nama {{ strtoupper($depo->first()->atas_nama) }}
-            @if ($depo->first()->jns_jaminan == 'Tabungan')
-                dengan nilai nominal sebesar {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
-                ({{ terbilang_id($depo->first()->nominal) }}).
-            @endif
-            @if ($depo->first()->jns_jaminan == 'Deposito')
-                yang dikeluarkan oleh BPR KUSUMA SUMBING tanggal
-                {{ $depo->first()->tgl_deposito?->translatedFormat('d F Y') }}
-                dengan nilai nominal
-                sebesar {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
-                ({{ terbilang_id($depo->first()->nominal) }}). untuk jangka waktu yang disebutkan dalam bilyet
-                Simpanan
-                Berjangka tersebut.
-            @endif
+            serta kepentingan apapun yang dimiliki oleh Pemilik <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>
+            dengan data sebagai berikut
+            <table class="table table-sm table-borderless w-100 mb-2" style="margin-left: 5px;">
+                @foreach ($depo as $data)
+                    <tr>
+                        <td rowspan="3" style="width: 4%">{{ $loop->iteration }}.</td>
+                        <td style="width: 25%;">Nomor Rekening</td>
+                        <td style="width: 2%;">:</td>
+                        <td>{{ $data->no_rek }}</td>
+                    </tr>
+                    <tr>
+                        <td>Atas Nama</td>
+                        <td>:</td>
+                        <td>{{ $data->atas_nama }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @if ($depo->first()->jns_jaminan == 'Tabungan')
+                                dengan nilai nominal sebesar
+                                {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
+                                ({{ terbilang_id($depo->first()->nominal) }})
+                                .
+                            @endif
+                            @if ($depo->first()->jns_jaminan == 'Deposito')
+                                yang dikeluarkan oleh BPR KUSUMA SUMBING tanggal
+                                {{ $depo->first()->tgl_deposito?->translatedFormat('d F Y') }}
+                                dengan nilai nominal
+                                sebesar {{ 'Rp' . number_format($depo->first()->nominal, 0, ',', '.') }}
+                                ({{ terbilang_id($depo->first()->nominal) }}). untuk jangka waktu yang disebutkan
+                                dalam bilyet Simpanan Berjangka tersebut.
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+
+            {{-- {{ $depo->pluck('no_rek')->join(', ', ' dan ') }} --}}
+            {{-- atas nama {{ strtoupper($depo->first()->atas_nama) }} --}}
+
             Selanjutnya disebut <b>{{ strtoupper($depo->first()->jns_jaminan) }}</b>.
         </div>
     </div>

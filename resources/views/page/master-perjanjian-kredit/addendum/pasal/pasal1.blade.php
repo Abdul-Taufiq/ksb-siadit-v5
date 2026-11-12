@@ -1,5 +1,6 @@
 {{-- pasal 1 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 1</h3>
         <h3 style="margin-left: 20px;">JUMLAH KREDIT</h3>

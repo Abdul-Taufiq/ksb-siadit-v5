@@ -21,15 +21,14 @@
 
 
 {{-- premis --}}
+Pada hari ini {!! $pkpmk->tgl_addendum?->translatedFormat('l') ?? '<i class="text-danger">Not Display in Here</i>' !!} tanggal
+{!! $pkpmk->tgl_addendum?->translatedFormat('d F Y') ?? '<i class="text-danger">Not Display in Here</i>' !!}
+yang bertanda tangan dibawah ini:
 <div class="mb-4">
-    Pada hari ini {!! $pkpmk->tgl_addendum?->translatedFormat('l') ?? '<i class="text-danger">Not Display in Here</i>' !!} tanggal
-    {!! $pkpmk->tgl_addendum?->translatedFormat('d F Y') ?? '<i class="text-danger">Not Display in Here</i>' !!}
-    yang bertanda tangan dibawah ini:
-
-    <table class="table table-sm table-borderless w-100 mb-1">
-        <tr>
-            <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">I. </td>
-            <td>
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-md-1">I.</div>
+            <div class="col-md-11">
                 @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
                     <b>BUDI DARMAWAN, S.E.</b>, lahir di Surakarta, pada tanggal 23 September 1974, warga
                     Negara Indonesia, bertempat tinggal di Griyan Baru G III Nomor 121 RT.002, RW.013, Kel/Desa
@@ -81,11 +80,10 @@
                     Kabupaten
                     Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai <b>“BANK”</b>.
                 @endif
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">II. </td>
-            <td>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-1">II.</div>
+            <div class="col-md-11">
                 @if ($pkpmk->debitur->status_pernikahan == 'Menikah')
                     <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
                     lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
@@ -183,11 +181,15 @@
                     melakukan perbuatan hukum ini bertindak untuk diri-sendiri, yang selanjutnya
                     disebut sebagai <b>“DEBITUR”</b>.
                 @endif
+            </div>
+        </div>
 
-                @if ($penjamin->isNotEmpty())
-                    @foreach ($penjamin as $penjaminItem)
-                        <br>
-                        -Yang turut hadir dan menanda-tangani perjanjian ini yaitu,
+        @if ($penjamin->isNotEmpty())
+            @foreach ($penjamin as $penjaminItem)
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                        - Yang turut hadir dan menanda-tangani perjanjian ini yaitu,
                         <b>{{ $penjaminItem->nama_penjamin }}</b>, lahir di
                         {{ $penjaminItem->tempat_lahir }},
                         {{ $penjaminItem->tgl_lahir->translatedFormat('d F Y') }},
@@ -254,11 +256,21 @@
                             untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
                             <b>“PENJAMIN”</b>.
                         @endif
-                    @endforeach
-                @endif
-            </td>
-        </tr>
-    </table>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
+        Bahwa <b>BANK</b> dan <b>DEBITUR</b> dengan ini menerangkan terlebih dahulu sebagai berikut: <br>
+        Bahwa dari surat permohonan debitur nomor {{ $pkpmk->kredit->no_spk }} tertanggal
+        {{ $pkpmk->kredit->tgl_pengajuan->translatedFormat('d F Y') }} yang menerangkan
+        permohonan
+        <b>Debitur</b> untuk {{ $pkpmk->kredit->tujuan_pengajuan }}. Bahwa <b>BANK</b> dan <b>DEBITUR</b> telah
+        saling
+        setuju untuk mengadakan Perjanjian Kredit dengan syarat-syarat dan ketentuan-ketentuan sebagai berikut:
+    </div>
+
+
     <b>BANK</b> dan <b>DEBITUR</b> dengan ini menerangkan terlebih dahulu sebagai berikut: <br>
     Bahwa <b>BANK</b> dan <b>DEBITUR</b> telah melakukan Perjanjian Kredit
     @if ($pkpmk->jns_akta == 'Notariil')
@@ -271,7 +283,7 @@
         @if ($pkpmk->jns_pengikatan == 'Bawah Tangan/Legalisasi')
             dibawah tangan
         @else
-            Legalisasi
+            dibawah tangan dengan Legalisasi
         @endif
     @endif
 

@@ -89,18 +89,18 @@
                                     </div>
 
                                     @if ($pkpmk->kredit->persetujuan->jns_kredit == 'Angsuran')
-                                        @if ($pkpmk->tgl_print_pkpmk === null)
-                                            <div class="col-md-3 ">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
-                                                    data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
-                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                    <b>PRINT PK</b>
-                                                </button>
-                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
-                                                </p>
-                                            </div>
-                                        @else
+                                        {{-- @if ($pkpmk->tgl_print_pkpmk === null) --}}
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT PK</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                            </p>
+                                        </div>
+                                        {{-- @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
                                                     class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
@@ -110,21 +110,21 @@
                                                 <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
                                                 </p>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                     @else
                                         {{-- button pkpmk --}}
-                                        @if ($pkpmk->tgl_print_pkpmk === null)
-                                            <div class="col-md-3 ">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
-                                                    data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
-                                                    <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
-                                                    <b>PRINT PMK</b>
-                                                </button>
-                                                <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
-                                                </p>
-                                            </div>
-                                        @else
+                                        {{-- @if ($pkpmk->tgl_print_pkpmk === null) --}}
+                                        <div class="col-md-3 ">
+                                            <button type="button"
+                                                class="btn btn-sm btn-primary btn-icon-text btn-rounded btnview w-100"
+                                                data-id="{{ encrypt($pkpmk->id_pkpmk) }}">
+                                                <i class="fa fa-print" aria-hidden="true"></i> &nbsp;
+                                                <b>PRINT PMK</b>
+                                            </button>
+                                            <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
+                                            </p>
+                                        </div>
+                                        {{-- @else
                                             <div class="col-md-3 ">
                                                 <button type="button"
                                                     class="btn btn-sm btn-danger btn-icon-text btn-rounded w-100 disabled">
@@ -134,7 +134,7 @@
                                                 <p style="text-align: center; padding-top: 5px;"><i>(Perjanjian Kredit)</i>
                                                 </p>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                     @endif
 
                                     @if ($pkpmk->kredit->jamkenda->isNotEmpty())

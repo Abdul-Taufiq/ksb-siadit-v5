@@ -1,5 +1,6 @@
 {{-- pasal 5 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 5</h3>
         <h3>JAMINAN KREDIT</h3>

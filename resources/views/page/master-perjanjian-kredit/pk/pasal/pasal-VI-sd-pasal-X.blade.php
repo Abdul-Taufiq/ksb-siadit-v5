@@ -1,5 +1,6 @@
 {{-- pasal 6 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 6</h3>
         <h3>KELALAIAN</h3>
@@ -15,6 +16,8 @@
             yaitu dalam hal terjadi salah satu dari kejadian dibawah ini:
         </div>
     </div>
+
+    <div class="clearfix"></div>
     {{-- isi dari no 1 --}}
     <div class="row" style="margin-left: 2.5rem;">
         <div class="col-md-1">a.</div>
@@ -91,7 +94,8 @@
 
 
 {{-- pasal 7 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 7</h3>
         <h3>PEMERIKSAAN OLEH BANK</h3>
@@ -120,7 +124,8 @@
 
 
 {{-- pasal 8 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 8</h3>
         <h3>PEMBATASAN TINDAKAN DEBITUR</h3>
@@ -169,7 +174,8 @@
 
 
 {{-- pasal 9 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 9</h3>
         <h3>ASURANSI</h3>
@@ -216,7 +222,8 @@
 
 
 {{-- pasal 10 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 10</h3>
         <h3>KUASA</h3>

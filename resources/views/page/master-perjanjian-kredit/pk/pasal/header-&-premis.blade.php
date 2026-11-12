@@ -18,244 +18,245 @@
 
 
 {{-- premis --}}
+Pada hari ini {!! $pkpmk->tgl_pkpmk?->translatedFormat('l') ?? '<i class="text-danger">Not Display in Here</i>' !!} tanggal
+{!! $pkpmk->tgl_pkpmk?->translatedFormat('d F Y') ?? '<i class="text-danger">Not Display in Here</i>' !!}
+yang bertanda tangan dibawah ini:
 <div class="mb-4">
-    Pada hari ini {!! $pkpmk->tgl_pkpmk?->translatedFormat('l') ?? '<i class="text-danger">Not Display in Here</i>' !!} tanggal
-    {!! $pkpmk->tgl_pkpmk?->translatedFormat('d F Y') ?? '<i class="text-danger">Not Display in Here</i>' !!}
-    yang bertanda tangan dibawah ini:
-
-    <table class="table table-sm table-borderless w-100 mb-1">
-        <tr>
-            <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">I. </td>
-            <td>
-                @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
-                    <b>BUDI DARMAWAN, S.E.</b>, lahir di Surakarta, pada tanggal 23 September 1974, warga
-                    Negara Indonesia, bertempat tinggal di Griyan Baru G III Nomor 121 RT.002, RW.013, Kel/Desa
-                    Baturan, Kecamatan Colomadu, Kabupaten Karanganyar, Provinsi Jawa Tengah, NIK:
-                    3313122309740005, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
-                    PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
-                    BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 1 Tanggal 04 Mei 2026
-                    yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
-                    Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
-                    <b>“BANK”</b>.
-                @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
-                    <b>DODY ARIF KISWADI</b>, lahir di Pati, pada tanggal 12 Mei 1977, warga
-                    Negara Indonesia, bertempat tinggal di Kayen RT.006, RW.001, Kel/Desa
-                    Kayen, Kecamatan Kayen, Kabupaten Pati, Provinsi Jawa Tengah, NIK:
-                    3318021205770004, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
-                    PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
-                    BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 20 Tanggal 27 Desember 2024
-                    yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
-                    Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
-                    <b>“BANK”</b>.
+    <div class="row">
+        <div class="col-md-1">I.</div>
+        <div class="col-md-11">
+            @if ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirut)')
+                <b>BUDI DARMAWAN, S.E.</b>, lahir di Surakarta, pada tanggal 23 September 1974, warga
+                Negara Indonesia, bertempat tinggal di Griyan Baru G III Nomor 121 RT.002, RW.013, Kel/Desa
+                Baturan, Kecamatan Colomadu, Kabupaten Karanganyar, Provinsi Jawa Tengah, NIK:
+                3313122309740005, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
+                PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
+                BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 1 Tanggal 04 Mei 2026
+                yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
+                Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
+                <b>“BANK”</b>.
+            @elseif ($pkpmk->kredit->jns_pinjaman == 'Kredit Pihak Terkait (dirkom)')
+                <b>DODY ARIF KISWADI</b>, lahir di Pati, pada tanggal 12 Mei 1977, warga
+                Negara Indonesia, bertempat tinggal di Kayen RT.006, RW.001, Kel/Desa
+                Kayen, Kecamatan Kayen, Kabupaten Pati, Provinsi Jawa Tengah, NIK:
+                3318021205770004, Dalam hal ini bertindak dalam kedudukannya selaku Direktur PT BANK
+                PEREKONOMIAN RAKYAT KUSUMA SUMBING, oleh karena itu sah bertindak untuk dan atas nama PT
+                BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING berdasarkan Akta Nomor 20 Tanggal 27 Desember 2024
+                yang dibuat dihadapan Notaris Novita Alviani, S.H.,M.Kn., yang berkedudukan di Kecamatan
+                Parakan, Kabupaten Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai
+                <b>“BANK”</b>.
+            @else
+                <b>{{ $pkpmk->nama_pincab }}</b>, lahir di
+                {{ $pkpmk->tempat_lahir }},
+                pada tanggal
+                {{ $pkpmk->tgl_lahir ? $pkpmk->tgl_lahir->translatedFormat('d F Y') : '' }},
+                warga Negara Indonesia, bertempat tinggal di {{ $pkpmk->tempat_tinggal }},
+                NIK:
+                {{ $pkpmk->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
+                @if ($pkpmk->id_cabang == '1')
+                    @if ($pkpmk->jabatan == 'Pimpinan')
+                        Kepala Kantor
+                    @else
+                        Pjs Kepala Kantor
+                    @endif
                 @else
-                    <b>{{ $pkpmk->nama_pincab }}</b>, lahir di
-                    {{ $pkpmk->tempat_lahir }},
-                    pada tanggal
-                    {{ $pkpmk->tgl_lahir ? $pkpmk->tgl_lahir->translatedFormat('d F Y') : '' }},
-                    warga Negara Indonesia, bertempat tinggal di {{ $pkpmk->tempat_tinggal }},
-                    NIK:
-                    {{ $pkpmk->nik }}, Dalam hal ini bertindak dalam kedudukannya selaku
-                    @if ($pkpmk->id_cabang == '1')
-                        @if ($pkpmk->jabatan == 'Pimpinan')
-                            Kepala Kantor
-                        @else
-                            Pjs Kepala Kantor
-                        @endif
-                    @else
-                        {{ $pkpmk->jabatan }}
-                    @endif
-                    PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING
-                    @if ($pkpmk->id_cabang != '1')
-                        Cabang {{ $pkpmk->alamat }}
-                    @endif
-                    dalam jabatannya
-                    tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
-                    {{ $pkpmk->nomor_surat_kuasa }},
-                    tanggal
-                    {{ $pkpmk->tgl_surat_kuasa ? $pkpmk->tgl_surat_kuasa->translatedFormat('d F Y') : '' }},
-                    oleh karena itu sah bertindak untuk dan atas nama
-                    PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING, yang berkedudukan di Kecamatan Parakan,
-                    Kabupaten
-                    Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai <b>“BANK”</b>.
+                    {{ $pkpmk->jabatan }}
                 @endif
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 5%; padding-right: 0.4rem !important; padding-left: 0.4rem !important">II. </td>
-            <td>
-                @if ($pkpmk->debitur->status_pernikahan == 'Menikah')
-                    <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
-                    lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
-                    {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di
+                PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING
+                @if ($pkpmk->id_cabang != '1')
+                    Cabang {{ $pkpmk->alamat }}
+                @endif
+                dalam jabatannya
+                tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
+                {{ $pkpmk->nomor_surat_kuasa }},
+                tanggal
+                {{ $pkpmk->tgl_surat_kuasa ? $pkpmk->tgl_surat_kuasa->translatedFormat('d F Y') : '' }},
+                oleh karena itu sah bertindak untuk dan atas nama
+                PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING, yang berkedudukan di Kecamatan Parakan,
+                Kabupaten
+                Temanggung, Provinsi Jawa Tengah. Yang selanjutnya akan disebut sebagai <b>“BANK”</b>.
+            @endif
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-1">II.</div>
+        <div class="col-md-11">
+            @if ($pkpmk->debitur->status_pernikahan == 'Menikah')
+                <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
+                lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
+                {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
+                bertempat tinggal di
 
-                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                        Kabupaten/Kota
-                        {{ $pkpmk->debitur->kabupaten }}
-                    @else
-                        {{ $pkpmk->debitur->alamat_rumah }}
-                    @endif
-
-                    , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
-                    {{ $pkpmk->debitur->pekerjaan }},
-                    yang dalam melakukan perbuatan hukum ini memerlukan persetujuan dari
-                    {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
-                    yang sah pada tanggal
-                    {{ $pkpmk->debitur->tgl_pernikahan->translatedFormat('d F Y') }}
-                    dengan <b>{{ $pkpmk->debitur->nama_pasangan }}</b> yang lahir di
-                    {{ $pkpmk->debitur->tempat_lahir_pasangan }} pada tanggal
-                    {{ $pkpmk->debitur->tgl_lahir_pasangan->translatedFormat('d F Y') }},
-                    NIK: {{ $pkpmk->debitur->nik_pasangan }}, Pekerjaan
-                    {{ $pkpmk->debitur->pekerjaan_pasangan }},
-                    bertempat tinggal
-                    {{ $pkpmk->debitur->alamat_pasangan == 'sama dengan suaminya' ||
-                    $pkpmk->debitur->alamat_pasangan == 'sama dengan istrinya'
-                        ? $pkpmk->debitur->alamat_pasangan
-                        : 'di ' . $pkpmk->debitur->alamat_pasangan }},
-                    yang dalam melakukan perbuatan hukum ini bertindak secara bersama-sama, yang selanjutnya
-                    disebut sebagai <b>“DEBITUR”</b>.
-                @elseif ($pkpmk->debitur->status_pernikahan == 'Pernikahan Khusus')
-                    <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
-                    lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
-                    {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di
-
-                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                        Kabupaten/Kota
-                        {{ $pkpmk->debitur->kabupaten }}
-                    @else
-                        {{ $pkpmk->debitur->alamat_rumah }}
-                    @endif
-
-                    , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
-                    {{ $pkpmk->debitur->pekerjaan }},
-                    yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan dari
-                    {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
-                    yang sah pada tanggal
-                    {{ $pkpmk->debitur->tgl_pernikahan->translatedFormat('d F Y') }}
-                    dengan <b>{{ $pkpmk->debitur->nama_pasangan }}</b> yang lahir di
-                    {{ $pkpmk->debitur->tempat_lahir_pasangan }} pada tanggal
-                    {{ $pkpmk->debitur->tgl_lahir_pasangan->translatedFormat('d F Y') }},
-                    NIK: {{ $pkpmk->debitur->nik_pasangan }}, Pekerjaan
-                    {{ $pkpmk->debitur->pekerjaan_pasangan }},
-                    bertempat tinggal
-                    {{ $pkpmk->debitur->alamat_pasangan == 'sama dengan suaminya' ||
-                    $pkpmk->debitur->alamat_pasangan == 'sama dengan istrinya'
-                        ? $pkpmk->debitur->alamat_pasangan
-                        : 'di ' . $pkpmk->debitur->alamat_pasangan }},
-                    Berdasarkan Akta {{ $pkpmk->debitur->judul_akta }}, Nomor
-                    {{ $pkpmk->debitur->no_akta }} yang dibuat pada tanggal
-                    {{ $pkpmk->debitur->tgl_akta->translatedFormat('d F Y') }},
-                    dihadapan Notaris {{ $pkpmk->debitur->nama_notaris }}. Notaris di
-                    {{ $pkpmk->debitur->kedudukan_notaris }};
-                    yang dalam melakukan perbuatan hukum ini bertindak untuk dirinya sendiri, yang
-                    selanjutnya disebut sebagai <b>“DEBITUR”</b>.
+                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                    Kabupaten/Kota
+                    {{ $pkpmk->debitur->kabupaten }}
                 @else
-                    <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
-                    lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
-                    {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
-                    bertempat tinggal di
-
-                    @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                        {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                        {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                        {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                        Kabupaten/Kota
-                        {{ $pkpmk->debitur->kabupaten }}
-                    @else
-                        {{ $pkpmk->debitur->alamat_rumah }}
-                    @endif
-
-                    , NIK: {{ $pkpmk->debitur->nik }}, yang dalam
-                    melakukan
-                    perbuatan hukum ini tidak memerlukan
-                    persetujuan dari siapapun karena tidak terikat dengan perkawinan yang sah, yang
-                    dalam
-                    melakukan perbuatan hukum ini bertindak untuk diri-sendiri, yang selanjutnya
-                    disebut sebagai <b>“DEBITUR”</b>.
+                    {{ $pkpmk->debitur->alamat_rumah }}
                 @endif
 
-                @if ($penjamin->isNotEmpty())
-                    @foreach ($penjamin as $penjaminItem)
-                        <br>
-                        -Yang turut hadir dan menanda-tangani perjanjian ini yaitu,
-                        <b>{{ $penjaminItem->nama_penjamin }}</b>, lahir di
-                        {{ $penjaminItem->tempat_lahir }},
-                        {{ $penjaminItem->tgl_lahir->translatedFormat('d F Y') }},
-                        bertempat tinggal di {{ $penjaminItem->alamat }}, NIK:
-                        {{ $penjaminItem->nik }}
-                        @if ($penjaminItem->status_pernikahan == 'Menikah')
-                            yang dalam melakukan perbuatan hukum ini memerlukan persetujuan dari
-                            @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
-                                Istrinya
-                            @else
-                                Suaminya
-                            @endif
-                            yang sah. <b>{{ $penjaminItem->nama_pasangan }}</b>, lahir
-                            di
-                            {{ $penjaminItem->tempat_lahir_pasangan }},
-                            {{ $penjaminItem->tgl_lahir_pasangan->translatedFormat('d F Y') }},
-                            bertempat tinggal {{ $penjaminItem->alamat_pasangan }}, NIK:
-                            {{ $penjaminItem->nik_pasangan }},
-                            yang dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
-                            jaminan
-                            untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
-                            <b>“PENJAMIN”</b>.
-                        @elseif ($penjaminItem->status_pernikahan == 'SHM Khusus Waris')
-                            yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan
-                            dari
-                            @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
-                                Istrinya
-                            @else
-                                Suaminya
-                            @endif
-                            yang sah,
-                            telah setuju memberikan jaminan
-                            untuk menjamin hutang <b>DEBITUR</b>, selanjutnya disebut sebagai
-                            <b>“PENJAMIN”</b>.
-                        @elseif ($penjaminItem->status_pernikahan == 'Pernikahan Khusus')
-                            yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan dari
-                            @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
-                                Istrinya
-                            @else
-                                Suaminya
-                            @endif
-                            yang sah. <b>{{ $penjaminItem->nama_pasangan }}</b>, lahir
-                            di
-                            {{ $penjaminItem->tempat_lahir_pasangan }},
-                            {{ $penjaminItem->tgl_lahir_pasangan->translatedFormat('d F Y') }},
-                            bertempat tinggal {{ $penjaminItem->alamat_pasangan }}, NIK:
-                            {{ $penjaminItem->nik_pasangan }}.
-                            Berdasarkan Akta {{ $penjaminItem->judul_akta }}, Nomor
-                            {{ $penjaminItem->no_akta }} yang dibuat pada tanggal
-                            {{ $penjaminItem->tgl_akta->translatedFormat('d F Y') }},
-                            dihadapan Notaris {{ $penjaminItem->nama_notaris }}. Notaris di
-                            {{ $penjaminItem->kedudukan_notaris }};
-                            yang dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
-                            jaminan
-                            untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
-                            <b>“PENJAMIN”</b>.
+                , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
+                {{ $pkpmk->debitur->pekerjaan }},
+                yang dalam melakukan perbuatan hukum ini memerlukan persetujuan dari
+                {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
+                yang sah pada tanggal
+                {{ $pkpmk->debitur->tgl_pernikahan->translatedFormat('d F Y') }}
+                dengan <b>{{ $pkpmk->debitur->nama_pasangan }}</b> yang lahir di
+                {{ $pkpmk->debitur->tempat_lahir_pasangan }} pada tanggal
+                {{ $pkpmk->debitur->tgl_lahir_pasangan->translatedFormat('d F Y') }},
+                NIK: {{ $pkpmk->debitur->nik_pasangan }}, Pekerjaan
+                {{ $pkpmk->debitur->pekerjaan_pasangan }},
+                bertempat tinggal
+                {{ $pkpmk->debitur->alamat_pasangan == 'sama dengan suaminya' ||
+                $pkpmk->debitur->alamat_pasangan == 'sama dengan istrinya'
+                    ? $pkpmk->debitur->alamat_pasangan
+                    : 'di ' . $pkpmk->debitur->alamat_pasangan }},
+                yang dalam melakukan perbuatan hukum ini bertindak secara bersama-sama, yang selanjutnya
+                disebut sebagai <b>“DEBITUR”</b>.
+            @elseif ($pkpmk->debitur->status_pernikahan == 'Pernikahan Khusus')
+                <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
+                lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
+                {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
+                bertempat tinggal di
+
+                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                    Kabupaten/Kota
+                    {{ $pkpmk->debitur->kabupaten }}
+                @else
+                    {{ $pkpmk->debitur->alamat_rumah }}
+                @endif
+
+                , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
+                {{ $pkpmk->debitur->pekerjaan }},
+                yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan dari
+                {{ $pkpmk->debitur->jenis_kelamin == 'Laki-laki' ? 'Istrinya' : 'Suaminya' }}
+                yang sah pada tanggal
+                {{ $pkpmk->debitur->tgl_pernikahan->translatedFormat('d F Y') }}
+                dengan <b>{{ $pkpmk->debitur->nama_pasangan }}</b> yang lahir di
+                {{ $pkpmk->debitur->tempat_lahir_pasangan }} pada tanggal
+                {{ $pkpmk->debitur->tgl_lahir_pasangan->translatedFormat('d F Y') }},
+                NIK: {{ $pkpmk->debitur->nik_pasangan }}, Pekerjaan
+                {{ $pkpmk->debitur->pekerjaan_pasangan }},
+                bertempat tinggal
+                {{ $pkpmk->debitur->alamat_pasangan == 'sama dengan suaminya' ||
+                $pkpmk->debitur->alamat_pasangan == 'sama dengan istrinya'
+                    ? $pkpmk->debitur->alamat_pasangan
+                    : 'di ' . $pkpmk->debitur->alamat_pasangan }},
+                Berdasarkan Akta {{ $pkpmk->debitur->judul_akta }}, Nomor
+                {{ $pkpmk->debitur->no_akta }} yang dibuat pada tanggal
+                {{ $pkpmk->debitur->tgl_akta->translatedFormat('d F Y') }},
+                dihadapan Notaris {{ $pkpmk->debitur->nama_notaris }}. Notaris di
+                {{ $pkpmk->debitur->kedudukan_notaris }};
+                yang dalam melakukan perbuatan hukum ini bertindak untuk dirinya sendiri, yang
+                selanjutnya disebut sebagai <b>“DEBITUR”</b>.
+            @else
+                <b>{{ $pkpmk->debitur->nama_debitur }}</b>,
+                lahir di {{ $pkpmk->debitur->tempat_lahir }}, pada tanggal
+                {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
+                bertempat tinggal di
+
+                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
+                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                    Kabupaten/Kota
+                    {{ $pkpmk->debitur->kabupaten }}
+                @else
+                    {{ $pkpmk->debitur->alamat_rumah }}
+                @endif
+
+                , NIK: {{ $pkpmk->debitur->nik }}, yang dalam
+                melakukan
+                perbuatan hukum ini tidak memerlukan
+                persetujuan dari siapapun karena tidak terikat dengan perkawinan yang sah, yang
+                dalam
+                melakukan perbuatan hukum ini bertindak untuk diri-sendiri, yang selanjutnya
+                disebut sebagai <b>“DEBITUR”</b>.
+            @endif
+        </div>
+    </div>
+
+    @if ($penjamin->isNotEmpty())
+        @foreach ($penjamin as $penjaminItem)
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    - Yang turut hadir dan menanda-tangani perjanjian ini yaitu,
+                    <b>{{ $penjaminItem->nama_penjamin }}</b>, lahir di
+                    {{ $penjaminItem->tempat_lahir }},
+                    {{ $penjaminItem->tgl_lahir->translatedFormat('d F Y') }},
+                    bertempat tinggal di {{ $penjaminItem->alamat }}, NIK:
+                    {{ $penjaminItem->nik }}
+                    @if ($penjaminItem->status_pernikahan == 'Menikah')
+                        yang dalam melakukan perbuatan hukum ini memerlukan persetujuan dari
+                        @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
+                            Istrinya
                         @else
-                            yang dalam melakukan perbuatan hukum ini tidak memerlukan
-                            persetujuan dari siapapun karena tidak terikat dengan perkawinan yang
-                            sah,
-                            yang
-                            dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
-                            jaminan
-                            untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
-                            <b>“PENJAMIN”</b>.
+                            Suaminya
                         @endif
-                    @endforeach
-                @endif
-            </td>
-        </tr>
-    </table>
+                        yang sah. <b>{{ $penjaminItem->nama_pasangan }}</b>, lahir
+                        di
+                        {{ $penjaminItem->tempat_lahir_pasangan }},
+                        {{ $penjaminItem->tgl_lahir_pasangan->translatedFormat('d F Y') }},
+                        bertempat tinggal {{ $penjaminItem->alamat_pasangan }}, NIK:
+                        {{ $penjaminItem->nik_pasangan }},
+                        yang dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
+                        jaminan
+                        untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
+                        <b>“PENJAMIN”</b>.
+                    @elseif ($penjaminItem->status_pernikahan == 'SHM Khusus Waris')
+                        yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan
+                        dari
+                        @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
+                            Istrinya
+                        @else
+                            Suaminya
+                        @endif
+                        yang sah,
+                        telah setuju memberikan jaminan
+                        untuk menjamin hutang <b>DEBITUR</b>, selanjutnya disebut sebagai
+                        <b>“PENJAMIN”</b>.
+                    @elseif ($penjaminItem->status_pernikahan == 'Pernikahan Khusus')
+                        yang dalam melakukan perbuatan hukum ini tidak memerlukan persetujuan dari
+                        @if ($penjaminItem->jenis_kelamin == 'Laki-laki')
+                            Istrinya
+                        @else
+                            Suaminya
+                        @endif
+                        yang sah. <b>{{ $penjaminItem->nama_pasangan }}</b>, lahir
+                        di
+                        {{ $penjaminItem->tempat_lahir_pasangan }},
+                        {{ $penjaminItem->tgl_lahir_pasangan->translatedFormat('d F Y') }},
+                        bertempat tinggal {{ $penjaminItem->alamat_pasangan }}, NIK:
+                        {{ $penjaminItem->nik_pasangan }}.
+                        Berdasarkan Akta {{ $penjaminItem->judul_akta }}, Nomor
+                        {{ $penjaminItem->no_akta }} yang dibuat pada tanggal
+                        {{ $penjaminItem->tgl_akta->translatedFormat('d F Y') }},
+                        dihadapan Notaris {{ $penjaminItem->nama_notaris }}. Notaris di
+                        {{ $penjaminItem->kedudukan_notaris }};
+                        yang dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
+                        jaminan
+                        untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
+                        <b>“PENJAMIN”</b>.
+                    @else
+                        yang dalam melakukan perbuatan hukum ini tidak memerlukan
+                        persetujuan dari siapapun karena tidak terikat dengan perkawinan yang
+                        sah,
+                        yang
+                        dalam melakukan hal ini menerangkan bahwa telah setuju memberikan
+                        jaminan
+                        untuk menjamin hutang <b>DEBITUR</b>, yang selanjutnya disebut sebagai
+                        <b>“PENJAMIN”</b>.
+                    @endif
+                </div>
+            </div>
+        @endforeach
+    @endif
+
     Bahwa <b>BANK</b> dan <b>DEBITUR</b> dengan ini menerangkan terlebih dahulu sebagai berikut: <br>
     Bahwa dari surat permohonan debitur nomor {{ $pkpmk->kredit->no_spk }} tertanggal
     {{ $pkpmk->kredit->tgl_pengajuan->translatedFormat('d F Y') }} yang menerangkan

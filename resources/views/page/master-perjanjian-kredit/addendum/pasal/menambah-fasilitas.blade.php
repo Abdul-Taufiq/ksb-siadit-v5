@@ -1,4 +1,5 @@
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 6</h3>
         <h3>CROSS COLATERAL</h3>
@@ -12,7 +13,8 @@
 </div>
 
 
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 7</h3>
         <h3>CROSS DEFAULT</h3>
@@ -27,7 +29,8 @@
 
 
 {{-- pasal 8 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 8</h3>
         <h3>KELALAIAN</h3>
@@ -119,7 +122,8 @@
 
 
 {{-- pasal 9 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 9</h3>
         <h3>PEMERIKSAAN OLEH BANK</h3>
@@ -148,7 +152,8 @@
 
 
 {{-- pasal 10 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 8</h3>
         <h3>PEMBATASAN TINDAKAN DEBITUR</h3>
@@ -197,7 +202,8 @@
 
 
 {{-- pasal 11 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 11</h3>
         <h3>ASURANSI</h3>
@@ -244,7 +250,8 @@
 
 
 {{-- pasal 12 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 12</h3>
         <h3>KUASA</h3>
@@ -373,7 +380,8 @@
 {{-- end pasal 12 --}}
 
 {{-- pasal 13 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 13</h3>
         <h3>KETENTUAN BANK</h3>
@@ -386,7 +394,8 @@
 
 
 {{-- pasal 14 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 14</h3>
         <h3>AHLI WARIS/PENANGGUNG</h3>
@@ -402,7 +411,8 @@
 
 
 {{-- pasal 15 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 15</h3>
         <h3>PENGALIHAN PIUTANG (CASSIE)</h3>
@@ -415,7 +425,8 @@
 
 
 {{-- pasal 16 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 16</h3>
         <h3>PEMBERIAN MASA JEDA</h3>
@@ -443,7 +454,8 @@
 
 
 {{-- pasal 17 --}}
-<div class="mb-4">
+<div class="mb-3">
+    <div class="clearfix"></div>
     <div class="header">
         <h3>PASAL 17</h3>
         <h3>DOMISILI</h3>
@@ -462,13 +474,3 @@ Ketentuan ini telah disesuaikan dengan peraturan perundang-undangan yang berlaku
 dengan ketentuan Otoritas Jasa Keuangan. <br>
 
 <br>
-
-<span>
-    <b>DEBITUR</b> dapat mengajukan kritik, saran maupun pengaduan atas produk serta layanan PT BPR Kusuma Sumbing
-    melalui
-    Kantor Cabang terdekat kami, atau langsung kepada Petugas kami melalui: <br>
-</span>
-<span style="font-size: 13px">
-    Telepon : 0293 – 596362, 596390 | Whatsapp : 0812 71111 280 | Instagram : @bprkusumasumbing<br>
-    Website : https://web.bprkusumasumbing.com/pengaduan-konsumen
-</span>
