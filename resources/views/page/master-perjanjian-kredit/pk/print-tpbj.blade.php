@@ -138,7 +138,13 @@
             </tr>
             <tr>
                 <td>Alamat</td>
-                <td>: {{ $kredit->debitur->alamat_rumah }}</td>
+                <td>:
+                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                    Kabupaten/Kota
+                    {{ $pkpmk->debitur->kabupaten }}
+                </td>
             </tr>
             <tr>
                 <td>Nomor</td>
