@@ -335,13 +335,9 @@
                             @else
                                 {{ $pkpmk->jabatan }}
                             @endif
-                            PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING
-                            @if ($pkpmk->id_cabang != '1')
-                                Cabang {{ $pkpmk->alamat }}
-                            @endif
-                            dalam
-                            jabatannya
-                            tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah tangan, Nomor
+                            PT BANK PEREKONOMIAN RAKYAT KUSUMA SUMBING Cabang {{ $pkpmk->cabang->alamat }}
+                            dalam jabatannya tersebut mewakili Direksi, berdasarkan Surat Kuasa Subtitusi di bawah
+                            tangan, Nomor
                             {{ $kredit->cabang->nomor_surat_kuasa }},
                             tanggal
                             {{ Carbon\Carbon::parse($kredit->cabang->tgl_surat_kuasa)->translatedFormat('d F Y') }},
