@@ -44,7 +44,11 @@
         <td>Suku Bunga</td>
         <td>:</td>
         <td>
-            {{ $muk->kredit->persetujuan->besar_bunga_muk }}% {{ $muk->kredit->persetujuan->jns_bunga }} / Tahun
+            {{ $muk->kredit->persetujuan->besar_bunga_muk }}% {{ $muk->kredit->persetujuan->jns_bunga }}
+            @if ($muk->kredit->persetujuan->besar_bunga_muk_2 != null || $muk->kredit->persetujuan->besar_bunga_muk_2 == 0)
+                {{ $muk->kredit->persetujuan->besar_bunga_muk_2 }}%
+            @endif
+            / Tahun
         </td>
     </tr>
     <tr>

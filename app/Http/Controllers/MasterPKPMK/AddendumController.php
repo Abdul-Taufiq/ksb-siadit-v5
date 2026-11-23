@@ -220,6 +220,11 @@ class AddendumController extends Controller
 
         $judul =  $pkpmkV->persetujuan->jns_kredit == 'Angsuran' ? 'PK' : 'PMK';
 
+        // simpan Versi PK saat ini
+        $pkpmkV->update([
+            'pk_version' => 'F.KSB/KRD.PK.Add/Vr.5.1/2026'
+        ]);
+
         // create no sppk dan logika lainnya
         $pkpmk = $this->AddServices->genetarePk($ids);
 
@@ -239,7 +244,7 @@ class AddendumController extends Controller
                 'jam_tanah' => $jam_tanah,
                 'jam_kenda' => $jam_kenda,
                 'jam_depo' => $jam_depo,
-                // 'pikar' => $pikarEks,
+                'pk_version' => $pkpmk->pk_version,
                 'penjamin' => $penjamin,
                 'addDobel' => $addDobel,
             ]

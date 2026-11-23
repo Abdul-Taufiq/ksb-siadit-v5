@@ -548,7 +548,9 @@
             </table>
         </div>
 
-        <i class="text-danger">This Page Preview</i>
+        <i class="text-danger">This Page Preview</i> <br>
+
+        <i class="text-danger">{{ $pkpmk->pk_version ?? 'xxxx' }}</i>
     </div>
 
     {{-- footer --}}

@@ -246,6 +246,7 @@ class DebiturController extends Controller
             'putusan' => $request->putusan,
             'jns_bunga' => $request->jns_bunga,
             'besar_bunga' =>  $this->normalizeNumber($request->besar_bunga),
+            'besar_bunga_muk_2' =>  $this->normalizeNumber($request->besar_bunga_2),
             'jumlah_angsuran' => $this->normalizeNumber($request->jumlah_angsuran),
             'provisi' =>  $this->normalizeNumber($request->provisi),
             'jumlah_provisi' => $this->normalizeNumber($request->jumlah_provisi),

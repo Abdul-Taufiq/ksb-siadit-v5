@@ -247,6 +247,7 @@ class MukServiceEdit
             'putusan' => $data['putusan'],
             'jns_bunga' => $data['jns_bunga'],
             'besar_bunga_muk' =>  $this->normalizeNumber($data['besar_bunga']),
+            'besar_bunga_muk_2' =>  $this->normalizeNumber($data['besar_bunga_2']),
             'jumlah_angsuran_muk' => $this->normalizeNumber($data['jumlah_angsuran']),
             'provisi' =>  $this->normalizeNumber($data['provisi']),
             'jumlah_provisi' => $this->normalizeNumber($data['jumlah_provisi']),

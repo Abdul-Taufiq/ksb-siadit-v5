@@ -513,12 +513,14 @@
             $font = $fontMetrics->get_font("tahoma", "normal");
             $size = 9;
             $color = array(0,0,0);
+            $pkVersion = "{{ $pk_version }}";
 
             // buat garis horizontal (x1, y1, x2, y2)
             $pdf->page_line(70, 770, 558, 770, $color, 0.2); 
             // angka terakhir (0.5) = ketebalan garis
 
             // nomor halaman
+            $pdf->page_text(70, 770, $pkVersion, $fontMetrics->get_font("helvetica", "italic"), 10, array(0,0,0));
             $pdf->page_text(470, 770, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", $fontMetrics->get_font("tahoma","bold"), 10, array(0,0,0));
 
             // baris 1

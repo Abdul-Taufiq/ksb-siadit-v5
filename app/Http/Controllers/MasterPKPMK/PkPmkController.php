@@ -211,6 +211,12 @@ class PkPmkController extends Controller
 
         $judul =  $pkpmkV->persetujuan->jns_kredit == 'Angsuran' ? 'PK' : 'PMK';
 
+        // simpan Versi PK saat ini
+        $pkpmkV->update([
+            'pk_version' => 'F.KSB/KRD.PK/Vr.5.5/2026'
+        ]);
+
+
         // create no sppk dan logika lainnya
         $pkpmk = $this->PkServices->genetarePk($ids);
 
@@ -230,7 +236,7 @@ class PkPmkController extends Controller
                 'jam_tanah' => $jam_tanah,
                 'jam_kenda' => $jam_kenda,
                 'jam_depo' => $jam_depo,
-                // 'pikar' => $pikarEks,
+                'pk_version' => $pkpmk->pk_version,
                 'penjamin' => $penjamin,
             ]
         );

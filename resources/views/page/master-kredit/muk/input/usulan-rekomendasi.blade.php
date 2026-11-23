@@ -83,6 +83,10 @@
                 <td>
                     <select class="form-select form-select-sm is-invalid" name="jns_bunga" id="jns_bunga" required>
                         <option selected disabled>-Pilih-</option>
+                        <option id="flat_anu"
+                            {{ $kredit?->persetujuan?->jns_bunga == 'ANUITAS SETARA FLAT' ? 'selected' : '' }}
+                            value="ANUITAS SETARA FLAT">ANUITAS SETARA FLAT
+                        </option>
                         <option id="flat" {{ $kredit?->persetujuan?->jns_bunga == 'FLAT' ? 'selected' : '' }}
                             value="FLAT">FLAT
                         </option>
@@ -117,6 +121,28 @@
                         @endphp
 
                         <input type="text" class="form-control is-invalid" id="besar_bunga" name="besar_bunga"
+                            min="1" maxlength="5" required value="{{ $bunga }}">
+                        <span class="input-group-text">% / Tahun</span>
+                    </div>
+                </td>
+            </tr>
+            <tr id="head_besar_bunga_2">
+                <td>
+                    <label class="notbold" for="besar_bunga_2">Suku Bunga Flat (khusus anuitas setara flat)</label>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm">
+
+                        @php
+                            if (Request::is('debitur/sos-update-pas*')) {
+                                $bunga =
+                                    $kredit?->persetujuan?->besar_bunga_muk_2 != null
+                                        ? number_format($kredit?->persetujuan?->besar_bunga_muk_2 ?? 0, 2, ',', '.')
+                                        : 0;
+                            }
+                        @endphp
+
+                        <input type="text" class="form-control is-invalid" id="besar_bunga_2" name="besar_bunga_2"
                             min="1" maxlength="5" required value="{{ $bunga }}">
                         <span class="input-group-text">% / Tahun</span>
                     </div>

@@ -28,6 +28,21 @@ jns_kredit.addEventListener("change", updateUsulanAngsuran);
 jns_bunga.addEventListener("change", updateUsulanAngsuran);
 besar_bunga.addEventListener("keyup", updateUsulanAngsuran);
 
+// news
+$("#jns_bunga").on("change", function () {
+    let selectopt = $(this).val();
+    const head_skb = document.getElementById("head_besar_bunga_2");
+    const besar_bunga_2 = document.getElementById("besar_bunga_2");
+
+    if (selectopt === "ANUITAS SETARA FLAT") {
+        head_skb.classList.remove("d-none");
+        besar_bunga_2.setAttribute("required", "true"); // ✅ tambahkan required
+    } else {
+        head_skb.classList.add("d-none");
+        besar_bunga_2.removeAttribute("required"); // ✅ hapus required
+    }
+});
+
 // new
 jumlah_angsuran.addEventListener("keyup", function (event) {
     // untuk angsuran
@@ -74,10 +89,13 @@ function updateUsulanAngsuran() {
                 (plafond *
                     ((bungaValue / 12) * (1 + bungaValue / 12) ** jkwValue)) /
                 ((1 + bungaValue / 12) ** jkwValue - 1);
-        } else if (jns_bunga.value === "FLAT") {
+        } else if (
+            jns_bunga.value === "FLAT" ||
+            jns_bunga.value === "ANUITAS SETARA FLAT"
+        ) {
             total =
                 ((plafond * jkwValue * bungaValue) / 12 + plafond) / jkwValue;
-            // console.log("Angsuran: " + total);
+            console.log("Angsuran: " + total);
         } else {
             total = 0;
             // alert(

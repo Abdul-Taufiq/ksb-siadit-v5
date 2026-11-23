@@ -185,6 +185,7 @@
         @include('page.master-perjanjian-kredit.pk.pasal.pasal-XI-sd-pasal-ends')
         <i class="text-danger">This Page Preview</i>
     </div>
+    <i class="text-danger">{{ $pkpmk->pk_version ?? 'xxxx' }}</i>
 
     {{-- footer --}}
     {{-- <script type="text/php">

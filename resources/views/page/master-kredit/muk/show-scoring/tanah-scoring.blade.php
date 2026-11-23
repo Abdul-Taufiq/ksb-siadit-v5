@@ -618,19 +618,19 @@
                         <td style="width: 20%">Nilai NJOP</td>
                         <td style="width: 2%">:</td>
                         <td style="width: 29%">
-                            @if (!empty(data_get($tanah, $SCRekap1)))
-                                {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.nilai_njop"), 0, ',', '.') }}
-                            @else
+                            @if (!empty(data_get($tanah, $SCRekap2)))
                                 {{ 'Rp' . number_format(data_get($tanah, "$SCRekap2.nilai_njop"), 0, ',', '.') }}
+                            @else
+                                {{ 'Rp' . number_format(data_get($tanah, "$SCRekap1.nilai_njop"), 0, ',', '.') }}
                             @endif
                         </td>
                         <td style="width: 20%">Berdasarkan PBB Tahun</td>
                         <td style="width: 2%">:</td>
                         <td style="width: 29%">
-                            @if (!empty(data_get($tanah, $SCRekap1)))
-                                {{ data_get($tanah, "$SCRekap1.pbb_tahun") }}
-                            @else
+                            @if (!empty(data_get($tanah, $SCRekap2)))
                                 {{ data_get($tanah, "$SCRekap2.pbb_tahun") }}
+                            @else
+                                {{ data_get($tanah, "$SCRekap1.pbb_tahun") }}
                             @endif
                         </td>
                     </tr>

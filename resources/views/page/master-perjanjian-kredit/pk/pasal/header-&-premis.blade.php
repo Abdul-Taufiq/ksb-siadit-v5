@@ -86,15 +86,11 @@ yang bertanda tangan dibawah ini:
                 {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
                 bertempat tinggal di
 
-                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}
-                @else
-                    {{ $pkpmk->debitur->alamat_rumah }}
-                @endif
+                {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                Kabupaten/Kota
+                {{ $pkpmk->debitur->kabupaten }}
 
                 , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
                 {{ $pkpmk->debitur->pekerjaan }},
@@ -120,15 +116,11 @@ yang bertanda tangan dibawah ini:
                 {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
                 bertempat tinggal di
 
-                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}
-                @else
-                    {{ $pkpmk->debitur->alamat_rumah }}
-                @endif
+                {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                Kabupaten/Kota
+                {{ $pkpmk->debitur->kabupaten }}
 
                 , NIK: {{ $pkpmk->debitur->nik }}, Pekerjaan
                 {{ $pkpmk->debitur->pekerjaan }},
@@ -159,15 +151,11 @@ yang bertanda tangan dibawah ini:
                 {{ $pkpmk->debitur->tgl_lahir->translatedFormat('d F Y') }},
                 bertempat tinggal di
 
-                @if ($pkpmk->debitur->alamat_ktp == $pkpmk->debitur->alamat_rumah)
-                    {{ $pkpmk->debitur->alamat_ktp }} RT/RW
-                    {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
-                    {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
-                    Kabupaten/Kota
-                    {{ $pkpmk->debitur->kabupaten }}
-                @else
-                    {{ $pkpmk->debitur->alamat_rumah }}
-                @endif
+                {{ $pkpmk->debitur->alamat_ktp }} RT/RW
+                {{ $pkpmk->debitur->rt_rw_ktp }}, Desa/Kelurahan
+                {{ $pkpmk->debitur->kelurahan }}, Kecamatan {{ $pkpmk->debitur->kecamatan }},
+                Kabupaten/Kota
+                {{ $pkpmk->debitur->kabupaten }}
 
                 , NIK: {{ $pkpmk->debitur->nik }}, yang dalam
                 melakukan
