@@ -28,7 +28,7 @@
         <div class="col-md-1">(1)</div>
         <div class="col-md-11">
             Untuk kredit tersebut <b>DEBITUR</b> wajib membayar bunga
-            @if ($pkpmk->persetujuan->jns_bunga == 'ANUITAS SETARA FLAT' > 0)
+            @if ($pkpmk->persetujuan->jns_bunga == 'ANUITAS SETARA FLAT')
                 {{ number_format($pkpmk->persetujuan->besar_bunga, 2, ',', '.') }}%
                 ({{ persen_id($pkpmk->persetujuan->besar_bunga) }}) Anuitas per tahun atau setara dengan
                 {{ number_format($pkpmk->persetujuan->besar_bunga_muk_2, 2, ',', '.') }}%
