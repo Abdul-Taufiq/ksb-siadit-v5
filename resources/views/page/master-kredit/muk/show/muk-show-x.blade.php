@@ -45,7 +45,7 @@
         <td>:</td>
         <td>
             {{ $muk->kredit->persetujuan->besar_bunga_muk }}% {{ $muk->kredit->persetujuan->jns_bunga }}
-            @if ($muk->kredit->persetujuan->besar_bunga_muk_2 > 0)
+            @if ($muk->kredit->persetujuan->jns_bunga == 'ANUITAS SETARA FLAT')
                 {{ $muk->kredit->persetujuan->besar_bunga_muk_2 }}%
             @endif
             / Tahun
