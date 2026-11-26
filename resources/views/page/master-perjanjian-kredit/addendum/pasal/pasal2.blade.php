@@ -9,7 +9,7 @@
         <div class="col-md-1">(1)</div>
         <div class="col-md-11">
             Untuk kredit tersebut <b>DEBITUR</b> wajib membayar bunga
-            @if ($pkpmk->persetujuan->besar_bunga_muk_2 != null || $pkpmk->persetujuan->besar_bunga_muk_2 > 0)
+            @if ($pkpmk->persetujuan->besar_bunga_muk_2 > 0)
                 {{ number_format($pkpmk->persetujuan->besar_bunga, 2, ',', '.') }}%
                 ({{ persen_id($pkpmk->persetujuan->besar_bunga) }}) Anuitas per tahun atau setara dengan
                 {{ number_format($pkpmk->persetujuan->besar_bunga_muk_2, 2, ',', '.') }}%
