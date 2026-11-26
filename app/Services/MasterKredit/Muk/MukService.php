@@ -31,6 +31,9 @@ class MukService
                     })
                     ->orWhereHas('cabang', function ($sub) use ($data) {
                         $sub->where('cabang', 'like', "%{$data['search']}%");
+                    })
+                    ->orWhereHas('kredit.debitur', function ($sub) use ($data) {
+                        $sub->where('nama_debitur', 'like', "%{$data['search']}%");
                     });
             })
             ->when($data['tgl_awal'] && $data['tgl_akhir'], function ($q) use ($data) {
@@ -357,7 +360,7 @@ class MukService
             'putusan' => $data['putusan'],
             'jns_bunga' => $data['jns_bunga'],
             'besar_bunga_muk' =>  $this->normalizeNumber($data['besar_bunga']),
-            'besar_bunga_muk_2' =>  $this->normalizeNumber($data['besar_bunga_2']),
+            'besar_bunga_muk_2' =>  $data['jns_bunga'] == 'ANUITAS SETARA FLAT' ? $this->normalizeNumber($data['besar_bunga_2']) : 0,
             'jumlah_angsuran_muk' => $this->normalizeNumber($data['jumlah_angsuran']),
             'provisi' =>  $this->normalizeNumber($data['provisi']),
             'jumlah_provisi' => $this->normalizeNumber($data['jumlah_provisi']),
